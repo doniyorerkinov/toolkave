@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "toolkave",
+  "main": ".output/server/index.mjs",
+  "compatibility_date": "2025-07-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".output/public"
+  },
+  "routes": [
+    { "pattern": "toolkave.com", "custom_domain": true },
+    { "pattern": "www.toolkave.com", "custom_domain": true }
+  ],
+  // Keeps toolkave.<subdomain>.workers.dev alive as a fallback URL.
+  // Set to false once toolkave.com is resolving everywhere you need it.
+  "workers_dev": true,
+  "observability": {
+    "enabled": true,
+    "logs": { "enabled": true, "head_sampling_rate": 1 },
+    "traces": { "enabled": true, "head_sampling_rate": 0.01 }
+  }
+}

@@ -1,8 +1,19 @@
+<script setup lang="ts">
+const { t, locale } = useI18n()
+
+// hreflang is emitted per page by useSeo (registry-driven), so it is not
+// duplicated here — only the document language.
+useHead({
+  htmlAttrs: { lang: locale },
+  titleTemplate: title => (title ? `${title}` : t('site.name'))
+})
+</script>
+
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50">
+  <div>
     <NuxtRouteAnnouncer />
-    <h1 class="text-3xl font-semibold tracking-tight text-gray-900">
-      toolkave
-    </h1>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>

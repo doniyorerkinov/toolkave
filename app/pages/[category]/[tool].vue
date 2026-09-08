@@ -1,0 +1,51 @@
+<script setup lang="ts">
+import type { Component } from 'vue'
+import { toolBySlug, type Locale } from '~/data/tools'
+
+const route = useRoute()
+const { locale } = useI18n()
+
+const currentLocale = computed(() => locale.value as Locale)
+
+const categorySlug = computed(() => String(route.params.category ?? ''))
+const toolSlug = computed(() => String(route.params.tool ?? ''))
+
+const tool = computed(() => toolBySlug(categorySlug.value, toolSlug.value, currentLocale.value))
+
+if (!tool.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Tool not found', fatal: true })
+}
+
+useToolSeo(tool.value, currentLocale.value)
+
+/**
+ * Tool components are resolved from the registry's `component` field via a
+ * glob of dynamic imports. Nuxt's component auto-import is a build-time
+ * template transform, so a runtime-computed name cannot be resolved with
+ * `resolveComponent` - it renders as an unknown element.
+ *
+ * Each entry here is a separate chunk, so a page only ever downloads the one
+ * tool it shows. That is what keeps pdf.js and tesseract off the word counter.
+ */
+const toolModules = import.meta.glob('../../components/tools/**/*.vue')
+
+const toolComponent = computed(() => {
+  const loader = toolModules[`../../components/tools/${tool.value!.component}.vue`]
+  if (!loader) return null
+  return defineAsyncComponent(loader as () => Promise<Component>)
+})
+
+if (!toolComponent.value) {
+  throw createError({
+    statusCode: 500,
+    statusMessage: `Tool component missing: ${tool.value.component}`,
+    fatal: true
+  })
+}
+</script>
+
+<template>
+  <ShellToolShell v-if="tool" :tool="tool">
+    <component :is="toolComponent" v-if="toolComponent" />
+  </ShellToolShell>
+</template>

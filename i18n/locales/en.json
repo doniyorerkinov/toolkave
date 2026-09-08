@@ -1,0 +1,127 @@
+{
+  "site": {
+    "name": "Toolkave",
+    "tagline": "Free tools that run in your browser. Your files never leave your device.",
+    "description": "Free online tools for PDF, images, text and everyday calculations. Everything runs in your browser — nothing is uploaded."
+  },
+  "nav": {
+    "home": "Home",
+    "allTools": "All tools",
+    "language": "Language",
+    "skipToContent": "Skip to content"
+  },
+  "footer": {
+    "about": "About",
+    "privacy": "Privacy",
+    "contact": "Contact",
+    "sitemap": "Sitemap",
+    "rights": "Free to use, no sign-up, no uploads."
+  },
+  "home": {
+    "heroTitle": "Free tools that run in your browser",
+    "heroSubtitle": "Your files never leave your device. No uploads, no sign-up, no limits.",
+    "popular": "Popular tools",
+    "browseByCategory": "Browse by category"
+  },
+  "categories": {
+    "pdf": {
+      "name": "PDF",
+      "description": "Merge, split, rotate, compress and convert PDF files without uploading them anywhere."
+    },
+    "image": {
+      "name": "Image",
+      "description": "Compress, resize and convert images directly in your browser."
+    },
+    "converters": {
+      "name": "Converters",
+      "description": "Convert units, currencies and time zones."
+    },
+    "calculators": {
+      "name": "Calculators",
+      "description": "Percentages, loans, dates, BMI and other everyday calculations."
+    },
+    "generators": {
+      "name": "Generators",
+      "description": "Generate QR codes, passwords and more."
+    },
+    "text": {
+      "name": "Text",
+      "description": "Count words, analyse and clean up text — instantly, in your browser."
+    },
+    "dev": {
+      "name": "Developer",
+      "description": "Format JSON, encode Base64, pick colours and other developer utilities."
+    }
+  },
+  "shell": {
+    "howTo": "How to use it",
+    "why": "Why use this tool",
+    "faq": "Frequently asked questions",
+    "related": "Related tools",
+    "allInCategory": "All {category} tools",
+    "breadcrumbHome": "Home"
+  },
+  "why": {
+    "private": {
+      "title": "Completely private",
+      "body": "Everything runs inside your browser. Your files and text are never sent to a server."
+    },
+    "free": {
+      "title": "Free, with no limits",
+      "body": "No sign-up, no watermarks and no cap on how many times you can use it."
+    },
+    "fast": {
+      "title": "Instant results",
+      "body": "There is no upload or queue to wait for, so results appear as fast as your device can work."
+    },
+    "anywhere": {
+      "title": "Works on any device",
+      "body": "Runs in any modern browser on phone, tablet or desktop. Nothing to install."
+    }
+  },
+  "tools": {
+    "word-counter": {
+      "name": "Word counter",
+      "short": "Count words, characters, sentences and reading time.",
+      "title": "Word Counter — count words and characters online",
+      "description": "Free online word counter. Count words, characters, sentences, paragraphs and reading time as you type. Works offline in your browser — your text is never uploaded.",
+      "intro": "Paste or type your text below and the counts update as you write. Nothing is sent anywhere — the counting happens inside your browser, so you can safely paste private or unpublished work.",
+      "howTo": {
+        "step1": "Paste or type your text into the box.",
+        "step2": "Counts for words, characters, sentences and paragraphs update instantly.",
+        "step3": "Copy your text back out, or clear the box and start again."
+      },
+      "faq": {
+        "q1": "Is my text uploaded to a server?",
+        "a1": "No. The counter runs entirely inside your browser using JavaScript. Your text never leaves your device, is never stored, and is not visible to us or to anyone else. You can even disconnect from the internet after the page loads and it will keep working.",
+        "q2": "How is a word counted?",
+        "a2": "Text is split on spaces, tabs and line breaks, and each remaining chunk counts as one word. A hyphenated term such as \"e-mail\" counts as a single word, while \"up to date\" counts as three. Numbers and standalone symbols also count as words when they are separated by spaces.",
+        "q3": "Does it work with Cyrillic, Uzbek and other alphabets?",
+        "a3": "Yes. The counter is alphabet-independent, so Latin, Cyrillic and mixed-script text are all counted correctly. This matters for Uzbek and Russian text, where some older tools miscount or drop characters entirely.",
+        "q4": "What is the difference between the two character counts?",
+        "a4": "One figure includes every character you typed, spaces and line breaks included — this is usually what social networks and SMS limits measure. The other excludes whitespace, which is what many academic and publishing guidelines ask for.",
+        "q5": "How is reading time estimated?",
+        "a5": "Reading time assumes roughly 200 words per minute, which is a common average for adults reading on screen. Treat it as a rough guide: dense technical writing reads more slowly, and familiar or informal text reads faster."
+      }
+    }
+  },
+  "wordCounter": {
+    "placeholder": "Paste or type your text here…",
+    "words": "Words",
+    "characters": "Characters",
+    "charactersNoSpaces": "Characters (no spaces)",
+    "sentences": "Sentences",
+    "paragraphs": "Paragraphs",
+    "readingTime": "Reading time",
+    "minutesShort": "min",
+    "lessThanAMinute": "under a minute",
+    "clear": "Clear",
+    "copy": "Copy text",
+    "copied": "Copied"
+  },
+  "error": {
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "That tool does not exist, or is not available in this language yet.",
+    "backHome": "Back to all tools"
+  }
+}

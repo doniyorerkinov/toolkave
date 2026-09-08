@@ -1,0 +1,127 @@
+{
+  "site": {
+    "name": "Toolkave",
+    "tagline": "Brauzeringizda ishlaydigan bepul vositalar. Fayllaringiz qurilmangizdan chiqmaydi.",
+    "description": "PDF, rasm, matn va kundalik hisob-kitoblar uchun bepul onlayn vositalar. Hammasi brauzerda ishlaydi — hech narsa serverga yuklanmaydi."
+  },
+  "nav": {
+    "home": "Bosh sahifa",
+    "allTools": "Barcha vositalar",
+    "language": "Til",
+    "skipToContent": "Asosiy qismga o'tish"
+  },
+  "footer": {
+    "about": "Loyiha haqida",
+    "privacy": "Maxfiylik",
+    "contact": "Aloqa",
+    "sitemap": "Sayt xaritasi",
+    "rights": "Bepul, ro'yxatdan o'tishsiz va fayl yuklashsiz."
+  },
+  "home": {
+    "heroTitle": "Brauzerda ishlaydigan bepul vositalar",
+    "heroSubtitle": "Fayllaringiz qurilmangizdan chiqmaydi. Yuklashsiz, ro'yxatdan o'tishsiz, cheklovsiz.",
+    "popular": "Ommabop vositalar",
+    "browseByCategory": "Turkumlar bo'yicha"
+  },
+  "categories": {
+    "pdf": {
+      "name": "PDF",
+      "description": "PDF fayllarni serverga yuklamasdan birlashtiring, ajrating, buring, siqing va o'girib oling."
+    },
+    "image": {
+      "name": "Rasm",
+      "description": "Rasmlarni to'g'ridan-to'g'ri brauzerda siqing, o'lchamini o'zgartiring va formatini almashtiring."
+    },
+    "converters": {
+      "name": "Konvertorlar",
+      "description": "O'lchov birliklari, valyuta va vaqt mintaqalarini o'girish."
+    },
+    "calculators": {
+      "name": "Kalkulyatorlar",
+      "description": "Foiz, kredit, sana, TVI va boshqa kundalik hisob-kitoblar."
+    },
+    "generators": {
+      "name": "Generatorlar",
+      "description": "QR kod, parol va boshqalarni yaratish."
+    },
+    "text": {
+      "name": "Matn",
+      "description": "So'zlarni sanash, matnni tahlil qilish va tozalash — brauzerda, bir zumda."
+    },
+    "dev": {
+      "name": "Dasturchiga",
+      "description": "JSON formatlash, Base64 kodlash, rang tanlash va boshqa vositalar."
+    }
+  },
+  "shell": {
+    "howTo": "Qanday ishlatiladi",
+    "why": "Nega aynan shu vosita",
+    "faq": "Ko'p beriladigan savollar",
+    "related": "O'xshash vositalar",
+    "allInCategory": "Barcha {category} vositalari",
+    "breadcrumbHome": "Bosh sahifa"
+  },
+  "why": {
+    "private": {
+      "title": "To'liq maxfiylik",
+      "body": "Hammasi brauzer ichida ishlaydi. Fayllaringiz va matningiz hech qachon serverga yuborilmaydi."
+    },
+    "free": {
+      "title": "Bepul va cheklovsiz",
+      "body": "Ro'yxatdan o'tish shart emas, suv belgisi yo'q, foydalanish soniga cheklov yo'q."
+    },
+    "fast": {
+      "title": "Bir zumda natija",
+      "body": "Yuklash va navbat kutish kerak emas — natija qurilmangiz imkoni qadar tez chiqadi."
+    },
+    "anywhere": {
+      "title": "Har qanday qurilmada",
+      "body": "Telefon, planshet yoki kompyuterdagi istalgan zamonaviy brauzerda ishlaydi. O'rnatish shart emas."
+    }
+  },
+  "tools": {
+    "word-counter": {
+      "name": "So'z hisoblagich",
+      "short": "So'z, belgi, gap va o'qish vaqtini sanaydi.",
+      "title": "So'z hisoblagich — onlayn so'z va belgilarni sanash",
+      "description": "Bepul onlayn so'z hisoblagich. Yozayotganingizda so'z, belgi, gap, xatboshi va o'qish vaqtini sanaydi. Brauzerda ishlaydi — matn hech qayerga yuborilmaydi.",
+      "intro": "Matnni quyidagi maydonga qo'ying yoki yozing — hisoblagichlar darhol yangilanadi. Hech narsa serverga yuborilmaydi: sanash brauzer ichida bajariladi, shuning uchun shaxsiy yoki hali chop etilmagan matnlarni bemalol qo'yishingiz mumkin.",
+      "howTo": {
+        "step1": "Matnni maydonga qo'ying yoki yozing.",
+        "step2": "So'z, belgi, gap va xatboshi soni darhol yangilanadi.",
+        "step3": "Matnni nusxalab oling yoki maydonni tozalab, qaytadan boshlang."
+      },
+      "faq": {
+        "q1": "Matn serverga yuboriladimi?",
+        "a1": "Yo'q. Hisoblagich to'liq brauzer ichida JavaScript yordamida ishlaydi. Matn qurilmangizdan chiqmaydi, hech qayerda saqlanmaydi va na bizga, na boshqa birovga ko'rinmaydi. Sahifa yuklangandan keyin internetni o'chirsangiz ham ishlashda davom etadi.",
+        "q2": "So'zlar qanday sanaladi?",
+        "a2": "Matn bo'sh joy, tabulyatsiya va qator ko'chirish bo'yicha bo'linadi va qolgan har bir bo'lak bitta so'z hisoblanadi. Chiziqcha bilan yozilgan so'z, masalan \"ish-hujjat\", bitta so'z sifatida sanaladi. Raqamlar va alohida turgan belgilar ham bo'sh joy bilan ajratilgan bo'lsa, so'z sifatida sanaladi.",
+        "q3": "Kirill, o'zbek va boshqa alifbolar bilan ishlaydimi?",
+        "a3": "Ha. Hisoblagich alifboga bog'liq emas, shuning uchun lotin, kirill va aralash matn to'g'ri sanaladi. Bu o'zbek va rus tilidagi matnlar uchun muhim: ba'zi eski vositalar ularni noto'g'ri sanaydi yoki belgilarni yo'qotadi.",
+        "q4": "Ikki xil belgi hisobi nimasi bilan farq qiladi?",
+        "a4": "Biri siz yozgan barcha belgilarni, jumladan bo'sh joy va qator ko'chirishni ham hisobga oladi — ijtimoiy tarmoqlar va SMS cheklovlari odatda shuni o'lchaydi. Ikkinchisi bo'sh joylarni hisobga olmaydi, ko'p ilmiy va nashriyot talablari shuni so'raydi.",
+        "q5": "O'qish vaqti qanday hisoblanadi?",
+        "a5": "O'qish vaqti taxminan daqiqasiga 200 so'z hisobidan chiqariladi — bu ekrandan o'qish uchun keng tarqalgan o'rtacha ko'rsatkich. Buni taxminiy deb qarang: zich texnik matn sekinroq, oddiy va tanish matn tezroq o'qiladi."
+      }
+    }
+  },
+  "wordCounter": {
+    "placeholder": "Matnni bu yerga qo'ying yoki yozing…",
+    "words": "So'zlar",
+    "characters": "Belgilar",
+    "charactersNoSpaces": "Belgilar (bo'sh joysiz)",
+    "sentences": "Gaplar",
+    "paragraphs": "Xatboshilar",
+    "readingTime": "O'qish vaqti",
+    "minutesShort": "daq",
+    "lessThanAMinute": "bir daqiqadan kam",
+    "clear": "Tozalash",
+    "copy": "Matnni nusxalash",
+    "copied": "Nusxalandi"
+  },
+  "error": {
+    "notFoundTitle": "Sahifa topilmadi",
+    "notFoundBody": "Bunday vosita yo'q yoki bu tilda hali mavjud emas.",
+    "backHome": "Barcha vositalarga"
+  }
+}
