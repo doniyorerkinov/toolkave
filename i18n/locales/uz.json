@@ -158,6 +158,22 @@
       "action": "Suv belgisini qo'shish",
       "unsupportedText": "Hozircha suv belgilarida faqat lotin harflari ishlaydi. Kirill uchun ichki shrift kerak, u hali mavjud emas."
     },
+    "protect": {
+      "password": "Parol",
+      "confirm": "Parolni takrorlang",
+      "tooShort": "Kamida to'rtta belgi ishlating.",
+      "mismatch": "Parollar mos kelmadi.",
+      "alreadyEncrypted": "Bu PDF allaqachon parol bilan himoyalangan. Parolni almashtirish uchun avval himoyani oching.",
+      "warning": "Bu parolni tiklab bo'lmaydi. Yo'qotsangiz, fayl ochilmaydi.",
+      "action": "PDF ni himoyalash"
+    },
+    "unlock": {
+      "password": "Joriy parol",
+      "emptyHint": "Fayl faqat tahrirlashni cheklab, parolsiz ochilsa, bo'sh qoldiring.",
+      "wrongPassword": "Bu parol to'g'ri kelmadi.",
+      "notEncrypted": "Bu PDF parol bilan himoyalanmagan, olib tashlanadigan narsa yo'q.",
+      "action": "Parolni olib tashlash"
+    },
     "info": {
       "pages": "Sahifalar",
       "fileSize": "Fayl hajmi",
@@ -289,6 +305,20 @@
     "to": "Ga",
     "swap": "Birliklarni almashtirish",
     "allUnits": "Barcha birliklarda"
+  },
+  "currency": {
+    "amount": "Summa",
+    "converted": "Natija",
+    "from": "Valyutadan",
+    "to": "Valyutaga",
+    "swap": "Valyutalarni almashtirish",
+    "loading": "Bugungi kurslar yuklanmoqda…",
+    "failed": "Valyuta kurslarini yuklab bo'lmadi. Aloqani tekshiring va qayta urinib ko'ring.",
+    "retry": "Qayta urinish",
+    "popular": "So'mga nisbatan ommabop kurslar",
+    "sourceCbu": "O'zbekiston Markaziy banki",
+    "sourceErApi": "exchangerate-api.com",
+    "attribution": "Kurslar: {source}, {date}. Ma'lumot uchun — banklar va shoxobchalar o'z kurs va yig'imlarini qo'llaydi."
   },
   "timezone": {
     "date": "Sana",
@@ -515,6 +545,50 @@
         "a4": "PNG tekis grafika uchun tejamli, lekin PDF tuzilmasi har bir rasm atrofiga qo'shimcha qo'shadi va buni qoplash uchun hech narsa qayta siqilmaydi. Skrinshotlardan iborat hujjatlar uchun bu rasm aniqligi evaziga adolatli almashuv."
       }
     },
+    "pdf-protect": {
+      "name": "PDF ni parol bilan himoyalash",
+      "short": "Parol qo'ying, usiz PDF ochilmaydi.",
+      "title": "PDF ni himoyalash — onlayn parol qo'yish, bepul",
+      "description": "PDF ga bepul onlayn parol qo'yish. Shifrlash brauzeringizda bajariladi, shuning uchun na fayl, na parol hech qayerga yuklanmaydi.",
+      "intro": "PDF qo'shing va parol tanlang. Fayl brauzer ichida shifrlanadi va parolsiz ochilmaydi. Na hujjat, na parol hech qayerga yuborilmaydi.",
+      "howTo": {
+        "step1": "Himoyalamoqchi bo'lgan PDF ni qo'shing.",
+        "step2": "Parol tanlang va uni ikki marta kiriting.",
+        "step3": "«PDF ni himoyalash» tugmasini bosing va shifrlangan faylni yuklab oling."
+      },
+      "faq": {
+        "q1": "Parolim serverga yuboriladimi?",
+        "a1": "Yo'q, gap ham shunda. Shifrlash brauzerda bajariladi, shuning uchun parol faqat qurilmangizda mavjud. Buni serverda qiladigan xizmatlar muqarrar ravishda ham hujjatni, ham parolni oladi — himoya qilmoqchi bo'lgan fayl uchun g'alati almashuv.",
+        "q2": "Parolni tiklash mumkinmi?",
+        "a2": "Yo'q. Hujjat haqiqatan shifrlanadi, tiklash yoki aylanib o'tish yo'li yo'q. Parolni unutsangiz, fayl o'qilmaydi. Sahifani yopishdan oldin uni saqlab qo'ying.",
+        "q3": "Shifrlash qanchalik ishonchli?",
+        "a3": "PDF formatining o'z shifrlashi ishlatiladi, uni har qanday ko'ruvchi dastur tushunadi. Haqiqiy mustahkamlik parolga bog'liq: qisqa yoki keng tarqalganini oflayn topish mumkin. Uzunini oling — masalan, shu saytdagi parol generatoridan.",
+        "q4": "Har qanday dasturda ochiladimi?",
+        "a4": "Ha. Bu standart PDF shifrlash, shuning uchun Acrobat, brauzerlar, telefonlar va printerlar parolni odatdagidek so'raydi."
+      }
+    },
+    "pdf-unlock": {
+      "name": "PDF parolini olib tashlash",
+      "short": "Ocha oladigan PDF dan parolni olib tashlang.",
+      "title": "PDF parolini olib tashlash — himoyani onlayn ochish, bepul",
+      "description": "PDF dan parolni bepul onlayn olib tashlash. Sizda mavjud parolni kiriting va himoyasiz nusxani yuklab oling. Brauzerda ishlaydi.",
+      "intro": "Himoyalangan PDF ni qo'shing va parolini kiriting, himoyasiz nusxa olasiz. Bank ko'chirmasi yoki oylik varaqasi shifrlangan holda kelganda va har ochishda parol yozishdan charchaganda qulay.",
+      "howTo": {
+        "step1": "Parol bilan himoyalangan PDF ni qo'shing.",
+        "step2": "Parolni kiriting. Fayl parolsiz ochilsa, bo'sh qoldiring.",
+        "step3": "«Parolni olib tashlash» tugmasini bosing va nusxani yuklab oling."
+      },
+      "faq": {
+        "q1": "Parolni bilishim kerakmi?",
+        "a1": "Ha, agar fayl ochilishi uchun parol talab qilsa. Bu vosita siz allaqachon kira oladigan hujjatlardan himoyani olib tashlaydi: u parollarni buzmaydi va topmaydi hamda paroli yo'q fayl bilan yordam bera olmaydi.",
+        "q2": "Nega bo'sh parol ishlaydi?",
+        "a2": "Ba'zi PDF larda faqat egalik paroli bo'ladi: u chop etish yoki tahrirlashni cheklaydi, lekin faylni istalgan odam ocha oladi. Bunday hujjatlar bo'sh parol bilan ochiladi — shuning uchun maydonni bo'sh qoldirsa bo'ladi. Ko'chirma va oylik varaqalarida ko'proq haqiqiy foydalanuvchi paroli bo'ladi.",
+        "q3": "Asl fayl o'zgaradimi?",
+        "a3": "Yo'q. Qurilmangizdagi fayl faqat o'qiladi. Siz yangi shifrlanmagan nusxa olasiz, himoyalangan asl fayl esa o'zgarishsiz qoladi.",
+        "q4": "Biror narsa yo'qoladimi?",
+        "a4": "Sahifalar, matn va rasmlar aynan ko'chiriladi. Shifrlashni olib tashlash hujjatni qayta yig'ishni talab qiladi, shuning uchun xatcho'p, shakl maydonlari va ilovalar kabi hujjat darajasidagi ba'zi qo'shimchalar o'tmaydi. Sarlavha, muallif va mavzu saqlanadi."
+      }
+    },
     "pdf-page-numbers": {
       "name": "PDF ga sahifa raqamlarini qo'shish",
       "short": "PDF sahifalarini istalgan burchakda raqamlang.",
@@ -667,6 +741,28 @@
         "a3": "Chunki foiz butun muddat davomida qolgan qarzga hisoblanadi. Uzoq muddatda u umumiy summaning katta qismiga aylanadi — chiziq aniq nisbatni ko'rsatadi. Muddatni qisqartirish odatda stavkani biroz pasaytirishdan ko'ra ko'proq tejaydi.",
         "q4": "Komissiya va sug'urta hisobga olinadimi?",
         "a4": "Yo'q. Rasmiylashtirish komissiyasi, sug'urta va boshqa to'lovlar hisobga olinmaydi, shuning uchun bank ko'rsatgan umumiy qiymat odatda bundan yuqori bo'ladi."
+      }
+    },
+    "currency-converter": {
+      "name": "Valyuta konvertori",
+      "short": "So'm va 70 dan ortiq valyutaning joriy kurslari.",
+      "title": "Valyuta konvertori — so'm va jahon kurslari, bepul",
+      "description": "O'zbekiston Markaziy bankining rasmiy kurslari asosidagi bepul valyuta konvertori. So'm va 70 dan ortiq valyuta o'rtasida o'giring, har kuni yangilanadi.",
+      "intro": "Summani kiriting va ikkita valyutani tanlang. Kurslar O'zbekiston Markaziy bankidan olinadi, shuning uchun so'mdagi qiymatlar o'rtacha bozor bahosi emas, rasmiy e'lon qilingan kursga mos keladi.",
+      "howTo": {
+        "step1": "O'girmoqchi bo'lgan summani kiriting.",
+        "step2": "Qaysi valyutadan qaysisiga o'girishni tanlang.",
+        "step3": "Natijani va uning ostidagi bir birlik kursini ko'ring."
+      },
+      "faq": {
+        "q1": "Kurslar qayerdan olinadi?",
+        "a1": "O'zbekiston Markaziy bankidan, u rasmiy kurslarni ish kunida bir marta e'lon qiladi. Manbaga ulanib bo'lmasa, konvertor exchangerate-api.com ga o'tadi. Manba va sana har doim natija ostida ko'rsatiladi, shunda nimani ko'rayotganingizni bilasiz.",
+        "q2": "Nega bankda boshqa kurs?",
+        "a2": "Chunki rasmiy kurs — mo'ljal, narx emas. Banklar va shoxobchalar o'z farqi va yig'imini qo'shadi, shuning uchun amaldagi kurs odatda biroz yomonroq bo'ladi. Bu raqamni oladigan summangiz emas, solishtirish uchun asos deb biling.",
+        "q3": "Ma'lumot qanchalik tez-tez yangilanadi?",
+        "a3": "Markaziy bank kursni ish kunida bir marta e'lon qiladi, shuning uchun kun davomida va dam olish kunlarida u o'zgarmaydi. Natija har tashrifda qayta so'ralmasligi uchun brauzerda bir soatga saqlanadi.",
+        "q4": "Ma'lumotlarim yuboriladimi?",
+        "a4": "Brauzerdan faqat ochiq kurslar so'rovi chiqadi. Siz kiritgan summalar hech qayerga uzatilmaydi — o'girish yuklab olingan kurslar jadvali bo'yicha mahalliy hisoblanadi."
       }
     },
     "unit-converter": {

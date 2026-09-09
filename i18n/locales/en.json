@@ -158,6 +158,22 @@
       "action": "Add watermark",
       "unsupportedText": "Only Latin characters work in watermarks for now. Cyrillic needs an embedded font, which is not available yet."
     },
+    "protect": {
+      "password": "Password",
+      "confirm": "Confirm password",
+      "tooShort": "Use at least four characters.",
+      "mismatch": "The passwords do not match.",
+      "alreadyEncrypted": "This PDF is already password-protected. Unlock it first if you want to change the password.",
+      "warning": "There is no way to recover this password. If you lose it, the file cannot be opened.",
+      "action": "Protect PDF"
+    },
+    "unlock": {
+      "password": "Current password",
+      "emptyHint": "Leave empty if the file only restricts editing and opens without a password.",
+      "wrongPassword": "That password did not work.",
+      "notEncrypted": "This PDF is not password-protected, so there is nothing to remove.",
+      "action": "Remove password"
+    },
     "info": {
       "pages": "Pages",
       "fileSize": "File size",
@@ -289,6 +305,20 @@
     "to": "To",
     "swap": "Swap units",
     "allUnits": "In every unit"
+  },
+  "currency": {
+    "amount": "Amount",
+    "converted": "Converted",
+    "from": "From currency",
+    "to": "To currency",
+    "swap": "Swap currencies",
+    "loading": "Loading today's rates…",
+    "failed": "Could not load exchange rates. Check your connection and try again.",
+    "retry": "Try again",
+    "popular": "Popular rates against the som",
+    "sourceCbu": "Central Bank of Uzbekistan",
+    "sourceErApi": "exchangerate-api.com",
+    "attribution": "Rates from {source}, {date}. Indicative only — banks and exchange offices apply their own rates and fees."
   },
   "timezone": {
     "date": "Date",
@@ -515,6 +545,50 @@
         "a4": "PNG is efficient for flat graphics but the PDF wrapper adds structure around each image, and nothing is re-compressed to make up for it. For screenshot-heavy documents that is a fair trade for keeping the images exact."
       }
     },
+    "pdf-protect": {
+      "name": "Protect PDF with a password",
+      "short": "Add a password so the PDF cannot be opened without it.",
+      "title": "Protect PDF — add a password online, free",
+      "description": "Free online tool to password-protect a PDF. Encryption happens in your browser, so neither the file nor the password is ever uploaded.",
+      "intro": "Add a PDF and choose a password. The file is encrypted inside your browser and cannot be opened without that password. Neither the document nor the password is sent anywhere.",
+      "howTo": {
+        "step1": "Add the PDF you want to protect.",
+        "step2": "Choose a password and type it twice.",
+        "step3": "Press Protect PDF and download the encrypted file."
+      },
+      "faq": {
+        "q1": "Is my password sent to a server?",
+        "a1": "No, and this is the whole point. Encryption runs in your browser, so the password exists only on your device. Online tools that do this server-side necessarily receive both your document and your password — which is a strange trade for a file you are trying to keep private.",
+        "q2": "Can the password be recovered?",
+        "a2": "No. The document is genuinely encrypted, so there is no reset and no back door. If you forget the password the file is unreadable. Store it somewhere before you close the tab.",
+        "q3": "How strong is the encryption?",
+        "a3": "It uses the PDF standard's own encryption, which every reader understands. Its real strength depends on your password — a short or common one can be attacked offline. Use something long, and consider the password generator on this site.",
+        "q4": "Will it open in any PDF reader?",
+        "a4": "Yes. It is standard PDF encryption, so Acrobat, browsers, phones and printers all prompt for the password normally."
+      }
+    },
+    "pdf-unlock": {
+      "name": "Unlock PDF",
+      "short": "Remove a password from a PDF you can already open.",
+      "title": "Unlock PDF — remove a PDF password online, free",
+      "description": "Free online tool to remove a password from a PDF. Enter the password you already have and download an unlocked copy. Runs in your browser.",
+      "intro": "Add a protected PDF and enter its password to get an unlocked copy. Useful when a bank statement or payslip arrives encrypted and you are tired of typing the password every time you open it.",
+      "howTo": {
+        "step1": "Add the password-protected PDF.",
+        "step2": "Enter the password. Leave it empty if the file opens without one.",
+        "step3": "Press Remove password and download the unlocked copy."
+      },
+      "faq": {
+        "q1": "Do I need to know the password?",
+        "a1": "Yes, if the file requires one to open. This tool removes protection from documents you can already access — it does not break or guess passwords, and it will not help with a file you have been locked out of.",
+        "q2": "Why does it work with an empty password?",
+        "a2": "Some PDFs carry only an owner password, which restricts printing or editing but lets anyone open the file. Those decrypt with an empty password, which is why the field can be left blank. Statements and payslips more often use a real user password.",
+        "q3": "Is the original changed?",
+        "a3": "No. The file on your device is only read. You get a new, unencrypted copy, and the protected original stays as it was.",
+        "q4": "Is anything lost?",
+        "a4": "Pages, text and images are copied across exactly. Removing encryption requires rebuilding the document, so some document-level extras such as bookmarks, form fields and attachments are not carried over. Title, author and subject are preserved."
+      }
+    },
     "pdf-page-numbers": {
       "name": "Add page numbers to PDF",
       "short": "Number the pages of a PDF, in any corner.",
@@ -667,6 +741,28 @@
         "a3": "Because interest is charged on the outstanding balance for the whole term. Over a long term it compounds into a large share of the total — the bar shows exactly what proportion. Shortening the term usually saves far more than a small rate reduction.",
         "q4": "Does it include fees and insurance?",
         "a4": "No. Arrangement fees, insurance and other charges are not modelled, so a lender's stated total cost will normally be higher than this figure."
+      }
+    },
+    "currency-converter": {
+      "name": "Currency converter",
+      "short": "Live rates for the som and 70+ other currencies.",
+      "title": "Currency Converter — live UZS and world rates, free",
+      "description": "Free online currency converter using official Central Bank of Uzbekistan rates. Convert between the som and 70+ currencies, updated daily.",
+      "intro": "Enter an amount and pick two currencies. Rates come from the Central Bank of Uzbekistan, so the som figures match the official published rate rather than an aggregated market estimate.",
+      "howTo": {
+        "step1": "Enter the amount you want to convert.",
+        "step2": "Choose the currencies to convert from and to.",
+        "step3": "Read the result, and the rate for a single unit below it."
+      },
+      "faq": {
+        "q1": "Where do the rates come from?",
+        "a1": "The Central Bank of Uzbekistan, which publishes official rates once a working day. If that source is unreachable the converter falls back to exchangerate-api.com. The source and date are always shown under the result, so you know exactly what you are looking at.",
+        "q2": "Why does my bank give a different number?",
+        "a2": "Because the official rate is a reference, not a price. Banks and exchange offices add a spread and fees, so the rate you actually get is usually a little worse. Treat this figure as the baseline to compare against, not what you will receive.",
+        "q3": "How often does it update?",
+        "a3": "The central bank publishes once per working day, so rates do not move during the day or at weekends. The result is cached for an hour in your browser to avoid refetching on every visit.",
+        "q4": "Is my data sent anywhere?",
+        "a4": "Only the request for public rates leaves your browser. The amounts you type are never transmitted — the conversion is arithmetic done locally on the downloaded rate table."
       }
     },
     "unit-converter": {

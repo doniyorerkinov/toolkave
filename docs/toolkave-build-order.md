@@ -190,14 +190,39 @@ no other tool pays for it.
 - [x] Page numbers · watermark · PDF info
 - [x] Percent/VAT · age/date · BMI · loan calculators
 - [x] Unit converter · time zone converter
+- [x] **Protect / unlock PDF** — on `@cantoo/pdf-lib`
+- [x] **Currency converter** — CBU primary, open.er-api fallback, fetched in the browser
 - [ ] Header/footer · sign · fill forms · flatten · crop/resize
-- [ ] **Currency converter** — the only tool here that needs live data. Everything else is
-      offline; this one wants the CBU API plus a rates fallback, cached at the edge. It breaks
-      the browser-only rule, so it needs its own decision before building.
-- [ ] **Protect / unlock** — `pdf-lib` cannot encrypt. Needs `pdfcpu-wasm` or similar.
 - [ ] **PDF→text** — needs pdf.js, so it belongs with Phase 3.
 
-**27 tools in the registry, 24 drafts.** 81 pages across three locales, all 200 in dev.
+**33 tools in the registry, 30 drafts.** 99 pages across three locales, all 200 in dev.
+
+### Library decision: `@cantoo/pdf-lib` replaces `pdf-lib`
+
+Upstream `pdf-lib` cannot encrypt. The alternatives:
+
+| Option | Licence | Verdict |
+| --- | --- | --- |
+| `pdfcpu-wasm` | MIT (upstream Apache-2.0) | **30 MB unpacked**, 0 stars, one commit, untouched since Jul 2025 |
+| `@cantoo/pdf-lib` | MIT | Maintained fork of `pdf-lib`, same API, adds encryption. **Chosen** |
+
+`save()` preserves existing encryption, so unlocking means copying pages into a fresh
+document. Title, author and subject are carried across explicitly; bookmarks and form fields
+are not.
+
+### Currency data: no key, no server route
+
+Both sources send `Access-Control-Allow-Origin: *`, so the browser fetches them directly — no
+Worker invocation, and the browser-only promise holds.
+
+| Source | Currencies | Key | Role |
+| --- | --- | --- | --- |
+| CBU (Central Bank of Uzbekistan) | 75 | none | Primary. Official UZS rate |
+| open.er-api.com | 166 | none | Fallback |
+| exchangerate.host | — | **required now** | Not usable; the plan's reference is out of date |
+
+Verified the rebasing maths against CBU's own direct EUR quote. The two sources differ by
+~0.1% on UZS, so the page always shows which one it used and the date.
 
 > **Watermarks and page numbers are Latin-only.** The fonts built into the PDF format are
 > WinAnsi-encoded, so Cyrillic cannot be drawn without embedding a TTF plus fontkit — a large
@@ -252,7 +277,12 @@ no other tool pays for it.
    through `import.meta.glob`, and Vite does not re-evaluate the glob when a file appears. The
    symptom is a 500 saying "Tool component missing" for a file that plainly exists. Touching
    `[tool].vue` also forces it.
-8. **Run `npm run typecheck` before deploying.** `nuxt build` does not typecheck; the separate
+8. **Never type a control character into source.** A literal NUL reached `usePdf.ts` inside a
+   regex character class. It silently widened `[ -ÿ]` to `[ -ÿ]`, so tabs
+   and newlines counted as valid watermark text, **and git treated the entire file as binary** —
+   no diff on it in commit `20d2fa1`. Write such bounds as `\u` escapes. `git diff --numstat`
+   showing `-` for a source file is the tell.
+9. **Run `npm run typecheck` before deploying.** `nuxt build` does not typecheck; the separate
    pass caught an invalid i18n config key that was being silently ignored, plus two unsound
    types. Note that a running `nuxt dev` holds `.output` through its workerd child and will
    make `nuxt build` fail with `EBUSY` — stop it first.

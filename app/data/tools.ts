@@ -217,6 +217,43 @@ export const tools: ToolDef[] = [
     maxFiles: 1
   },
   {
+    id: 'pdf-protect',
+    category: 'pdf',
+    group: 'security',
+    component: 'pdf/Protect',
+    icon: 'lock',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'protect-pdf', ru: 'zashchitit-pdf', uz: 'pdf-himoyalash' },
+    related: ['pdf-unlock', 'pdf-watermark'],
+    acceptedTypes: ['application/pdf'],
+    maxFiles: 1
+  },
+  {
+    id: 'pdf-unlock',
+    category: 'pdf',
+    group: 'security',
+    component: 'pdf/Unlock',
+    icon: 'unlock',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'unlock-pdf', ru: 'snyat-parol-pdf', uz: 'pdf-parolini-ochirish' },
+    related: ['pdf-protect', 'pdf-info'],
+    acceptedTypes: ['application/pdf'],
+    maxFiles: 1
+  },
+  {
+    id: 'currency-converter',
+    category: 'converters',
+    group: 'money',
+    component: 'converters/CurrencyConverter',
+    icon: 'coins',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'currency-converter', ru: 'konverter-valyut', uz: 'valyuta-konvertori' },
+    related: ['unit-converter', 'percentage-calculator']
+  },
+  {
     id: 'percentage-calculator',
     category: 'calculators',
     group: 'everyday',
