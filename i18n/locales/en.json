@@ -119,7 +119,76 @@
       "selected": "{n} page(s) selected",
       "noneSelected": "No valid pages selected yet.",
       "action": "Split PDF"
+    },
+    "rotate": {
+      "angleLabel": "Rotation",
+      "degrees": "{n}°",
+      "pagesLabel": "Pages to rotate (of {count})",
+      "pagesPlaceholder": "Leave empty for all pages",
+      "selected": "{n} page(s) will be rotated",
+      "allPages": "All pages will be rotated.",
+      "action": "Rotate PDF"
+    },
+    "removePages": {
+      "rangesLabel": "Pages to remove (of {count})",
+      "rangesPlaceholder": "e.g. 2, 5-7",
+      "summary": "Removing {removed}, keeping {left}.",
+      "noneSelected": "No valid pages selected yet.",
+      "wouldEmpty": "You cannot remove every page — a PDF must keep at least one.",
+      "action": "Remove pages"
+    },
+    "imagesToPdf": {
+      "fitLabel": "Page size",
+      "fit": {
+        "a4": "Fit to A4",
+        "image": "Match image size"
+      },
+      "action": "Create PDF",
+      "errorUnsupported": "One of those files is not a supported image."
     }
+  },
+  "password": {
+    "regenerate": "Generate again",
+    "length": "Length: {n} characters",
+    "include": "Include",
+    "upper": "Uppercase A-Z",
+    "lower": "Lowercase a-z",
+    "digits": "Digits 0-9",
+    "symbols": "Symbols !{'@'}#$",
+    "avoidAmbiguous": "Avoid lookalikes (I l 1 O 0)",
+    "noSets": "Choose at least one character type.",
+    "entropy": "{bits} bits of entropy",
+    "strength": {
+      "weak": "Weak",
+      "fair": "Fair",
+      "strong": "Strong",
+      "excellent": "Excellent"
+    }
+  },
+  "base64": {
+    "encode": "Encode",
+    "decode": "Decode",
+    "urlSafe": "URL-safe",
+    "swap": "Swap",
+    "inputLabel": "Input",
+    "outputLabel": "Output",
+    "placeholder": {
+      "encode": "Text to encode…",
+      "decode": "Base64 to decode…"
+    },
+    "invalid": "That is not valid Base64."
+  },
+  "json": {
+    "indent": "Indent",
+    "minified": "Minified",
+    "sortKeys": "Sort keys",
+    "inputLabel": "JSON input",
+    "outputLabel": "Formatted",
+    "placeholder": "Paste JSON here…",
+    "valid": "Valid JSON",
+    "summaryObject": "object with {n} key(s)",
+    "summaryArray": "array of {n} item(s)",
+    "summaryScalar": "{type} value"
   },
   "tools": {
     "pdf-merge": {
@@ -168,6 +237,168 @@
         "a4": "Not yet — this tool produces one new PDF from the pages you select. To get pages individually, run it once per page. A dedicated split-into-separate-files mode is planned.",
         "q5": "Are the extracted pages lower quality?",
         "a5": "No. Pages are copied without re-encoding, so text remains selectable and searchable and images keep their original resolution. The result is usually much smaller than the original simply because it has fewer pages."
+      }
+    },
+    "pdf-rotate": {
+      "name": "Rotate PDF",
+      "short": "Turn pages 90, 180 or 270 degrees and save the result.",
+      "title": "Rotate PDF — turn pages online, free",
+      "description": "Free online PDF rotator. Turn every page or just the ones you choose by 90, 180 or 270 degrees. Runs in your browser — nothing is uploaded.",
+      "intro": "Add a PDF, pick how far to turn it, and optionally limit the change to particular pages. The rotation is written into the file itself, so it stays that way in every reader.",
+      "howTo": {
+        "step1": "Add the PDF you want to rotate.",
+        "step2": "Choose 90, 180 or 270 degrees, and optionally list the pages.",
+        "step3": "Press Rotate PDF and download the result."
+      },
+      "faq": {
+        "q1": "Is the rotation permanent?",
+        "a1": "Yes. The angle is stored in the document rather than applied by the viewer, so the pages open the right way up everywhere — including when printed. It is not a display-only setting that other readers might ignore.",
+        "q2": "Can I rotate only some pages?",
+        "a2": "Yes. Leave the page box empty to turn the whole document, or list pages and ranges like 2, 5-7 to change just those. Scanned documents where one page went in sideways are exactly the case this is for.",
+        "q3": "What if a page is already rotated?",
+        "a3": "The turn is added to whatever angle the page already had, rather than replacing it. So a page already at 90° rotated by another 90° ends up at 180°, which is what you would expect from pressing the button twice.",
+        "q4": "Does rotating reduce quality?",
+        "a4": "No. Only the page's rotation value changes — the text and images are untouched, so nothing is re-encoded and the file size stays roughly the same."
+      }
+    },
+    "pdf-remove-pages": {
+      "name": "Remove PDF pages",
+      "short": "Delete the pages you do not need and keep the rest.",
+      "title": "Remove pages from PDF — delete pages online, free",
+      "description": "Free online tool to delete pages from a PDF. List the pages to remove and download the rest as a new file. Runs in your browser — nothing is uploaded.",
+      "intro": "Add a PDF and list the pages you want gone. Everything else is kept, in the original order, as a new file. The original on your device is never changed.",
+      "howTo": {
+        "step1": "Add the PDF you want to trim.",
+        "step2": "List the pages to remove, for example 2, 5-7.",
+        "step3": "Press Remove pages and download the result."
+      },
+      "faq": {
+        "q1": "What is the difference between this and Split PDF?",
+        "a1": "They are opposites. Split keeps the pages you list and discards the rest; this removes the pages you list and keeps the rest. Use whichever is less typing for the document in front of you.",
+        "q2": "Can I remove every page?",
+        "a2": "No. A PDF with no pages is not a valid document, so at least one page has to stay. If you try to select all of them the button is disabled and the tool tells you why, rather than handing you a file that some readers refuse to open.",
+        "q3": "Is the original file modified?",
+        "a3": "No. The original is only read. The result is a new PDF containing copies of the pages you kept, and the file on your device stays exactly as it was.",
+        "q4": "Are the kept pages re-compressed?",
+        "a4": "No. Pages are copied across as-is, so text stays selectable and searchable and images keep their resolution. The new file is smaller only because it has fewer pages."
+      }
+    },
+    "jpg-to-pdf": {
+      "name": "JPG to PDF",
+      "short": "Turn JPG photos into a single PDF, in any order.",
+      "title": "JPG to PDF — convert JPG images to PDF online, free",
+      "description": "Free online JPG to PDF converter. Combine JPG photos into one PDF, reorder them first, and choose A4 or original size. Runs in your browser — nothing is uploaded.",
+      "intro": "Add your JPG files, drag them into the order you want, and create a PDF. This is the quickest way to turn photos of a document — a passport, a contract, a receipt — into something you can email or print as one file.",
+      "howTo": {
+        "step1": "Add your JPG images by dropping, choosing or pasting them.",
+        "step2": "Drag them into the right order and pick A4 or original size.",
+        "step3": "Press Create PDF and download the file."
+      },
+      "faq": {
+        "q1": "Are my photos uploaded anywhere?",
+        "a1": "No. The images are read into your browser and the PDF is built there. Nothing is sent over the network, which matters when the photos are of identity documents or signed paperwork.",
+        "q2": "Should I choose A4 or original size?",
+        "a2": "Choose A4 if the PDF will be printed or sent somewhere official — every page comes out the same standard size with the image centred. Choose original size to keep the exact pixel dimensions, which suits screenshots and images meant only for screens.",
+        "q3": "Does converting reduce photo quality?",
+        "a3": "No. The JPG data is embedded exactly as it is, with no re-encoding, so there is no second round of compression. The PDF is roughly the combined size of the originals.",
+        "q4": "How many photos can I add?",
+        "a4": "There is no fixed limit. Every image is held in memory while the PDF is assembled, so the practical ceiling is your device — dozens of phone photos are fine on a laptop, and fewer on an older phone.",
+        "q5": "The file is named .jpg but will not convert. Why?",
+        "a5": "The format is detected from the file's actual contents rather than its name, because files renamed to .jpg are often something else entirely. If it is really a PNG, use the PNG to PDF tool instead."
+      }
+    },
+    "png-to-pdf": {
+      "name": "PNG to PDF",
+      "short": "Turn PNG images into a single PDF, in any order.",
+      "title": "PNG to PDF — convert PNG images to PDF online, free",
+      "description": "Free online PNG to PDF converter. Combine PNG images into one PDF, reorder them first, and choose A4 or original size. Runs in your browser — nothing is uploaded.",
+      "intro": "Add your PNG files, put them in order, and create a PDF. Transparency is flattened onto a white background, which is what you want for anything that will be printed or shared as a document.",
+      "howTo": {
+        "step1": "Add your PNG images by dropping, choosing or pasting them.",
+        "step2": "Drag them into the right order and pick A4 or original size.",
+        "step3": "Press Create PDF and download the file."
+      },
+      "faq": {
+        "q1": "Are my images uploaded anywhere?",
+        "a1": "No. The images are read into your browser and the PDF is built there. Nothing is transmitted or stored, so screenshots of private dashboards or documents stay private.",
+        "q2": "What happens to transparency?",
+        "a2": "PDF pages are not transparent, so any transparent areas end up showing the page behind them as white. If transparency matters to the final look, flatten the image onto the background you want before converting.",
+        "q3": "Is the image quality reduced?",
+        "a3": "No. PNG is lossless and the data is embedded as-is with no re-encoding, so screenshots and diagrams stay pixel-perfect and text in them stays sharp.",
+        "q4": "Why is my PDF larger than the PNGs?",
+        "a4": "PNG is efficient for flat graphics but the PDF wrapper adds structure around each image, and nothing is re-compressed to make up for it. For screenshot-heavy documents that is a fair trade for keeping the images exact."
+      }
+    },
+    "password-generator": {
+      "name": "Password generator",
+      "short": "Create strong random passwords that never leave your device.",
+      "title": "Password Generator — strong random passwords, free",
+      "description": "Free online password generator. Creates strong random passwords in your browser using the Web Crypto API. Nothing is sent to a server, logged or stored.",
+      "intro": "Set the length and which character types to use, and a new password is generated instantly. It is produced by your browser's cryptographic random number generator and never transmitted anywhere, so it is safe to use for real accounts.",
+      "howTo": {
+        "step1": "Choose a length with the slider.",
+        "step2": "Pick which character types to include.",
+        "step3": "Copy the password, or press Generate again for a different one."
+      },
+      "faq": {
+        "q1": "Is the password sent to a server?",
+        "a1": "No. It is generated inside your browser and never leaves your device — not to us, not to anyone. That is the difference between this and a password generator that runs on a server, where the password necessarily travels across the network.",
+        "q2": "Is the randomness actually secure?",
+        "a2": "Yes. It uses crypto.getRandomValues, the browser's cryptographically secure generator, not Math.random — which is predictable and unsuitable for passwords. Values that would skew the result are discarded rather than folded in, so every character is equally likely.",
+        "q3": "What does the entropy figure mean?",
+        "a3": "It is how many bits of randomness the password contains, which is the honest measure of how hard it is to guess. Each extra bit doubles the work an attacker faces. Under 50 bits is weak, 80 or more is strong for most accounts, and 120 or more is excellent.",
+        "q4": "Should I turn on 'avoid lookalikes'?",
+        "a4": "Only if you will be typing or reading the password out — it removes I, l, 1, O and 0, which are easy to confuse. It slightly reduces the character set, so add a few characters of length to compensate.",
+        "q5": "Is longer better than more symbols?",
+        "a5": "Usually, yes. Adding length raises entropy faster than adding character types, and long passwords are easier to store in a password manager. A 20-character password using only letters is stronger than a 10-character one using everything."
+      }
+    },
+    "base64": {
+      "name": "Base64 encoder / decoder",
+      "short": "Encode text to Base64 or decode it back, with full Unicode support.",
+      "title": "Base64 Encode & Decode — online converter, free",
+      "description": "Free online Base64 encoder and decoder. Handles Unicode correctly, including Cyrillic and Uzbek text, plus URL-safe Base64. Runs in your browser — nothing is uploaded.",
+      "intro": "Paste text to encode it to Base64, or paste Base64 to get the text back. Unicode is handled properly, so Russian, Uzbek and emoji survive the round trip intact — which is where many quick Base64 tools fall over.",
+      "howTo": {
+        "step1": "Choose Encode or Decode.",
+        "step2": "Paste your text or Base64 into the input box.",
+        "step3": "Copy the result, or press Swap to run it back the other way."
+      },
+      "faq": {
+        "q1": "Does it handle Cyrillic and Uzbek text?",
+        "a1": "Yes. The text is converted to UTF-8 bytes before encoding, so any alphabet round-trips correctly. Many simple tools call btoa directly, which only understands Latin-1 and either throws an error or silently mangles anything else.",
+        "q2": "What is URL-safe Base64?",
+        "a2": "Standard Base64 uses + and /, which have special meanings in URLs, and = for padding. URL-safe Base64 replaces them with - and _ and drops the padding, so the result can be dropped into a query string or path unchanged.",
+        "q3": "Is Base64 encryption?",
+        "a3": "No, and this matters. Base64 is an encoding, not a cipher — anyone can decode it instantly, as this page demonstrates. Never use it to protect passwords, tokens or personal data.",
+        "q4": "Why does my Base64 fail to decode?",
+        "a4": "Usually a stray character from copying, or missing padding. Padding is restored automatically and URL-safe characters are accepted, so what is left is normally whitespace or a truncated string.",
+        "q5": "Is my text uploaded?",
+        "a5": "No. Encoding and decoding happen entirely in your browser, so you can safely paste tokens or configuration snippets you would not want to send to a third-party site."
+      }
+    },
+    "json-formatter": {
+      "name": "JSON formatter",
+      "short": "Format, validate and tidy JSON with clear error messages.",
+      "title": "JSON Formatter & Validator — free online tool",
+      "description": "Free online JSON formatter and validator. Pretty-print with your choice of indent, sort keys, minify, and see exactly where invalid JSON breaks. Runs in your browser.",
+      "intro": "Paste JSON to format and validate it as you type. If it is invalid you get the parser's own message and the input is highlighted, so you can find the problem instead of hunting for it.",
+      "howTo": {
+        "step1": "Paste your JSON into the input box.",
+        "step2": "Choose an indent size, or minify, and optionally sort the keys.",
+        "step3": "Copy the formatted output."
+      },
+      "faq": {
+        "q1": "Is my JSON sent anywhere?",
+        "a1": "No. It is parsed and formatted entirely in your browser, which matters because JSON being debugged often contains API keys, tokens or customer records. Nothing is transmitted or logged.",
+        "q2": "What does sorting keys do?",
+        "a2": "It orders object keys alphabetically at every level, leaving array order untouched since that carries meaning. It is useful for comparing two API responses that contain the same data in a different order.",
+        "q3": "Why does my JSON say it is invalid?",
+        "a3": "The most common causes are a trailing comma after the last item, single quotes instead of double, or unquoted keys — all valid JavaScript but not valid JSON. The message shown is the parser's own, including the position where it gave up.",
+        "q4": "Can it handle large files?",
+        "a4": "Formatting happens on every keystroke, so very large documents — several megabytes — may feel sluggish while typing. Pasting the whole thing at once works fine.",
+        "q5": "Does formatting change my data?",
+        "a5": "No, only whitespace, unless you turn on key sorting. Values, types and array order are preserved exactly, and numbers are re-serialised in the same form JSON uses."
       }
     },
     "word-counter": {

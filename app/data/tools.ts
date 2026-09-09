@@ -122,6 +122,95 @@ export const tools: ToolDef[] = [
     maxFiles: 1
   },
   {
+    id: 'pdf-rotate',
+    category: 'pdf',
+    group: 'organize',
+    component: 'pdf/Rotate',
+    icon: 'rotate-cw',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'rotate', ru: 'povernut', uz: 'burish' },
+    related: ['pdf-merge', 'pdf-split'],
+    acceptedTypes: ['application/pdf'],
+    maxFiles: 1
+  },
+  {
+    id: 'pdf-remove-pages',
+    category: 'pdf',
+    group: 'organize',
+    component: 'pdf/RemovePages',
+    icon: 'trash',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'remove-pages', ru: 'udalit-stranitsy', uz: 'sahifalarni-ochirish' },
+    related: ['pdf-split', 'pdf-merge'],
+    acceptedTypes: ['application/pdf'],
+    maxFiles: 1
+  },
+  // Same component, two pages: "JPG to PDF" and "PNG to PDF" are one function
+  // but different search queries, so each gets its own page and its own content.
+  {
+    id: 'jpg-to-pdf',
+    category: 'pdf',
+    group: 'convert-to',
+    component: 'pdf/ImagesToPdf',
+    icon: 'image',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'jpg-to-pdf', ru: 'jpg-v-pdf', uz: 'jpg-dan-pdf' },
+    related: ['png-to-pdf', 'pdf-merge'],
+    config: { accept: 'image/jpeg' },
+    acceptedTypes: ['image/jpeg'],
+    maxFiles: 100
+  },
+  {
+    id: 'png-to-pdf',
+    category: 'pdf',
+    group: 'convert-to',
+    component: 'pdf/ImagesToPdf',
+    icon: 'image',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'png-to-pdf', ru: 'png-v-pdf', uz: 'png-dan-pdf' },
+    related: ['jpg-to-pdf', 'pdf-merge'],
+    config: { accept: 'image/png' },
+    acceptedTypes: ['image/png'],
+    maxFiles: 100
+  },
+  {
+    id: 'password-generator',
+    category: 'generators',
+    group: 'security',
+    component: 'generators/PasswordGenerator',
+    icon: 'key',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'password-generator', ru: 'generator-parolej', uz: 'parol-generatori' },
+    related: []
+  },
+  {
+    id: 'base64',
+    category: 'dev',
+    group: 'encoding',
+    component: 'dev/Base64',
+    icon: 'binary',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'base64', ru: 'base64', uz: 'base64' },
+    related: ['json-formatter']
+  },
+  {
+    id: 'json-formatter',
+    category: 'dev',
+    group: 'formatting',
+    component: 'dev/JsonFormatter',
+    icon: 'braces',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'json-formatter', ru: 'json-formatter', uz: 'json-formatter' },
+    related: ['base64']
+  },
+  {
     id: 'word-counter',
     category: 'text',
     group: 'analyze',

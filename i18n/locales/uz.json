@@ -119,7 +119,76 @@
       "selected": "Tanlangan sahifalar: {n}",
       "noneSelected": "Hali birorta to'g'ri sahifa tanlanmadi.",
       "action": "PDF ni ajratish"
+    },
+    "rotate": {
+      "angleLabel": "Burilish",
+      "degrees": "{n}°",
+      "pagesLabel": "Qaysi sahifalar burilsin (jami {count})",
+      "pagesPlaceholder": "Bo'sh qoldirsangiz — barcha sahifalar",
+      "selected": "Buriladigan sahifalar: {n}",
+      "allPages": "Barcha sahifalar buriladi.",
+      "action": "PDF ni burish"
+    },
+    "removePages": {
+      "rangesLabel": "Qaysi sahifalar o'chirilsin (jami {count})",
+      "rangesPlaceholder": "masalan 2, 5-7",
+      "summary": "{removed} ta o'chiriladi, {left} ta qoladi.",
+      "noneSelected": "Hali birorta to'g'ri sahifa tanlanmadi.",
+      "wouldEmpty": "Barcha sahifalarni o'chirib bo'lmaydi — PDF da kamida bitta sahifa qolishi kerak.",
+      "action": "Sahifalarni o'chirish"
+    },
+    "imagesToPdf": {
+      "fitLabel": "Sahifa o'lchami",
+      "fit": {
+        "a4": "A4 ga moslash",
+        "image": "Rasm o'lchamiday"
+      },
+      "action": "PDF yaratish",
+      "errorUnsupported": "Fayllardan biri qo'llab-quvvatlanadigan rasm emas."
     }
+  },
+  "password": {
+    "regenerate": "Yana yaratish",
+    "length": "Uzunlik: {n} ta belgi",
+    "include": "Qo'shish",
+    "upper": "Bosh harflar A-Z",
+    "lower": "Kichik harflar a-z",
+    "digits": "Raqamlar 0-9",
+    "symbols": "Belgilar !{'@'}#$",
+    "avoidAmbiguous": "O'xshashlarisiz (I l 1 O 0)",
+    "noSets": "Kamida bitta belgi turini tanlang.",
+    "entropy": "{bits} bit entropiya",
+    "strength": {
+      "weak": "Zaif",
+      "fair": "O'rtacha",
+      "strong": "Ishonchli",
+      "excellent": "A'lo"
+    }
+  },
+  "base64": {
+    "encode": "Kodlash",
+    "decode": "Dekodlash",
+    "urlSafe": "URL uchun",
+    "swap": "Almashtirish",
+    "inputLabel": "Kirish",
+    "outputLabel": "Natija",
+    "placeholder": {
+      "encode": "Kodlanadigan matn…",
+      "decode": "Dekodlanadigan Base64…"
+    },
+    "invalid": "Bu to'g'ri Base64 emas."
+  },
+  "json": {
+    "indent": "Chekinish",
+    "minified": "Siqilgan",
+    "sortKeys": "Kalitlarni saralash",
+    "inputLabel": "JSON kiritish",
+    "outputLabel": "Formatlangan",
+    "placeholder": "JSON ni bu yerga qo'ying…",
+    "valid": "To'g'ri JSON",
+    "summaryObject": "obyekt, kalitlar: {n}",
+    "summaryArray": "massiv, elementlar: {n}",
+    "summaryScalar": "{type} turidagi qiymat"
   },
   "tools": {
     "pdf-merge": {
@@ -168,6 +237,168 @@
         "a4": "Hozircha yo'q: vosita tanlangan sahifalardan bitta yangi PDF yasaydi. Sahifalarni alohida olish uchun amalni har biri uchun takrorlang. Alohida fayllarga bo'lish rejimi rejalashtirilgan.",
         "q5": "Ajratilgan sahifalar sifati pasayadimi?",
         "a5": "Yo'q. Sahifalar qayta siqilmasdan ko'chiriladi: matn ajratiladigan va qidiriladigan bo'lib qoladi, rasmlar asl o'lchamini saqlaydi. Natija odatda asl fayldan ancha kichik bo'ladi, chunki sahifalar soni kamayadi."
+      }
+    },
+    "pdf-rotate": {
+      "name": "PDF ni burish",
+      "short": "Sahifalarni 90, 180 yoki 270 gradusga buring va saqlang.",
+      "title": "PDF ni burish — sahifalarni onlayn burish, bepul",
+      "description": "Bepul onlayn PDF burish. Barcha sahifalarni yoki faqat tanlanganlarini 90, 180 yoki 270 gradusga buring. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "intro": "PDF qo'shing, burilish burchagini tanlang va xohlasangiz aniq sahifalarni ko'rsating. Burilish faylning o'ziga yoziladi, shuning uchun har qanday ko'ruvchi dasturda saqlanib qoladi.",
+      "howTo": {
+        "step1": "Burmoqchi bo'lgan PDF ni qo'shing.",
+        "step2": "90, 180 yoki 270 gradusni tanlang, xohlasangiz sahifalarni ko'rsating.",
+        "step3": "«PDF ni burish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Burilish doimiy saqlanadimi?",
+        "a1": "Ha. Burchak hujjatning o'ziga yoziladi, ko'ruvchi dastur tomonidan qo'llanmaydi, shuning uchun sahifalar hamma joyda, jumladan chop etishda ham to'g'ri ochiladi. Bu boshqa dasturlar e'tiborsiz qoldirishi mumkin bo'lgan vaqtinchalik sozlama emas.",
+        "q2": "Faqat ba'zi sahifalarni burish mumkinmi?",
+        "a2": "Ha. Butun hujjatni burish uchun maydonni bo'sh qoldiring yoki 2, 5-7 kabi sahifa va oraliqlarni yozing. Bu aynan bitta sahifasi yonboshlab tushgan skanlar uchun.",
+        "q3": "Sahifa allaqachon burilgan bo'lsa-chi?",
+        "a3": "Burchak mavjudiga qo'shiladi, uni almashtirmaydi. Allaqachon 90° bo'lgan sahifa yana 90° burilsa, 180° bo'ladi — tugmani ikki marta bosishdan kutiladigan natija shu.",
+        "q4": "Burishda sifat pasayadimi?",
+        "a4": "Yo'q. Faqat sahifaning burilish qiymati o'zgaradi — matn va rasmlarga tegilmaydi, qayta siqish bo'lmaydi, fayl hajmi deyarli o'zgarmaydi."
+      }
+    },
+    "pdf-remove-pages": {
+      "name": "PDF sahifalarini o'chirish",
+      "short": "Keraksiz sahifalarni o'chiring, qolganini saqlang.",
+      "title": "PDF dan sahifalarni o'chirish — onlayn, bepul",
+      "description": "PDF dan sahifalarni bepul onlayn o'chirish. O'chiriladigan sahifalarni ko'rsating va qolganini yangi fayl sifatida yuklab oling. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "intro": "PDF qo'shing va olib tashlanadigan sahifalarni ko'rsating. Qolgani asl tartibda yangi fayl bo'lib saqlanadi. Qurilmangizdagi asl fayl o'zgarmaydi.",
+      "howTo": {
+        "step1": "Qisqartirmoqchi bo'lgan PDF ni qo'shing.",
+        "step2": "O'chiriladigan sahifalarni yozing, masalan 2, 5-7.",
+        "step3": "«Sahifalarni o'chirish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Bu «PDF ni ajratish» dan nimasi bilan farq qiladi?",
+        "a1": "Ular bir-biriga teskari. Ajratish siz ko'rsatgan sahifalarni qoldiradi, qolganini olib tashlaydi; bu yerda esa ko'rsatilganlari o'chiriladi, qolgani saqlanadi. Qaysi biri kamroq yozishni talab qilsa, o'shani tanlang.",
+        "q2": "Barcha sahifalarni o'chirsa bo'ladimi?",
+        "a2": "Yo'q. Sahifasiz PDF to'g'ri hujjat emas, shuning uchun kamida bittasi qolishi kerak. Hammasini tanlasangiz tugma o'chadi va vosita sababini tushuntiradi — ba'zi dasturlar ocholmaydigan fayl bermaydi.",
+        "q3": "Asl fayl o'zgaradimi?",
+        "a3": "Yo'q. Asl fayl faqat o'qiladi. Natija — saqlangan sahifalar nusxasidan iborat yangi PDF, qurilmangizdagi fayl esa o'zgarishsiz qoladi.",
+        "q4": "Qolgan sahifalar qayta siqiladimi?",
+        "a4": "Yo'q. Sahifalar o'zgarishsiz ko'chiriladi: matn ajratiladigan va qidiriladigan bo'lib qoladi, rasmlar o'lchamini saqlaydi. Yangi fayl faqat sahifalar kamaygani uchun kichikroq."
+      }
+    },
+    "jpg-to-pdf": {
+      "name": "JPG dan PDF",
+      "short": "JPG suratlarni istalgan tartibda bitta PDF ga yig'ing.",
+      "title": "JPG dan PDF — JPG rasmlarni onlayn PDF ga o'girish, bepul",
+      "description": "Bepul onlayn JPG dan PDF ga o'girish. Suratlarni bitta PDF ga yig'ing, tartibini o'zgartiring va A4 yoki asl o'lchamni tanlang. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "intro": "JPG fayllarni qo'shing, kerakli tartibga sudrab keltiring va PDF yarating. Hujjat suratini — pasport, shartnoma, chek — pochta orqali yuborsa yoki chop etsa bo'ladigan bitta faylga aylantirishning eng tez yo'li.",
+      "howTo": {
+        "step1": "JPG rasmlarni tashlang, tanlang yoki qo'ying.",
+        "step2": "Kerakli tartibga keltiring va A4 yoki asl o'lchamni tanlang.",
+        "step3": "«PDF yaratish» tugmasini bosing va faylni yuklab oling."
+      },
+      "faq": {
+        "q1": "Suratlarim biror joyga yuklanadimi?",
+        "a1": "Yo'q. Rasmlar brauzerda o'qiladi va PDF ham o'sha yerda yig'iladi. Tarmoq orqali hech narsa uzatilmaydi — suratlarda shaxsni tasdiqlovchi hujjatlar yoki imzolangan qog'ozlar bo'lsa, bu muhim.",
+        "q2": "A4 mi yoki asl o'lcham mi?",
+        "a2": "PDF chop etilsa yoki rasmiy joyga yuborilsa, A4 ni tanlang: barcha sahifalar bir xil standart o'lchamda, rasm markazda bo'ladi. Asl o'lcham aniq piksel o'lchamini saqlaydi va skrinshotlar hamda ekran uchun mo'ljallangan rasmlarga mos.",
+        "q3": "Surat sifati pasayadimi?",
+        "a3": "Yo'q. JPG ma'lumotlari qayta kodlanmasdan o'z holicha joylashtiriladi, shuning uchun ikkinchi marta siqilish bo'lmaydi. PDF hajmi asl fayllar yig'indisiga yaqin bo'ladi.",
+        "q4": "Nechta surat qo'shsa bo'ladi?",
+        "a4": "Qat'iy cheklov yo'q. Har bir rasm PDF yig'ilayotganda xotirada turadi, shuning uchun chegara qurilmangizga bog'liq: noutbukda o'nlab telefon surati muammosiz, eski telefonda kamroq.",
+        "q5": "Fayl nomi .jpg, lekin o'girilmayapti. Nega?",
+        "a5": "Format fayl nomiga emas, mazmuniga qarab aniqlanadi, chunki .jpg ga qayta nomlangan fayllar ko'pincha boshqa formatda bo'ladi. Agar u aslida PNG bo'lsa, «PNG dan PDF» vositasidan foydalaning."
+      }
+    },
+    "png-to-pdf": {
+      "name": "PNG dan PDF",
+      "short": "PNG rasmlarni istalgan tartibda bitta PDF ga yig'ing.",
+      "title": "PNG dan PDF — PNG rasmlarni onlayn PDF ga o'girish, bepul",
+      "description": "Bepul onlayn PNG dan PDF ga o'girish. Rasmlarni bitta PDF ga yig'ing, tartibini o'zgartiring va A4 yoki asl o'lchamni tanlang. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "intro": "PNG fayllarni qo'shing, tartibga keltiring va PDF yarating. Shaffoflik oq fonga tekislanadi — chop etiladigan yoki hujjat sifatida yuboriladigan narsalar uchun aynan shu kerak.",
+      "howTo": {
+        "step1": "PNG rasmlarni tashlang, tanlang yoki qo'ying.",
+        "step2": "Kerakli tartibga keltiring va A4 yoki asl o'lchamni tanlang.",
+        "step3": "«PDF yaratish» tugmasini bosing va faylni yuklab oling."
+      },
+      "faq": {
+        "q1": "Rasmlarim biror joyga yuklanadimi?",
+        "a1": "Yo'q. Rasmlar brauzerda o'qiladi va PDF ham o'sha yerda yig'iladi. Hech narsa uzatilmaydi va saqlanmaydi, shuning uchun shaxsiy panellar yoki hujjatlar skrinshotlari maxfiy qoladi.",
+        "q2": "Shaffoflik nima bo'ladi?",
+        "a2": "PDF sahifalari shaffof bo'lmaydi, shuning uchun shaffof joylar oq bo'lib ko'rinadi. Agar shaffoflik yakuniy ko'rinish uchun muhim bo'lsa, o'girishdan oldin rasmni kerakli fonga tekislang.",
+        "q3": "Rasm sifati pasayadimi?",
+        "a3": "Yo'q. PNG yo'qotishsiz format va ma'lumotlar qayta kodlanmasdan joylashtiriladi, shuning uchun skrinshot va sxemalar piksel darajasida aniq, ulardagi matn esa tiniq qoladi.",
+        "q4": "Nega PDF asl PNG lardan kattaroq?",
+        "a4": "PNG tekis grafika uchun tejamli, lekin PDF tuzilmasi har bir rasm atrofiga qo'shimcha qo'shadi va buni qoplash uchun hech narsa qayta siqilmaydi. Skrinshotlardan iborat hujjatlar uchun bu rasm aniqligi evaziga adolatli almashuv."
+      }
+    },
+    "password-generator": {
+      "name": "Parol generatori",
+      "short": "Qurilmangizdan chiqmaydigan ishonchli tasodifiy parollar yarating.",
+      "title": "Parol generatori — ishonchli tasodifiy parollar, bepul",
+      "description": "Bepul onlayn parol generatori. Web Crypto API yordamida brauzeringizda ishonchli tasodifiy parollar yaratadi. Hech narsa serverga yuborilmaydi, qayd etilmaydi va saqlanmaydi.",
+      "intro": "Uzunlik va belgi turlarini tanlang — yangi parol darhol yaratiladi. U brauzeringizning kriptografik tasodifiy sonlar generatori orqali hosil qilinadi va hech qayerga uzatilmaydi, shuning uchun haqiqiy hisoblar uchun ishlatsa bo'ladi.",
+      "howTo": {
+        "step1": "Uzunlikni surgich bilan tanlang.",
+        "step2": "Qaysi belgi turlari kirishini belgilang.",
+        "step3": "Parolni nusxalang yoki boshqasi uchun «Yana yaratish» ni bosing."
+      },
+      "faq": {
+        "q1": "Parol serverga yuboriladimi?",
+        "a1": "Yo'q. U brauzer ichida yaratiladi va qurilmangizdan chiqmaydi — na bizga, na boshqa birovga. Serverda ishlaydigan generatorlardan farqi shu: u yerda parol tarmoq orqali o'tishga majbur.",
+        "q2": "Tasodifiylik haqiqatan ishonchlimi?",
+        "a2": "Ha. crypto.getRandomValues — brauzerning kriptografik jihatdan mustahkam generatori ishlatiladi, Math.random emas: u oldindan aytiladigan va parollar uchun yaramaydi. Natijani qiyshaytiradigan qiymatlar tashlab yuboriladi, shuning uchun har bir belgi teng ehtimolli.",
+        "q3": "Entropiya ko'rsatkichi nimani bildiradi?",
+        "a3": "Bu paroldagi tasodifiylik bitlari soni — topib olish qanchalik qiyinligining halol o'lchovi. Har bir qo'shimcha bit hujumchi ishini ikki barobar oshiradi. 50 bitdan kam — zaif, 80 va undan yuqori — ko'p hisoblar uchun ishonchli, 120 va undan yuqori — a'lo.",
+        "q4": "«O'xshashlarisiz» ni yoqish kerakmi?",
+        "a4": "Faqat parolni qo'lda yozish yoki aytib berish kerak bo'lsa — u chalkashtirish oson bo'lgan I, l, 1, O va 0 ni olib tashlaydi. Belgilar to'plami biroz qisqaradi, shuning uchun uzunlikka bir-ikki belgi qo'shing.",
+        "q5": "Uzunlik yaxshimi yoki ko'proq belgi turi?",
+        "a5": "Odatda uzunlik. U entropiyani belgi turlarini qo'shishdan tezroq oshiradi, uzun parollarni esa parol menejerida saqlash qulay. Faqat harflardan iborat 20 belgili parol hamma turdagi 10 belgilidan ishonchliroq."
+      }
+    },
+    "base64": {
+      "name": "Base64 kodlash va dekodlash",
+      "short": "Matnni Base64 ga kodlang yoki qaytaring, to'liq Unicode qo'llab-quvvatlanadi.",
+      "title": "Base64 kodlash va dekodlash — onlayn, bepul",
+      "description": "Bepul onlayn Base64 kodlovchi va dekodlovchi. Unicode bilan to'g'ri ishlaydi, jumladan kirill va o'zbek matni, URL uchun xavfsiz Base64 ni qo'llab-quvvatlaydi. Brauzerda ishlaydi.",
+      "intro": "Matnni Base64 ga kodlash uchun qo'ying yoki Base64 ni qo'yib matnni qaytarib oling. Unicode to'g'ri ishlanadi, shuning uchun rus, o'zbek matni va emoji o'zgarishsiz qaytadi — ko'p oddiy vositalar aynan shu yerda xato qiladi.",
+      "howTo": {
+        "step1": "«Kodlash» yoki «Dekodlash» ni tanlang.",
+        "step2": "Matn yoki Base64 ni kirish maydoniga qo'ying.",
+        "step3": "Natijani nusxalang yoki teskari yo'nalish uchun «Almashtirish» ni bosing."
+      },
+      "faq": {
+        "q1": "Kirill va o'zbek matni bilan ishlaydimi?",
+        "a1": "Ha. Matn kodlashdan oldin UTF-8 baytlariga o'giriladi, shuning uchun har qanday alifbo to'g'ri qaytadi. Ko'p oddiy vositalar btoa ni to'g'ridan-to'g'ri chaqiradi, u esa faqat Latin-1 ni tushunadi va yo xato beradi, yo matnni sassiz buzadi.",
+        "q2": "URL uchun xavfsiz Base64 nima?",
+        "a2": "Oddiy Base64 da URL da maxsus ma'noga ega + va / hamda to'ldirish uchun = ishlatiladi. URL uchun xavfsiz variant ularni - va _ ga almashtiradi va to'ldirishni olib tashlaydi, shunda natijani manzilga o'zgarishsiz qo'ysa bo'ladi.",
+        "q3": "Base64 shifrlashmi?",
+        "a3": "Yo'q, va bu muhim. Base64 — kodlash, shifr emas: uni istalgan odam bir zumda ocha oladi, bu sahifa buni ko'rsatib turibdi. Parol, token yoki shaxsiy ma'lumotlarni himoya qilish uchun hech qachon ishlatmang.",
+        "q4": "Nega Base64 im dekodlanmayapti?",
+        "a4": "Odatda nusxalashda tushib qolgan ortiqcha belgi yoki yetishmayotgan to'ldirish sababli. To'ldirish avtomatik tiklanadi, URL uchun xavfsiz belgilar qabul qilinadi, demak qolgani bo'sh joy yoki kesilgan satr.",
+        "q5": "Matnim serverga yuklanadimi?",
+        "a5": "Yo'q. Kodlash va dekodlash to'liq brauzerda bajariladi, shuning uchun begona saytga yubormoqchi bo'lmagan token yoki konfiguratsiya parchalarini bemalol qo'yish mumkin."
+      }
+    },
+    "json-formatter": {
+      "name": "JSON formatlash",
+      "short": "JSON ni formatlang, tekshiring va tartibga soling, xatolar aniq ko'rsatiladi.",
+      "title": "JSON formatlash va tekshirish — bepul onlayn vosita",
+      "description": "Bepul onlayn JSON formatlash va tekshirish. Chekinishni tanlang, kalitlarni saralang, siqing va noto'g'ri JSON qayerda buzilganini aniq ko'ring. Brauzerda ishlaydi.",
+      "intro": "JSON ni qo'ying — u yozayotganingizda formatlanadi va tekshiriladi. Agar JSON noto'g'ri bo'lsa, tahlilchining o'z xabari ko'rsatiladi va kirish maydoni belgilanadi, shunda muammoni qidirib o'tirmaysiz.",
+      "howTo": {
+        "step1": "JSON ni kirish maydoniga qo'ying.",
+        "step2": "Chekinish o'lchamini yoki siqishni tanlang, xohlasangiz kalitlarni saralang.",
+        "step3": "Formatlangan natijani nusxalang."
+      },
+      "faq": {
+        "q1": "JSON im biror joyga yuboriladimi?",
+        "a1": "Yo'q. U to'liq brauzerda tahlil qilinadi va formatlanadi — bu muhim, chunki tuzatilayotgan JSON ko'pincha API kalitlari, tokenlar yoki mijoz ma'lumotlarini o'z ichiga oladi. Hech narsa uzatilmaydi va qayd etilmaydi.",
+        "q2": "Kalitlarni saralash nima beradi?",
+        "a2": "U obyekt kalitlarini barcha darajalarda alifbo bo'yicha tartiblaydi, massivlar tartibiga tegmaydi, chunki u ma'no tashiydi. Bir xil ma'lumotni turli tartibda qaytaradigan ikki API javobini solishtirishda qulay.",
+        "q3": "Nega JSON im noto'g'ri deb ko'rsatilyapti?",
+        "a3": "Ko'pincha oxirgi elementdan keyingi vergul, qo'sh tirnoq o'rniga bitta tirnoq yoki tirnoqsiz kalitlar sabab — bularning hammasi JavaScript da to'g'ri, JSON da esa emas. Tahlilchining o'z xabari, jumladan to'xtagan joyi ko'rsatiladi.",
+        "q4": "Katta fayllar bilan ishlaydimi?",
+        "a4": "Formatlash har bir tugma bosilganda bajariladi, shuning uchun bir necha megabaytli juda katta hujjatlar yozayotganda sekinlashishi mumkin. Butunlay qo'yib yuborilsa, normal ishlaydi.",
+        "q5": "Formatlash ma'lumotlarimni o'zgartiradimi?",
+        "a5": "Yo'q, faqat bo'sh joylarni, agar kalitlarni saralash yoqilmagan bo'lsa. Qiymatlar, turlar va massiv tartibi aynan saqlanadi, raqamlar esa JSON ishlatadigan shaklda yoziladi."
       }
     },
     "word-counter": {

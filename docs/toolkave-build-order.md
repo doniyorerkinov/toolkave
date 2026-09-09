@@ -164,11 +164,25 @@ Flip to `true` only after using the tool on real files.
 
 ## Phase 4 — Wave 1: finish tier 1 + the easy wins (~20 tools)
 
-- [ ] Rotate · Reorder/Delete · JPG→PDF · PDF→JPG · Compress (completes tier-1 PDF)
-- [ ] Split the image→PDF converters into per-format pages (JPG / PNG / WebP / HEIC)
+All built as **drafts** (`published: false`) — they need a human pass before shipping.
+
+- [x] Rotate PDF
+- [x] Remove PDF pages
+- [x] JPG→PDF and PNG→PDF as separate pages sharing one component via `config`
+- [x] Password generator
+- [x] Base64 / URL encoder-decoder
+- [x] JSON formatter
+- [ ] WebP→PDF and HEIC→PDF — need a canvas conversion step first; `pdf-lib` embeds
+      only JPEG and PNG natively
 - [ ] Image compress · resize · format convert
-- [ ] QR generator · password generator · YouTube thumbnail
-- [ ] JSON formatter · Base64/URL · colour picker
+- [ ] QR generator (needs the `qrcode` package) · YouTube thumbnail
+- [ ] Colour picker
+- [ ] **PDF→JPG and Compress moved to Phase 3** — both need pdf.js and the web worker, so
+      they belong with the heavy pipeline rather than here
+
+**Ready to test:** `/pdf/rotate`, `/pdf/remove-pages`, `/pdf/jpg-to-pdf`, `/pdf/png-to-pdf`,
+`/generators/password-generator`, `/dev/base64`, `/dev/json-formatter` — plus `ru` and `uz`.
+Visible in `nuxt dev` only, each marked with a Draft badge.
 
 ## Phase 5 — Wave 2: tier 2 PDF + the rest of the simple tools (~35 tools)
 

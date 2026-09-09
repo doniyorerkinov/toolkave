@@ -49,6 +49,8 @@ if (!toolComponent.value) {
 
 <template>
   <ShellToolShell v-if="tool" :tool="tool">
-    <component :is="toolComponent" v-if="toolComponent" />
+    <!-- `config` becomes props, so several registry entries can share one
+         component with different presets (JPG to PDF vs PNG to PDF). -->
+    <component :is="toolComponent" v-if="toolComponent" v-bind="tool.config" />
   </ShellToolShell>
 </template>

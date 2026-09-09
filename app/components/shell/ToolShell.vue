@@ -79,11 +79,18 @@ const howToSteps = computed(() => [
   t(`tools.${props.tool.id}.howTo.step3`)
 ])
 
+/**
+ * Up to six questions, however many the locale actually defines. vue-i18n
+ * returns the key path when a message is missing, so an undefined entry is
+ * dropped rather than rendered as "tools.x.faq.q5".
+ */
 const faqItems = computed(() =>
-  [1, 2, 3, 4, 5].map(n => ({
-    q: t(`tools.${props.tool.id}.faq.q${n}`),
-    a: t(`tools.${props.tool.id}.faq.a${n}`)
-  }))
+  [1, 2, 3, 4, 5, 6]
+    .map(n => ({
+      q: t(`tools.${props.tool.id}.faq.q${n}`),
+      a: t(`tools.${props.tool.id}.faq.a${n}`)
+    }))
+    .filter(item => !item.a.startsWith(`tools.${props.tool.id}.faq.`))
 )
 
 const relatedTools = computed(() =>
