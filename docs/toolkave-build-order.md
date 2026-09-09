@@ -245,10 +245,101 @@ Verified the rebasing maths against CBU's own direct EUR quote. The two sources 
 
 ## Phase 6 — Wave 3: tier 3 differentiators (48 tools)
 
-- [ ] **OCR uz/ru/en** and **broken Cyrillic → UTF-8** — the two nobody else builds
-- [ ] DOCX→PDF · Excel/CSV→PDF · grayscale · compare · annotate/redact
-- [ ] DOCX→text/HTML/MD · CSV⇄JSON⇄Excel · word count for PDF/DOCX · Markdown⇄HTML
-- [ ] Scanned photos → PDF (web version of the bot)
+- [x] **OCR uz/ru/en** and **broken text → UTF-8** — the two nobody else builds
+- [x] DOCX→PDF · Excel/CSV→PDF · grayscale
+- [x] DOCX→text/HTML/MD · CSV⇄JSON⇄Excel · word count for DOCX · Markdown⇄HTML
+- [x] Scanned photos → PDF (web version of the bot)
+- [ ] Compare · annotate/redact — deferred; both need the pdf.js page-rendering
+      pipeline from Phase 3, which is still open
+
+**Wave 3 mostly complete: 57 tools in the registry, 54 drafts.** 195 pages
+across three locales, all verified rendering (not just 200 — checked against
+markers a client-side render failure actually leaves behind).
+
+Notes on the nineteen new tools:
+
+- **Fix broken text** solves mojibake two ways, because pasted text and a raw
+  file are genuinely different problems. A file still has its original bytes,
+  so the right encoding can simply be applied — lossless. Pasted text has
+  already been decoded, so the damage has to be undone by searching over
+  plausible (misread, actual) pairs and scoring the result. The scorer had to
+  move past per-character plausibility once real data showed the failure
+  mode: UTF-8 Cyrillic misread as windows-1251 turns "Привет" into
+  "РџСЂРёРІРµС‚" — also made of real Cyrillic letters, so a plausibility score
+  alone can't tell the two apart. What does is structure (a capital appearing
+  mid-word, a code-page symbol wedged between letters), counted as an
+  absolute defect count, not a rate — a repair confined to a few characters
+  in an otherwise clean paragraph must not get diluted into invisibility by
+  an average. Search is a small beam, not a greedy hill-climb: text mangled
+  twice has a correct first step that scores *worse* than the input by every
+  local measure, so requiring each step to improve walks straight past the
+  answer.
+- **OCR** carries English, Russian and both Uzbek alphabets (Latin and
+  Cyrillic) — the second nobody else builds. Small images are upscaled toward
+  Tesseract's preferred ~30px glyph height before recognition, which matters
+  more than any local thresholding. Confidence is averaged over words found by
+  walking blocks → paragraphs → lines → words, not read from the page-level
+  number, which a single confident heading can drag upward over an unreadable
+  body.
+- **Word → PDF** and the HTML→PDF path underneath it use `pdfmake`, not
+  `pdf-lib` like the rest of the site — pdf-lib's built-in fonts are
+  WinAnsi-encoded and cannot draw Cyrillic at all. pdfmake's bundled Roboto
+  covers Russian and Uzbek Cyrillic (Ўў Ҳҳ Ққ Ғғ) plus ₽ and №; the one gap is
+  U+02BB (Uzbek's modifier apostrophe in oʻzbek), silently substituted with
+  the visually near-identical U+2018 rather than left as a missing-glyph box.
+  pdfmake 0.3 also switched its API from callbacks (`getBuffer(cb)`) to
+  promises without much fanfare — the old form still type-checks against
+  community typings but silently never calls back, so this was worth getting
+  right rather than copying the widely-posted 0.2 snippet.
+- **Grayscale PDF** does not rasterise. Render-to-image-and-rebuild is the
+  approach that looks obvious and is wrong for the same reason Compress in
+  Phase 3 is flagged: it drops the text layer. Instead each page gets a
+  half-opaque grey rectangle painted through a graphics state whose blend
+  mode is `Saturation` — the source's saturation is zero, so it flattens
+  whatever colour sits beneath it to that colour's own brightness, with text
+  staying real text. Necessary honesty in the FAQ: this is a *display*
+  transformation. The original colour bytes are still in the file: fine for
+  printing, wrong for anyone who thinks they've stripped colour information
+  for good.
+- **Scan to PDF** — the web counterpart of the bot — cleans up phone photos
+  with a genuine auto-levels pass (percentile-clipped histogram stretch),
+  not a fixed brightness/contrast bump. It finds where the paper and the ink
+  actually sit in the image's tonal range and stretches that to full black
+  and white, which is what turns a grey, unevenly lit photo into something
+  that reads as scanned.
+- **CSV / Excel / JSON**, all six directions, share one `Grid = string[][]`
+  boundary in `utils/table.ts`. The CSV reader detects both the delimiter and
+  the character set from the file rather than assuming comma and UTF-8:
+  Excel under a Russian or Uzbek locale writes semicolons (comma is the
+  decimal separator), and files are routinely windows-1251. `SheetJS`
+  (`xlsx`) is used at 0.20.3 from the vendor's own CDN — the npm-published
+  `xlsx` package is frozen at 0.18.5 from 2022 with open advisories; upstream
+  stopped publishing new versions to npm itself.
+- **Word ⇄ HTML/Markdown** run through `mammoth`, which maps Word's styles
+  onto semantic HTML rather than reproducing its layout — the right trade
+  here, since the goal is clean, reusable output, not a pixel copy. The
+  Markdown side needed one real fix to Turndown's own list-item rule: its
+  default output pads markers to a fixed width (`-   item`, three spaces),
+  which is valid but not what anyone expects from an export and looks odd
+  pasted anywhere else.
+
+### New dependencies
+
+| Library | Licence | Role |
+| --- | --- | --- |
+| `tesseract.js` | Apache-2.0 | OCR engine |
+| `mammoth` | BSD-2-Clause | .docx → HTML/text |
+| `marked` | MIT | Markdown → HTML |
+| `turndown` | MIT | HTML → Markdown |
+| `dompurify` | MPL-2.0 / Apache-2.0 | Sanitising HTML before on-page preview |
+| `papaparse` | MIT | CSV parsing |
+| `xlsx` (SheetJS, 0.20.3 via vendor CDN) | Apache-2.0 | Excel read/write |
+| `pdfmake` | MIT | Cyrillic-capable PDF generation (tables, converted HTML) |
+
+All lazy-imported inside their tool component, per standing rule 2 — nothing
+here is paid for by a visitor to an unrelated tool. Tesseract's language
+models (~1–3 MB each) are fetched from a public CDN only when a language is
+actually selected, and cached by the browser after that.
 
 ## Phase 7 — Content + indexing
 

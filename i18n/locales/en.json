@@ -162,7 +162,11 @@
       "headerLabel": "Header text",
       "footerLabel": "Footer text",
       "alignLabel": "Alignment",
-      "align": { "left": "Left", "center": "Centre", "right": "Right" },
+      "align": {
+        "left": "Left",
+        "center": "Centre",
+        "right": "Right"
+      },
       "fontSize": "Text size: {n} pt",
       "unsupportedText": "Only Latin characters work here for now. Cyrillic needs an embedded font, which is not available yet.",
       "action": "Add header and footer"
@@ -170,7 +174,12 @@
     "resize": {
       "current": "Current size",
       "targetLabel": "Resize to",
-      "presets": { "a4": "A4", "letter": "Letter", "legal": "Legal", "scale": "Scale by %" },
+      "presets": {
+        "a4": "A4",
+        "letter": "Letter",
+        "legal": "Legal",
+        "scale": "Scale by %"
+      },
       "scale": "Scale: {n}%",
       "fitNote": "Pages are scaled proportionally and centred, so nothing is stretched or cropped. Landscape pages stay landscape.",
       "action": "Resize PDF"
@@ -237,6 +246,11 @@
       },
       "action": "Create PDF",
       "errorUnsupported": "One of those files is not a supported image."
+    },
+    "grayscale": {
+      "pages": "{n} pages",
+      "notice": "The colour is switched off, not removed — the original colour data stays in the file. Use this for printing, not for stripping colour permanently.",
+      "action": "Convert to grayscale"
     }
   },
   "image": {
@@ -248,14 +262,18 @@
     "quality": "Quality: {n}%",
     "pngLossless": "PNG is lossless, so quality has no effect.",
     "formatLabel": "Output format",
-    "compress": { "action": "Compress image" },
+    "compress": {
+      "action": "Compress image"
+    },
     "resize": {
       "width": "Width (px)",
       "height": "Height (px)",
       "keepRatio": "Keep aspect ratio",
       "action": "Resize image"
     },
-    "convert": { "action": "Convert to {format}" }
+    "convert": {
+      "action": "Convert to {format}"
+    }
   },
   "percent": {
     "modes": {
@@ -266,11 +284,26 @@
       "vat": "VAT"
     },
     "labels": {
-      "of": { "a": "Percentage", "b": "Of value" },
-      "what": { "a": "This number", "b": "Is what % of" },
-      "change": { "a": "From", "b": "To" },
-      "discount": { "a": "Price", "b": "Discount %" },
-      "vat": { "a": "Amount", "b": "Amount" }
+      "of": {
+        "a": "Percentage",
+        "b": "Of value"
+      },
+      "what": {
+        "a": "This number",
+        "b": "Is what % of"
+      },
+      "change": {
+        "a": "From",
+        "b": "To"
+      },
+      "discount": {
+        "a": "Price",
+        "b": "Discount %"
+      },
+      "vat": {
+        "a": "Amount",
+        "b": "Amount"
+      }
     },
     "resultOf": "{p}% of {v}",
     "resultWhat": "Percentage",
@@ -331,16 +364,39 @@
       "speed": "Speed"
     },
     "names": {
-      "mm": "Millimetres", "cm": "Centimetres", "m": "Metres", "km": "Kilometres",
-      "in": "Inches", "ft": "Feet", "yd": "Yards", "mi": "Miles",
-      "mg": "Milligrams", "g": "Grams", "kg": "Kilograms", "t": "Tonnes",
-      "oz": "Ounces", "lb": "Pounds",
-      "c": "Celsius", "f": "Fahrenheit", "k": "Kelvin",
-      "cm2": "Square centimetres", "m2": "Square metres", "km2": "Square kilometres",
-      "ha": "Hectares", "ft2": "Square feet", "ac": "Acres",
-      "ml": "Millilitres", "l": "Litres", "m3": "Cubic metres",
-      "gal": "Gallons (US)", "qt": "Quarts (US)", "floz": "Fluid ounces (US)",
-      "mps": "Metres/second", "kmh": "Kilometres/hour", "mph": "Miles/hour", "kn": "Knots"
+      "mm": "Millimetres",
+      "cm": "Centimetres",
+      "m": "Metres",
+      "km": "Kilometres",
+      "in": "Inches",
+      "ft": "Feet",
+      "yd": "Yards",
+      "mi": "Miles",
+      "mg": "Milligrams",
+      "g": "Grams",
+      "kg": "Kilograms",
+      "t": "Tonnes",
+      "oz": "Ounces",
+      "lb": "Pounds",
+      "c": "Celsius",
+      "f": "Fahrenheit",
+      "k": "Kelvin",
+      "cm2": "Square centimetres",
+      "m2": "Square metres",
+      "km2": "Square kilometres",
+      "ha": "Hectares",
+      "ft2": "Square feet",
+      "ac": "Acres",
+      "ml": "Millilitres",
+      "l": "Litres",
+      "m3": "Cubic metres",
+      "gal": "Gallons (US)",
+      "qt": "Quarts (US)",
+      "floz": "Fluid ounces (US)",
+      "mps": "Metres/second",
+      "kmh": "Kilometres/hour",
+      "mph": "Miles/hour",
+      "kn": "Knots"
     },
     "from": "From",
     "to": "To",
@@ -1299,6 +1355,424 @@
         "q5": "How is reading time estimated?",
         "a5": "Reading time assumes roughly 200 words per minute, which is a common average for adults reading on screen. Treat it as a rough guide: dense technical writing reads more slowly, and familiar or informal text reads faster."
       }
+    },
+    "fix-encoding": {
+      "name": "Fix broken text",
+      "short": "Repair text that was read with the wrong character set.",
+      "title": "Fix broken Cyrillic text — mojibake repair online, free",
+      "description": "Free online tool that repairs text turned into gibberish by the wrong character set. Recognises windows-1251, KOI8-R, CP866 and UTF-8. Runs in your browser.",
+      "intro": "When a file written in windows-1251 is opened as something else, Russian text arrives as ÐŸÑ€Ð¸Ð²ÐµÑ‚ or Ïðèâåò. Paste it here, or drop the file in, and it is read back the way it was written.",
+      "howTo": {
+        "step1": "Paste the broken text, or switch to the file tab and add the file.",
+        "step2": "The repaired text appears straight away, with the character set that was identified.",
+        "step3": "If the guess is wrong, pick another reading from the list underneath."
+      },
+      "faq": {
+        "q1": "Why does this happen at all?",
+        "a1": "Text is stored as numbers, and a character set says which letter each number means. When a file is written with one set and read with another, every letter comes out as the wrong one. Latin text mostly survives because the first 128 numbers agree everywhere; Cyrillic does not.",
+        "q2": "Which is better, pasting or uploading?",
+        "a2": "Uploading, when you have the file. A file still holds its original bytes, so the right character set can simply be applied — nothing is guessed and nothing is lost. Pasted text has already been decoded, so the damage has to be worked out backwards.",
+        "q3": "Can every case be fixed?",
+        "a3": "No. If the text was saved after being mangled and the wrong reading replaced characters with question marks, the original letters are gone for good. Anything that only looks wrong, rather than having been overwritten, is recoverable.",
+        "q4": "What if the result is still wrong?",
+        "a4": "Use the alternatives below the result. The tool picks whichever reading looks most like real language, but on short text several readings can look equally plausible, and you can see which one is right at a glance."
+      }
+    },
+    "image-to-text": {
+      "name": "Image to text (OCR)",
+      "short": "Read text out of a photo or screenshot, including Uzbek.",
+      "title": "Image to text — free OCR in Russian, Uzbek and English",
+      "description": "Free online OCR that extracts text from images in Russian, Uzbek (Latin and Cyrillic) and English. The image is processed in your browser, not uploaded.",
+      "intro": "Add a photo, scan or screenshot and get the text out of it. Russian, Uzbek in both alphabets, and English are all supported, and several can be selected at once for a mixed document.",
+      "howTo": {
+        "step1": "Add the image containing the text.",
+        "step2": "Choose which languages appear in it.",
+        "step3": "Press Extract text, then copy the result or download it as a .txt file."
+      },
+      "faq": {
+        "q1": "Is my image uploaded anywhere?",
+        "a1": "No. Recognition runs in your browser. The language models are downloaded from a public CDN the first time you use a language — that is the only network request, and it carries no part of your image.",
+        "q2": "Why is the first run slow?",
+        "a2": "Each language model is about 3 MB and has to be downloaded once. Afterwards your browser has it cached and recognition starts immediately, so the second image is much faster than the first.",
+        "q3": "How do I get a better result?",
+        "a3": "Resolution matters more than anything else. A straight, well-lit photo where the text fills the frame beats a distant shot every time. Selecting only the languages actually present also helps, since fewer alternatives means fewer wrong guesses.",
+        "q4": "Which Uzbek should I pick?",
+        "a4": "Whichever alphabet is in the image. Latin for oʻzbek, Cyrillic for ўзбек. If a document mixes them, select both — and add Russian too, which shares most of its letters with Uzbek Cyrillic."
+      }
+    },
+    "docx-word-count": {
+      "name": "Word count for Word documents",
+      "short": "Count the words in a .docx without opening Word.",
+      "title": "Word count for .docx — free online, no upload",
+      "description": "Count words, characters, sentences and paragraphs in a Word document. The file is read in your browser and never uploaded.",
+      "intro": "Load a .docx or a plain text file and get the counts immediately. Useful when you need a number for a translation quote or an assignment limit and do not have Word to hand.",
+      "howTo": {
+        "step1": "Press Load from a file and choose a .docx or .txt.",
+        "step2": "The text appears in the box with the counts underneath.",
+        "step3": "Edit the text if you want to count only part of it — the numbers follow along."
+      },
+      "faq": {
+        "q1": "Will the number match Word's?",
+        "a1": "It should be very close. Both split on whitespace. Small differences come from headers, footers, footnotes and text boxes, which are not part of the document body read here.",
+        "q2": "Are old .doc files supported?",
+        "a2": "No. The pre-2007 .doc format cannot be read in a browser. Open it in Word or LibreOffice and save it as .docx first.",
+        "q3": "Is the file uploaded?",
+        "a3": "No. It is read in your browser and nothing is sent anywhere.",
+        "q4": "Does formatting affect the count?",
+        "a4": "No. Only the text is counted — bold, headings and tables make no difference, though text inside tables is included."
+      }
+    },
+    "docx-to-text": {
+      "name": "DOCX to text",
+      "short": "Pull the plain text out of a Word document.",
+      "title": "DOCX to TXT — convert Word to plain text online, free",
+      "description": "Free online tool to extract plain text from a .docx file. Runs entirely in your browser, so the document is never uploaded.",
+      "intro": "Strip a Word document down to its text: no styles, no layout, just the words. Useful for feeding a document into something that only takes plain text.",
+      "howTo": {
+        "step1": "Add the .docx file.",
+        "step2": "Press Convert to text.",
+        "step3": "Copy the result or save it as a .txt file."
+      },
+      "faq": {
+        "q1": "What is lost?",
+        "a1": "Everything that is not text: formatting, images, headers and footers, and the structure of tables. Table contents are kept but the layout is not.",
+        "q2": "Does Cyrillic come through correctly?",
+        "a2": "Yes. The text is saved as UTF-8, which handles Russian and Uzbek Cyrillic without any configuration.",
+        "q3": "Can it read .doc?",
+        "a3": "No — only .docx. The older binary format is not readable in a browser; re-save it as .docx first.",
+        "q4": "Is the file uploaded?",
+        "a4": "No. Everything happens in your browser."
+      }
+    },
+    "docx-to-html": {
+      "name": "DOCX to HTML",
+      "short": "Turn a Word document into clean HTML.",
+      "title": "DOCX to HTML — convert Word to clean HTML online, free",
+      "description": "Free online converter from .docx to clean, semantic HTML. Headings, lists and tables are preserved. Runs in your browser.",
+      "intro": "Convert a Word document into HTML you would be willing to publish. Headings become headings and lists become lists, without the wall of inline styles Word's own Save as HTML produces.",
+      "howTo": {
+        "step1": "Add the .docx file.",
+        "step2": "Press Convert to HTML.",
+        "step3": "Copy the markup or save it as an .html file."
+      },
+      "faq": {
+        "q1": "How is this different from Word's Save as HTML?",
+        "a1": "Word exports its internal layout, which means hundreds of lines of styles and empty tags around every paragraph. This maps Word's styles onto plain semantic elements instead, so what you get is HTML you can actually use.",
+        "q2": "What happens to images?",
+        "a2": "They are embedded in the HTML as data URIs, so the file works on its own without a folder of images beside it. That does make the file larger.",
+        "q3": "Are styles kept?",
+        "a3": "Structure is kept — headings, bold, italic, lists, tables, links. Fonts, colours and spacing are not, on the grounds that your own stylesheet should decide those.",
+        "q4": "Why does it say a style could not be mapped?",
+        "a4": "Word documents can carry any number of custom styles. When one has no sensible HTML equivalent it is noted, and the text is kept as an ordinary paragraph."
+      }
+    },
+    "docx-to-markdown": {
+      "name": "DOCX to Markdown",
+      "short": "Convert a Word document to Markdown.",
+      "title": "DOCX to Markdown — convert Word to .md online, free",
+      "description": "Free online converter from .docx to Markdown, including tables and lists. Runs in your browser, nothing is uploaded.",
+      "intro": "Move a Word document into a Markdown workflow — a wiki, a static site, a repository — with its headings, lists and tables intact.",
+      "howTo": {
+        "step1": "Add the .docx file.",
+        "step2": "Press Convert to Markdown.",
+        "step3": "Copy the result or save it as a .md file."
+      },
+      "faq": {
+        "q1": "Are tables converted?",
+        "a1": "Yes, as GitHub-flavoured Markdown tables. A table with no header row gets its first row promoted, since Markdown tables require one.",
+        "q2": "What about images?",
+        "a2": "They come through as embedded data URIs. That keeps the file self-contained but makes it long, so you may want to pull them out into real files afterwards.",
+        "q3": "What cannot be represented?",
+        "a3": "Underline, coloured text, fonts and precise spacing have no Markdown equivalent. Underlined text keeps its words but loses the underline rather than being dropped.",
+        "q4": "Which Markdown flavour is it?",
+        "a4": "CommonMark with GitHub tables — what GitHub, GitLab and most static site generators expect."
+      }
+    },
+    "markdown-to-html": {
+      "name": "Markdown to HTML",
+      "short": "Render Markdown as HTML, with a live preview.",
+      "title": "Markdown to HTML — free online converter with preview",
+      "description": "Free online Markdown to HTML converter with a live preview. Supports GitHub-flavoured tables. Runs entirely in your browser.",
+      "intro": "Paste Markdown and get HTML, with a preview so you can see what it will look like. Nothing is sent anywhere, so it is safe for drafts you would not paste into a random site.",
+      "howTo": {
+        "step1": "Paste or type your Markdown on the left.",
+        "step2": "The HTML appears on the right as you type.",
+        "step3": "Switch to Preview to see it rendered, then copy or download."
+      },
+      "faq": {
+        "q1": "Which flavour is supported?",
+        "a1": "CommonMark plus GitHub extensions: tables, strikethrough, task lists and fenced code blocks.",
+        "q2": "Is the preview safe?",
+        "a2": "The preview is sanitised before it is rendered, so a script tag in your input cannot execute on the page. The HTML output itself is left exactly as generated.",
+        "q3": "Are line breaks preserved?",
+        "a3": "Single newlines are treated as spaces, as CommonMark specifies. Leave a blank line between paragraphs, or end a line with two spaces to force a break.",
+        "q4": "Is my text uploaded?",
+        "a4": "No. The conversion runs in your browser and nothing leaves the page."
+      }
+    },
+    "html-to-markdown": {
+      "name": "HTML to Markdown",
+      "short": "Convert HTML into clean Markdown.",
+      "title": "HTML to Markdown — free online converter",
+      "description": "Free online HTML to Markdown converter that handles tables, lists and links. Runs in your browser, nothing is uploaded.",
+      "intro": "Paste HTML — from a page, an email or an export — and get Markdown back. Scripts and styles are dropped, and the structure is kept.",
+      "howTo": {
+        "step1": "Paste your HTML on the left.",
+        "step2": "The Markdown appears on the right as you type.",
+        "step3": "Copy it, or download it as a .md file."
+      },
+      "faq": {
+        "q1": "What happens to scripts and styles?",
+        "a1": "They are removed entirely. Some converters pass the contents of a script tag through as text, which drops JavaScript source into the middle of your document.",
+        "q2": "Are tables converted?",
+        "a2": "Yes, into GitHub-flavoured Markdown tables. Cells containing a pipe are escaped so the table does not break.",
+        "q3": "What if the HTML is messy?",
+        "a3": "Unclosed and misnested tags are handled the way a browser handles them, so pasted page source usually converts without complaint.",
+        "q4": "What cannot be converted?",
+        "a4": "Anything Markdown has no syntax for: colours, fonts, alignment, nested layout. That content is kept as plain text rather than dropped."
+      }
+    },
+    "docx-to-pdf": {
+      "name": "Word to PDF",
+      "short": "Convert a .docx to PDF without uploading it.",
+      "title": "Word to PDF — free online converter, no upload",
+      "description": "Convert a Word .docx document to PDF entirely in your browser. Cyrillic is fully supported. The file is never uploaded.",
+      "intro": "Every other Word-to-PDF site uploads your document to a server. This one does not — the conversion happens on your device, which matters when the document is a contract or a passport scan.",
+      "howTo": {
+        "step1": "Add the .docx file.",
+        "step2": "Choose a page size and orientation.",
+        "step3": "Press Convert to PDF and download the result."
+      },
+      "faq": {
+        "q1": "Will it look exactly like it does in Word?",
+        "a1": "No, and it is worth being clear about that. The document is laid out again rather than photographed, so headings, emphasis, lists, tables and images all come across, but page breaks fall where the new layout puts them. For an exact copy, print to PDF from Word itself.",
+        "q2": "Does Russian and Uzbek text work?",
+        "a2": "Yes. The font embedded in the output covers Russian, Ukrainian and Uzbek Cyrillic, including Ўў, Ҳҳ, Ққ and Ғғ, as well as ₽ and №.",
+        "q3": "What is not carried over?",
+        "a3": "Headers and footers, footnotes, page numbering, columns and text boxes. Those are tied to Word's own pagination, which is not reproduced here.",
+        "q4": "Is the text selectable in the PDF?",
+        "a4": "Yes. It is real text, so it can be selected, searched and copied — the file is not a picture of your document."
+      }
+    },
+    "csv-to-json": {
+      "name": "CSV to JSON",
+      "short": "Convert a spreadsheet export into JSON.",
+      "title": "CSV to JSON — free online converter, no upload",
+      "description": "Convert CSV to JSON in your browser. Detects the separator and the character set automatically, including windows-1251. Nothing is uploaded.",
+      "intro": "Drop in a CSV and get JSON. The separator and the character set are both worked out for you, which is what usually goes wrong with files exported from Excel in a Russian locale.",
+      "howTo": {
+        "step1": "Add the CSV file.",
+        "step2": "Check the preview and whether the first row is a header.",
+        "step3": "Copy the JSON or save it as a file."
+      },
+      "faq": {
+        "q1": "My file uses semicolons. Will that work?",
+        "a1": "Yes. Excel in a Russian or Uzbek locale writes semicolons, because the comma is the decimal separator. The separator is detected from the file rather than assumed, and tabs and pipes work too.",
+        "q2": "What about Cyrillic that comes out as gibberish?",
+        "a2": "That means the file is windows-1251, not UTF-8. The character set is detected the same way the separator is, so those files are read correctly rather than turning into question marks.",
+        "q3": "Why is my phone number now a number?",
+        "a3": "It should not be. Values with leading zeros are deliberately kept as text, since dropping the zero from a postcode or an account number corrupts it. Turn off the typed values option to keep everything as strings.",
+        "q4": "What happens to duplicate column names?",
+        "a4": "The second one gets a suffix. Without that, one column would silently overwrite the other."
+      }
+    },
+    "json-to-csv": {
+      "name": "JSON to CSV",
+      "short": "Flatten JSON into a spreadsheet-ready CSV.",
+      "title": "JSON to CSV — free online converter with nested field support",
+      "description": "Convert JSON to CSV in your browser. Nested objects become dotted columns and every key gets a column. Nothing is uploaded.",
+      "intro": "Paste an array of objects and get a CSV you can open in Excel. Nested objects are flattened into dotted column names, and a key that only appears in some records still gets its own column.",
+      "howTo": {
+        "step1": "Paste your JSON, or drop in a .json file.",
+        "step2": "Check the preview and choose a separator.",
+        "step3": "Save the CSV."
+      },
+      "faq": {
+        "q1": "What happens to nested objects?",
+        "a1": "They become dotted columns: {'{'}\"user\": {'{'}\"name\": \"Ivan\"{'}'}{'}'} becomes a column called user.name. That is what spreadsheet exports do, and what most importers expect back.",
+        "q2": "What if my records have different keys?",
+        "a2": "Every key found anywhere gets a column, in the order it first appears. Records missing a key get an empty cell rather than being shifted.",
+        "q3": "Should I add the BOM for Excel?",
+        "a3": "Yes, if you are going to open it in Excel on Windows. Without it Excel reads a UTF-8 file as the local code page and Cyrillic comes out as gibberish. Leave it off for anything you are going to process with code.",
+        "q4": "What about arrays inside a record?",
+        "a4": "An array of simple values is joined with commas into one cell. Anything more complicated is written as JSON in the cell, so nothing is lost."
+      }
+    },
+    "csv-to-excel": {
+      "name": "CSV to Excel",
+      "short": "Turn a CSV into a real .xlsx workbook.",
+      "title": "CSV to Excel — convert CSV to XLSX online, free",
+      "description": "Convert CSV to a real Excel .xlsx file in your browser. Detects the separator and character set, so Cyrillic is not mangled. Nothing is uploaded.",
+      "intro": "Save yourself the import wizard. This reads the CSV — working out the separator and the character set — and writes a proper .xlsx that opens with the columns already split.",
+      "howTo": {
+        "step1": "Add the CSV file.",
+        "step2": "Check the preview to confirm the columns split correctly.",
+        "step3": "Press Convert to Excel and download the workbook."
+      },
+      "faq": {
+        "q1": "Why not just open the CSV in Excel?",
+        "a1": "Because Excel guesses, and on a Russian-locale machine it usually guesses wrong — one column of text, or Cyrillic turned into gibberish. This does the detection first and hands Excel a file with nothing left to guess.",
+        "q2": "Are my long numbers safe?",
+        "a2": "Values are written as text as they appeared in the CSV, so a long account number is not rewritten in scientific notation.",
+        "q3": "Is it a real .xlsx?",
+        "a3": "Yes, a genuine Excel workbook, not a CSV with the extension changed. It opens in Excel, LibreOffice and Google Sheets.",
+        "q4": "Is my file uploaded?",
+        "a4": "No. It is read and written in your browser."
+      }
+    },
+    "excel-to-csv": {
+      "name": "Excel to CSV",
+      "short": "Export a sheet from an .xlsx as CSV.",
+      "title": "Excel to CSV — convert XLSX to CSV online, free",
+      "description": "Convert an Excel .xlsx sheet to CSV in your browser, with a choice of separator and a BOM for Excel. Nothing is uploaded.",
+      "intro": "Pick a sheet from a workbook and export it as CSV, choosing the separator yourself instead of accepting whatever your locale decides.",
+      "howTo": {
+        "step1": "Add the .xlsx file.",
+        "step2": "Choose the sheet and the separator.",
+        "step3": "Save the CSV."
+      },
+      "faq": {
+        "q1": "Can I export more than one sheet?",
+        "a1": "One at a time — CSV is a single table by definition. Pick each sheet from the list and save it separately.",
+        "q2": "What happens to dates and formulas?",
+        "a2": "You get the value as it was displayed, not the formula behind it or the serial number underneath. That is what makes the export match what you saw in Excel.",
+        "q3": "Which separator should I choose?",
+        "a3": "Comma for anything that will be read by code. Semicolon if it needs to open cleanly in Excel on a Russian or Uzbek machine.",
+        "q4": "Why the BOM option?",
+        "a4": "Excel on Windows assumes the local code page unless a UTF-8 file starts with a byte-order mark. With Cyrillic in the file, leaving it off is the usual cause of gibberish."
+      }
+    },
+    "excel-to-json": {
+      "name": "Excel to JSON",
+      "short": "Convert a spreadsheet sheet into JSON.",
+      "title": "Excel to JSON — convert XLSX to JSON online, free",
+      "description": "Convert an Excel sheet to JSON in your browser. Choose the sheet, use the first row as keys, and keep numbers as numbers. Nothing is uploaded.",
+      "intro": "Turn a sheet into an array of objects, using the header row as the keys. Useful for getting a spreadsheet someone sent you into a form your code can read.",
+      "howTo": {
+        "step1": "Add the .xlsx file.",
+        "step2": "Choose the sheet and confirm the header row.",
+        "step3": "Copy the JSON or save it as a file."
+      },
+      "faq": {
+        "q1": "Which sheet is used?",
+        "a1": "The first one, unless you pick another from the list. Only the selected sheet is converted.",
+        "q2": "Are numbers converted to numbers?",
+        "a2": "Yes by default, except for values with leading zeros, which stay text so that postcodes and account numbers survive. Turn the option off to keep everything as strings.",
+        "q3": "How are merged cells handled?",
+        "a3": "The value appears in the first cell of the merged range and the rest are empty, which is how the file itself stores it.",
+        "q4": "What about empty rows?",
+        "a4": "Completely empty rows are skipped rather than becoming objects with no values in them."
+      }
+    },
+    "json-to-excel": {
+      "name": "JSON to Excel",
+      "short": "Turn JSON into an .xlsx workbook.",
+      "title": "JSON to Excel — convert JSON to XLSX online, free",
+      "description": "Convert JSON into a real Excel .xlsx file in your browser. Nested objects become dotted columns. Nothing is uploaded.",
+      "intro": "Paste an array of objects and get an Excel file. Handy for handing API output to someone who works in spreadsheets rather than JSON.",
+      "howTo": {
+        "step1": "Paste your JSON, or drop in a .json file.",
+        "step2": "Check the preview.",
+        "step3": "Press Convert to Excel and download the workbook."
+      },
+      "faq": {
+        "q1": "What shape should the JSON be?",
+        "a1": "An array of objects works best — one row per object. A single object becomes one row, and an array of plain values becomes a single column.",
+        "q2": "What about nested data?",
+        "a2": "Nested objects are flattened into dotted columns. Arrays of simple values are joined into one cell; anything deeper is written as JSON in the cell.",
+        "q3": "Does Cyrillic survive?",
+        "a3": "Yes. The .xlsx format stores text as UTF-8, so there is no character set to get wrong.",
+        "q4": "Is it a real Excel file?",
+        "a4": "Yes, a genuine .xlsx workbook that opens in Excel, LibreOffice and Google Sheets."
+      }
+    },
+    "csv-to-pdf": {
+      "name": "CSV to PDF",
+      "short": "Turn a CSV into a printable table.",
+      "title": "CSV to PDF — convert a spreadsheet to a PDF table, free",
+      "description": "Convert CSV to a formatted PDF table in your browser, with a repeating header and Cyrillic support. Nothing is uploaded.",
+      "intro": "Make a CSV printable. The result is a real table with a header that repeats on every page, not a screenshot, and the text stays selectable.",
+      "howTo": {
+        "step1": "Add the CSV file.",
+        "step2": "Choose page size, orientation and font size.",
+        "step3": "Press Create PDF and download it."
+      },
+      "faq": {
+        "q1": "My table is too wide. What do I do?",
+        "a1": "Switch to landscape, or A3 for a very wide table, and drop the font size. The tool suggests landscape once there are more than eight columns.",
+        "q2": "Does Cyrillic print correctly?",
+        "a2": "Yes. The embedded font covers Russian and Uzbek Cyrillic, so nothing comes out as empty boxes.",
+        "q3": "Is the header repeated on every page?",
+        "a3": "Yes, if the first row is marked as a header. On a long table that is the difference between a usable printout and an unreadable one.",
+        "q4": "Can I select the text in the PDF?",
+        "a4": "Yes. Every cell is real text, so the PDF can be searched and copied from."
+      }
+    },
+    "excel-to-pdf": {
+      "name": "Excel to PDF",
+      "short": "Print a spreadsheet sheet as a PDF table.",
+      "title": "Excel to PDF — convert XLSX to PDF online, free",
+      "description": "Convert an Excel sheet to a formatted PDF table in your browser, with a repeating header and Cyrillic support. Nothing is uploaded.",
+      "intro": "Turn a sheet into a clean PDF table without opening Excel, and without uploading a spreadsheet that may hold prices, salaries or client names.",
+      "howTo": {
+        "step1": "Add the .xlsx file.",
+        "step2": "Choose the sheet, then page size and orientation.",
+        "step3": "Press Create PDF and download it."
+      },
+      "faq": {
+        "q1": "Does it look like Excel's own print output?",
+        "a1": "No. This lays out a clean table from the cell values — it does not reproduce Excel's fonts, colours, borders, merged cells or print areas. For an exact copy, print to PDF from Excel.",
+        "q2": "What about charts and images?",
+        "a2": "They are not included. Only cell values are converted.",
+        "q3": "Which sheet is used?",
+        "a3": "The first, unless you pick another. One sheet per PDF.",
+        "q4": "What about dates and formulas?",
+        "a4": "You get the displayed value, which is what you would want on a printout — the date as shown, not the number behind it."
+      }
+    },
+    "pdf-grayscale": {
+      "name": "Grayscale PDF",
+      "short": "Make a PDF print in black and white.",
+      "title": "Grayscale PDF — convert a PDF to black and white online, free",
+      "description": "Convert a PDF to grayscale in your browser without rasterising it. The text stays selectable and the file barely grows. Nothing is uploaded.",
+      "intro": "Turn a colour PDF grey for printing. Unlike tools that render every page to an image, this keeps the text as text — so the file stays small, searchable and sharp.",
+      "howTo": {
+        "step1": "Add the PDF.",
+        "step2": "Press Convert to grayscale.",
+        "step3": "Download the result and print it."
+      },
+      "faq": {
+        "q1": "Is the colour actually removed?",
+        "a1": "No, and this is the important part. The colour is switched off for display and printing, but the original colour data is still inside the file. Do not use this to redact colour-coded information — use it to save ink.",
+        "q2": "Why not just print in black and white?",
+        "a2": "You can, when you control the printer. This is for when you do not: sending a file to a print shop, a colleague, or a system that charges by the colour page.",
+        "q3": "Does the text stay selectable?",
+        "a3": "Yes. The page is not converted to an image, so text remains selectable and searchable, and the file size hardly changes.",
+        "q4": "Will every viewer show it in grey?",
+        "a4": "Every current viewer and printer will. The effect relies on a standard PDF blend mode, and a very old viewer that ignores blend modes would show the original colours."
+      }
+    },
+    "scan-to-pdf": {
+      "name": "Photos to scanned PDF",
+      "short": "Turn phone photos of a document into a clean PDF.",
+      "title": "Photo to PDF scanner — free online, no app needed",
+      "description": "Turn photos of a document into a clean, scan-like PDF in your browser. Whitens the paper and darkens the text. Nothing is uploaded.",
+      "intro": "Photograph a document with your phone and get a PDF that looks scanned rather than photographed. The clean-up pass whitens the paper and darkens the text, which is what separates this from simply putting photos in a PDF.",
+      "howTo": {
+        "step1": "Add your photos — all of them at once.",
+        "step2": "Drag them into page order and choose a clean-up mode.",
+        "step3": "Press Create PDF and download it."
+      },
+      "faq": {
+        "q1": "What does Enhance actually do?",
+        "a1": "It finds where the paper and the ink sit in the image's brightness range and stretches that range to full black and white. That is what turns a grey, unevenly lit photo into something that reads as a scan.",
+        "q2": "When should I keep the colour?",
+        "a2": "For anything where colour carries meaning — a stamp, a coloured signature, a certificate. Enhance is for printed black text on white paper.",
+        "q3": "Does it straighten the page?",
+        "a3": "Not yet. Hold the phone parallel to the page and fill the frame; the clean-up handles lighting, not perspective.",
+        "q4": "Are my photos uploaded?",
+        "a4": "No. Everything happens on your device, which is the point when you are photographing a passport or a contract."
+      }
     }
   },
   "wordCounter": {
@@ -1313,11 +1787,137 @@
     "lessThanAMinute": "under a minute",
     "clear": "Clear",
     "copy": "Copy text",
-    "copied": "Copied"
+    "copied": "Copied",
+    "chooseFile": "Load from a file",
+    "loading": "Reading…",
+    "loadedFrom": "Loaded from {name}"
   },
   "error": {
     "notFoundTitle": "Page not found",
     "notFoundBody": "That tool does not exist, or is not available in this language yet.",
     "backHome": "Back to all tools"
+  },
+  "fixEncoding": {
+    "mode": {
+      "text": "Paste text",
+      "file": "Upload a file"
+    },
+    "inputLabel": "Broken text",
+    "outputLabel": "Repaired text",
+    "trySample": "Try an example",
+    "looksFine": "This text already looks correct, so nothing was changed.",
+    "readAs": "{actual} read as {misread}",
+    "otherReadings": "Not right? Try another reading",
+    "copy": "Copy",
+    "copied": "Copied",
+    "detected": "Character set: {encoding}",
+    "preview": "Preview",
+    "saveUtf8": "Save as UTF-8"
+  },
+  "ocr": {
+    "languages": "Languages in the image",
+    "language": {
+      "eng": "English",
+      "rus": "Russian",
+      "uzb": "Uzbek (Latin)",
+      "uzb_cyrl": "Uzbek (Cyrillic)"
+    },
+    "downloadNote": "About {size} MB of language data is downloaded the first time, then cached.",
+    "pickOne": "Choose at least one language.",
+    "action": "Extract text",
+    "working": "Reading…",
+    "result": "Extracted text",
+    "confidence": "Confidence {value}%",
+    "lowConfidence": "Confidence is low. Check the result against the image — a sharper or larger photo usually helps more than anything else.",
+    "noText": "No text was found. Try a sharper image, or check that the right language is selected.",
+    "errorGeneric": "The image could not be read. Try a PNG or JPG.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "download": "Download .txt"
+  },
+  "docs": {
+    "working": "Converting…",
+    "errorRead": "This document could not be read.",
+    "errorConvert": "The document could not be converted.",
+    "empty": "This document appears to be empty.",
+    "legacyDoc": "This is an old .doc file, not .docx. No browser can read that format — open it in Word or LibreOffice and save it as .docx first.",
+    "notDocx": "This does not look like a .docx file.",
+    "result": "Result",
+    "copy": "Copy",
+    "copied": "Copied",
+    "saveFile": "Save as file",
+    "action": {
+      "text": "Convert to text",
+      "html": "Convert to HTML",
+      "markdown": "Convert to Markdown",
+      "pdf": "Convert to PDF"
+    },
+    "pageSize": "Page size",
+    "orientation": "Orientation",
+    "portrait": "Portrait",
+    "landscape": "Landscape",
+    "layoutNotice": "The document is laid out again rather than photographed, so the text stays selectable. Page breaks will fall where the new layout puts them, not where Word put them."
+  },
+  "markdown": {
+    "input": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "output": {
+      "markdown": "HTML",
+      "html": "Markdown"
+    },
+    "trySample": "Try an example",
+    "showPreview": "Preview",
+    "showSource": "Source",
+    "copy": "Copy",
+    "copied": "Copied",
+    "download": "Download",
+    "clear": "Clear",
+    "errorGeneric": "That could not be converted."
+  },
+  "table": {
+    "jsonInput": "JSON",
+    "jsonOutput": "JSON",
+    "detected": "Read as {encoding}, separator \"{delimiter}\"",
+    "detectedEncoding": "Read as {encoding}",
+    "sheet": "Sheet",
+    "hasHeader": "First row is a header",
+    "typedValues": "Numbers and true/false as values, not text",
+    "delimiter": "Separator",
+    "excelBom": "Add BOM for Excel",
+    "preview": "{rows} rows × {columns} columns",
+    "previewTruncated": "Showing the first 21 of {total} rows. All of them are converted.",
+    "notTabular": "This JSON is not a list of objects, so the columns are a best guess.",
+    "invalidJson": "That is not valid JSON: {message}",
+    "errorRead": "This file could not be read.",
+    "errorWrite": "The file could not be created.",
+    "working": "Converting…",
+    "action": {
+      "csv": "Convert to CSV",
+      "json": "Convert to JSON",
+      "xlsx": "Convert to Excel",
+      "pdf": "Create PDF"
+    },
+    "fontSize": "Font size",
+    "repeatHeader": "Repeat header on each page",
+    "zebra": "Shade alternate rows",
+    "wideHint": "{columns} columns is a lot for a portrait page.",
+    "useLandscape": "Use landscape"
+  },
+  "scan": {
+    "mode": "Clean-up",
+    "modes": {
+      "enhance": "Enhance",
+      "grayscale": "Grayscale",
+      "colour": "Keep colour"
+    },
+    "modeHint": {
+      "enhance": "Whitens the paper and darkens the text. Best for photos of printed pages.",
+      "grayscale": "Converts to grey without adjusting brightness.",
+      "colour": "Leaves the photos exactly as they are."
+    },
+    "progress": "Processing {percent}%",
+    "action": "Create PDF from {n} photos"
   }
 }

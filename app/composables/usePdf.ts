@@ -611,6 +611,69 @@ export async function unlockPdf(file: HeldFile, password: string): Promise<Uint8
   return await out.save()
 }
 
+/* ------------------------------------------------------------------ */
+/* Grayscale                                                           */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Convert a PDF to grayscale without rasterising it.
+ *
+ * The obvious implementation — render each page to a canvas, desaturate,
+ * rebuild — destroys the text layer: the result is no longer selectable or
+ * searchable and is usually larger. This instead paints a mid-grey rectangle
+ * over each page through a graphics state whose blend mode is `Saturation`.
+ *
+ * That blend mode takes the *saturation* of the source and the hue and
+ * luminosity of what is underneath. The source is grey, so its saturation is
+ * zero, and every colour beneath collapses to its own brightness. Text stays
+ * text, vectors stay vectors, and the file barely grows.
+ *
+ * The catch is honest and worth stating on the page: this is a display-level
+ * transformation. A viewer that ignores blend modes shows the original colours,
+ * and the colour data is still in the file. It is the right tool for printing
+ * and for cutting ink cost, not for removing colour information for good.
+ */
+export async function grayscalePdf(file: HeldFile): Promise<Uint8Array> {
+  const {
+    PDFDocument,
+    PDFName,
+    pushGraphicsState,
+    popGraphicsState,
+    setGraphicsState,
+    setFillingGrayscaleColor,
+    rectangle,
+    fill
+  } = await loadPdfLib()
+
+  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+
+  for (const page of doc.getPages()) {
+    // The MediaBox rather than getSize(), because its origin is not always
+    // (0, 0) and a rectangle drawn from zero would then sit off the page.
+    const { x, y, width, height } = page.getMediaBox()
+
+    const state = doc.context.obj({
+      Type: 'ExtGState',
+      BM: PDFName.of('Saturation'),
+      // Fully opaque: the blend mode does the work, not transparency.
+      ca: 1,
+      CA: 1
+    })
+    const name = page.node.newExtGState('GSgray', state)
+
+    page.pushOperators(
+      pushGraphicsState(),
+      setGraphicsState(name),
+      setFillingGrayscaleColor(0.5),
+      rectangle(x, y, width, height),
+      fill(),
+      popGraphicsState()
+    )
+  }
+
+  return await doc.save()
+}
+
 /**
  * `pdf-lib` accepts an ArrayBuffer. A Uint8Array from the store may be a view
  * over a larger buffer, so slice to exactly its own bytes.

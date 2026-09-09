@@ -572,7 +572,285 @@ export const tools: ToolDef[] = [
       ru: 'schetchik-slov',
       uz: 'soz-hisoblagich'
     },
-    related: []
+    related: ['docx-word-count']
+  },
+
+  /* ---------------------------------------------------------------- */
+  /* Wave 3 — tier 3                                                   */
+  /* ---------------------------------------------------------------- */
+
+  // The Russian slug is the word people actually search for. "Кракозябры" is
+  // the everyday name for mojibake and has no English equivalent worth
+  // translating; a literal rendering of "fix broken text" would rank for
+  // nothing.
+  {
+    id: 'fix-encoding',
+    category: 'text',
+    group: 'repair',
+    component: 'text/FixEncoding',
+    icon: 'wrench',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: {
+      en: 'fix-broken-text',
+      ru: 'ispravit-krakozyabry',
+      uz: 'buzilgan-matnni-tuzatish'
+    },
+    related: ['word-counter', 'csv-to-json']
+  },
+  {
+    id: 'image-to-text',
+    category: 'text',
+    group: 'extract',
+    component: 'text/Ocr',
+    icon: 'scan-text',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: {
+      en: 'image-to-text',
+      ru: 'raspoznat-tekst-s-kartinki',
+      uz: 'rasmdan-matn-olish'
+    },
+    related: ['scan-to-pdf', 'word-counter'],
+    heavy: true,
+    acceptedTypes: ['image/png', 'image/jpeg', 'image/webp'],
+    maxFiles: 1
+  },
+  {
+    id: 'docx-word-count',
+    category: 'text',
+    group: 'analyze',
+    component: 'text/WordCounter',
+    icon: 'file-text',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: {
+      en: 'word-count-docx',
+      ru: 'schetchik-slov-word',
+      uz: 'word-soz-hisoblagich'
+    },
+    related: ['word-counter', 'docx-to-text'],
+    config: { documents: true }
+  },
+
+  // One component, three pages — plain text, HTML and Markdown are three
+  // different queries for the same conversion.
+  {
+    id: 'docx-to-text',
+    category: 'converters',
+    group: 'documents',
+    component: 'converters/DocxConvert',
+    icon: 'file-text',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'docx-to-text', ru: 'docx-v-tekst', uz: 'docx-dan-matn' },
+    related: ['docx-to-html', 'docx-to-pdf'],
+    config: { to: 'text' },
+    acceptedTypes: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+    maxFiles: 1
+  },
+  {
+    id: 'docx-to-html',
+    category: 'converters',
+    group: 'documents',
+    component: 'converters/DocxConvert',
+    icon: 'code',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'docx-to-html', ru: 'docx-v-html', uz: 'docx-dan-html' },
+    related: ['docx-to-markdown', 'docx-to-text'],
+    config: { to: 'html' },
+    acceptedTypes: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+    maxFiles: 1
+  },
+  {
+    id: 'docx-to-markdown',
+    category: 'converters',
+    group: 'documents',
+    component: 'converters/DocxConvert',
+    icon: 'hash',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'docx-to-markdown', ru: 'docx-v-markdown', uz: 'docx-dan-markdown' },
+    related: ['docx-to-html', 'markdown-to-html'],
+    config: { to: 'markdown' },
+    acceptedTypes: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+    maxFiles: 1
+  },
+  {
+    id: 'markdown-to-html',
+    category: 'converters',
+    group: 'markup',
+    component: 'converters/MarkdownConvert',
+    icon: 'code',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'markdown-to-html', ru: 'markdown-v-html', uz: 'markdown-dan-html' },
+    related: ['html-to-markdown', 'docx-to-markdown'],
+    config: { from: 'markdown' }
+  },
+  {
+    id: 'html-to-markdown',
+    category: 'converters',
+    group: 'markup',
+    component: 'converters/MarkdownConvert',
+    icon: 'hash',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'html-to-markdown', ru: 'html-v-markdown', uz: 'html-dan-markdown' },
+    related: ['markdown-to-html', 'docx-to-markdown'],
+    config: { from: 'html' }
+  },
+
+  // "Word to PDF" is the query, not "DOCX to PDF" — the slug follows the
+  // search, the tool id follows the format.
+  {
+    id: 'docx-to-pdf',
+    category: 'pdf',
+    group: 'convert-to',
+    component: 'pdf/DocxToPdf',
+    icon: 'file-type',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'word-to-pdf', ru: 'word-v-pdf', uz: 'word-dan-pdf' },
+    related: ['docx-to-text', 'pdf-merge'],
+    heavy: true,
+    acceptedTypes: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+    maxFiles: 1
+  },
+
+  // Six pages over the CSV / JSON / Excel triangle, one component.
+  {
+    id: 'csv-to-json',
+    category: 'converters',
+    group: 'data',
+    component: 'converters/TableConvert',
+    icon: 'braces',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'csv-to-json', ru: 'csv-v-json', uz: 'csv-dan-json' },
+    related: ['json-to-csv', 'csv-to-excel'],
+    config: { from: 'csv', to: 'json' },
+    maxFiles: 1
+  },
+  {
+    id: 'json-to-csv',
+    category: 'converters',
+    group: 'data',
+    component: 'converters/TableConvert',
+    icon: 'table',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'json-to-csv', ru: 'json-v-csv', uz: 'json-dan-csv' },
+    related: ['csv-to-json', 'json-to-excel'],
+    config: { from: 'json', to: 'csv' },
+    maxFiles: 1
+  },
+  {
+    id: 'csv-to-excel',
+    category: 'converters',
+    group: 'data',
+    component: 'converters/TableConvert',
+    icon: 'table',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'csv-to-excel', ru: 'csv-v-excel', uz: 'csv-dan-excel' },
+    related: ['excel-to-csv', 'csv-to-json'],
+    config: { from: 'csv', to: 'xlsx' },
+    maxFiles: 1
+  },
+  {
+    id: 'excel-to-csv',
+    category: 'converters',
+    group: 'data',
+    component: 'converters/TableConvert',
+    icon: 'table',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'excel-to-csv', ru: 'excel-v-csv', uz: 'excel-dan-csv' },
+    related: ['csv-to-excel', 'excel-to-json'],
+    config: { from: 'xlsx', to: 'csv' },
+    maxFiles: 1
+  },
+  {
+    id: 'excel-to-json',
+    category: 'converters',
+    group: 'data',
+    component: 'converters/TableConvert',
+    icon: 'braces',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'excel-to-json', ru: 'excel-v-json', uz: 'excel-dan-json' },
+    related: ['json-to-excel', 'excel-to-csv'],
+    config: { from: 'xlsx', to: 'json' },
+    maxFiles: 1
+  },
+  {
+    id: 'json-to-excel',
+    category: 'converters',
+    group: 'data',
+    component: 'converters/TableConvert',
+    icon: 'table',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'json-to-excel', ru: 'json-v-excel', uz: 'json-dan-excel' },
+    related: ['excel-to-json', 'json-to-csv'],
+    config: { from: 'json', to: 'xlsx' },
+    maxFiles: 1
+  },
+
+  {
+    id: 'csv-to-pdf',
+    category: 'pdf',
+    group: 'convert-to',
+    component: 'pdf/TableToPdf',
+    icon: 'table',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'csv-to-pdf', ru: 'csv-v-pdf', uz: 'csv-dan-pdf' },
+    related: ['excel-to-pdf', 'csv-to-excel'],
+    config: { from: 'csv' },
+    maxFiles: 1
+  },
+  {
+    id: 'excel-to-pdf',
+    category: 'pdf',
+    group: 'convert-to',
+    component: 'pdf/TableToPdf',
+    icon: 'table',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'excel-to-pdf', ru: 'excel-v-pdf', uz: 'excel-dan-pdf' },
+    related: ['csv-to-pdf', 'excel-to-csv'],
+    config: { from: 'xlsx' },
+    maxFiles: 1
+  },
+  {
+    id: 'pdf-grayscale',
+    category: 'pdf',
+    group: 'edit',
+    component: 'pdf/Grayscale',
+    icon: 'contrast',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'grayscale-pdf', ru: 'pdf-v-chernobelyj', uz: 'pdf-oq-qora' },
+    related: ['pdf-watermark', 'pdf-info'],
+    acceptedTypes: ['application/pdf'],
+    maxFiles: 1
+  },
+  {
+    id: 'scan-to-pdf',
+    category: 'pdf',
+    group: 'convert-to',
+    component: 'pdf/ScanToPdf',
+    icon: 'scan',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'scan-to-pdf', ru: 'foto-dokumenta-v-pdf', uz: 'hujjat-rasmini-pdf' },
+    related: ['jpg-to-pdf', 'image-to-text'],
+    heavy: true,
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/heic'],
+    maxFiles: 50
   }
 ]
 

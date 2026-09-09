@@ -158,6 +158,115 @@ export async function convertImage(
   return await compressImage(file, format, quality)
 }
 
+/* ------------------------------------------------------------------ */
+/* Scan clean-up                                                        */
+/* ------------------------------------------------------------------ */
+
+export type ScanMode = 'colour' | 'grayscale' | 'enhance'
+
+/** Ignore the darkest and lightest few per cent when finding the black and white points. */
+const BLACK_PERCENTILE = 0.04
+const WHITE_PERCENTILE = 0.92
+
+/**
+ * Clean up a photograph of a document.
+ *
+ * A phone photo of a printed page is a grey, unevenly lit rectangle. What
+ * fixes it is not sharpening but an auto-levels pass: find where the paper and
+ * the ink actually sit in the histogram, then stretch that range to the full
+ * scale so the paper goes white and the text goes black.
+ *
+ * The percentiles matter. Taking the true minimum and maximum would key the
+ * stretch to a single dust speck or a highlight, so a few per cent at each end
+ * are discarded, which is what makes this robust on real photographs.
+ */
+export async function enhanceScan(
+  file: HeldFile,
+  mode: ScanMode,
+  quality = 0.85
+): Promise<ImageResult> {
+  if (mode === 'colour') {
+    const converted = await compressImage(file, 'jpeg', quality)
+    return converted
+  }
+
+  const bitmap = await decode(file.data)
+  const canvas = document.createElement('canvas')
+  canvas.width = bitmap.width
+  canvas.height = bitmap.height
+
+  const context = canvas.getContext('2d', { willReadFrequently: true })
+  if (!context) {
+    bitmap.close()
+    throw new Error('canvas unavailable')
+  }
+
+  context.drawImage(bitmap, 0, 0)
+  bitmap.close()
+
+  const image = context.getImageData(0, 0, canvas.width, canvas.height)
+  const pixels = image.data
+  const histogram = new Uint32Array(256)
+
+  // Rec. 601 luma, which is what "convert to grayscale" means to a viewer.
+  for (let i = 0; i < pixels.length; i += 4) {
+    const grey = (pixels[i]! * 299 + pixels[i + 1]! * 587 + pixels[i + 2]! * 114) / 1000
+    const level = grey < 0 ? 0 : grey > 255 ? 255 : Math.round(grey)
+    pixels[i] = level
+    pixels[i + 1] = level
+    pixels[i + 2] = level
+    histogram[level]!++
+  }
+
+  if (mode === 'enhance') {
+    const total = (pixels.length / 4) | 0
+    const blackTarget = total * BLACK_PERCENTILE
+    const whiteTarget = total * WHITE_PERCENTILE
+
+    let seen = 0
+    let black = 0
+    let white = 255
+    for (let level = 0; level < 256; level++) {
+      seen += histogram[level]!
+      if (black === 0 && seen >= blackTarget) black = level
+      if (seen >= whiteTarget) {
+        white = level
+        break
+      }
+    }
+
+    // A flat histogram means there is nothing to stretch — a blank page, or an
+    // image already at full contrast. Scaling it would only amplify noise.
+    const span = white - black
+    if (span > 8) {
+      const lookup = new Uint8Array(256)
+      for (let level = 0; level < 256; level++) {
+        const scaled = ((level - black) * 255) / span
+        lookup[level] = scaled < 0 ? 0 : scaled > 255 ? 255 : Math.round(scaled)
+      }
+      for (let i = 0; i < pixels.length; i += 4) {
+        const level = lookup[pixels[i]!]!
+        pixels[i] = level
+        pixels[i + 1] = level
+        pixels[i + 2] = level
+      }
+    }
+  }
+
+  context.putImageData(image, 0, 0)
+
+  const blob = await new Promise<Blob | null>(resolve =>
+    canvas.toBlob(resolve, MIME.jpeg, quality)
+  )
+  if (!blob) throw new Error('encode failed')
+
+  return {
+    data: new Uint8Array(await blob.arrayBuffer()),
+    width: canvas.width,
+    height: canvas.height
+  }
+}
+
 /**
  * Normalise anything the PDF embedder cannot take directly.
  *

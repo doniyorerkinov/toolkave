@@ -1,8 +1,54 @@
 <script setup lang="ts">
+import { docxToText, isDocx, isLegacyDoc } from '~/composables/useDocx'
+import { detectEncoding } from '~/utils/encoding'
+
+/**
+ * `documents` adds a file picker for .docx and .txt. Counting words in a Word
+ * document is a separate search query from counting pasted text, so it gets
+ * its own page — but it is the same counting logic, so it is a flag on this
+ * component rather than a second one.
+ */
+const props = defineProps<{ documents?: boolean }>()
+
 const { t } = useI18n()
 
 const text = ref('')
 const copied = ref(false)
+const loading = ref(false)
+const loadError = ref<string | null>(null)
+const loadedName = ref<string | null>(null)
+
+async function loadFile(event: Event) {
+  const input = event.target as HTMLInputElement
+  const file = input.files?.[0]
+  if (!file) return
+
+  loading.value = true
+  loadError.value = null
+  loadedName.value = null
+
+  try {
+    const data = new Uint8Array(await file.arrayBuffer())
+
+    if (isLegacyDoc(data)) {
+      loadError.value = t('docs.legacyDoc')
+    } else if (isDocx(data)) {
+      text.value = await docxToText(data)
+      loadedName.value = file.name
+    } else {
+      // A plain-text file may well be windows-1251, so detect rather than
+      // assume UTF-8 and count a page of replacement characters.
+      text.value = detectEncoding(data).best.text
+      loadedName.value = file.name
+    }
+  } catch {
+    loadError.value = t('docs.errorRead')
+  } finally {
+    loading.value = false
+    // Cleared so choosing the same file twice still fires a change event.
+    input.value = ''
+  }
+}
 
 /**
  * Counting is alphabet-independent: splitting on whitespace works the same for
@@ -60,6 +106,24 @@ async function copyText() {
 
 <template>
   <div>
+    <div v-if="props.documents" class="mb-3 space-y-2">
+      <label
+        class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+      >
+        <input
+          type="file"
+          accept=".docx,.txt,.md,.csv,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
+          class="sr-only"
+          @change="loadFile"
+        />
+        {{ loading ? t('wordCounter.loading') : t('wordCounter.chooseFile') }}
+      </label>
+      <p v-if="loadedName" class="text-xs text-slate-500">
+        {{ t('wordCounter.loadedFrom', { name: loadedName }) }}
+      </p>
+      <p v-if="loadError" class="text-sm text-red-700" role="alert">{{ loadError }}</p>
+    </div>
+
     <label for="wc-input" class="sr-only">{{ t('wordCounter.placeholder') }}</label>
     <textarea
       id="wc-input"

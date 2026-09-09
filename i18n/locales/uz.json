@@ -162,7 +162,11 @@
       "headerLabel": "Yuqori kolontitul matni",
       "footerLabel": "Pastki kolontitul matni",
       "alignLabel": "Tekislash",
-      "align": { "left": "Chapga", "center": "Markazga", "right": "O'ngga" },
+      "align": {
+        "left": "Chapga",
+        "center": "Markazga",
+        "right": "O'ngga"
+      },
       "fontSize": "Matn o'lchami: {n} pt",
       "unsupportedText": "Hozircha bu yerda faqat lotin harflari ishlaydi. Kirill uchun ichki shrift kerak, u hali mavjud emas.",
       "action": "Kolontitul qo'shish"
@@ -170,7 +174,12 @@
     "resize": {
       "current": "Joriy o'lcham",
       "targetLabel": "Quyidagiga o'zgartirish",
-      "presets": { "a4": "A4", "letter": "Letter", "legal": "Legal", "scale": "Foizda masshtab" },
+      "presets": {
+        "a4": "A4",
+        "letter": "Letter",
+        "legal": "Legal",
+        "scale": "Foizda masshtab"
+      },
       "scale": "Masshtab: {n}%",
       "fitNote": "Sahifalar mutanosib masshtablanadi va markazga joylashadi, shuning uchun hech narsa cho'zilmaydi va kesilmaydi. Albom sahifalar albom bo'lib qoladi.",
       "action": "PDF formatini o'zgartirish"
@@ -237,6 +246,11 @@
       },
       "action": "PDF yaratish",
       "errorUnsupported": "Fayllardan biri qo'llab-quvvatlanadigan rasm emas."
+    },
+    "grayscale": {
+      "pages": "Sahifalar: {n}",
+      "notice": "Rang oʻchiriladi, lekin olib tashlanmaydi — asl rang maʼlumoti faylda qoladi. Buni chop etish uchun ishlating, rangdan butunlay qutulish uchun emas.",
+      "action": "Oq-qora qilish"
     }
   },
   "image": {
@@ -248,14 +262,18 @@
     "quality": "Sifat: {n}%",
     "pngLossless": "PNG yo'qotishsiz format, sifat unga ta'sir qilmaydi.",
     "formatLabel": "Natija formati",
-    "compress": { "action": "Rasmni siqish" },
+    "compress": {
+      "action": "Rasmni siqish"
+    },
     "resize": {
       "width": "Kenglik (px)",
       "height": "Balandlik (px)",
       "keepRatio": "Nisbatni saqlash",
       "action": "O'lchamni o'zgartirish"
     },
-    "convert": { "action": "{format} ga o'girish" }
+    "convert": {
+      "action": "{format} ga o'girish"
+    }
   },
   "percent": {
     "modes": {
@@ -266,11 +284,26 @@
       "vat": "QQS"
     },
     "labels": {
-      "of": { "a": "Foiz", "b": "Qiymatdan" },
-      "what": { "a": "Bu son", "b": "Nimaning % i" },
-      "change": { "a": "Dan", "b": "Gacha" },
-      "discount": { "a": "Narx", "b": "Chegirma %" },
-      "vat": { "a": "Summa", "b": "Summa" }
+      "of": {
+        "a": "Foiz",
+        "b": "Qiymatdan"
+      },
+      "what": {
+        "a": "Bu son",
+        "b": "Nimaning % i"
+      },
+      "change": {
+        "a": "Dan",
+        "b": "Gacha"
+      },
+      "discount": {
+        "a": "Narx",
+        "b": "Chegirma %"
+      },
+      "vat": {
+        "a": "Summa",
+        "b": "Summa"
+      }
     },
     "resultOf": "{v} ning {p}% i",
     "resultWhat": "Foiz",
@@ -331,16 +364,39 @@
       "speed": "Tezlik"
     },
     "names": {
-      "mm": "Millimetr", "cm": "Santimetr", "m": "Metr", "km": "Kilometr",
-      "in": "Dyuym", "ft": "Fut", "yd": "Yard", "mi": "Mil",
-      "mg": "Milligramm", "g": "Gramm", "kg": "Kilogramm", "t": "Tonna",
-      "oz": "Untsiya", "lb": "Funt",
-      "c": "Selsiy", "f": "Farengeyt", "k": "Kelvin",
-      "cm2": "Kvadrat santimetr", "m2": "Kvadrat metr", "km2": "Kvadrat kilometr",
-      "ha": "Gektar", "ft2": "Kvadrat fut", "ac": "Akr",
-      "ml": "Millilitr", "l": "Litr", "m3": "Kub metr",
-      "gal": "Gallon (AQSh)", "qt": "Kvarta (AQSh)", "floz": "Suyuq untsiya (AQSh)",
-      "mps": "Metr/sekund", "kmh": "Kilometr/soat", "mph": "Mil/soat", "kn": "Uzel"
+      "mm": "Millimetr",
+      "cm": "Santimetr",
+      "m": "Metr",
+      "km": "Kilometr",
+      "in": "Dyuym",
+      "ft": "Fut",
+      "yd": "Yard",
+      "mi": "Mil",
+      "mg": "Milligramm",
+      "g": "Gramm",
+      "kg": "Kilogramm",
+      "t": "Tonna",
+      "oz": "Untsiya",
+      "lb": "Funt",
+      "c": "Selsiy",
+      "f": "Farengeyt",
+      "k": "Kelvin",
+      "cm2": "Kvadrat santimetr",
+      "m2": "Kvadrat metr",
+      "km2": "Kvadrat kilometr",
+      "ha": "Gektar",
+      "ft2": "Kvadrat fut",
+      "ac": "Akr",
+      "ml": "Millilitr",
+      "l": "Litr",
+      "m3": "Kub metr",
+      "gal": "Gallon (AQSh)",
+      "qt": "Kvarta (AQSh)",
+      "floz": "Suyuq untsiya (AQSh)",
+      "mps": "Metr/sekund",
+      "kmh": "Kilometr/soat",
+      "mph": "Mil/soat",
+      "kn": "Uzel"
     },
     "from": "Dan",
     "to": "Ga",
@@ -1299,6 +1355,424 @@
         "q5": "O'qish vaqti qanday hisoblanadi?",
         "a5": "O'qish vaqti taxminan daqiqasiga 200 so'z hisobidan chiqariladi — bu ekrandan o'qish uchun keng tarqalgan o'rtacha ko'rsatkich. Buni taxminiy deb qarang: zich texnik matn sekinroq, oddiy va tanish matn tezroq o'qiladi."
       }
+    },
+    "fix-encoding": {
+      "name": "Buzilgan matnni tuzatish",
+      "short": "Notoʻgʻri kodlashda oʻqilgan matnni tiklash.",
+      "title": "Buzilgan matnni tuzatish — onlayn, bepul, serverga yuklamasdan",
+      "description": "Notoʻgʻri kodlash tufayli tushunarsiz belgilarga aylangan matnni tiklaydigan bepul onlayn vosita. windows-1251, KOI8-R, CP866 va UTF-8 ni taniydi. Brauzerda ishlaydi.",
+      "intro": "windows-1251 da yozilgan fayl boshqa kodlashda ochilsa, rus matni ÐŸÑ€Ð¸Ð²ÐµÑ‚ yoki Ïðèâåò koʻrinishida keladi. Uni shu yerga joylang yoki faylning oʻzini tashlang — u qanday yozilgan boʻlsa, shundayligicha oʻqiladi.",
+      "howTo": {
+        "step1": "Buzilgan matnni joylang yoki fayl boʻlimiga oʻtib faylni qoʻshing.",
+        "step2": "Tiklangan matn darhol chiqadi, aniqlangan kodlash bilan birga.",
+        "step3": "Taxmin notoʻgʻri boʻlsa, quyidagi roʻyxatdan boshqa variantni tanlang."
+      },
+      "faq": {
+        "q1": "Bu nega umuman yuz beradi?",
+        "a1": "Matn sonlar koʻrinishida saqlanadi, kodlash esa har bir son qaysi harfni bildirishini aytadi. Fayl bir kodlashda yozilib, boshqasida oʻqilsa, har bir harf boshqasiga aylanadi. Lotin matni koʻpincha omon qoladi, chunki dastlabki 128 qiymat hamma joyda bir xil; kirill esa yoʻq.",
+        "q2": "Matnni joylash yaxshimi yoki fayl yuklashmi?",
+        "a2": "Fayl boʻlsa — fayl. Faylda asl baytlar saqlanib qolgan, shuning uchun kerakli kodlashni shunchaki qoʻllash mumkin: hech narsa taxmin qilinmaydi va yoʻqolmaydi. Joylangan matn allaqachon dekodlangan, shuning uchun buzilishni teskari yoʻldan hisoblashga toʻgʻri keladi.",
+        "q3": "Hamma holatni tiklash mumkinmi?",
+        "a3": "Yoʻq. Agar buzilgan matn qayta saqlangan va baʼzi belgilar savol belgisiga almashgan boʻlsa, asl harflar butunlay yoʻqolgan. Faqat notoʻgʻri koʻringan, lekin ustidan yozilmagan matn tiklanadi.",
+        "q4": "Natija baribir notoʻgʻri boʻlsa-chi?",
+        "a4": "Natija ostidagi variantlardan birini tanlang. Vosita jonli tilga koʻproq oʻxshagan oʻqishni tanlaydi, lekin qisqa matnda bir nechta variant bir xil ishonarli koʻrinadi — koʻz bilan esa toʻgʻrisi darhol bilinadi."
+      }
+    },
+    "image-to-text": {
+      "name": "Rasmdan matn (OCR)",
+      "short": "Surat yoki skrinshotdagi matnni oʻqish, oʻzbekchasi ham.",
+      "title": "Rasmdan matn olish — bepul OCR: oʻzbek, rus, ingliz",
+      "description": "Rasmlardan oʻzbek (lotin va kirill), rus va ingliz tilidagi matnni ajratib oladigan bepul onlayn OCR. Rasm brauzerda qayta ishlanadi, hech qayerga yuklanmaydi.",
+      "intro": "Surat, skan yoki skrinshot qoʻshing va undagi matnni oling. Oʻzbek tili ikkala alifboda, rus va ingliz tillari qoʻllab-quvvatlanadi, aralash hujjat uchun bir nechtasini birga tanlash mumkin.",
+      "howTo": {
+        "step1": "Matn boʻlgan rasmni qoʻshing.",
+        "step2": "Unda qaysi tillar borligini belgilang.",
+        "step3": "«Matnni ajratib olish» tugmasini bosing, natijani nusxalang yoki .txt qilib yuklab oling."
+      },
+      "faq": {
+        "q1": "Rasmim biror joyga yuklanadimi?",
+        "a1": "Yoʻq. Tanish brauzerda bajariladi. Ommaviy CDN dan faqat til modellari, faqat tildan birinchi marta foydalanilganda yuklanadi — bu yagona tarmoq soʻrovi va unda rasmingizdan hech narsa yoʻq.",
+        "q2": "Nega birinchi ishga tushirish sekin?",
+        "a2": "Har bir til modeli taxminan 3 MB va bir marta yuklanadi. Keyin u brauzer keshida turadi, tanish darhol boshlanadi — ikkinchi rasm birinchisidan ancha tez ishlanadi.",
+        "q3": "Natijani qanday yaxshilash mumkin?",
+        "a3": "Eng muhimi — aniqlik. Toʻgʻri tushirilgan, yaxshi yoritilgan va matn butun kadrni egallagan surat uzoqdan olingan suratdan doim ustun. Faqat haqiqatan bor tillarni tanlash ham yordam beradi: variant kam boʻlsa, xato ham kam.",
+        "q4": "Qaysi oʻzbek tilini tanlash kerak?",
+        "a4": "Rasmdagi alifboni. oʻzbek uchun lotin, ўзбек uchun kirill. Hujjatda ikkalasi ham boʻlsa — ikkalasini belgilang, ustiga rus tilini ham qoʻshing: uning harflari oʻzbek kirillchasi bilan deyarli bir xil."
+      }
+    },
+    "docx-word-count": {
+      "name": "Word hujjatidagi soʻzlarni sanash",
+      "short": "Word ochmasdan .docx dagi soʻzlarni sanash.",
+      "title": ".docx da soʻz sanash — bepul onlayn, serverga yuklamasdan",
+      "description": "Word hujjatidagi soʻz, belgi, gap va xatboshilarni sanaydi. Fayl brauzerda oʻqiladi va hech qayerga yuborilmaydi.",
+      "intro": ".docx yoki oddiy matn faylini yuklang va darhol hisobni oling. Tarjima narxini aytish yoki hajm chegarasiga sigʻish kerak boʻlgan, lekin Word qoʻl ostida boʻlmagan paytda asqotadi.",
+      "howTo": {
+        "step1": "«Fayldan yuklash» tugmasini bosib .docx yoki .txt ni tanlang.",
+        "step2": "Matn maydonda paydo boʻladi, ostida esa barcha koʻrsatkichlar.",
+        "step3": "Faqat bir qismini sanash kerak boʻlsa, matnni tahrirlang — sonlar oʻzi qayta hisoblanadi."
+      },
+      "faq": {
+        "q1": "Son Word koʻrsatgani bilan mos keladimi?",
+        "a1": "Juda yaqin boʻlishi kerak: ikkalasi ham matnni boʻshliqlar boʻyicha ajratadi. Kichik farq kolontitul, izoh va yozuv maydonlaridan chiqadi — ular bu yerda oʻqiladigan asosiy matnga kirmaydi.",
+        "q2": "Eski .doc fayllari qoʻllab-quvvatlanadimi?",
+        "a2": "Yoʻq. 2007-yilgacha boʻlgan .doc formati brauzerda oʻqilmaydi. Uni Word yoki LibreOffice da ochib, .docx sifatida qayta saqlang.",
+        "q3": "Fayl serverga yuklanadimi?",
+        "a3": "Yoʻq. U brauzerda oʻqiladi, hech qayerga hech narsa yuborilmaydi.",
+        "q4": "Formatlash hisobga taʼsir qiladimi?",
+        "a4": "Yoʻq, faqat matn sanaladi: qalin shrift, sarlavha va jadvallar ahamiyatsiz. Jadval ichidagi matn esa hisobga olinadi."
+      }
+    },
+    "docx-to-text": {
+      "name": "DOCX dan matn",
+      "short": "Word hujjatidan sof matnni ajratib olish.",
+      "title": "DOCX dan TXT — Word dan matn olish onlayn, bepul",
+      "description": ".docx faylidan oddiy matn ajratib oladigan bepul onlayn vosita. Toʻliq brauzerda ishlaydi, hujjat hech qayerga yuklanmaydi.",
+      "intro": "Word hujjatidan faqat soʻzlarni qoldirish: uslubsiz, sahifalashsiz. Hujjatni faqat oddiy matn qabul qiladigan narsaga berish kerak boʻlganda qulay.",
+      "howTo": {
+        "step1": ".docx faylini qoʻshing.",
+        "step2": "«Matnga oʻgirish» tugmasini bosing.",
+        "step3": "Natijani nusxalang yoki .txt qilib saqlang."
+      },
+      "faq": {
+        "q1": "Nima yoʻqoladi?",
+        "a1": "Matn boʻlmagan hamma narsa: formatlash, rasmlar, kolontitullar va jadval tuzilishi. Jadval ichidagi matn saqlanadi, koʻrinishi esa yoʻq.",
+        "q2": "Kirill toʻgʻri koʻchadimi?",
+        "a2": "Ha. Matn UTF-8 da saqlanadi, u esa hech qanday sozlamasiz rus va oʻzbek kirillchasini toʻliq koʻtaradi.",
+        "q3": ".doc oʻqiladimi?",
+        "a3": "Yoʻq, faqat .docx. Eski ikkilik format brauzerda ochilmaydi — avval uni .docx qilib qayta saqlang.",
+        "q4": "Fayl serverga yuklanadimi?",
+        "a4": "Yoʻq. Hammasi brauzerda boʻladi."
+      }
+    },
+    "docx-to-html": {
+      "name": "DOCX dan HTML",
+      "short": "Word hujjatini toza HTML ga aylantirish.",
+      "title": "DOCX dan HTML — Word ni toza HTML ga oʻgirish onlayn, bepul",
+      "description": ".docx dan toza, semantik HTML ga oʻgiradigan bepul konvertor. Sarlavha, roʻyxat va jadvallar saqlanadi. Brauzerda ishlaydi.",
+      "intro": "Word hujjatini eʼlon qilishga arziydigan HTML ga aylantirish: sarlavha sarlavhaligicha, roʻyxat roʻyxatligicha qoladi — Word ning «HTML sifatida saqlash»i chiqaradigan uslublar toʻdasisiz.",
+      "howTo": {
+        "step1": ".docx faylini qoʻshing.",
+        "step2": "«HTML ga oʻgirish» tugmasini bosing.",
+        "step3": "Kodni nusxalang yoki .html qilib saqlang."
+      },
+      "faq": {
+        "q1": "Word dagi «HTML sifatida saqlash»dan nimasi bilan farq qiladi?",
+        "a1": "Word oʻzining ichki sahifalashini chiqaradi — bu yuzlab qator uslub va har bir xatboshi atrofidagi boʻsh teglar. Bu yerda esa Word uslublari oddiy semantik elementlarga solishtiriladi va chiqishda haqiqatan ishlatsa boʻladigan HTML hosil boʻladi.",
+        "q2": "Rasmlar bilan nima boʻladi?",
+        "a2": "Ular HTML ichiga data-URI koʻrinishida joylashtiriladi, shuning uchun fayl yonida rasmlar papkasisiz ham ishlaydi. Buning evaziga fayl kattalashadi.",
+        "q3": "Uslublar saqlanadimi?",
+        "a3": "Tuzilma saqlanadi: sarlavhalar, qalin, kursiv, roʻyxatlar, jadvallar, havolalar. Shrift, rang va oraliqlar esa yoʻq — ularni sizning uslublar faylingiz belgilashi kerak.",
+        "q4": "Nega uslub tanilmadi degan xabar chiqadi?",
+        "a4": "Word hujjatida istalgancha oʻz uslublari boʻlishi mumkin. Uslubning HTML da maʼqul muqobili boʻlmasa, bu haqda aytiladi, matn esa oddiy xatboshi boʻlib qoladi."
+      }
+    },
+    "docx-to-markdown": {
+      "name": "DOCX dan Markdown",
+      "short": "Word hujjatini Markdown ga oʻgirish.",
+      "title": "DOCX dan Markdown — Word ni .md ga oʻgirish onlayn, bepul",
+      "description": ".docx dan Markdown ga, jadval va roʻyxatlari bilan oʻgiradigan bepul konvertor. Brauzerda ishlaydi, hech narsa yuklanmaydi.",
+      "intro": "Word hujjatini Markdown muhitiga — vikiga, statik saytga yoki repozitoriyga — sarlavha, roʻyxat va jadvallari bilan koʻchirish.",
+      "howTo": {
+        "step1": ".docx faylini qoʻshing.",
+        "step2": "«Markdown ga oʻgirish» tugmasini bosing.",
+        "step3": "Natijani nusxalang yoki .md qilib saqlang."
+      },
+      "faq": {
+        "q1": "Jadvallar koʻchadimi?",
+        "a1": "Ha, GitHub uslubidagi Markdown jadvallari koʻrinishida. Jadvalda sarlavha qatori boʻlmasa, birinchi qator sarlavha qilinadi: Markdown da sarlavhasiz jadval boʻlmaydi.",
+        "q2": "Rasmlar-chi?",
+        "a2": "Ular fayl ichiga data-URI boʻlib tushadi. Fayl mustaqil boʻladi, lekin uzun chiqadi — keyinroq ularni alohida rasmlarga ajratgingiz kelishi mumkin.",
+        "q3": "Nimani koʻchirib boʻlmaydi?",
+        "a3": "Tag chizish, matn rangi, shriftlar va aniq oraliqlar — Markdown da ular uchun sintaksis yoʻq. Tagi chizilgan matn soʻzlari saqlanadi, faqat chiziqning oʻzi yoʻqoladi.",
+        "q4": "Qaysi Markdown lahjasi?",
+        "a4": "CommonMark va GitHub jadvallari — GitHub, GitLab va aksariyat statik sayt generatorlari kutadigan koʻrinish."
+      }
+    },
+    "markdown-to-html": {
+      "name": "Markdown dan HTML",
+      "short": "Markdown ni HTML ga oʻgirish, jonli koʻrinish bilan.",
+      "title": "Markdown dan HTML — bepul onlayn konvertor, koʻrinishi bilan",
+      "description": "Jonli koʻrinish va GitHub jadvallari bilan Markdown dan HTML ga oʻgiradigan bepul konvertor. Toʻliq brauzerda ishlaydi.",
+      "intro": "Markdown ni joylang va HTML oling, yonida esa natija koʻrinishi. Hech narsa hech qayerga yuborilmaydi, shuning uchun tasodifiy saytga joylamaydigan qoralamalarni ham bemalol tashlash mumkin.",
+      "howTo": {
+        "step1": "Chap tomonga Markdown ni joylang yoki yozing.",
+        "step2": "HTML oʻng tomonda yozayotganingizda paydo boʻladi.",
+        "step3": "Natijani koʻrish uchun «Koʻrinishi»ga oʻting, keyin nusxalang yoki yuklab oling."
+      },
+      "faq": {
+        "q1": "Qaysi lahja qoʻllanadi?",
+        "a1": "CommonMark va GitHub kengaytmalari: jadvallar, chizib tashlash, vazifa roʻyxatlari va uchlik belgili kod bloklari.",
+        "q2": "Koʻrinish xavfsizmi?",
+        "a2": "Koʻrsatishdan oldin kod tozalanadi, shuning uchun matningizdagi script tegi sahifada ishga tushmaydi. Chiqishdagi HTML esa qanday yaratilgan boʻlsa, shundayligicha qoladi.",
+        "q3": "Satr koʻchirishlari saqlanadimi?",
+        "a3": "Bitta koʻchirish boʻshliq deb qaraladi — CommonMark shunday tuzilgan. Xatboshilar orasiga boʻsh satr qoldiring yoki satrni ikkita boʻshliq bilan tugating.",
+        "q4": "Matnim biror joyga yuboriladimi?",
+        "a4": "Yoʻq. Oʻgirish brauzerda bajariladi, hech narsa sahifadan chiqmaydi."
+      }
+    },
+    "html-to-markdown": {
+      "name": "HTML dan Markdown",
+      "short": "HTML ni ozoda Markdown ga oʻgirish.",
+      "title": "HTML dan Markdown — bepul onlayn konvertor",
+      "description": "Jadval, roʻyxat va havolalarni qoʻllab-quvvatlaydigan bepul HTML dan Markdown ga konvertor. Brauzerda ishlaydi, hech narsa yuklanmaydi.",
+      "intro": "HTML ni — sahifadan, xatdan yoki eksportdan — joylang va Markdown oling. Skript va uslublar olib tashlanadi, tuzilma saqlanadi.",
+      "howTo": {
+        "step1": "Chap tomonga HTML ni joylang.",
+        "step2": "Markdown oʻng tomonda yozayotganingizda paydo boʻladi.",
+        "step3": "Uni nusxalang yoki .md fayl qilib yuklab oling."
+      },
+      "faq": {
+        "q1": "Skript va uslublar bilan nima boʻladi?",
+        "a1": "Ular butunlay olib tashlanadi. Baʼzi konvertorlar script tegining ichini oddiy matn sifatida oʻtkazib yuboradi va JavaScript kodi hujjat oʻrtasida paydo boʻladi.",
+        "q2": "Jadvallar oʻgiriladimi?",
+        "a2": "Ha, GitHub uslubidagi Markdown jadvallariga. Katak ichidagi tik chiziq belgisi ekranlanadi, shunda jadval buzilmaydi.",
+        "q3": "HTML notoʻgʻri yozilgan boʻlsa-chi?",
+        "a3": "Yopilmagan va notoʻgʻri joylashgan teglar brauzer qanday tahlil qilsa, shunday tahlil qilinadi — shuning uchun sahifadan nusxa olingan kod odatda muammosiz oʻgiriladi.",
+        "q4": "Nimani oʻgirib boʻlmaydi?",
+        "a4": "Markdown da sintaksisi yoʻq hamma narsa: ranglar, shriftlar, tekislash, murakkab sahifalash. Bunday mazmun tashlab yuborilmaydi, oddiy matn boʻlib qoladi."
+      }
+    },
+    "docx-to-pdf": {
+      "name": "Word dan PDF",
+      "short": ".docx ni serverga yuklamasdan PDF ga oʻgirish.",
+      "title": "Word dan PDF — bepul onlayn konvertor, serverga yuklamasdan",
+      "description": "Word .docx hujjatini toʻliq brauzerda PDF ga oʻgirish. Kirill toʻliq qoʻllab-quvvatlanadi. Fayl hech qayerga yuklanmaydi.",
+      "intro": "Boshqa barcha «Word dan PDF» saytlari hujjatingizni serverga yuboradi. Bu esa yoʻq: oʻgirish sizning qurilmangizda boʻladi — hujjatda shartnoma yoki pasport skani boʻlsa, bu muhim.",
+      "howTo": {
+        "step1": ".docx faylini qoʻshing.",
+        "step2": "Sahifa formati va yoʻnalishini tanlang.",
+        "step3": "«PDF ga oʻgirish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Word dagidek koʻrinadimi?",
+        "a1": "Yoʻq, va buni ochiq aytgan maʼqul. Hujjat suratga olinmaydi, qaytadan sahifalanadi: sarlavha, ajratish, roʻyxat, jadval va rasmlar koʻchadi, lekin sahifa uzilishlari yangi sahifalash qoʻygan joyda boʻladi. Aniq nusxa kerak boʻlsa — Word ning oʻzidan PDF ga chop eting.",
+        "q2": "Rus va oʻzbek matni ishlaydimi?",
+        "a2": "Ha. Natijaga joylashtirilgan shrift rus, ukrain va oʻzbek kirillchasini, jumladan Ўў, Ҳҳ, Ққ va Ғғ ni, shuningdek ₽ va № ni qamrab oladi.",
+        "q3": "Nima koʻchmaydi?",
+        "a3": "Kolontitullar, izohlar, sahifa raqamlari, ustunlar va yozuv maydonlari. Ularning hammasi Word ning oʻz sahifalashiga bogʻliq, u esa bu yerda takrorlanmaydi.",
+        "q4": "PDF dagi matnni belgilash mumkinmi?",
+        "a4": "Ha. Bu haqiqiy matn: uni belgilash, qidirish va nusxalash mumkin — fayl hujjatingizning surati emas."
+      }
+    },
+    "csv-to-json": {
+      "name": "CSV dan JSON",
+      "short": "Jadval eksportini JSON ga aylantirish.",
+      "title": "CSV dan JSON — bepul onlayn konvertor, serverga yuklamasdan",
+      "description": "CSV ni toʻgʻridan-toʻgʻri brauzerda JSON ga oʻgirish. Ajratuvchi va kodlash avtomatik aniqlanadi, windows-1251 ham. Hech narsa yuklanmaydi.",
+      "intro": "CSV ni tashlang va JSON oling. Ajratuvchi ham, kodlash ham siz uchun aniqlanadi — rus tilidagi Excel dan chiqqan fayllar odatda aynan shularda qoqiladi.",
+      "howTo": {
+        "step1": "CSV faylini qoʻshing.",
+        "step2": "Koʻrib chiqishni va sarlavha qatori belgisini tekshiring.",
+        "step3": "JSON ni nusxalang yoki fayl qilib saqlang."
+      },
+      "faq": {
+        "q1": "Faylimda nuqta-vergul ishlatilgan. Ishlaydimi?",
+        "a1": "Ha. Rus yoki oʻzbek lokalidagi Excel aynan nuqta-vergul yozadi, chunki vergul kasr ajratuvchisi sifatida band. Ajratuvchi faylning oʻzidan aniqlanadi; tabulyatsiya va tik chiziq ham qoʻllab-quvvatlanadi.",
+        "q2": "Kirill tushunarsiz belgilarga aylansa-chi?",
+        "a2": "Demak, fayl UTF-8 emas, windows-1251 da. Kodlash ham ajratuvchi kabi aniqlanadi, shuning uchun bunday fayllar savol belgilariga aylanmay, toʻgʻri oʻqiladi.",
+        "q3": "Nega telefon raqamim songa aylandi?",
+        "a3": "Aylanmasligi kerak edi. Boshida nol turgan qiymatlar ataylab matn boʻlib qoladi: indeks yoki hisob raqamidan tushib qolgan nol — bu buzilgan maʼlumot. Hammasi satr boʻlib qolishi uchun tur oʻgirishni oʻchiring.",
+        "q4": "Bir xil ustun nomlari bilan nima boʻladi?",
+        "a4": "Ikkinchisiga qoʻshimcha qoʻshiladi. Aks holda bitta ustun ikkinchisini indamay oʻchirib yuborardi."
+      }
+    },
+    "json-to-csv": {
+      "name": "JSON dan CSV",
+      "short": "JSON ni Excel uchun jadvalga yoyish.",
+      "title": "JSON dan CSV — ichma-ich maydonlarni qoʻllaydigan bepul konvertor",
+      "description": "JSON ni toʻgʻridan-toʻgʻri brauzerda CSV ga oʻgirish. Ichma-ich obyektlar nuqtali ustunlarga aylanadi, har bir kalit ustun oladi. Hech narsa yuklanmaydi.",
+      "intro": "Obyektlar massivini joylang va Excel da ochiladigan CSV oling. Ichma-ich obyektlar nuqta orqali ustun nomlariga yoyiladi, faqat ayrim yozuvlarda uchraydigan kalit ham oʻz ustunini oladi.",
+      "howTo": {
+        "step1": "JSON ni joylang yoki .json faylini tashlang.",
+        "step2": "Koʻrib chiqishni tekshiring va ajratuvchini tanlang.",
+        "step3": "CSV ni saqlang."
+      },
+      "faq": {
+        "q1": "Ichma-ich obyektlar bilan nima boʻladi?",
+        "a1": "Ular nuqtali ustunlarga aylanadi: {'{'}\"user\": {'{'}\"name\": \"Anvar\"{'}'}{'}'} user.name ustuniga aylanadi. Jadval eksportlari ham shunday qiladi va aksariyat import vositalari shuni kutadi.",
+        "q2": "Yozuvlarda kalitlar har xil boʻlsa-chi?",
+        "a2": "Uchragan har bir kalit ustun oladi, birinchi paydo boʻlish tartibida. Kalit yoʻq joyda boʻsh katak qoladi — qator surilib ketmaydi.",
+        "q3": "Excel uchun BOM qoʻshish kerakmi?",
+        "a3": "Ha, agar fayl Windows dagi Excel da ochiladigan boʻlsa. Usiz Excel UTF-8 ni mahalliy kodlash deb oʻqiydi va kirill buziladi. Kod bilan qayta ishlash uchun esa qoʻshmagan maʼqul.",
+        "q4": "Yozuv ichidagi massivlar-chi?",
+        "a4": "Oddiy qiymatlar massivi vergul bilan bitta katakka birlashtiriladi. Undan murakkabrogʻi katakka JSON boʻlib yoziladi, shuning uchun hech narsa yoʻqolmaydi."
+      }
+    },
+    "csv-to-excel": {
+      "name": "CSV dan Excel",
+      "short": "CSV ni haqiqiy .xlsx kitobiga aylantirish.",
+      "title": "CSV dan Excel — CSV ni XLSX ga oʻgirish onlayn, bepul",
+      "description": "CSV ni toʻgʻridan-toʻgʻri brauzerda haqiqiy Excel .xlsx fayliga oʻgirish. Ajratuvchi va kodlash aniqlanadi, kirill buzilmaydi. Hech narsa yuklanmaydi.",
+      "intro": "Import ustasidan xalos boʻling. Bu yerda CSV avval oʻqiladi — ajratuvchi va kodlash aniqlanadi, — soʻng ustunlarga allaqachon ajratilgan holda ochiladigan haqiqiy .xlsx yoziladi.",
+      "howTo": {
+        "step1": "CSV faylini qoʻshing.",
+        "step2": "Ustunlar toʻgʻri ajralganini koʻrib chiqishdan tekshiring.",
+        "step3": "«Excel ga oʻgirish» tugmasini bosing va kitobni yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega CSV ni shunchaki Excel da ochmaslik kerak?",
+        "a1": "Chunki Excel taxmin qiladi, rus lokalidagi kompyuterda esa odatda notoʻgʻri taxmin qiladi: bitta ustun matn yoki buzilgan kirill. Bu yerda aniqlash oldindan bajariladi va Excel ga taxmin qiladigan narsa qolmagan fayl beriladi.",
+        "q2": "Uzun raqamlar zarar koʻrmaydimi?",
+        "a2": "Qiymatlar CSV dagi koʻrinishida matn boʻlib yoziladi, shuning uchun uzun hisob raqami eksponensial yozuvga aylanmaydi.",
+        "q3": "Bu haqiqiy .xlsx mi?",
+        "a3": "Ha, toʻliq huquqli Excel kitobi, kengaytmasi almashtirilgan CSV emas. Excel, LibreOffice va Google Jadvallarida ochiladi.",
+        "q4": "Fayl serverga yuklanadimi?",
+        "a4": "Yoʻq. U brauzerda oʻqiladi va yoziladi."
+      }
+    },
+    "excel-to-csv": {
+      "name": "Excel dan CSV",
+      "short": ".xlsx dagi varaqni CSV ga chiqarish.",
+      "title": "Excel dan CSV — XLSX ni CSV ga oʻgirish onlayn, bepul",
+      "description": "Excel .xlsx varagʻini brauzerda CSV ga oʻgirish, ajratuvchi tanlash va Excel uchun BOM bilan. Hech narsa yuklanmaydi.",
+      "intro": "Kitobdan varaqni tanlang va uni CSV ga chiqaring, ajratuvchini lokal hal qilishini kutmasdan oʻzingiz belgilab.",
+      "howTo": {
+        "step1": ".xlsx faylini qoʻshing.",
+        "step2": "Varaq va ajratuvchini tanlang.",
+        "step3": "CSV ni saqlang."
+      },
+      "faq": {
+        "q1": "Bir nechta varaqni chiqarish mumkinmi?",
+        "a1": "Bittadan: CSV taʼrifi boʻyicha bitta jadval. Roʻyxatdan har bir varaqni tanlab, alohida saqlang.",
+        "q2": "Sana va formulalar bilan nima boʻladi?",
+        "a2": "Siz koʻrsatilgan koʻrinishdagi qiymatni olasiz — ortidagi formulani ham, sana ostidagi sonni ham emas. Aynan shu sababli eksport Excel da koʻrganingizga mos keladi.",
+        "q3": "Qaysi ajratuvchini tanlash kerak?",
+        "a3": "Faylni kod oʻqiydigan boʻlsa — vergul. Rus yoki oʻzbek kompyuteridagi Excel da toza ochilishi kerak boʻlsa — nuqta-vergul.",
+        "q4": "BOM nima uchun kerak?",
+        "a4": "Windows dagi Excel UTF-8 fayl bayt tartibi belgisi bilan boshlanmasa, uni mahalliy kodlash deb hisoblaydi. Faylda kirill boʻlsa, uning yoʻqligi buzilgan matnning odatiy sababi."
+      }
+    },
+    "excel-to-json": {
+      "name": "Excel dan JSON",
+      "short": "Jadval varagʻini JSON ga aylantirish.",
+      "title": "Excel dan JSON — XLSX ni JSON ga oʻgirish onlayn, bepul",
+      "description": "Excel varagʻini brauzerda JSON ga oʻgirish: varaq tanlash, birinchi qator kalit sifatida, sonlar son boʻlib qoladi. Hech narsa yuklanmaydi.",
+      "intro": "Varaqni obyektlar massiviga aylantirish, kalitlarni sarlavha qatoridan olib. Yuborilgan jadvalni kod tushunadigan koʻrinishga keltirish kerak boʻlganda qulay.",
+      "howTo": {
+        "step1": ".xlsx faylini qoʻshing.",
+        "step2": "Varaqni tanlang va sarlavha qatorini tasdiqlang.",
+        "step3": "JSON ni nusxalang yoki fayl qilib saqlang."
+      },
+      "faq": {
+        "q1": "Qaysi varaq olinadi?",
+        "a1": "Birinchisi, agar roʻyxatdan boshqasi tanlanmasa. Faqat tanlangan varaq oʻgiriladi.",
+        "q2": "Sonlar songa aylanadimi?",
+        "a2": "Ha, sukut boʻyicha — boshida nol turganlaridan tashqari: ular matn boʻlib qoladi, shunda indeks va hisob raqamlari saqlanadi. Hammasi satr boʻlib qolishi uchun sozlamani oʻchiring.",
+        "q3": "Birlashtirilgan kataklar qanday ishlanadi?",
+        "a3": "Qiymat birlashtirilgan diapazonning birinchi katagiga tushadi, qolganlari boʻsh qoladi — faylning oʻzida ham aynan shunday saqlanadi.",
+        "q4": "Boʻsh qatorlar-chi?",
+        "a4": "Butunlay boʻsh qatorlar tashlab ketiladi, qiymatsiz obyektga aylanmaydi."
+      }
+    },
+    "json-to-excel": {
+      "name": "JSON dan Excel",
+      "short": "JSON ni .xlsx kitobiga aylantirish.",
+      "title": "JSON dan Excel — JSON ni XLSX ga oʻgirish onlayn, bepul",
+      "description": "JSON ni brauzerda haqiqiy Excel .xlsx fayliga oʻgirish. Ichma-ich obyektlar nuqtali ustunlarga aylanadi. Hech narsa yuklanmaydi.",
+      "intro": "Obyektlar massivini joylang va Excel fayli oling. API javobini JSON emas, jadvallar bilan ishlaydigan odamga berish kerak boʻlganda asqotadi.",
+      "howTo": {
+        "step1": "JSON ni joylang yoki .json faylini tashlang.",
+        "step2": "Koʻrib chiqishni tekshiring.",
+        "step3": "«Excel ga oʻgirish» tugmasini bosing va kitobni yuklab oling."
+      },
+      "faq": {
+        "q1": "JSON qanday tuzilishda boʻlishi kerak?",
+        "a1": "Eng maʼquli — obyektlar massivi, har bir obyektga bitta qator. Yakka obyekt bitta qator beradi, oddiy qiymatlar massivi esa bitta ustun.",
+        "q2": "Ichma-ich maʼlumotlar-chi?",
+        "a2": "Ichma-ich obyektlar nuqtali ustunlarga yoyiladi. Oddiy qiymatlar massivi bitta katakka birlashtiriladi, undan murakkabrogʻi katakka JSON boʻlib yoziladi.",
+        "q3": "Kirill saqlanadimi?",
+        "a3": "Ha. .xlsx formati matnni UTF-8 da saqlaydi, shuning uchun kodlashda adashadigan joy yoʻq.",
+        "q4": "Bu haqiqiy Excel faylimi?",
+        "a4": "Ha, Excel, LibreOffice va Google Jadvallarida ochiladigan toʻliq huquqli .xlsx kitobi."
+      }
+    },
+    "csv-to-pdf": {
+      "name": "CSV dan PDF",
+      "short": "CSV ni chop etishga tayyor jadvalga aylantirish.",
+      "title": "CSV dan PDF — jadvalni PDF ga aylantirish, bepul",
+      "description": "CSV ni brauzerda bezatilgan PDF jadvaliga oʻgirish, sarlavha takrori va kirill qoʻllab-quvvatlashi bilan. Hech narsa yuklanmaydi.",
+      "intro": "CSV ni chop etsa boʻladigan qilish. Chiqishda skrinshot emas, har sahifada takrorlanadigan sarlavhali haqiqiy jadval — matn esa belgilanadigan boʻlib qoladi.",
+      "howTo": {
+        "step1": "CSV faylini qoʻshing.",
+        "step2": "Sahifa formati, yoʻnalishi va shrift oʻlchamini tanlang.",
+        "step3": "«PDF yaratish» tugmasini bosing va yuklab oling."
+      },
+      "faq": {
+        "q1": "Jadval eniga sigʻmayapti. Nima qilish kerak?",
+        "a1": "Yotiq yoʻnalishga, juda keng jadval uchun esa A3 ga oʻting va shriftni kichraytiring. Sakkizta ustundan boshlab vosita oʻzi yotiq yoʻnalishni taklif qiladi.",
+        "q2": "Kirill toʻgʻri chop etiladimi?",
+        "a2": "Ha. Joylashtirilgan shrift rus va oʻzbek kirillchasini qamrab oladi, shuning uchun boʻsh kvadratchalar chiqmaydi.",
+        "q3": "Sarlavha har sahifada takrorlanadimi?",
+        "a3": "Ha, agar birinchi qator sarlavha deb belgilangan boʻlsa. Uzun jadvalda aynan shu narsa ishlatsa boʻladigan chop etishni oʻqib boʻlmaydiganidan ajratadi.",
+        "q4": "PDF dagi matnni belgilash mumkinmi?",
+        "a4": "Ha. Har bir katak haqiqiy matn: PDF boʻylab qidirish ham, undan nusxa olish ham mumkin."
+      }
+    },
+    "excel-to-pdf": {
+      "name": "Excel dan PDF",
+      "short": "Jadval varagʻini PDF ga chop etish.",
+      "title": "Excel dan PDF — XLSX ni PDF ga oʻgirish onlayn, bepul",
+      "description": "Excel varagʻini brauzerda bezatilgan PDF jadvaliga oʻgirish, sarlavha takrori va kirill qoʻllab-quvvatlashi bilan. Hech narsa yuklanmaydi.",
+      "intro": "Varaqni ozoda PDF jadvaliga aylantirish — Excel ni ochmasdan va narx, maosh yoki mijoz ismlari boʻlishi mumkin boʻlgan jadvalni serverga yubormasdan.",
+      "howTo": {
+        "step1": ".xlsx faylini qoʻshing.",
+        "step2": "Varaqni, soʻng sahifa formati va yoʻnalishini tanlang.",
+        "step3": "«PDF yaratish» tugmasini bosing va yuklab oling."
+      },
+      "faq": {
+        "q1": "Excel ning oʻz chop etishiga oʻxshaydimi?",
+        "a1": "Yoʻq. Bu yerda katak qiymatlaridan ozoda jadval quriladi — Excel ning shrift, rang, chegara, birlashtirilgan katak va chop etish sohalarisiz. Aniq nusxa kerak boʻlsa, Excel dan PDF ga chop eting.",
+        "q2": "Diagramma va rasmlar-chi?",
+        "a2": "Ular natijaga tushmaydi. Faqat katak qiymatlari oʻgiriladi.",
+        "q3": "Qaysi varaq olinadi?",
+        "a3": "Birinchisi, agar boshqasi tanlanmasa. Bitta varaq — bitta PDF.",
+        "q4": "Sana va formulalar bilan nima boʻladi?",
+        "a4": "Koʻrsatilgan qiymat olinadi — chop etishda aynan shu kerak: ortidagi son emas, odatdagi koʻrinishdagi sana."
+      }
+    },
+    "pdf-grayscale": {
+      "name": "PDF ni oq-qora qilish",
+      "short": "PDF ni oq-qora chop etishga tayyorlash.",
+      "title": "PDF ni oq-qora qilish — PDF ni kulrangga oʻgirish onlayn, bepul",
+      "description": "PDF ni brauzerda kulrangga oʻtkazish, sahifalarni rasmga aylantirmasdan. Matn belgilanadigan boʻlib qoladi, hajmi deyarli oʻsmaydi. Hech narsa yuklanmaydi.",
+      "intro": "Rangli PDF ni chop etish uchun kulrang qilish. Har bir sahifani rasmga aylantiradigan vositalardan farqli oʻlaroq, bu yerda matn matnligicha qoladi — fayl shishmaydi, aniqligini yoʻqotmaydi va qidiruv ishlayveradi.",
+      "howTo": {
+        "step1": "PDF ni qoʻshing.",
+        "step2": "«Oq-qora qilish» tugmasini bosing.",
+        "step3": "Natijani yuklab oling va chop eting."
+      },
+      "faq": {
+        "q1": "Rang haqiqatan olib tashlanadimi?",
+        "a1": "Yoʻq, va bu muhim. Rang koʻrsatish va chop etish uchun oʻchiriladi, lekin asl rang maʼlumoti fayl ichida qoladi. Buni rang bilan kodlangan maʼlumotni yashirish uchun ishlatmang — siyoh tejash uchun ishlating.",
+        "q2": "Nega shunchaki oq-qora chop etmaslik kerak?",
+        "a2": "Printer sizniki boʻlsa — mumkin. Bu esa sizniki boʻlmaganda kerak: fayl bosmaxonaga, hamkasbga yoki rangli sahifa uchun pul oladigan tizimga ketayotganda.",
+        "q3": "Matn belgilanadigan boʻlib qoladimi?",
+        "a3": "Ha. Sahifa rasmga aylanmaydi, shuning uchun matn belgilanadi va qidiriladi, fayl hajmi esa deyarli oʻzgarmaydi.",
+        "q4": "Hamma dastur uni kulrang koʻrsatadimi?",
+        "a4": "Barcha zamonaviy koʻruvchi va printerlar — ha. Bu standart PDF aralashtirish rejimiga asoslangan, faqat aralashtirish rejimlarini tushunmaydigan juda eski dastur asl ranglarni koʻrsatishi mumkin."
+      }
+    },
+    "scan-to-pdf": {
+      "name": "Hujjat rasmidan PDF",
+      "short": "Hujjat suratlaridan ozoda PDF yigʻish.",
+      "title": "Suratdan PDF skaner — bepul onlayn, ilova oʻrnatmasdan",
+      "description": "Hujjat suratlarini brauzerda skanga oʻxshash ozoda PDF ga aylantiradi. Qogʻozni oqartiradi, matnni quyuqlashtiradi. Hech narsa yuklanmaydi.",
+      "intro": "Hujjatni telefonda suratga oling va suratga emas, skanga oʻxshaydigan PDF oling. Ishlov qogʻozni oqartirib, matnni quyuqlashtiradi — vositani oddiy «suratlarni PDF ga yigʻish»dan aynan shu ajratib turadi.",
+      "howTo": {
+        "step1": "Suratlaringizni qoʻshing — hammasini birdan.",
+        "step2": "Ularni sahifa tartibida joylashtiring va ishlov rejimini tanlang.",
+        "step3": "«PDF yigʻish» tugmasini bosing va yuklab oling."
+      },
+      "faq": {
+        "q1": "«Yaxshilash» aslida nima qiladi?",
+        "a1": "Suratning yorugʻlik diapazonida qogʻoz va siyoh qayerda joylashganini topadi va shu diapazonni toʻliq oq-qoragacha choʻzadi. Aynan shu kulrang, notekis yoritilgan suratni skan boʻlib oʻqiladigan narsaga aylantiradi.",
+        "q2": "Qachon rangni saqlagan maʼqul?",
+        "a2": "Rang maʼno tashiganda: muhr, rangli ruchkadagi imzo, sertifikat. «Yaxshilash» oq qogʻozdagi qora bosma matn uchun moʻljallangan.",
+        "q3": "Sahifani tekislaydimi?",
+        "a3": "Hozircha yoʻq. Telefonni varaqqa parallel tuting va kadrni toʻldiring: ishlov yoritishni tuzatadi, perspektivani emas.",
+        "q4": "Suratlarim biror joyga yuklanadimi?",
+        "a4": "Yoʻq. Hammasi sizning qurilmangizda boʻladi — pasport yoki shartnomani suratga olayotganda aynan shu muhim."
+      }
     }
   },
   "wordCounter": {
@@ -1313,11 +1787,137 @@
     "lessThanAMinute": "bir daqiqadan kam",
     "clear": "Tozalash",
     "copy": "Matnni nusxalash",
-    "copied": "Nusxalandi"
+    "copied": "Nusxalandi",
+    "chooseFile": "Fayldan yuklash",
+    "loading": "Oʻqilmoqda…",
+    "loadedFrom": "{name} dan yuklandi"
   },
   "error": {
     "notFoundTitle": "Sahifa topilmadi",
     "notFoundBody": "Bunday vosita yo'q yoki bu tilda hali mavjud emas.",
     "backHome": "Barcha vositalarga"
+  },
+  "fixEncoding": {
+    "mode": {
+      "text": "Matnni joylash",
+      "file": "Fayl yuklash"
+    },
+    "inputLabel": "Buzilgan matn",
+    "outputLabel": "Tiklangan matn",
+    "trySample": "Namunani koʻrish",
+    "looksFine": "Matn allaqachon toʻgʻri koʻrinadi — hech narsa oʻzgartirilmadi.",
+    "readAs": "{actual}, lekin {misread} sifatida oʻqilgan",
+    "otherReadings": "Natija notoʻgʻrimi? Boshqa variantni tanlang",
+    "copy": "Nusxalash",
+    "copied": "Nusxalandi",
+    "detected": "Kodlash: {encoding}",
+    "preview": "Koʻrib chiqish",
+    "saveUtf8": "UTF-8 da saqlash"
+  },
+  "ocr": {
+    "languages": "Rasmdagi tillar",
+    "language": {
+      "eng": "Ingliz",
+      "rus": "Rus",
+      "uzb": "Oʻzbek (lotin)",
+      "uzb_cyrl": "Oʻzbek (kirill)"
+    },
+    "downloadNote": "Birinchi ishga tushirishda taxminan {size} MB til maʼlumoti yuklanadi, keyin keshdan olinadi.",
+    "pickOne": "Kamida bitta tilni tanlang.",
+    "action": "Matnni ajratib olish",
+    "working": "Oʻqilmoqda…",
+    "result": "Ajratilgan matn",
+    "confidence": "Ishonch {value}%",
+    "lowConfidence": "Ishonch past. Natijani rasm bilan solishtiring — odatda aniqroq yoki kattaroq surat eng koʻp yordam beradi.",
+    "noText": "Matn topilmadi. Aniqroq rasm sinab koʻring yoki toʻgʻri til tanlanganini tekshiring.",
+    "errorGeneric": "Rasmni oʻqib boʻlmadi. PNG yoki JPG sinab koʻring.",
+    "copy": "Nusxalash",
+    "copied": "Nusxalandi",
+    "download": ".txt yuklab olish"
+  },
+  "docs": {
+    "working": "Oʻgirilmoqda…",
+    "errorRead": "Hujjatni oʻqib boʻlmadi.",
+    "errorConvert": "Hujjatni oʻgirib boʻlmadi.",
+    "empty": "Hujjat boʻsh koʻrinadi.",
+    "legacyDoc": "Bu eski .doc fayli, .docx emas. Bunday formatni brauzer oʻqiy olmaydi — uni Word yoki LibreOffice da ochib, .docx sifatida qayta saqlang.",
+    "notDocx": "Bu .docx fayliga oʻxshamaydi.",
+    "result": "Natija",
+    "copy": "Nusxalash",
+    "copied": "Nusxalandi",
+    "saveFile": "Fayl qilib saqlash",
+    "action": {
+      "text": "Matnga oʻgirish",
+      "html": "HTML ga oʻgirish",
+      "markdown": "Markdown ga oʻgirish",
+      "pdf": "PDF ga oʻgirish"
+    },
+    "pageSize": "Sahifa formati",
+    "orientation": "Yoʻnalish",
+    "portrait": "Tik",
+    "landscape": "Yotiq",
+    "layoutNotice": "Hujjat suratga olinmaydi, balki qaytadan sahifalanadi — shu sababli matn belgilanadigan boʻlib qoladi. Sahifa uzilishlari Word qoʻygan joyda emas, yangi sahifalash qoʻygan joyda boʻladi."
+  },
+  "markdown": {
+    "input": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "output": {
+      "markdown": "HTML",
+      "html": "Markdown"
+    },
+    "trySample": "Namunani koʻrish",
+    "showPreview": "Koʻrinishi",
+    "showSource": "Manba kodi",
+    "copy": "Nusxalash",
+    "copied": "Nusxalandi",
+    "download": "Yuklab olish",
+    "clear": "Tozalash",
+    "errorGeneric": "Oʻgirib boʻlmadi."
+  },
+  "table": {
+    "jsonInput": "JSON",
+    "jsonOutput": "JSON",
+    "detected": "{encoding} sifatida oʻqildi, ajratuvchi «{delimiter}»",
+    "detectedEncoding": "{encoding} sifatida oʻqildi",
+    "sheet": "Varaq",
+    "hasHeader": "Birinchi qator — sarlavhalar",
+    "typedValues": "Sonlar va true/false qiymat sifatida, matn emas",
+    "delimiter": "Ajratuvchi",
+    "excelBom": "Excel uchun BOM qoʻshish",
+    "preview": "{rows} qator × {columns} ustun",
+    "previewTruncated": "{total} qatordan dastlabki 21 tasi koʻrsatilgan. Hammasi oʻgiriladi.",
+    "notTabular": "Bu JSON obyektlar roʻyxati emas, shuning uchun ustunlar taxminiy tanlandi.",
+    "invalidJson": "Bu toʻgʻri JSON emas: {message}",
+    "errorRead": "Faylni oʻqib boʻlmadi.",
+    "errorWrite": "Faylni yaratib boʻlmadi.",
+    "working": "Oʻgirilmoqda…",
+    "action": {
+      "csv": "CSV ga oʻgirish",
+      "json": "JSON ga oʻgirish",
+      "xlsx": "Excel ga oʻgirish",
+      "pdf": "PDF yaratish"
+    },
+    "fontSize": "Shrift oʻlchami",
+    "repeatHeader": "Sarlavhani har sahifada takrorlash",
+    "zebra": "Qatorlarni navbatma-navbat boʻyash",
+    "wideHint": "{columns} ustun tik sahifa uchun koʻplik qiladi.",
+    "useLandscape": "Yotiq qilish"
+  },
+  "scan": {
+    "mode": "Ishlov berish",
+    "modes": {
+      "enhance": "Yaxshilash",
+      "grayscale": "Kulrang",
+      "colour": "Rangni saqlash"
+    },
+    "modeHint": {
+      "enhance": "Qogʻozni oqartiradi, matnni quyuqlashtiradi. Bosma sahifa suratlari uchun eng maʼquli.",
+      "grayscale": "Yorugʻlikni oʻzgartirmasdan kulrangga oʻtkazadi.",
+      "colour": "Suratlarni borichaligicha qoldiradi."
+    },
+    "progress": "Ishlov berilmoqda {percent}%",
+    "action": "{n} ta suratdan PDF yigʻish"
   }
 }
