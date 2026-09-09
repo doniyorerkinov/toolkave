@@ -5,9 +5,8 @@ import { useFilesStore } from '~/stores/files'
 const { t } = useI18n()
 const store = useFilesStore()
 
-// Each tool page starts clean; chaining explicitly repopulates the store.
-onBeforeUnmount(() => store.setResult(null))
-
+// Cross-tool cleanup is handled by store.claim() in ToolShell, so results
+// survive a language switch on the same tool.
 const canRun = computed(() => store.files.length >= 2 && !store.busy)
 
 async function run() {

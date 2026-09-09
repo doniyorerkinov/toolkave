@@ -9,8 +9,6 @@ const pageCount = ref(0)
 const ranges = ref('')
 const infoError = ref(false)
 
-onBeforeUnmount(() => store.setResult(null))
-
 // Split works on one file; keep only the first and read its page count.
 const file = computed(() => store.files[0] ?? null)
 

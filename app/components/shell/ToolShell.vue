@@ -1,18 +1,73 @@
 <script setup lang="ts">
+import { onBeforeRouteLeave, type RouteLocationNormalized } from 'vue-router'
 import {
+  DEFAULT_LOCALE,
+  LOCALES,
   categoryPath,
   getCategory,
+  toolBySlug,
   toolPath,
   tools as allTools,
   type Locale,
   type ToolDef
 } from '~/data/tools'
+import { useFilesStore } from '~/stores/files'
 
 const props = defineProps<{ tool: ToolDef }>()
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const currentLocale = computed(() => locale.value as Locale)
+
+const store = useFilesStore()
+
+/**
+ * Take ownership of the store for this tool. If files are left over from a
+ * different tool they are dropped here, so Split can never silently inherit
+ * Merge's input files.
+ */
+store.claim(props.tool.id)
+
+const leaveDialogOpen = ref(false)
+let resolveLeave: ((allow: boolean) => void) | null = null
+
+/** Which tool a destination route points at, if any. */
+function toolAt(route: RouteLocationNormalized): ToolDef | undefined {
+  const segment = route.path.split('/')[1] ?? ''
+  const destinationLocale = (
+    LOCALES.includes(segment as Locale) ? segment : DEFAULT_LOCALE
+  ) as Locale
+
+  const category = route.params.category
+  const tool = route.params.tool
+  if (typeof category !== 'string' || typeof tool !== 'string') return undefined
+
+  return toolBySlug(category, tool, destinationLocale)
+}
+
+onBeforeRouteLeave(async to => {
+  if (!store.hasWork) return true
+
+  // Switching language on the same tool keeps the files - it is the same work,
+  // just a different URL.
+  if (toolAt(to)?.id === props.tool.id) return true
+
+  leaveDialogOpen.value = true
+  const allow = await new Promise<boolean>(resolve => {
+    resolveLeave = resolve
+  })
+  leaveDialogOpen.value = false
+
+  if (allow) store.reset()
+  return allow
+})
+
+function answerLeave(allow: boolean) {
+  resolveLeave?.(allow)
+  resolveLeave = null
+}
+
+const heldFileCount = computed(() => store.files.length || (store.result ? 1 : 0))
 
 const category = computed(() => getCategory(props.tool.category)!)
 const categoryName = computed(() => t(`categories.${props.tool.category}.name`))
@@ -83,6 +138,16 @@ const relatedTools = computed(() =>
       <ShellWhyBlocks class="mt-10" />
       <ShellFaq :items="faqItems" class="mt-10" />
       <ShellRelatedTools v-if="relatedTools.length" :tools="relatedTools" class="mt-10" />
+
+      <ShellConfirmDialog
+        :open="leaveDialogOpen"
+        :title="t('confirmLeave.title')"
+        :body="t('confirmLeave.body', { count: heldFileCount })"
+        :confirm-label="t('confirmLeave.confirm')"
+        :cancel-label="t('confirmLeave.cancel')"
+        @confirm="answerLeave(true)"
+        @cancel="answerLeave(false)"
+      />
     </div>
 
     <aside class="mt-10 hidden lg:mt-0 lg:block">

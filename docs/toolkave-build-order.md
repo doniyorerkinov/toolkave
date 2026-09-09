@@ -86,8 +86,17 @@ works without a pointer.
 page loads until a file is actually processed — the entry chunk (163 KB) does not contain it.
 Merge → "Use as input" → Split chains without re-upload.
 
-> **Not yet deployed:** drag-to-reorder is committed and typechecks, but the production build
-> was deferred. Run `npm run deploy` when the dev server is free.
+**Store ownership:** the file store is app-level, so it survives route changes. That is what
+makes chaining work, but left unguarded it leaks — opening Split after Merge silently inherited
+the merge inputs. Two defences:
+
+1. `store.claim(toolId)` runs in `ToolShell` setup and drops anything owned by a different tool.
+2. `onBeforeRouteLeave` prompts before discarding work, unless the destination is the *same*
+   tool in another locale (a language switch is the same work at a different URL).
+
+> **Not yet deployed:** drag-to-reorder and the store-leak fix are committed and typecheck, but
+> the production build was deferred — a running `nuxt dev` holds `.output`. Run
+> `npm run typecheck && npm run deploy` when the dev server is free.
 
 ## Phase 3 — Heavy pipeline
 

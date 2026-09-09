@@ -37,8 +37,27 @@ export const useFilesStore = defineStore('files', () => {
   const busy = ref(false)
   const error = ref<string | null>(null)
 
+  /**
+   * Which tool the current files belong to. Without this the store leaks
+   * between tools: opening Split after Merge would silently inherit the merge
+   * inputs as the file to split.
+   */
+  const ownerToolId = ref<string | null>(null)
+
   const totalSize = computed(() => files.value.reduce((sum, f) => sum + f.size, 0))
   const hasFiles = computed(() => files.value.length > 0)
+
+  /** Anything the user would lose by navigating away. */
+  const hasWork = computed(() => files.value.length > 0 || result.value !== null)
+
+  /**
+   * Called when a tool page opens. Clears anything left behind by a different
+   * tool, so a stale file can never be picked up as the new tool's input.
+   */
+  function claim(toolId: string) {
+    if (ownerToolId.value && ownerToolId.value !== toolId) reset()
+    ownerToolId.value = toolId
+  }
 
   async function add(incoming: File[]) {
     const loaded = await Promise.all(
@@ -97,8 +116,11 @@ export const useFilesStore = defineStore('files', () => {
     result,
     busy,
     error,
+    ownerToolId,
     totalSize,
     hasFiles,
+    hasWork,
+    claim,
     add,
     remove,
     move,
