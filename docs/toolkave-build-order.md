@@ -63,7 +63,7 @@ where traffic concentrates (pdf-and-ui §2 puts ~80% of PDF traffic in Tier 1), 
 
 - [x] Pinia store `app/stores/files.ts` — current files, so tools chain without re-upload
 - [x] `FileDropzone` — drag-drop, click, paste; accepted formats + size hint
-- [x] `FileList` — reorder, remove (file-level; page thumbnails deferred to Phase 3)
+- [x] `FileList` — drag-to-reorder, remove (file-level; page thumbnails deferred to Phase 3)
 - [x] `ResultCard` — filename, size before/after, Download, Use as input, Start over
 - [x] `usePdf.ts` with **lazy** `pdf-lib` import
 - [x] **PDF Merge**
@@ -77,9 +77,17 @@ where traffic concentrates (pdf-and-ui §2 puts ~80% of PDF traffic in Tier 1), 
 **Scope call:** Phase 2 stayed `pdf-lib`-only. Page thumbnails need pdf.js (~1 MB), which
 arrives with the worker in Phase 3.
 
+**Reordering:** drag, implemented with **Pointer Events** rather than HTML5 drag-and-drop —
+HTML5 drag does not fire on touch, and most traffic will be mobile. One code path covers mouse,
+touch and pen. The drag handle is also focusable and responds to arrow keys, so reordering
+works without a pointer.
+
 **Exit met:** 18 routes prerendered, all 200 live. pdf-lib sits in its own 419 KB chunk that no
 page loads until a file is actually processed — the entry chunk (163 KB) does not contain it.
 Merge → "Use as input" → Split chains without re-upload.
+
+> **Not yet deployed:** drag-to-reorder is committed and typechecks, but the production build
+> was deferred. Run `npm run deploy` when the dev server is free.
 
 ## Phase 3 — Heavy pipeline
 
@@ -142,3 +150,7 @@ Merge → "Use as input" → Split chains without re-upload.
 5. **Prerender everything.** Static asset requests on Workers are free and unlimited; Worker
    invocations are capped at 100k/day on the free plan.
 6. **Deploys are CLI-driven** (`npm run deploy`). No Git integration — pushing does not deploy.
+7. **Run `npm run typecheck` before deploying.** `nuxt build` does not typecheck; the separate
+   pass caught an invalid i18n config key that was being silently ignored, plus two unsound
+   types. Note that a running `nuxt dev` holds `.output` through its workerd child and will
+   make `nuxt build` fail with `EBUSY` — stop it first.

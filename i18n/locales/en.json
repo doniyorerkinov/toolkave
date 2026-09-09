@@ -87,8 +87,8 @@
     "tooBig": "That file is larger than {size}."
   },
   "fileList": {
-    "moveUp": "Move {name} up",
-    "moveDown": "Move {name} down",
+    "reorder": "Reorder {name}, position {position} of {total}. Drag, or use the arrow keys.",
+    "dragHint": "Drag the handles to change the order.",
     "remove": "Remove {name}"
   },
   "result": {

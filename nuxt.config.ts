@@ -22,7 +22,6 @@ export default defineNuxtConfig({
     baseUrl: 'https://toolkave.com',
     // English lives at the apex; other locales are prefixed.
     strategy: 'prefix_except_default',
-    bundle: { optimizeTranslationDirective: false },
     detectBrowserLanguage: false
   },
 

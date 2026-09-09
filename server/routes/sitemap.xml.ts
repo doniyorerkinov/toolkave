@@ -42,8 +42,9 @@ export default defineEventHandler(event => {
 
   // Tools
   for (const tool of tools) {
-    const alternates = LOCALES.map(l => ({ locale: l, path: toolPath(tool, l) }))
-      .filter((a): a is { locale: string; path: string } => !!a.path)
+    const alternates = LOCALES.map(l => ({ locale: l as string, path: toolPath(tool, l) })).filter(
+      (a): a is { locale: string; path: string } => typeof a.path === 'string'
+    )
 
     for (const locale of tool.locales) {
       const path = toolPath(tool, locale)

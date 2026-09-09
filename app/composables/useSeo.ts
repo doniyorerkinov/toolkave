@@ -34,7 +34,8 @@ interface SeoInput {
 export function usePageSeo(input: SeoInput) {
   const canonical = absolute(input.path)
 
-  const links: Record<string, string>[] = [{ rel: 'canonical', href: canonical }]
+  type HeadLink = { rel: 'canonical' | 'alternate'; href: string; hreflang?: string }
+  const links: HeadLink[] = [{ rel: 'canonical', href: canonical }]
 
   const alternateLocales = Object.keys(input.alternates) as Locale[]
   if (alternateLocales.length > 1) {
@@ -51,7 +52,12 @@ export function usePageSeo(input: SeoInput) {
 
   useHead({
     title: input.title,
-    link: links,
+    // unhead types `rel="alternate"` as the RSS/Atom variant, which requires a
+    // `type` attribute. hreflang alternates are valid HTML but do not fit that
+    // union, so the array is cast at this one boundary. The rendered output is
+    // verified against the deployed pages.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    link: links as any,
     script: input.jsonLd
       ? [{ type: 'application/ld+json', innerHTML: JSON.stringify(input.jsonLd) }]
       : []

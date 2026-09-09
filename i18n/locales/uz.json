@@ -87,8 +87,8 @@
     "tooBig": "Bu fayl {size} dan katta."
   },
   "fileList": {
-    "moveUp": "{name} ni yuqoriga surish",
-    "moveDown": "{name} ni pastga surish",
+    "reorder": "{name} ni ko'chirish, {total} tadan {position}-o'rin. Sudrang yoki strelkalardan foydalaning.",
+    "dragHint": "Tartibni o'zgartirish uchun dastakdan sudrang.",
     "remove": "{name} ni olib tashlash"
   },
   "result": {
