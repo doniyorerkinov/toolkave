@@ -158,6 +158,47 @@
       "action": "Add watermark",
       "unsupportedText": "Only Latin characters work in watermarks for now. Cyrillic needs an embedded font, which is not available yet."
     },
+    "headerFooter": {
+      "headerLabel": "Header text",
+      "footerLabel": "Footer text",
+      "alignLabel": "Alignment",
+      "align": { "left": "Left", "center": "Centre", "right": "Right" },
+      "fontSize": "Text size: {n} pt",
+      "unsupportedText": "Only Latin characters work here for now. Cyrillic needs an embedded font, which is not available yet.",
+      "action": "Add header and footer"
+    },
+    "resize": {
+      "current": "Current size",
+      "targetLabel": "Resize to",
+      "presets": { "a4": "A4", "letter": "Letter", "legal": "Legal", "scale": "Scale by %" },
+      "scale": "Scale: {n}%",
+      "fitNote": "Pages are scaled proportionally and centred, so nothing is stretched or cropped. Landscape pages stay landscape.",
+      "action": "Resize PDF"
+    },
+    "flatten": {
+      "noFields": "This PDF has no form fields. Flattening will still produce a valid copy, but nothing will change.",
+      "foundFields": "{n} form field(s) found. Flattening turns their values into fixed page content.",
+      "action": "Flatten PDF"
+    },
+    "fillForm": {
+      "noFields": "This PDF has no fillable form fields. If you need to add text to it, use the signature tool instead.",
+      "found": "{n} field(s) found.",
+      "checked": "Checked",
+      "notSelected": "Not selected",
+      "flatten": "Flatten after filling, so the values can no longer be edited",
+      "action": "Fill form"
+    },
+    "sign": {
+      "drawLabel": "Draw your signature",
+      "drawHint": "Use a finger, stylus or mouse.",
+      "clear": "Clear",
+      "page": "Page (of {count})",
+      "width": "Signature width: {n}% of the page",
+      "fromLeft": "From left: {n}%",
+      "fromTop": "From top: {n}%",
+      "legalNote": "This places a picture of your signature on the page. It is not a cryptographic digital signature, so it does not prove who signed or detect later changes.",
+      "action": "Sign PDF"
+    },
     "protect": {
       "password": "Password",
       "confirm": "Confirm password",
@@ -543,6 +584,116 @@
         "a3": "No. PNG is lossless and the data is embedded as-is with no re-encoding, so screenshots and diagrams stay pixel-perfect and text in them stays sharp.",
         "q4": "Why is my PDF larger than the PNGs?",
         "a4": "PNG is efficient for flat graphics but the PDF wrapper adds structure around each image, and nothing is re-compressed to make up for it. For screenshot-heavy documents that is a fair trade for keeping the images exact."
+      }
+    },
+    "pdf-header-footer": {
+      "name": "Add header and footer to PDF",
+      "short": "Put the same text at the top or bottom of every page.",
+      "title": "Add Header and Footer to PDF — free online tool",
+      "description": "Free online tool to add a header and footer to a PDF. Set the text, alignment and size, applied to every page. Runs in your browser.",
+      "intro": "Add a PDF and type the text you want at the top, the bottom, or both. It is applied to every page at the alignment and size you choose.",
+      "howTo": {
+        "step1": "Add the PDF you want to label.",
+        "step2": "Type header and footer text, and set alignment and size.",
+        "step3": "Press Add header and footer, then download."
+      },
+      "faq": {
+        "q1": "Can I set only one of them?",
+        "a1": "Yes. Leave either box empty and only the other is drawn, so this works equally well as a header-only or footer-only tool.",
+        "q2": "Will the text overlap my content?",
+        "a2": "It sits about 28 points from the page edge, which clears the margin on ordinary documents. A PDF laid out edge to edge could overlap, so check before sharing.",
+        "q3": "Why is Cyrillic rejected?",
+        "a3": "The fonts built into the PDF format only cover Latin characters. Drawing Cyrillic would mean embedding a font file, which is a large download for every visitor. The tool says so rather than producing empty boxes.",
+        "q4": "Can it number pages too?",
+        "a4": "Not here — the same text goes on every page. Use the page numbers tool for that, and run both if you want numbering and a label."
+      }
+    },
+    "pdf-resize": {
+      "name": "Resize PDF pages",
+      "short": "Convert to A4, Letter or Legal, or scale by percentage.",
+      "title": "Resize PDF — change page size to A4 or Letter online, free",
+      "description": "Free online PDF page resizer. Convert pages to A4, Letter or Legal, or scale them by percentage, with content centred and never stretched.",
+      "intro": "Add a PDF and choose a target page size. Content is scaled proportionally and centred, so nothing is distorted or cut off. Useful when a document arrives in Letter and the printer expects A4.",
+      "howTo": {
+        "step1": "Add the PDF you want to resize.",
+        "step2": "Choose A4, Letter, Legal, or a percentage.",
+        "step3": "Press Resize PDF and download the result."
+      },
+      "faq": {
+        "q1": "Will my content get stretched?",
+        "a1": "No. The scale factor is the smaller of the two dimensions' ratios, so the aspect ratio is kept and the page is padded rather than distorted. The scaled content is then centred, which is the part tools that only change the page box get wrong.",
+        "q2": "What happens to landscape pages?",
+        "a2": "They stay landscape. The target size is rotated to match each page's own orientation, so a mixed portrait-and-landscape document does not come back all upright.",
+        "q3": "What is the difference between Letter and A4?",
+        "a3": "A4 is 210 × 297 mm, standard almost everywhere. Letter is 216 × 279 mm, used in the US and Canada — slightly wider and shorter. Printing one on the other leaves uneven margins, which is what this fixes.",
+        "q4": "Does resizing reduce quality?",
+        "a4": "No. PDF content is vector where the original was vector, so scaling stays sharp at any size. Embedded images are scaled by the viewer at display time, exactly as before."
+      }
+    },
+    "pdf-flatten": {
+      "name": "Flatten PDF",
+      "short": "Turn form fields into fixed page content.",
+      "title": "Flatten PDF — make form fields uneditable online, free",
+      "description": "Free online tool to flatten a PDF. Converts filled form fields into fixed page content so the values can no longer be changed. Runs in your browser.",
+      "intro": "Add a PDF with form fields and flatten it. The values become ordinary page content that looks identical but can no longer be edited or accidentally cleared.",
+      "howTo": {
+        "step1": "Add the PDF you want to flatten.",
+        "step2": "Check how many form fields were found.",
+        "step3": "Press Flatten PDF and download the result."
+      },
+      "faq": {
+        "q1": "Why flatten a form?",
+        "a1": "A filled form still holds editable fields, so anyone can change the values, and some viewers show empty boxes or lose the contents on save. Flattening fixes the values in place, which is what you want before emailing a completed form.",
+        "q2": "Can it be undone?",
+        "a2": "No. The fields are gone once flattened — that is the point. Keep the fillable original if you may need to change the answers later.",
+        "q3": "Does it look different afterwards?",
+        "a3": "It should look the same. The values are drawn onto the page where the fields were. Interactive highlighting disappears, since there is nothing left to interact with.",
+        "q4": "What if my PDF has no form?",
+        "a4": "You get a valid copy back with nothing changed. The tool says so up front rather than implying it did something."
+      }
+    },
+    "pdf-fill-form": {
+      "name": "Fill PDF form",
+      "short": "Fill in a PDF's form fields in your browser.",
+      "title": "Fill PDF Form — complete a fillable PDF online, free",
+      "description": "Free online PDF form filler. Read a PDF's fields, fill them in and optionally flatten so the values cannot be edited. Nothing is uploaded.",
+      "intro": "Add a fillable PDF and every field it contains appears as an ordinary form. Fill them in, optionally flatten, and download. Nothing is uploaded, which matters for applications and contracts.",
+      "howTo": {
+        "step1": "Add a PDF that has fillable fields.",
+        "step2": "Fill in the fields shown.",
+        "step3": "Press Fill form and download the completed PDF."
+      },
+      "faq": {
+        "q1": "Why does it say there are no fields?",
+        "a1": "Because the PDF has no interactive form. Many documents only look fillable — a scan with printed lines has no fields at all. For those, use the signature tool to place text or a signature on the page instead.",
+        "q2": "Which field types work?",
+        "a2": "Text boxes, checkboxes, dropdowns and radio groups. Signature and button fields are listed but cannot be filled here; use the signature tool for those.",
+        "q3": "Should I flatten after filling?",
+        "a3": "Flatten if you are sending the finished form to someone. It stops the values being changed and avoids viewers that render fields inconsistently. Leave it unflattened if you may need to edit later.",
+        "q4": "Is my data uploaded?",
+        "a4": "No. The document is parsed and rewritten in your browser, so passport numbers and bank details on an application form never leave your device."
+      }
+    },
+    "pdf-sign": {
+      "name": "Sign PDF",
+      "short": "Draw a signature and place it on any page.",
+      "title": "Sign PDF — draw and add a signature online, free",
+      "description": "Free online PDF signing tool. Draw your signature with a finger, stylus or mouse and place it anywhere on any page. Nothing is uploaded.",
+      "intro": "Draw your signature in the box, choose the page and where it goes, and download the signed PDF. Everything happens in your browser, so the contract never leaves your device.",
+      "howTo": {
+        "step1": "Add the PDF you want to sign.",
+        "step2": "Draw your signature and choose the page and position.",
+        "step3": "Press Sign PDF and download the result."
+      },
+      "faq": {
+        "q1": "Is this a legally binding digital signature?",
+        "a1": "No, and it is worth being precise. This places a picture of your signature on the page — the same standing as a scanned signature, which many organisations accept. It is not a cryptographic signature, so it does not prove who signed or reveal later changes. Where the law requires a qualified electronic signature, use an accredited provider.",
+        "q2": "Can I sign on my phone?",
+        "a2": "Yes, and it works better than a mouse. The drawing area accepts finger and stylus input directly, and the canvas is drawn at your screen's real resolution so the signature stays sharp.",
+        "q3": "How do I position it accurately?",
+        "a3": "The sliders set position as a percentage of the page, so the placement holds whatever the page size. Start around 60% from the left and 80% from the top for a typical signature line, then adjust and re-run if needed.",
+        "q4": "Is my signature stored?",
+        "a4": "No. It exists only in the page while the tab is open, and is embedded into the PDF on your device. Nothing is uploaded and nothing is remembered between visits."
       }
     },
     "pdf-protect": {

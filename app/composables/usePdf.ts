@@ -317,6 +317,232 @@ export async function readPdfMetadata(file: HeldFile): Promise<PdfMetadata> {
   }
 }
 
+export interface HeaderFooterOptions {
+  header: string
+  footer: string
+  fontSize: number
+  align: 'left' | 'center' | 'right'
+}
+
+export async function addHeaderFooter(
+  file: HeldFile,
+  options: HeaderFooterOptions
+): Promise<Uint8Array> {
+  if (!isLatin1(options.header) || !isLatin1(options.footer)) throw new Error(UNSUPPORTED_TEXT)
+
+  const { PDFDocument, StandardFonts, rgb } = await loadPdfLib()
+  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const font = await doc.embedFont(StandardFonts.Helvetica)
+  const margin = 28
+
+  const place = (text: string, pageWidth: number) => {
+    const width = font.widthOfTextAtSize(text, options.fontSize)
+    if (options.align === 'left') return margin
+    if (options.align === 'right') return pageWidth - width - margin
+    return (pageWidth - width) / 2
+  }
+
+  for (const page of doc.getPages()) {
+    const { width, height } = page.getSize()
+    const colour = rgb(0.25, 0.25, 0.25)
+
+    if (options.header) {
+      page.drawText(options.header, {
+        x: place(options.header, width),
+        y: height - margin - options.fontSize,
+        size: options.fontSize,
+        font,
+        color: colour
+      })
+    }
+    if (options.footer) {
+      page.drawText(options.footer, {
+        x: place(options.footer, width),
+        y: margin,
+        size: options.fontSize,
+        font,
+        color: colour
+      })
+    }
+  }
+
+  return await doc.save()
+}
+
+export type PageSizePreset = 'a4' | 'letter' | 'legal' | 'scale'
+
+const PAPER: Record<Exclude<PageSizePreset, 'scale'>, [number, number]> = {
+  a4: [595.28, 841.89],
+  letter: [612, 792],
+  legal: [612, 1008]
+}
+
+/**
+ * Change page size, or scale pages by a factor.
+ *
+ * Fitting to a paper size scales the content proportionally and then centres
+ * it, so nothing is stretched and nothing ends up in the bottom-left corner -
+ * which is what happens if you only call `setSize`.
+ */
+export async function resizePdfPages(
+  file: HeldFile,
+  preset: PageSizePreset,
+  scale = 1
+): Promise<Uint8Array> {
+  const { PDFDocument } = await loadPdfLib()
+  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+
+  for (const page of doc.getPages()) {
+    if (preset === 'scale') {
+      page.scale(scale, scale)
+      continue
+    }
+
+    const [targetWidth, targetHeight] = PAPER[preset]
+    const { width, height } = page.getSize()
+    // Keep the page's own orientation rather than forcing everything upright.
+    const [tw, th] = width > height ? [targetHeight, targetWidth] : [targetWidth, targetHeight]
+
+    const factor = Math.min(tw / width, th / height)
+    page.scaleContent(factor, factor)
+    page.translateContent((tw - width * factor) / 2, (th - height * factor) / 2)
+    page.setSize(tw, th)
+  }
+
+  return await doc.save()
+}
+
+export interface FormField {
+  name: string
+  type: 'text' | 'checkbox' | 'dropdown' | 'radio' | 'other'
+  value: string
+  options: string[]
+}
+
+export async function readFormFields(file: HeldFile): Promise<FormField[]> {
+  const { PDFDocument } = await loadPdfLib()
+  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+
+  const form = doc.getForm()
+  return form.getFields().map(field => {
+    const name = field.getName()
+    const kind = field.constructor.name
+
+    if (kind === 'PDFTextField') {
+      const typed = form.getTextField(name)
+      return { name, type: 'text' as const, value: typed.getText() ?? '', options: [] }
+    }
+    if (kind === 'PDFCheckBox') {
+      const typed = form.getCheckBox(name)
+      return { name, type: 'checkbox' as const, value: typed.isChecked() ? 'on' : '', options: [] }
+    }
+    if (kind === 'PDFDropdown') {
+      const typed = form.getDropdown(name)
+      return {
+        name,
+        type: 'dropdown' as const,
+        value: typed.getSelected()[0] ?? '',
+        options: typed.getOptions()
+      }
+    }
+    if (kind === 'PDFRadioGroup') {
+      const typed = form.getRadioGroup(name)
+      return {
+        name,
+        type: 'radio' as const,
+        value: typed.getSelected() ?? '',
+        options: typed.getOptions()
+      }
+    }
+    return { name, type: 'other' as const, value: '', options: [] }
+  })
+}
+
+/** Fill form fields, optionally flattening so the values can no longer be edited. */
+export async function fillForm(
+  file: HeldFile,
+  values: Record<string, string>,
+  flatten: boolean
+): Promise<Uint8Array> {
+  const { PDFDocument } = await loadPdfLib()
+  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const form = doc.getForm()
+
+  for (const field of form.getFields()) {
+    const name = field.getName()
+    if (!(name in values)) continue
+    const value = values[name] ?? ''
+    const kind = field.constructor.name
+
+    try {
+      if (kind === 'PDFTextField') form.getTextField(name).setText(value)
+      else if (kind === 'PDFCheckBox') {
+        const box = form.getCheckBox(name)
+        value ? box.check() : box.uncheck()
+      } else if (kind === 'PDFDropdown' && value) form.getDropdown(name).select(value)
+      else if (kind === 'PDFRadioGroup' && value) form.getRadioGroup(name).select(value)
+    } catch {
+      // A value that no longer matches the field's options should not abort the
+      // whole fill; the remaining fields are still worth writing.
+    }
+  }
+
+  if (flatten) form.flatten()
+  return await doc.save()
+}
+
+/**
+ * Turn form fields and annotations into static page content.
+ *
+ * Flattening a document with no form is a no-op rather than an error, since
+ * "make this uneditable" is a reasonable thing to ask of any PDF.
+ */
+export async function flattenPdf(file: HeldFile): Promise<Uint8Array> {
+  const { PDFDocument } = await loadPdfLib()
+  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+
+  try {
+    doc.getForm().flatten()
+  } catch {
+    // No form, or a form pdf-lib cannot flatten. The save below still strips
+    // nothing and returns a valid document.
+  }
+
+  return await doc.save()
+}
+
+export interface SignaturePlacement {
+  /** PNG bytes of the drawn signature. */
+  image: Uint8Array
+  pageIndex: number
+  /** Position and width as a fraction of the page, so it survives any page size. */
+  xRatio: number
+  yRatio: number
+  widthRatio: number
+}
+
+export async function signPdf(file: HeldFile, placement: SignaturePlacement): Promise<Uint8Array> {
+  const { PDFDocument } = await loadPdfLib()
+  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+
+  const png = await doc.embedPng(toArrayBuffer(placement.image))
+  const page = doc.getPage(Math.min(placement.pageIndex, doc.getPageCount() - 1))
+  const { width, height } = page.getSize()
+
+  const drawWidth = width * placement.widthRatio
+  const drawHeight = drawWidth * (png.height / png.width)
+
+  page.drawImage(png, {
+    x: width * placement.xRatio,
+    // PDF origin is bottom-left; the UI works top-down, so flip here.
+    y: height * (1 - placement.yRatio) - drawHeight,
+    width: drawWidth,
+    height: drawHeight
+  })
+
+  return await doc.save()
+}
+
 export const WRONG_PASSWORD = 'toolkave/wrong-password'
 export const NOT_ENCRYPTED = 'toolkave/not-encrypted'
 

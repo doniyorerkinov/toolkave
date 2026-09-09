@@ -158,6 +158,47 @@
       "action": "Suv belgisini qo'shish",
       "unsupportedText": "Hozircha suv belgilarida faqat lotin harflari ishlaydi. Kirill uchun ichki shrift kerak, u hali mavjud emas."
     },
+    "headerFooter": {
+      "headerLabel": "Yuqori kolontitul matni",
+      "footerLabel": "Pastki kolontitul matni",
+      "alignLabel": "Tekislash",
+      "align": { "left": "Chapga", "center": "Markazga", "right": "O'ngga" },
+      "fontSize": "Matn o'lchami: {n} pt",
+      "unsupportedText": "Hozircha bu yerda faqat lotin harflari ishlaydi. Kirill uchun ichki shrift kerak, u hali mavjud emas.",
+      "action": "Kolontitul qo'shish"
+    },
+    "resize": {
+      "current": "Joriy o'lcham",
+      "targetLabel": "Quyidagiga o'zgartirish",
+      "presets": { "a4": "A4", "letter": "Letter", "legal": "Legal", "scale": "Foizda masshtab" },
+      "scale": "Masshtab: {n}%",
+      "fitNote": "Sahifalar mutanosib masshtablanadi va markazga joylashadi, shuning uchun hech narsa cho'zilmaydi va kesilmaydi. Albom sahifalar albom bo'lib qoladi.",
+      "action": "PDF formatini o'zgartirish"
+    },
+    "flatten": {
+      "noFields": "Bu PDF da shakl maydonlari yo'q. Tekislash baribir to'g'ri nusxa yaratadi, lekin hech narsa o'zgarmaydi.",
+      "foundFields": "{n} ta shakl maydoni topildi. Tekislash ularning qiymatlarini o'zgarmas sahifa mazmuniga aylantiradi.",
+      "action": "PDF ni tekislash"
+    },
+    "fillForm": {
+      "noFields": "Bu PDF da to'ldiriladigan shakl maydonlari yo'q. Matn qo'shish kerak bo'lsa, imzo vositasidan foydalaning.",
+      "found": "{n} ta maydon topildi.",
+      "checked": "Belgilangan",
+      "notSelected": "Tanlanmagan",
+      "flatten": "To'ldirgandan keyin tekislash, shunda qiymatlarni o'zgartirib bo'lmaydi",
+      "action": "Shaklni to'ldirish"
+    },
+    "sign": {
+      "drawLabel": "Imzoingizni chizing",
+      "drawHint": "Barmoq, stilus yoki sichqoncha bilan.",
+      "clear": "Tozalash",
+      "page": "Sahifa (jami {count})",
+      "width": "Imzo kengligi: sahifaning {n}% i",
+      "fromLeft": "Chapdan: {n}%",
+      "fromTop": "Yuqoridan: {n}%",
+      "legalNote": "Bu sahifaga imzoingizning rasmini joylashtiradi. Bu kriptografik raqamli imzo emas: u kim imzolaganini tasdiqlamaydi va keyingi o'zgarishlarni aniqlamaydi.",
+      "action": "PDF ni imzolash"
+    },
     "protect": {
       "password": "Parol",
       "confirm": "Parolni takrorlang",
@@ -543,6 +584,116 @@
         "a3": "Yo'q. PNG yo'qotishsiz format va ma'lumotlar qayta kodlanmasdan joylashtiriladi, shuning uchun skrinshot va sxemalar piksel darajasida aniq, ulardagi matn esa tiniq qoladi.",
         "q4": "Nega PDF asl PNG lardan kattaroq?",
         "a4": "PNG tekis grafika uchun tejamli, lekin PDF tuzilmasi har bir rasm atrofiga qo'shimcha qo'shadi va buni qoplash uchun hech narsa qayta siqilmaydi. Skrinshotlardan iborat hujjatlar uchun bu rasm aniqligi evaziga adolatli almashuv."
+      }
+    },
+    "pdf-header-footer": {
+      "name": "PDF ga kolontitul qo'shish",
+      "short": "Har bir sahifaning yuqori yoki pastiga bir xil matn qo'ying.",
+      "title": "PDF ga kolontitul qo'shish — bepul onlayn vosita",
+      "description": "PDF ga yuqori va pastki kolontitulni bepul onlayn qo'shish. Matn, tekislash va o'lchamni belgilang — ular barcha sahifalarga qo'llanadi. Brauzerda ishlaydi.",
+      "intro": "PDF qo'shing va yuqoriga, pastga yoki ikkalasiga yozmoqchi bo'lgan matnni kiriting. U siz tanlagan tekislash va o'lchamda har bir sahifaga tushadi.",
+      "howTo": {
+        "step1": "Kolontitul qo'yiladigan PDF ni qo'shing.",
+        "step2": "Matnni yozing, tekislash va o'lchamni belgilang.",
+        "step3": "«Kolontitul qo'shish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Faqat bittasini qo'ysa bo'ladimi?",
+        "a1": "Ha. Maydonlardan birini bo'sh qoldiring va faqat ikkinchisi chiziladi, shuning uchun vosita faqat yuqori yoki faqat pastki kolontitul uchun ham bir xil ishlaydi.",
+        "q2": "Matn mazmunni yopib qo'ymaydimi?",
+        "a2": "U sahifa chetidan taxminan 28 punkt masofada joylashadi, bu oddiy hujjatlar hoshiyasiga sig'adi. Chetdan chetga terilgan PDF da ustma-ust tushishi mumkin — yuborishdan oldin tekshiring.",
+        "q3": "Nega kirill qabul qilinmaydi?",
+        "a3": "PDF formatiga o'rnatilgan shriftlar faqat lotin harflarini qamraydi. Kirill uchun shrift faylini joylash kerak bo'lardi — bu har bir tashrifchi uchun katta yuklama. Vosita bo'sh kvadratlar chizmasdan buni aytadi.",
+        "q4": "Shu tarzda sahifalarni raqamlasa bo'ladimi?",
+        "a4": "Bu yerda yo'q — barcha sahifaga bir xil matn tushadi. Raqamlash uchun alohida vosita bor, kerak bo'lsa ikkalasini ketma-ket ishlating."
+      }
+    },
+    "pdf-resize": {
+      "name": "PDF sahifalari o'lchamini o'zgartirish",
+      "short": "A4, Letter yoki Legal ga o'giring, yoki foizda masshtablang.",
+      "title": "PDF formatini o'zgartirish — A4 yoki Letter ga onlayn, bepul",
+      "description": "PDF sahifa o'lchamini bepul onlayn o'zgartirish. Sahifalarni A4, Letter yoki Legal ga o'giring yoki foizda masshtablang — mazmun markazga joylashadi va cho'zilmaydi.",
+      "intro": "PDF qo'shing va kerakli sahifa o'lchamini tanlang. Mazmun mutanosib masshtablanadi va markazga joylashadi, shuning uchun hech narsa buzilmaydi va kesilmaydi. Hujjat Letter da kelib, printer A4 kutganda qulay.",
+      "howTo": {
+        "step1": "O'lchamini o'zgartirmoqchi bo'lgan PDF ni qo'shing.",
+        "step2": "A4, Letter, Legal yoki foizni tanlang.",
+        "step3": "«PDF formatini o'zgartirish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Mazmun cho'zilib ketmaydimi?",
+        "a1": "Yo'q. Ikki o'lchov nisbatidan kichigi olinadi, shuning uchun nisbat saqlanadi va sahifa buzilmasdan hoshiya bilan to'ldiriladi. So'ng mazmun markazga suriladi — faqat sahifa qutisini o'zgartiradigan vositalar aynan shuni o'tkazib yuboradi.",
+        "q2": "Albom sahifalar nima bo'ladi?",
+        "a2": "Ular albom bo'lib qoladi. Maqsadli o'lcham har bir sahifaning o'z yo'nalishiga moslab buriladi, shuning uchun aralash yo'nalishli hujjat butunlay tik holatga o'tib qolmaydi.",
+        "q3": "Letter va A4 nimasi bilan farq qiladi?",
+        "a3": "A4 — 210 × 297 mm, deyarli hamma joyda standart. Letter — 216 × 279 mm, AQSh va Kanadada ishlatiladi: bir oz kengroq va kaltaroq. Birini ikkinchisida chop etish notekis hoshiya beradi, bu vosita shuni tuzatadi.",
+        "q4": "Sifat pasayadimi?",
+        "a4": "Yo'q. Vektor mazmun vektor bo'lib qoladi va istalgan masshtabda tiniq ko'rinadi. Ichki rasmlar avvalgidek ko'ruvchi dastur tomonidan ko'rsatishda masshtablanadi."
+      }
+    },
+    "pdf-flatten": {
+      "name": "PDF ni tekislash",
+      "short": "Shakl maydonlarini o'zgarmas sahifa mazmuniga aylantiring.",
+      "title": "PDF ni tekislash — shakl maydonlarini o'zgarmas qilish, bepul",
+      "description": "PDF ni bepul onlayn tekislash. To'ldirilgan shakl maydonlarini o'zgarmas sahifa mazmuniga aylantiradi, shunda qiymatlarni o'zgartirib bo'lmaydi. Brauzerda ishlaydi.",
+      "intro": "Shakl maydonlari bor PDF ni qo'shing va tekislang. Qiymatlar oddiy sahifa mazmuniga aylanadi: ko'rinishi bir xil, lekin ularni tahrirlab yoki tasodifan tozalab bo'lmaydi.",
+      "howTo": {
+        "step1": "Tekislamoqchi bo'lgan PDF ni qo'shing.",
+        "step2": "Nechta shakl maydoni topilganini ko'ring.",
+        "step3": "«PDF ni tekislash» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega shaklni tekislash kerak?",
+        "a1": "To'ldirilgan shaklda maydonlar tahrirlanadigan bo'lib qoladi, shuning uchun qiymatlarni istalgan odam o'zgartirishi mumkin, ba'zi dasturlar esa bo'sh ramka ko'rsatadi yoki saqlashda mazmunni yo'qotadi. Tekislash qiymatlarni qotiradi — tayyor shaklni yuborishdan oldin aynan shu kerak.",
+        "q2": "Buni orqaga qaytarish mumkinmi?",
+        "a2": "Yo'q. Tekislashdan keyin maydonlar yo'q — gap ham shunda. Javoblarni keyin o'zgartirish ehtimoli bo'lsa, to'ldiriladigan asl faylni saqlang.",
+        "q3": "Ko'rinishi o'zgaradimi?",
+        "a3": "O'zgarmasligi kerak. Qiymatlar maydonlar turgan joyda sahifaga chiziladi. Interaktiv yoritish yo'qoladi, chunki endi o'zaro ishlashga narsa qolmaydi.",
+        "q4": "PDF da shakl bo'lmasa-chi?",
+        "a4": "Siz o'zgarishsiz to'g'ri nusxa olasiz. Vosita bir ish qilgandek ko'rsatmasdan, buni oldindan aytadi."
+      }
+    },
+    "pdf-fill-form": {
+      "name": "PDF shaklni to'ldirish",
+      "short": "PDF ning shakl maydonlarini brauzerda to'ldiring.",
+      "title": "PDF shaklni to'ldirish — to'ldiriladigan PDF onlayn, bepul",
+      "description": "PDF shakllarini bepul onlayn to'ldirish. Hujjat maydonlarini o'qing, to'ldiring va xohlasangiz tekislang, shunda qiymatlarni o'zgartirib bo'lmaydi. Hech narsa yuklanmaydi.",
+      "intro": "To'ldiriladigan PDF ni qo'shing — undagi barcha maydonlar oddiy shakl bo'lib chiqadi. To'ldiring, kerak bo'lsa tekislang va yuklab oling. Hech narsa yuklanmaydi, bu ariza va shartnomalar uchun muhim.",
+      "howTo": {
+        "step1": "To'ldiriladigan maydonlari bor PDF ni qo'shing.",
+        "step2": "Ko'rsatilgan maydonlarni to'ldiring.",
+        "step3": "«Shaklni to'ldirish» tugmasini bosing va tayyor PDF ni yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega maydonlar yo'q deb yozyapti?",
+        "a1": "Chunki PDF da interaktiv shakl yo'q. Ko'p hujjatlar faqat to'ldiriladigandek ko'rinadi: chiziqlari chop etilgan skanda maydonlar umuman yo'q. Bunday hollarda sahifaga matn yoki imzo qo'yish uchun imzo vositasidan foydalaning.",
+        "q2": "Qaysi maydon turlari qo'llab-quvvatlanadi?",
+        "a2": "Matn maydonlari, belgilash katakchalari, ochiluvchi ro'yxatlar va tanlov guruhlari. Imzo va tugma maydonlari ko'rsatiladi, lekin bu yerda to'ldirilmaydi — ular uchun imzo vositasi bor.",
+        "q3": "To'ldirgandan keyin tekislash kerakmi?",
+        "a3": "Tayyor shaklni birovga yuborayotgan bo'lsangiz, tekislang: bu qiymatlarni o'zgartirishdan va maydonlarni har xil ko'rsatadigan dasturlardan himoya qiladi. Keyin tahrirlash ehtimoli bo'lsa, tekislamang.",
+        "q4": "Ma'lumotlarim yuklanadimi?",
+        "a4": "Yo'q. Hujjat brauzerda tahlil qilinadi va qayta yig'iladi, shuning uchun arizadagi pasport raqami va bank rekvizitlari qurilmangizdan chiqmaydi."
+      }
+    },
+    "pdf-sign": {
+      "name": "PDF ni imzolash",
+      "short": "Imzo chizing va uni istalgan sahifaga joylashtiring.",
+      "title": "PDF ni imzolash — imzo chizib qo'shish onlayn, bepul",
+      "description": "PDF ni bepul onlayn imzolash. Imzoingizni barmoq, stilus yoki sichqoncha bilan chizing va hujjatning istalgan joyiga qo'ying. Hech narsa yuklanmaydi.",
+      "intro": "Maydonga imzoingizni chizing, sahifa va joyni tanlang va imzolangan PDF ni yuklab oling. Hammasi brauzerda bajariladi, shuning uchun shartnoma qurilmangizdan chiqmaydi.",
+      "howTo": {
+        "step1": "Imzolamoqchi bo'lgan PDF ni qo'shing.",
+        "step2": "Imzoingizni chizing, sahifa va joyni tanlang.",
+        "step3": "«PDF ni imzolash» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Bu yuridik kuchga ega raqamli imzomi?",
+        "a1": "Yo'q, va bu yerda aniqlik muhim. Vosita sahifaga imzo rasmini joylashtiradi — maqomi bo'yicha bu skanerlangan imzoga teng, uni ko'p tashkilotlar qabul qiladi. Kriptografik imzo emas: u kim imzolaganini tasdiqlamaydi va keyingi o'zgarishlarni ko'rsatmaydi. Qonun malakali elektron imzoni talab qilgan joyda akkreditatsiyalangan provayderga murojaat qiling.",
+        "q2": "Telefondan imzolasa bo'ladimi?",
+        "a2": "Ha, va sichqonchadan yaxshiroq chiqadi. Chizish maydoni barmoq va stilus kiritishini to'g'ridan-to'g'ri qabul qiladi, kanvas esa ekraningizning haqiqiy o'lchamida chiziladi, shuning uchun imzo tiniq qoladi.",
+        "q3": "Imzoni qanday aniq joylashtiraman?",
+        "a3": "Surgichlar joylashuvni sahifa foizida belgilaydi, shuning uchun joylashuv istalgan o'lchamda saqlanadi. Odatiy imzo chizig'i uchun chapdan 60%, yuqoridan 80% atrofidan boshlang, so'ng kerak bo'lsa to'g'rilab qayta bajaring.",
+        "q4": "Imzoim saqlanadimi?",
+        "a4": "Yo'q. U faqat ochiq sahifada mavjud bo'ladi va qurilmangizda PDF ichiga joylashtiriladi. Hech narsa yuklanmaydi va tashriflar orasida eslab qolinmaydi."
       }
     },
     "pdf-protect": {

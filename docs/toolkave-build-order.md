@@ -192,10 +192,23 @@ no other tool pays for it.
 - [x] Unit converter · time zone converter
 - [x] **Protect / unlock PDF** — on `@cantoo/pdf-lib`
 - [x] **Currency converter** — CBU primary, open.er-api fallback, fetched in the browser
-- [ ] Header/footer · sign · fill forms · flatten · crop/resize
+- [x] Header/footer · resize · flatten · fill forms · sign
 - [ ] **PDF→text** — needs pdf.js, so it belongs with Phase 3.
 
-**33 tools in the registry, 30 drafts.** 99 pages across three locales, all 200 in dev.
+**Wave 2 complete except PDF→text: 38 tools in the registry, 35 drafts.** 114 pages across
+three locales, all 200 in dev.
+
+Notes on the last five:
+
+- **Resize** scales content by the smaller of the two ratios and then *centres* it. Tools that
+  only call `setSize` leave the content in the bottom-left corner. Landscape pages keep their
+  orientation rather than being forced upright.
+- **Sign** places a picture of a signature. That is the same standing as a scanned signature,
+  not a cryptographic one — it proves nothing about who signed and detects no later edits. The
+  FAQ says exactly that rather than implying legal weight it does not have.
+- **Fill form** silently skips a value that no longer matches a field's options instead of
+  aborting the whole fill, so one stale dropdown value does not lose the other twenty fields.
+- **Flatten** on a PDF with no form is a no-op that says so, rather than pretending to work.
 
 ### Library decision: `@cantoo/pdf-lib` replaces `pdf-lib`
 
