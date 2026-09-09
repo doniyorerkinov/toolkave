@@ -79,7 +79,88 @@
       "body": "Telefon, planshet yoki kompyuterdagi istalgan zamonaviy brauzerda ishlaydi. O'rnatish shart emas."
     }
   },
+  "dropzone": {
+    "title": "Fayllarni bu yerga tashlang",
+    "hint": "yoki bosib tanlang, yoki buferdan qo'ying",
+    "maxSize": "har biri {size} gacha",
+    "wrongType": "Bu vosita faqat {formats} fayllari bilan ishlaydi.",
+    "tooBig": "Bu fayl {size} dan katta."
+  },
+  "fileList": {
+    "moveUp": "{name} ni yuqoriga surish",
+    "moveDown": "{name} ni pastga surish",
+    "remove": "{name} ni olib tashlash"
+  },
+  "result": {
+    "download": "Yuklab olish",
+    "useAsInput": "Keyingi vositaga berish",
+    "startOver": "Qaytadan boshlash"
+  },
+  "pdf": {
+    "working": "Bajarilmoqda…",
+    "errorGeneric": "Faylni qayta ishlab bo'lmadi. U shikastlangan yoki parol bilan himoyalangan bo'lishi mumkin.",
+    "errorRead": "Bu PDF o'qilmadi. U shikastlangan yoki parol bilan himoyalangan bo'lishi mumkin.",
+    "merge": {
+      "needTwo": "Yana kamida bitta fayl qo'shing.",
+      "action": "PDF ni birlashtirish"
+    },
+    "split": {
+      "rangesLabel": "Qaysi sahifalar qolsin (jami {count})",
+      "rangesPlaceholder": "masalan 1-3, 5, 8-10",
+      "selected": "Tanlangan sahifalar: {n}",
+      "noneSelected": "Hali birorta to'g'ri sahifa tanlanmadi.",
+      "action": "PDF ni ajratish"
+    }
+  },
   "tools": {
+    "pdf-merge": {
+      "name": "PDF ni birlashtirish",
+      "short": "Bir nechta PDF faylni istalgan tartibda bittaga qo'shing.",
+      "title": "PDF birlashtirish — PDF fayllarni onlayn qo'shish, bepul",
+      "description": "Bepul onlayn PDF birlashtirish. Bir nechta PDF ni bitta faylga qo'shing, tartibini o'zgartiring va darhol yuklab oling. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "intro": "Birlashtirmoqchi bo'lgan PDF fayllarni qo'shing, kerakli tartibga keltiring va birlashtiring. Fayllar brauzer ichida o'qiladi va qo'shiladi, shuning uchun hech narsa serverga yuborilmaydi va necha marta ishlatishingizda cheklov yo'q.",
+      "howTo": {
+        "step1": "Ikki yoki undan ortiq PDF faylni tashlang, tanlang yoki qo'ying.",
+        "step2": "Strelkalar yordamida kerakli tartibga keltiring.",
+        "step3": "«PDF ni birlashtirish» tugmasini bosing va tayyor faylni yuklab oling."
+      },
+      "faq": {
+        "q1": "PDF fayllarim serverga yuboriladimi?",
+        "a1": "Yo'q. Fayllar brauzer xotirasiga o'qiladi va o'sha yerda JavaScript yordamida birlashtiriladi. Tarmoq orqali hech narsa uzatilmaydi, hech qayerda saqlanmaydi va hujjatlarni boshqa hech kim ko'rmaydi. Shu sababli shartnoma, pasport, tibbiy ma'lumotnoma kabi internetga yuklashni istamaydigan hujjatlar uchun ham xavfsiz.",
+        "q2": "Fayl hajmi yoki soniga cheklov bormi?",
+        "a2": "Sun'iy cheklov yo'q. Amaliy chegara — qurilmangiz xotirasi, chunki hujjat yig'ilayotganda to'liq xotirada turadi. Eng qiyini eski telefondagi katta skanlar; noutbukda o'nlab oddiy hujjatni birlashtirish muammosiz o'tadi.",
+        "q3": "Birlashtirishda sifat pasayadimi?",
+        "a3": "Yo'q. Sahifalar o'zgartirilmasdan ko'chiriladi: matn ajratiladigan bo'lib qoladi, rasmlar asl o'lchamini saqlaydi, qayta siqilish bo'lmaydi. Natijaviy fayl odatda dastlabki fayllar yig'indisiga yaqin bo'ladi.",
+        "q4": "Parol bilan himoyalangan PDF ni birlashtirsa bo'ladimi?",
+        "a4": "Faqat egalik paroli bo'lgan fayllar odatda birlashadi. Foydalanuvchi paroli bilan shifrlangan PDF — ochilishidan oldin parol so'raydigani — o'sha parolsiz o'qilmaydi, shuning uchun bu yerda birlashtirib bo'lmaydi.",
+        "q5": "Xatcho'plar va shakl maydonlari nima bo'ladi?",
+        "a5": "Sahifa mazmuni, matn va rasmlar to'liq saqlanadi. Hujjat darajasidagi xususiyatlar — xatcho'plar, shakl maydonlari, ilovalar — birlashtirilgan faylga o'tmaydi. Ular kerak bo'lsa, asl fayllarni ham saqlab qo'ying."
+      }
+    },
+    "pdf-split": {
+      "name": "PDF ni ajratish",
+      "short": "Kerakli sahifalarni yangi PDF ga ajratib oling.",
+      "title": "PDF ajratish — sahifalarni onlayn ajratib olish, bepul",
+      "description": "Bepul onlayn PDF ajratish. Kerakli sahifa yoki oraliqlarni ko'rsating va ularni alohida PDF sifatida yuklab oling. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "intro": "PDF qo'shing, qoldirmoqchi bo'lgan sahifalarni yozing va ularni yangi fayl sifatida yuklab oling. 1-3, 5, 8-10 kabi oraliqlar ishlaydi. Asl fayl o'zgarmaydi va qurilmangizdan chiqmaydi.",
+      "howTo": {
+        "step1": "Ajratmoqchi bo'lgan PDF ni qo'shing.",
+        "step2": "Qoldiriladigan sahifalarni yozing, masalan 1-3, 5, 8-10.",
+        "step3": "«PDF ni ajratish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Faylim biror joyga yuklanadimi?",
+        "a1": "Yo'q. Hujjat brauzerda o'qiladi va yangi fayl ham o'sha yerda yig'iladi. Hech narsa uzatilmaydi va saqlanmaydi, shuning uchun guvohnoma skanlari yoki imzolangan kelishuvlar kabi shaxsiy hujjatlarni bemalol ajratsa bo'ladi.",
+        "q2": "Sahifa oraliqlarini qanday yozaman?",
+        "a2": "Yozuvlarni vergul bilan ajrating. Bitta raqam — bitta sahifa, chiziqcha bilan yozilgan ikki raqam esa ular orasidagi hammasini oladi. Masalan, 1-3, 5, 8-10 sahifalardan 1, 2, 3, 5, 8, 9 va 10 ni qoldiradi. Hujjatda mavjud bo'lmagan sahifalar xatolik bermasdan e'tiborsiz qoldiriladi.",
+        "q3": "Asl fayl o'zgaradimi?",
+        "a3": "Yo'q. Asl fayl faqat o'qiladi, hech qachon qayta yozilmaydi. Natija — siz tanlagan sahifalar nusxasidan iborat yangi PDF, qurilmangizdagi fayl esa o'zgarishsiz qoladi.",
+        "q4": "Har bir sahifani alohida fayl qilib olsa bo'ladimi?",
+        "a4": "Hozircha yo'q: vosita tanlangan sahifalardan bitta yangi PDF yasaydi. Sahifalarni alohida olish uchun amalni har biri uchun takrorlang. Alohida fayllarga bo'lish rejimi rejalashtirilgan.",
+        "q5": "Ajratilgan sahifalar sifati pasayadimi?",
+        "a5": "Yo'q. Sahifalar qayta siqilmasdan ko'chiriladi: matn ajratiladigan va qidiriladigan bo'lib qoladi, rasmlar asl o'lchamini saqlaydi. Natija odatda asl fayldan ancha kichik bo'ladi, chunki sahifalar soni kamayadi."
+      }
+    },
     "word-counter": {
       "name": "So'z hisoblagich",
       "short": "So'z, belgi, gap va o'qish vaqtini sanaydi.",

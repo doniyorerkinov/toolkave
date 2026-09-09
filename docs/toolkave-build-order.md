@@ -1,0 +1,144 @@
+# Toolkave — Build Order & TODO
+
+Working checklist. **This file supersedes the build orders in `toolkave-plan.md` §5 and
+`toolkave-pdf-and-ui.md` §5** wherever they disagree, and records the decisions those two
+documents predate.
+
+Ordering principle: anything expensive to retrofit goes first; anything cheap to add goes last.
+
+Last updated: 9 Sept 2026
+
+---
+
+## Locked decisions
+
+These are settled. The older docs contradict some of them — this file wins.
+
+| Topic | Decision | Supersedes |
+| --- | --- | --- |
+| Framework | Nuxt 4 (`app/` directory) | "Nuxt 3" + root-level `pages/` trees |
+| Hosting | Cloudflare **Workers**, not Pages | plan §6, pdf-and-ui §3 |
+| Rendering | Prerendered static assets, routes generated from the registry | "static Nuxt" (same intent, different mechanism) |
+| Locales | `en` (unprefixed) · `ru` · `uz` | 4-locale plan incl. `uz-cyrl` |
+| `uz-cyrl` | Deferred. Enable only on Search Console evidence, and generate by transliteration from `uz-latn` | plan §4 |
+| European locales | Not now. Add one at a time, with paid human translation, only after a page proves it ranks | — |
+| URLs | Category-nested **and** translated: `/pdf/merge`, `/ru/pdf/obedinit` | plan §4 flat slugs |
+| Content | Prose written per tool per locale **on demand**, never as a bulk batch | plan §9 "all languages" |
+| Locale coverage | Per-tool `locales` field. A tool with no content in a locale gets **no URL** there | — |
+
+**Why the content rule matters:** ~47 tools × 3 locales = ~141 pages. At the plan's 3–4 h/week
+that is over budget before starting. Real capacity is ~100–120 pages in year one. Spend them
+where traffic concentrates (pdf-and-ui §2 puts ~80% of PDF traffic in Tier 1), not uniformly.
+
+**Never machine-translate the SEO prose.** In `ru`/`uz` it is written natively — that is the moat.
+
+---
+
+## Phase 0 — Foundation
+
+- [x] Switch SSR → prerendering, routes generated from the registry
+- [x] Track `wrangler.jsonc` in git
+- [ ] **Cloudflare dashboard (manual — API token lacks zone write):**
+  - [ ] Always Use HTTPS: **on**
+  - [ ] SSL: **Full (strict)**
+  - [ ] Rocket Loader: **off** — breaks Nuxt hydration, do before Phase 2 ships
+  - [ ] Auto Minify: **off**
+
+## Phase 1 — Skeleton + first vertical slice
+
+- [x] `app/data/tools.ts` registry — single source for routing, nav, sitemap, hreflang, prerender
+- [x] `@nuxtjs/i18n`, `prefix_except_default`, translated slugs at both levels
+- [x] `app/pages/[category]/[tool].vue` + `[category]/index.vue` + home
+- [x] Layout, nav, language switcher, footer
+- [x] `ToolShell`, `HowTo`, `Faq`, `WhyBlocks`, `RelatedTools`, `ToolCard`
+- [x] `AdSlot` (inert until Phase 6)
+- [x] `useSeo` — canonical, OG, hreflang, `WebApplication` + `FAQPage` JSON-LD
+- [x] Registry-driven `sitemap.xml` with per-entry hreflang, plus `robots.txt`
+- [x] **Word counter live in all three locales**
+- [ ] Native `ru`/`uz` pass over the word counter prose (currently a draft)
+
+**Exit met:** 9 routes prerendered, all 200 on toolkave.com, cross-locale URLs correctly 404.
+
+## Phase 2 — File pipeline
+
+- [x] Pinia store `app/stores/files.ts` — current files, so tools chain without re-upload
+- [x] `FileDropzone` — drag-drop, click, paste; accepted formats + size hint
+- [x] `FileList` — reorder, remove (file-level; page thumbnails deferred to Phase 3)
+- [x] `ResultCard` — filename, size before/after, Download, Use as input, Start over
+- [x] `usePdf.ts` with **lazy** `pdf-lib` import
+- [x] **PDF Merge**
+- [x] **PDF Split** (page ranges; visual page picker waits for pdf.js)
+- [x] Registry entries + `en`/`ru`/`uz` content for both
+- [ ] Native `ru`/`uz` pass over the merge/split prose (currently a draft)
+- [ ] `OptionsPanel` — deferred; merge needs no options and split needs one field, so
+      extracting a wrapper now would be guessing at its API. Build it with Rotate/Compress,
+      which are the first tools with a real options set.
+
+**Scope call:** Phase 2 stayed `pdf-lib`-only. Page thumbnails need pdf.js (~1 MB), which
+arrives with the worker in Phase 3.
+
+**Exit met:** 18 routes prerendered, all 200 live. pdf-lib sits in its own 419 KB chunk that no
+page loads until a file is actually processed — the entry chunk (163 KB) does not contain it.
+Merge → "Use as input" → Split chains without re-upload.
+
+## Phase 3 — Heavy pipeline
+
+- [ ] `app/web-workers/pdf.worker.ts` + message protocol (avoid the name `workers/` — this
+      project deploys to Cloudflare *Workers*)
+- [ ] Page thumbnails via pdf.js, reused by Split / Reorder / Rotate / Delete
+- [ ] **Compress** — ⚠ see risk below
+- [ ] **PDF → JPG**
+- [ ] Core Web Vitals measured before/after
+
+> **Open risk — Compress.** pdf-and-ui §2 specifies "pdf.js render → JPEG re-encode → pdf-lib
+> rebuild". That rasterises every page: text stops being selectable or searchable, and
+> text-heavy files can come out *larger*. This is a Tier-1 tool where users compare directly
+> against iLovePDF, which preserves text. Validate against a real text-heavy PDF before
+> committing; `mupdf-wasm` / `pdfcpu-wasm` recompress images without destroying the text layer.
+
+**Exit:** a 100-page PDF compresses without freezing the UI; CWV still green.
+
+## Phase 4 — Scale horizontally
+
+- [ ] Rotate · Reorder/Delete · JPG→PDF (completes Tier 1)
+- [ ] QR generator · password generator · JSON formatter · Base64
+- [ ] ~15 tools live
+
+## Phase 5 — Content + indexing
+
+- [ ] 200–400 words + FAQ per tool, allocated by traffic (top ~15 in 3 locales; long tail 1–2)
+- [ ] Google Search Console + Yandex Webmaster verified, sitemap submitted
+- [ ] Confirm Googlebot reaches pages via URL Inspection
+- [ ] ~15 content pages → AdSense eligible
+
+## Phase 6 — Ads
+
+- [ ] `AdSlot` switched on; AdSense + Yandex РСЯ on separate slots
+- [ ] Scripts loaded once in the layout, lazily, after hydration
+- [ ] Never between input and result; max 3–4 units per page
+- [ ] CWV measured before and after
+
+## Phase 7 — Long tail
+
+- [ ] Tier 2 PDF tools
+- [ ] Tier 3, incl. the local differentiators: **OCR uz/ru/en** and **broken Cyrillic → UTF-8**
+- [ ] `@toolkavebot`
+- [ ] Revisit Ezoic at ~10k sessions/month
+- [ ] Revisit a European locale once a page proves it ranks
+
+---
+
+## Standing engineering rules
+
+1. **Registry drives everything.** A new tool is one registry entry + one component. Adding a
+   locale is one array entry + one JSON file + slugs — never a page change.
+2. **Lazy-import every heavy library** inside the tool component, never in the layout.
+   `import.meta.glob` in `[tool].vue` already code-splits each tool into its own chunk.
+3. **Resolve tool components through the glob, not `resolveComponent`.** Nuxt's auto-import is a
+   build-time template transform; a runtime-computed name renders as an unknown element.
+4. **Locale alternates come from the registry, not `useSetI18nParams`/`switchLocalePath`.** On
+   dynamic routes those fall back to the current route's params and emit cross-locale URLs like
+   `/ru/text/word-counter`, which 404.
+5. **Prerender everything.** Static asset requests on Workers are free and unlimited; Worker
+   invocations are capped at 100k/day on the free plan.
+6. **Deploys are CLI-driven** (`npm run deploy`). No Git integration — pushing does not deploy.

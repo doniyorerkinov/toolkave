@@ -79,7 +79,88 @@
       "body": "Runs in any modern browser on phone, tablet or desktop. Nothing to install."
     }
   },
+  "dropzone": {
+    "title": "Drop files here",
+    "hint": "or click to choose, or paste from the clipboard",
+    "maxSize": "up to {size} each",
+    "wrongType": "Only {formats} files can be used with this tool.",
+    "tooBig": "That file is larger than {size}."
+  },
+  "fileList": {
+    "moveUp": "Move {name} up",
+    "moveDown": "Move {name} down",
+    "remove": "Remove {name}"
+  },
+  "result": {
+    "download": "Download",
+    "useAsInput": "Use as input",
+    "startOver": "Start over"
+  },
+  "pdf": {
+    "working": "Working…",
+    "errorGeneric": "That file could not be processed. It may be damaged or password-protected.",
+    "errorRead": "This PDF could not be read. It may be damaged or password-protected.",
+    "merge": {
+      "needTwo": "Add at least one more file to merge.",
+      "action": "Merge PDF"
+    },
+    "split": {
+      "rangesLabel": "Pages to keep (of {count})",
+      "rangesPlaceholder": "e.g. 1-3, 5, 8-10",
+      "selected": "{n} page(s) selected",
+      "noneSelected": "No valid pages selected yet.",
+      "action": "Split PDF"
+    }
+  },
   "tools": {
+    "pdf-merge": {
+      "name": "Merge PDF",
+      "short": "Combine several PDF files into one, in any order.",
+      "title": "Merge PDF — combine PDF files online, free",
+      "description": "Free online PDF merger. Combine several PDFs into a single file, reorder them first, and download instantly. Runs in your browser — nothing is uploaded.",
+      "intro": "Add the PDFs you want to combine, put them in the order you need, then merge. The files are read and combined inside your browser, so nothing is uploaded to a server and there is no limit on how many times you can do it.",
+      "howTo": {
+        "step1": "Add two or more PDF files by dropping, choosing or pasting them.",
+        "step2": "Use the arrows to put them in the order you want.",
+        "step3": "Press Merge PDF and download the combined file."
+      },
+      "faq": {
+        "q1": "Are my PDFs uploaded to a server?",
+        "a1": "No. The files are read into your browser's memory and combined there using JavaScript. Nothing is sent over the network, nothing is stored, and no one else can see the documents. This makes the tool safe for contracts, passports, medical records and anything else you would not want to upload.",
+        "q2": "Is there a limit on file size or number of files?",
+        "a2": "There is no artificial cap. The practical limit is your device's memory, since the whole document has to be held in RAM while it is built. Very large scanned files on an older phone are the case most likely to struggle; on a laptop, merging dozens of ordinary documents is fine.",
+        "q3": "Does merging reduce quality?",
+        "a3": "No. Pages are copied across as-is, so text stays selectable, images keep their original resolution, and nothing is re-encoded. The merged file is normally close to the combined size of the originals.",
+        "q4": "Can I merge password-protected PDFs?",
+        "a4": "Files that only carry an owner password will usually merge. A PDF encrypted with a user password — one that asks for a password before it will open at all — cannot be read without that password, so it cannot be merged here.",
+        "q5": "What happens to bookmarks and form fields?",
+        "a5": "Page content, text and images are preserved exactly. Document-level features such as bookmarks, form fields and attachments are not carried into the merged file. If you need those, keep the originals as well."
+      }
+    },
+    "pdf-split": {
+      "name": "Split PDF",
+      "short": "Extract selected pages into a new PDF.",
+      "title": "Split PDF — extract pages online, free",
+      "description": "Free online PDF splitter. Pick the pages you want by number or range and download them as a new PDF. Runs in your browser — nothing is uploaded.",
+      "intro": "Add a PDF, type the pages you want to keep, and download them as a new file. Ranges like 1-3, 5, 8-10 work. The original is never changed and never leaves your device.",
+      "howTo": {
+        "step1": "Add the PDF you want to split.",
+        "step2": "Type the pages to keep, for example 1-3, 5, 8-10.",
+        "step3": "Press Split PDF and download the result."
+      },
+      "faq": {
+        "q1": "Is my PDF uploaded anywhere?",
+        "a1": "No. The document is read into your browser and the new file is built there. Nothing is transmitted or stored, so you can safely split private documents such as scanned identity papers or signed agreements.",
+        "q2": "How do I write the page ranges?",
+        "a2": "Separate entries with commas. A single number takes one page, and two numbers with a dash take everything between them inclusive. So 1-3, 5, 8-10 keeps pages 1, 2, 3, 5, 8, 9 and 10. Pages that do not exist in the document are ignored rather than causing an error.",
+        "q3": "Does it change the original file?",
+        "a3": "No. The original is only read, never modified. The result is a new PDF containing copies of the pages you chose, and the file on your device stays exactly as it was.",
+        "q4": "Can I get each page as a separate file?",
+        "a4": "Not yet — this tool produces one new PDF from the pages you select. To get pages individually, run it once per page. A dedicated split-into-separate-files mode is planned.",
+        "q5": "Are the extracted pages lower quality?",
+        "a5": "No. Pages are copied without re-encoding, so text remains selectable and searchable and images keep their original resolution. The result is usually much smaller than the original simply because it has fewer pages."
+      }
+    },
     "word-counter": {
       "name": "Word counter",
       "short": "Count words, characters, sentences and reading time.",

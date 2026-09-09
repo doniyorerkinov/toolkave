@@ -64,6 +64,38 @@ export const categories: CategoryDef[] = [
 
 export const tools: ToolDef[] = [
   {
+    id: 'pdf-merge',
+    category: 'pdf',
+    group: 'organize',
+    component: 'pdf/Merge',
+    icon: 'layers',
+    locales: ['en', 'ru', 'uz'],
+    slugs: {
+      en: 'merge',
+      ru: 'obedinit',
+      uz: 'birlashtirish'
+    },
+    related: ['pdf-split'],
+    acceptedTypes: ['application/pdf'],
+    maxFiles: 50
+  },
+  {
+    id: 'pdf-split',
+    category: 'pdf',
+    group: 'organize',
+    component: 'pdf/Split',
+    icon: 'scissors',
+    locales: ['en', 'ru', 'uz'],
+    slugs: {
+      en: 'split',
+      ru: 'razdelit',
+      uz: 'ajratish'
+    },
+    related: ['pdf-merge'],
+    acceptedTypes: ['application/pdf'],
+    maxFiles: 1
+  },
+  {
     id: 'word-counter',
     category: 'text',
     group: 'analyze',

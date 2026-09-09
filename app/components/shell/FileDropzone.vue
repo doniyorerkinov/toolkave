@@ -1,0 +1,114 @@
+<script setup lang="ts">
+import { formatBytes } from '~/utils/formatters'
+
+const props = withDefaults(
+  defineProps<{
+    accept?: string
+    multiple?: boolean
+    maxFiles?: number
+    maxSize?: number
+  }>(),
+  {
+    accept: 'application/pdf',
+    multiple: true,
+    maxFiles: 50,
+    maxSize: 100 * 1024 * 1024
+  }
+)
+
+const emit = defineEmits<{ files: [File[]] }>()
+
+const { t } = useI18n()
+const dragging = ref(false)
+const input = ref<HTMLInputElement | null>(null)
+const rejected = ref<string | null>(null)
+
+const acceptedLabel = computed(() =>
+  props.accept
+    .split(',')
+    .map(type => type.trim().split('/')[1]?.toUpperCase() ?? type)
+    .join(', ')
+)
+
+function matchesAccept(file: File): boolean {
+  const patterns = props.accept.split(',').map(a => a.trim())
+  return patterns.some(pattern => {
+    if (pattern.endsWith('/*')) return file.type.startsWith(pattern.slice(0, -1))
+    if (pattern.startsWith('.')) return file.name.toLowerCase().endsWith(pattern.toLowerCase())
+    return file.type === pattern
+  })
+}
+
+function handle(list: FileList | null | undefined) {
+  if (!list?.length) return
+  rejected.value = null
+
+  const incoming = [...list]
+  const wrongType = incoming.filter(f => !matchesAccept(f))
+  const tooBig = incoming.filter(f => f.size > props.maxSize)
+  const accepted = incoming.filter(f => matchesAccept(f) && f.size <= props.maxSize)
+
+  if (wrongType.length) {
+    rejected.value = t('dropzone.wrongType', { formats: acceptedLabel.value })
+  } else if (tooBig.length) {
+    rejected.value = t('dropzone.tooBig', { size: formatBytes(props.maxSize) })
+  }
+
+  if (accepted.length) emit('files', accepted.slice(0, props.maxFiles))
+}
+
+function onDrop(event: DragEvent) {
+  dragging.value = false
+  handle(event.dataTransfer?.files)
+}
+
+function onPaste(event: ClipboardEvent) {
+  handle(event.clipboardData?.files)
+}
+
+function onChange(event: Event) {
+  const target = event.target as HTMLInputElement
+  handle(target.files)
+  // Reset so selecting the same file twice still fires a change event.
+  target.value = ''
+}
+
+onMounted(() => window.addEventListener('paste', onPaste))
+onBeforeUnmount(() => window.removeEventListener('paste', onPaste))
+</script>
+
+<template>
+  <div>
+    <button
+      type="button"
+      class="flex w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-6 py-10 text-center transition"
+      :class="
+        dragging
+          ? 'border-sky-500 bg-sky-50'
+          : 'border-slate-300 bg-slate-50 hover:border-sky-400 hover:bg-sky-50/50'
+      "
+      @click="input?.click()"
+      @dragover.prevent="dragging = true"
+      @dragenter.prevent="dragging = true"
+      @dragleave.prevent="dragging = false"
+      @drop.prevent="onDrop"
+    >
+      <span class="text-base font-medium text-slate-900">{{ t('dropzone.title') }}</span>
+      <span class="text-sm text-slate-500">{{ t('dropzone.hint') }}</span>
+      <span class="text-xs text-slate-400">
+        {{ acceptedLabel }} · {{ t('dropzone.maxSize', { size: formatBytes(maxSize) }) }}
+      </span>
+    </button>
+
+    <input
+      ref="input"
+      type="file"
+      class="hidden"
+      :accept="accept"
+      :multiple="multiple"
+      @change="onChange"
+    />
+
+    <p v-if="rejected" class="mt-2 text-sm text-red-700" role="alert">{{ rejected }}</p>
+  </div>
+</template>
