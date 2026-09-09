@@ -147,6 +147,59 @@
       "errorUnsupported": "Fayllardan biri qo'llab-quvvatlanadigan rasm emas."
     }
   },
+  "image": {
+    "working": "Bajarilmoqda…",
+    "errorRead": "Rasmni o'qib bo'lmadi. U shikastlangan yoki qo'llab-quvvatlanmaydigan formatda bo'lishi mumkin.",
+    "errorGeneric": "Rasmni qayta ishlab bo'lmadi.",
+    "dimensions": "{w} × {h} px",
+    "original": "Asl",
+    "quality": "Sifat: {n}%",
+    "pngLossless": "PNG yo'qotishsiz format, sifat unga ta'sir qilmaydi.",
+    "formatLabel": "Natija formati",
+    "compress": { "action": "Rasmni siqish" },
+    "resize": {
+      "width": "Kenglik (px)",
+      "height": "Balandlik (px)",
+      "keepRatio": "Nisbatni saqlash",
+      "action": "O'lchamni o'zgartirish"
+    },
+    "convert": { "action": "{format} ga o'girish" }
+  },
+  "qr": {
+    "inputLabel": "Matn yoki havola",
+    "placeholder": "https://example.com yoki istalgan matn…",
+    "size": "O'lcham: {n} px",
+    "margin": "Chet maydoni: {n}",
+    "level": "Xatoni tuzatish",
+    "levels": {
+      "L": "L — 7%",
+      "M": "M — 15%",
+      "Q": "Q — 25%",
+      "H": "H — 30%"
+    },
+    "alt": "Yaratilgan QR kod",
+    "download": "PNG yuklab olish",
+    "empty": "QR kod olish uchun yuqoriga matn yozing.",
+    "tooLong": "Bitta QR kod uchun ma'lumot juda ko'p. Matnni qisqartiring yoki tuzatish darajasini pasaytiring."
+  },
+  "youtube": {
+    "inputLabel": "YouTube havolasi yoki video ID",
+    "placeholder": "https://www.youtube.com/watch?v=…",
+    "invalid": "Bu havolada video ID topilmadi.",
+    "videoId": "Video ID",
+    "thumbAlt": "Muqova, {size}",
+    "open": "To'liq o'lchamda ochish",
+    "maxresNote": "1280 × 720 muqova har bir videoda bo'lmaydi — YouTube uni faqat manba yetarlicha katta bo'lganda yaratadi. Yuklanmasa, kichikroq o'lchamni oling."
+  },
+  "color": {
+    "pick": "Tanlash",
+    "hexLabel": "HEX qiymati",
+    "invalid": "Bu to'g'ri HEX rang emas.",
+    "contrast": "Kontrast",
+    "onWhite": "oq fonda {ratio}:1",
+    "onBlack": "qora fonda {ratio}:1",
+    "wcagNote": "WCAG asosiy matn uchun kamida 4,5:1, yirik matn uchun 3:1 talab qiladi."
+  },
   "password": {
     "regenerate": "Yana yaratish",
     "length": "Uzunlik: {n} ta belgi",
@@ -327,6 +380,250 @@
         "a3": "Yo'q. PNG yo'qotishsiz format va ma'lumotlar qayta kodlanmasdan joylashtiriladi, shuning uchun skrinshot va sxemalar piksel darajasida aniq, ulardagi matn esa tiniq qoladi.",
         "q4": "Nega PDF asl PNG lardan kattaroq?",
         "a4": "PNG tekis grafika uchun tejamli, lekin PDF tuzilmasi har bir rasm atrofiga qo'shimcha qo'shadi va buni qoplash uchun hech narsa qayta siqilmaydi. Skrinshotlardan iborat hujjatlar uchun bu rasm aniqligi evaziga adolatli almashuv."
+      }
+    },
+    "webp-to-pdf": {
+      "name": "WebP dan PDF",
+      "short": "WebP rasmlarni bitta PDF ga yig'ing.",
+      "title": "WebP dan PDF — WebP rasmlarni onlayn PDF ga o'girish, bepul",
+      "description": "Bepul onlayn WebP dan PDF ga o'girish. WebP rasmlarni A4 yoki asl o'lchamda bitta PDF ga yig'ing. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "intro": "WebP fayllarni qo'shing, tartibga keltiring va PDF yarating. WebP yo'l-yo'lakay JPEG ga o'giriladi, chunki PDF formatining o'zi WebP ni saqlay olmaydi.",
+      "howTo": {
+        "step1": "WebP rasmlarni qo'shing.",
+        "step2": "Tartibga keltiring va A4 yoki asl o'lchamni tanlang.",
+        "step3": "«PDF yaratish» tugmasini bosing va faylni yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega WebP ni o'girish kerak?",
+        "a1": "PDF JPEG va PNG rasm oqimlarini qo'llab-quvvatlaydi, lekin WebP uchun ekvivalenti yo'q, shuning uchun har qanday vosita qayta kodlashga majbur. Bu yerda u brauzeringizda yuqori sifatda o'giriladi — serverdagi konvertorlar ham xuddi shuni qiladi, faqat faylni yuklash bilan.",
+        "q2": "Sifat yo'qoladimi?",
+        "a2": "Biroz, chunki JPEG yo'qotishli format va rasm ikkinchi marta kodlanadi. Ishlatilayotgan sifatda suratlardagi farqni ilg'ash qiyin. Skrinshot va tekis grafika uchun «PNG dan PDF» tozaroq natija beradi.",
+        "q3": "Rasmlarim serverga yuklanadimi?",
+        "a3": "Yo'q. Dekodlash, o'girish va PDF yig'ish — hammasi brauzerda bajariladi. Hech narsa uzatilmaydi va saqlanmaydi.",
+        "q4": "WebP ni boshqa formatlar bilan aralashtirsa bo'ladimi?",
+        "a4": "Bu sahifa WebP qabul qiladi. Formatlarni birlashtirish uchun har bir to'plamni alohida o'giring, so'ng «PDF ni birlashtirish» dan foydalaning — u natijalarni qayta kodlamasdan qo'shadi."
+      }
+    },
+    "heic-to-pdf": {
+      "name": "HEIC dan PDF",
+      "short": "iPhone dagi HEIC suratlarni bitta PDF ga yig'ing.",
+      "title": "HEIC dan PDF — iPhone suratlarini onlayn PDF ga o'girish, bepul",
+      "description": "Bepul onlayn HEIC dan PDF ga o'girish. iPhone dagi HEIC suratlarni hech narsa o'rnatmasdan bitta PDF ga aylantiring. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "intro": "iPhone dagi HEIC suratlarni qo'shing, tartibga keltiring va PDF yarating. Hujjatni iPhone da suratga olishdagi odatiy muammo shu: fayl HEIC bo'ladi va uni ko'p joyda qabul qilishmaydi.",
+      "howTo": {
+        "step1": "HEIC suratlarni qo'shing.",
+        "step2": "Tartibga keltiring va A4 yoki asl o'lchamni tanlang.",
+        "step3": "«PDF yaratish» tugmasini bosing va faylni yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega HEIC fayllarim hech qayerda ochilmayapti?",
+        "a1": "HEIC — Apple ning standart surat formati. Safari uni ko'rsatadi, lekin ko'p boshqa brauzerlar, qo'shimchasiz Windows va ko'plab yuklash shakllari uni tushunmaydi. PDF ga o'girish muammoni butunlay hal qiladi, chunki PDF hamma joyda ochiladi.",
+        "q2": "O'girish serverda bajariladimi?",
+        "a2": "Yo'q. HEIC dekodlash brauzerda WebAssembly dekoderi orqali bajariladi, u faqat HEIC fayl qo'shilganda yuklanadi. Pasport va shartnoma suratlari qurilmangizdan chiqmaydi — aynan shuning uchun bu muhim.",
+        "q3": "Nega «JPG dan PDF» dan sekinroq?",
+        "a3": "HEIC ni avval dekodlash kerak, buni esa Safari dan boshqa hech qaysi brauzer o'zi uddalay olmaydi. Dekoder bir necha yuz kilobayt va har bir surat vaqt oladi. Eski telefonda katta to'plamlar sezilarli sekin bo'ladi.",
+        "q4": "Surat sifati pasayadimi?",
+        "a4": "Bir marta HEIC dan JPEG ga yuqori sifatda qayta kodlash bo'ladi, chunki PDF HEIC ni saqlay olmaydi. Hujjat va cheklar uchun farq ko'rinmaydi."
+      }
+    },
+    "image-compress": {
+      "name": "Rasmni siqish",
+      "short": "Sifat va formatni o'zgartirib rasmlarni kichraytiring.",
+      "title": "Rasmni siqish — surat hajmini onlayn kamaytirish, bepul",
+      "description": "Bepul onlayn rasm siqish. JPG, PNG, WebP va HEIC fayllar hajmini sifat surgichi bilan kamaytiring va tejamni darhol ko'ring. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "intro": "Rasm qo'shing, sifat darajasi va natija formatini tanlang va kichraytirilgan nusxani yuklab oling. Natija kartasi oldingi va keyingi hajmni ko'rsatadi, shunda taxmin qilmasdan qaror qilasiz.",
+      "howTo": {
+        "step1": "Kichraytirmoqchi bo'lgan rasmni qo'shing.",
+        "step2": "Sifatni belgilang, eng katta tejash uchun JPEG yoki WebP ni tanlang.",
+        "step3": "«Rasmni siqish» tugmasini bosing va yuklab olishdan oldin hajmni tekshiring."
+      },
+      "faq": {
+        "q1": "Qaysi sifatni tanlash kerak?",
+        "a1": "Suratlar uchun taxminan 75% odatiy optimal nuqta: hajm sezilarli kamayadi, oddiy ko'rishda farq bilinmaydi. Chop etiladigan yoki kattalashtiriladigan rasmlar uchun yuqoriroq, kichik nishonalar uchun pastroq oling.",
+        "q2": "Qaysi format yaxshiroq siqadi?",
+        "a2": "WebP odatda bir xil ko'rish sifatida JPEG dan 25-35% kichik va barcha zamonaviy brauzerlarda ishlaydi. Fayl eski dasturlar bilan ishlashi kerak bo'lsa yoki WebP ni tanimaydigan shakl qabul qilsa, JPEG ni tanlang.",
+        "q3": "Nega PNG kichraymayapti?",
+        "a3": "PNG yo'qotishsiz format, shuning uchun sifat surgichi unga ta'sir qilmaydi va o'chirilgan. PNG dagi suratni sezilarli kichraytirish uchun uni JPEG yoki WebP ga o'giring. PNG faqat skrinshot, logotip va keskin chekka yoki shaffofligi bor rasmlar uchun to'g'ri tanlov.",
+        "q4": "Rasmlarim biror joyga yuklanadimi?",
+        "a4": "Yo'q. Siqish brauzerning o'z kodlovchisi orqali bajariladi, shuning uchun hech narsa uzatilmaydi. Bu tezlik boshqa birovning navbatiga emas, qurilmangizga bog'liq degani ham."
+      }
+    },
+    "image-resize": {
+      "name": "Rasm o'lchamini o'zgartirish",
+      "short": "Nisbatni saqlagan holda rasm o'lchamini o'zgartiring.",
+      "title": "Rasm o'lchamini o'zgartirish — onlayn, bepul",
+      "description": "Bepul onlayn rasm o'lchamini o'zgartirish. Aniq kenglik yoki balandlik belgilang yoki foizda masshtablang, nisbat qulflangan holda. Brauzerda ishlaydi.",
+      "intro": "Rasm qo'shing va yangi kenglik yoki balandlik belgilang. Nisbat qulflangan bo'lsa, ikkinchi tomon avtomatik hisoblanadi, shuning uchun hech narsa cho'zilmaydi. Foiz tugmalari eng ko'p uchraydigan hollarni qoplaydi.",
+      "howTo": {
+        "step1": "O'lchamini o'zgartirmoqchi bo'lgan rasmni qo'shing.",
+        "step2": "Kenglik yoki balandlikni yozing, yoki 25/50/75% tugmalaridan foydalaning.",
+        "step3": "«O'lchamni o'zgartirish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Rasm cho'zilib ketmaydimi?",
+        "a1": "«Nisbatni saqlash» yoqilgan bo'lsa yo'q: bir tomonni o'zgartirsangiz, ikkinchisi avtomatik yangilanadi. Belgini faqat rasmni ataylab buzmoqchi bo'lsangiz oling — bu kamdan-kam holat.",
+        "q2": "Rasmni kattalashtirsa bo'ladimi?",
+        "a2": "Bo'ladi, lekin kattalashtirish yo'q tafsilotni qo'sha olmaydi. Natija yumshoq chiqadi va ko'paytirish qanchalik katta bo'lsa, shunchalik bilinadi. Kichraytirish har doim xavfsiz, kattalashtirish esa murosa.",
+        "q3": "Asl format saqlanadimi?",
+        "a3": "Ha. PNG PNG bo'lib, WebP WebP bo'lib qoladi, shuning uchun o'lcham o'zgartirish fayl turini sassiz almashtirmaydi. Formatni ham o'zgartirish uchun keyin konvertor vositalaridan birini ishlating.",
+        "q4": "Nega ba'zan fayl kattalashadi?",
+        "a4": "Qayta kodlash har doim ham kichraytirmaydi, ayniqsa manba kuchli siqilgan bo'lib, yangi fayl yuqoriroq sifatda yozilsa. O'lchamdan ko'ra hajm muhim bo'lsa, «Rasmni siqish» dan foydalaning."
+      }
+    },
+    "png-to-jpg": {
+      "name": "PNG dan JPG",
+      "short": "PNG rasmlarni JPG ga o'giring — odatda ancha kichik.",
+      "title": "PNG dan JPG — rasmlarni onlayn o'girish, bepul",
+      "description": "Bepul onlayn PNG dan JPG ga o'girish, sifat surgichi bilan. PNG sifatida saqlangan suratlar odatda keskin kichrayadi. Brauzerda ishlaydi.",
+      "intro": "PNG qo'shing va uni JPG sifatida yuklab oling. Surat PNG da saqlangan bo'lsa, buni qilish arziydi: fayl ko'pincha kerakligidan bir necha barobar katta bo'ladi va bundan hech qanday foyda yo'q.",
+      "howTo": {
+        "step1": "PNG rasmingizni qo'shing.",
+        "step2": "Sifat darajasini tanlang.",
+        "step3": "«JPEG ga o'girish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Qanchaga kichrayadi?",
+        "a1": "Suratlar uchun ko'pincha besh-o'n barobar. PNG har bir pikselni aniq saqlaydi — bu tekis grafikaga mos, lekin JPEG deyarli sezilmas darajada taqribiy ifodalay oladigan surat tafsilotlari uchun isrofgarchilik.",
+        "q2": "Shaffoflik nima bo'ladi?",
+        "a2": "JPEG da alfa kanali yo'q, shuning uchun shaffof joylar oq bilan to'ldiriladi, qora bo'lib qolmaydi — bu qadamni tashlab ketadigan vositalarda shunday bo'ladi. Shaffoflik kerak bo'lsa, PNG ni saqlab qoling.",
+        "q3": "Buni orqaga qaytarish mumkinmi?",
+        "a3": "Yo'q. JPEG ma'lumotni butunlay tashlab yuboradi, shuning uchun PNG ga qaytarish formatni tiklaydi, yo'qolgan tafsilotni emas. Keyinroq tahrirlash ehtimoli bo'lsa, asl PNG ni saqlang.",
+        "q4": "Qachon o'girmaslik kerak?",
+        "a4": "Skrinshot, logotip, sxema va keskin chekka yoki matni bor narsalar uchun PNG ni qoldiring. JPEG qattiq chegaralarni ko'rinadigan artefaktlarga aylantiradi, bu ayniqsa matn skrinshotlarida bilinadi."
+      }
+    },
+    "jpg-to-png": {
+      "name": "JPG dan PNG",
+      "short": "JPG rasmlarni yo'qotishsiz PNG ga o'giring.",
+      "title": "JPG dan PNG — rasmlarni onlayn o'girish, bepul",
+      "description": "Bepul onlayn JPG dan PNG ga o'girish. Keyingi tahrirlashda qo'shimcha siqilishsiz saqlanadigan yo'qotishsiz PNG oling. Brauzerda ishlaydi.",
+      "intro": "JPG qo'shing va uni PNG sifatida yuklab oling. Biror dastur yoki shakl aynan PNG talab qilganda, yoki rasmni tahrirlash oldidan har saqlashda yangi siqilish qo'llanishini istamasangiz foydali.",
+      "howTo": {
+        "step1": "JPG rasmingizni qo'shing.",
+        "step2": "«PNG ga o'girish» tugmasini bosing.",
+        "step3": "Natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "O'girish sifatni yaxshilaydimi?",
+        "a1": "Yo'q, va buni ochiq aytish kerak. JPEG tashlab yuborgan narsa allaqachon yo'qolgan — PNG faqat keyingi yo'qotishni to'xtatadi. U bor narsani saqlaydi, yo'qolganini tiklamaydi.",
+        "q2": "Nega PNG ancha kattaroq?",
+        "a2": "PNG yo'qotishsiz bo'lgani uchun har bir pikselni, jumladan JPEG kiritgan siqilish artefaktlarini ham aniq saqlaydi. PNG ga o'girilgan surat odatda o'zi kelib chiqqan JPEG dan bir necha barobar katta bo'ladi.",
+        "q3": "Buni qachon qilish ma'qul?",
+        "a3": "Biror narsa aynan PNG talab qilganda, yoki qayta-qayta tahrirlab saqlaganda: har bir JPEG saqlash yo'qotishni oshiradi, PNG saqlash esa yo'q. Shaffoflik qo'shishdan oldin ham foydali.",
+        "q4": "Shaffoflik paydo bo'ladimi?",
+        "a4": "Format uni qo'llab-quvvatlaydi, lekin rasm shaffoflikka ega bo'lmaydi: JPEG da shaffoflik yo'q, shuning uchun natija to'liq noshaffof. Fonni olib tashlash uchun muharrir kerak."
+      }
+    },
+    "webp-to-jpg": {
+      "name": "WebP dan JPG",
+      "short": "WebP rasmlarni hamma joyda ochiladigan JPG ga o'giring.",
+      "title": "WebP dan JPG — rasmlarni onlayn o'girish, bepul",
+      "description": "Bepul onlayn WebP dan JPG ga o'girish. WebP fayllarni istalgan dastur ochadigan JPG ga aylantiring. Brauzerda ishlaydi.",
+      "intro": "WebP faylni qo'shing va uni JPG sifatida yuklab oling. Hozir ko'p saytlar WebP tarqatadi, shuning uchun internetdan saqlangan rasmlar eski dasturlar va yuklash shakllarida ko'pincha ochilmaydi.",
+      "howTo": {
+        "step1": "WebP rasmingizni qo'shing.",
+        "step2": "Sifat darajasini tanlang.",
+        "step3": "«JPEG ga o'girish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega WebP faylim hech qayerda ochilmayapti?",
+        "a1": "WebP brauzerlarda yaxshi qo'llab-quvvatlanadi, lekin ulardan tashqarida ancha yomon: Windows ning eski ko'ruvchisi, ba'zi ofis dasturlari va ko'plab yuklash shakllari uni rad etadi. JPEG esa deyarli hamma joyda qabul qilinadi.",
+        "q2": "O'girishda sifat yo'qoladimi?",
+        "a2": "WebP dan JPEG ga bir marta qayta kodlash bo'ladi, shuning uchun ozgina yo'qoladi. Yuqori sifatda suratlarda bu ko'rinmaydi. Amaliy jihatdan sezilarliroq o'zgarish — fayl odatda kattalashadi, chunki JPEG kamroq samarali.",
+        "q3": "Shaffof WebP nima bo'ladi?",
+        "a3": "JPEG da alfa kanali yo'q, shuning uchun shaffof joylar oq bo'lib qoladi. Shaffoflik muhim bo'lsa, PNG ga o'giring.",
+        "q4": "Animatsiyali WebP qo'llab-quvvatlanadimi?",
+        "a4": "Yo'q. Faqat birinchi kadr o'giriladi, chunki JPEG animatsiyani saqlay olmaydi. Animatsiyali fayllar uchun GIF yoki video konvertori kerak."
+      }
+    },
+    "heic-to-jpg": {
+      "name": "HEIC dan JPG",
+      "short": "iPhone dagi HEIC suratlarni JPG ga o'giring.",
+      "title": "HEIC dan JPG — iPhone suratlarini onlayn o'girish, bepul",
+      "description": "Bepul onlayn HEIC dan JPG ga o'girish. iPhone suratlarini hech narsa o'rnatmasdan hamma joyda ochiladigan JPG ga aylantiring. Brauzerda ishlaydi.",
+      "intro": "iPhone dagi HEIC suratni qo'shing va uni JPG sifatida yuklab oling. Dekodlash brauzerda bajariladi, shuning uchun surat qurilmangizdan chiqmaydi — hujjat surati bo'lsa, bu muhim.",
+      "howTo": {
+        "step1": "HEIC suratingizni qo'shing.",
+        "step2": "Sifat darajasini tanlang.",
+        "step3": "«JPEG ga o'girish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega iPhone suratlarim HEIC formatida?",
+        "a1": "Bu iOS 11 dan beri Apple ning standart formati: u JPEG ning taxminan yarmi joyda shunga yaqin sifat saqlaydi. Buning evaziga moslik yo'qoladi: Apple dasturlaridan tashqarida qo'llab-quvvatlash notekis. Kamera sozlamalarida «Eng mos» rejimi telefonni JPEG ga o'tkazadi.",
+        "q2": "Suratim serverga yuklanadimi?",
+        "a2": "Yo'q. Brauzerda WebAssembly dekoderi ishlaydi, u faqat HEIC fayl qo'shilganda yuklanadi. Onlayn HEIC konvertorlarining ko'pi faylni serverga yuklaydi; bu esa yuklamaydi, shaxsni tasdiqlovchi hujjat suratlari uchun bu jiddiy farq.",
+        "q3": "Nega bir necha soniya oladi?",
+        "a3": "HEIC dekodlash og'ir bo'lgan HEVC siqishdan foydalanadi va buni faqat Safari o'zi uddalaydi. Qolgan hamma joyda dekoderni yuklab, dasturiy tarzda ishlatishga to'g'ri keladi. Har bir suratga bir-ikki soniya kuting.",
+        "q4": "Surat sifati pasayadimi?",
+        "a4": "JPEG ga bir marta qayta kodlash bo'ladi. Standart sifatda oddiy suratlarda farq ko'rinmaydi, garchi JPEG odatda o'zi kelib chiqqan HEIC dan kattaroq bo'ladi."
+      }
+    },
+    "qr-generator": {
+      "name": "QR kod generatori",
+      "short": "Istalgan havola yoki matndan QR kod yarating va yuklab oling.",
+      "title": "QR kod generatori — onlayn bepul QR kod yaratish",
+      "description": "Bepul onlayn QR kod generatori. Istalgan havola yoki matnni o'lchami va xato tuzatish darajasi sozlanadigan PNG QR kodga aylantiring. Brauzerda ishlaydi.",
+      "intro": "Havola yoki istalgan matnni yozing — QR kod darhol paydo bo'ladi. Uni menyu, plakat yoki tashrifnomaga chop etish uchun PNG sifatida yuklab oling. Bunday kodlar muddati tugamaydi va begona yo'naltirishlardan o'tmaydi.",
+      "howTo": {
+        "step1": "Havola yoki matnni yozing yoki qo'ying.",
+        "step2": "Kerak bo'lsa o'lcham va xato tuzatishni sozlang.",
+        "step3": "PNG ni yuklab oling."
+      },
+      "faq": {
+        "q1": "Bu kodlar muddati tugaydimi?",
+        "a1": "Yo'q. QR kod havolangizni to'g'ridan-to'g'ri kodlaydi, shuning uchun havola ishlaguncha ishlaydi. «Dinamik» kod taklif qiladigan generatorlardan ehtiyot bo'ling: ular xizmatning o'z yo'naltirishiga ishora qiladi, u esa to'xtashi yoki pullik bo'lib qolishi mumkin.",
+        "q2": "Xato tuzatish nima beradi?",
+        "a2": "U ortiqchalik qo'shadi, shunda kod bir qismi shikastlangan, kir bosgan yoki yopilgan bo'lsa ham o'qiladi. L darajasi taxminan 7%, H esa 30% shikastga chidaydi. Daraja qanchalik yuqori bo'lsa, naqsh shunchalik zich, ya'ni belgilangan chop o'lchamida modullar mayda bo'ladi.",
+        "q3": "Qaysi darajani tanlash kerak?",
+        "a3": "Ekran va toza chop etish uchun M yaxshi standart. Kod mayda chop etilsa, ko'chada tursa yoki o'rtasiga logotip qo'yilsa, H ni tanlang: skaner uchun bunday qoplama ham shikast hisoblanadi.",
+        "q4": "Nega ma'lumot juda ko'p deb yozyapti?",
+        "a4": "QR kodlarning sig'im chegarasi bor va u xato tuzatish oshgan sari kamayadi. Kuzatuv parametrlari bor uzun URL lar unga kutilganidan ko'ra tez-tez uriladi. Havolani qisqartiring yoki darajani pasaytiring.",
+        "q5": "Ma'lumotlarim biror joyga yuboriladimi?",
+        "a5": "Yo'q. Kod brauzerda yaratiladi, shuning uchun havola — u shaxsiy hujjat yoki ichki manzil bo'lishi mumkin — hech qayerga uzatilmaydi va qayd etilmaydi."
+      }
+    },
+    "youtube-thumbnail": {
+      "name": "YouTube muqovasini yuklash",
+      "short": "Istalgan YouTube videosining muqova rasmini oling.",
+      "title": "YouTube muqovasini yuklash — video muqovalari, bepul",
+      "description": "Bepul YouTube muqova yuklovchi. Istalgan video havolasini qo'ying va mavjud barcha muqova o'lchamlarini, 1280 × 720 gacha oling. Ro'yxatdan o'tishsiz.",
+      "intro": "YouTube havolasini qo'ying — mavjud barcha muqova o'lchamlari chiqadi. Oddiy watch havolalari, qisqa youtu.be, Shorts va embed manzillari, shuningdek yolg'iz video ID ham ishlaydi.",
+      "howTo": {
+        "step1": "YouTube havolasini yoki faqat video ID ni qo'ying.",
+        "step2": "Kerakli o'lchamni tanlang.",
+        "step3": "To'liq o'lchamda oching va rasmni saqlang."
+      },
+      "faq": {
+        "q1": "Nega 1280 × 720 varianti yo'q?",
+        "a1": "YouTube maksimal o'lchamli muqovani faqat yuklangan video yetarlicha katta bo'lganda yaratadi, shuning uchun eski va past sifatli videolarda u shunchaki yo'q. Yuklanmasa, undan keyingi o'lcham har doim mavjud.",
+        "q2": "Qanday havola formatlari ishlaydi?",
+        "a2": "Oddiy watch havolalari, qisqa youtu.be, Shorts, embed va jonli efir manzillari, shuningdek 11 belgili yalang'och ID. ID mahalliy ravishda ajratiladi — havola hech qayerga yuborilmaydi.",
+        "q3": "Bu rasmlardan erkin foydalansa bo'ladimi?",
+        "a3": "Avtomatik ravishda yo'q. Muqovalar odatda yuklovchining mualliflik huquqi bilan himoyalangan ishi. Videoga havola berish, sharh va taqrizlar odatda maqbul; o'zining nomidan chop etish yoki tijorat maqsadida ishlatish esa odatda yo'q.",
+        "q4": "Shaxsiy videolar uchun ishlaydimi?",
+        "a4": "Yo'q. Muqova ochiq va havola orqali ko'riladigan videolar uchungina ochiq manzilda beriladi. Shaxsiy videolarda ochiq mavjud rasm yo'q, shuning uchun hech narsa yuklanmaydi."
+      }
+    },
+    "color-picker": {
+      "name": "Rang tanlash",
+      "short": "HEX, RGB va HSL orasida o'giring, kontrastni tekshiring.",
+      "title": "Rang tanlash — HEX dan RGB va HSL ga konvertor, bepul",
+      "description": "Bepul onlayn rang tanlash va konvertor. HEX, RGB va HSL orasida o'ting va WCAG kontrastini oq hamda qora fonda tekshiring. Brauzerda ishlaydi.",
+      "intro": "Rang tanlang yoki HEX qiymatini yozing — uni barcha keng tarqalgan yozuvlarda, oq va qora fondagi kontrasti bilan birga olasiz. Kontrast ko'rsatkichlari qulaylik bo'yicha qo'llanmalar ishlatadigan usulda hisoblanadi.",
+      "howTo": {
+        "step1": "Rang tanlang yoki #0369a1 kabi HEX qiymatini yozing.",
+        "step2": "Kerakli yozuvni nusxalang.",
+        "step3": "Matn uchun ishlatishdan oldin kontrastni tekshiring."
+      },
+      "faq": {
+        "q1": "Kontrast raqamlari nimani bildiradi?",
+        "a1": "Bu WCAG bo'yicha rangingiz yorqinligining oq yoki qoraga nisbati. Asosiy matn foniga nisbatan kamida 4,5:1, yirik yoki qalin matn esa kamida 3:1 bo'lishi kerak. Undan past bo'lsa, matn ko'p odam uchun qiyin o'qiladi va qulaylik tekshiruvidan o'tmaydi.",
+        "q2": "Nega shunchaki RGB qiymatlarini solishtirib bo'lmaydi?",
+        "a2": "Chunki ko'z yashil rangga ko'k rangdan ancha sezgir. Hisobda kanallar shunga mos ravishda vaznlanadi va avval chiziqlashtiriladi — shuning uchun RGB raqamlari o'xshash ranglarning kontrasti juda farq qilishi mumkin.",
+        "q3": "HSL qachon HEX dan qulayroq?",
+        "a3": "Palitra tuzayotganda. HSL rang tonini to'yinganlik va yorug'likdan ajratadi, shuning uchun rangning ochroq yoki bosiqroq variantini yangi HEX ni taxmin qilmasdan, bitta raqamni o'zgartirib olasiz.",
+        "q4": "Qisqa HEX kodlari qabul qilinadimi?",
+        "a4": "Ha. #0af kabi uch xonali qiymatlar avtomatik yoyiladi, panjara belgisi bilan ham, usiz ham."
       }
     },
     "password-generator": {

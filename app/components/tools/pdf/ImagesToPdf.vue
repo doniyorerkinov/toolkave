@@ -27,7 +27,10 @@ async function run() {
   store.error = null
   try {
     const sourceSize = store.totalSize
-    const data = await imagesToPdf(store.files, fit.value)
+    // pdf-lib embeds only JPEG and PNG, so WebP and HEIC are re-encoded first.
+    // Files already in a supported format pass through untouched.
+    const ready = await normaliseForPdf(store.files)
+    const data = await imagesToPdf(ready, fit.value)
     store.setResult({
       name: 'toolkave.pdf',
       type: 'application/pdf',

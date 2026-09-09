@@ -166,23 +166,24 @@ Flip to `true` only after using the tool on real files.
 
 All built as **drafts** (`published: false`) — they need a human pass before shipping.
 
-- [x] Rotate PDF
-- [x] Remove PDF pages
-- [x] JPG→PDF and PNG→PDF as separate pages sharing one component via `config`
-- [x] Password generator
-- [x] Base64 / URL encoder-decoder
-- [x] JSON formatter
-- [ ] WebP→PDF and HEIC→PDF — need a canvas conversion step first; `pdf-lib` embeds
-      only JPEG and PNG natively
-- [ ] Image compress · resize · format convert
-- [ ] QR generator (needs the `qrcode` package) · YouTube thumbnail
-- [ ] Colour picker
-- [ ] **PDF→JPG and Compress moved to Phase 3** — both need pdf.js and the web worker, so
+- [x] Rotate PDF · Remove PDF pages
+- [x] JPG→PDF · PNG→PDF · WebP→PDF · HEIC→PDF (one component, four pages via `config`)
+- [x] Image compress · resize
+- [x] PNG→JPG · JPG→PNG · WebP→JPG · HEIC→JPG (one component, four pages via `config`)
+- [x] QR generator · YouTube thumbnail · password generator
+- [x] Base64 / URL encoder-decoder · JSON formatter · colour picker
+- [x] **PDF→JPG and Compress moved to Phase 3** — both need pdf.js and the web worker, so
       they belong with the heavy pipeline rather than here
 
-**Ready to test:** `/pdf/rotate`, `/pdf/remove-pages`, `/pdf/jpg-to-pdf`, `/pdf/png-to-pdf`,
-`/generators/password-generator`, `/dev/base64`, `/dev/json-formatter` — plus `ru` and `uz`.
-Visible in `nuxt dev` only, each marked with a Draft badge.
+**Wave 1 complete: 18 tools in the registry, 15 drafts awaiting a human pass.**
+54 pages across three locales, all returning 200 in dev.
+
+Note the ratio: 18 tools, but only 8 distinct tool components. `ImagesToPdf` backs four pages
+and `image/Convert` backs another four. That is the page-splitting strategy working — each
+conversion pair is a separate query and a separate page, without a separate implementation.
+
+HEIC support uses `heic2any`, dynamically imported only when a HEIC file is actually added, so
+no other tool pays for it.
 
 ## Phase 5 — Wave 2: tier 2 PDF + the rest of the simple tools (~35 tools)
 
@@ -234,7 +235,11 @@ Visible in `nuxt dev` only, each marked with a Draft badge.
 5. **Prerender everything.** Static asset requests on Workers are free and unlimited; Worker
    invocations are capped at 100k/day on the free plan.
 6. **Deploys are CLI-driven** (`npm run deploy`). No Git integration — pushing does not deploy.
-7. **Run `npm run typecheck` before deploying.** `nuxt build` does not typecheck; the separate
+7. **Adding a new tool component needs a dev-server restart.** `[tool].vue` resolves components
+   through `import.meta.glob`, and Vite does not re-evaluate the glob when a file appears. The
+   symptom is a 500 saying "Tool component missing" for a file that plainly exists. Touching
+   `[tool].vue` also forces it.
+8. **Run `npm run typecheck` before deploying.** `nuxt build` does not typecheck; the separate
    pass caught an invalid i18n config key that was being silently ignored, plus two unsound
    types. Note that a running `nuxt dev` holds `.output` through its workerd child and will
    make `nuxt build` fail with `EBUSY` — stop it first.

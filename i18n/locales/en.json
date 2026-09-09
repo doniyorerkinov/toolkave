@@ -147,6 +147,59 @@
       "errorUnsupported": "One of those files is not a supported image."
     }
   },
+  "image": {
+    "working": "Working…",
+    "errorRead": "That image could not be read. It may be damaged or in an unsupported format.",
+    "errorGeneric": "That image could not be processed.",
+    "dimensions": "{w} × {h} px",
+    "original": "Original",
+    "quality": "Quality: {n}%",
+    "pngLossless": "PNG is lossless, so quality has no effect.",
+    "formatLabel": "Output format",
+    "compress": { "action": "Compress image" },
+    "resize": {
+      "width": "Width (px)",
+      "height": "Height (px)",
+      "keepRatio": "Keep aspect ratio",
+      "action": "Resize image"
+    },
+    "convert": { "action": "Convert to {format}" }
+  },
+  "qr": {
+    "inputLabel": "Text or link",
+    "placeholder": "https://example.com or any text…",
+    "size": "Size: {n} px",
+    "margin": "Quiet zone: {n}",
+    "level": "Error correction",
+    "levels": {
+      "L": "L — 7%",
+      "M": "M — 15%",
+      "Q": "Q — 25%",
+      "H": "H — 30%"
+    },
+    "alt": "Generated QR code",
+    "download": "Download PNG",
+    "empty": "Type something above to generate a QR code.",
+    "tooLong": "That is too much data for one QR code. Shorten it, or lower the error correction level."
+  },
+  "youtube": {
+    "inputLabel": "YouTube link or video ID",
+    "placeholder": "https://www.youtube.com/watch?v=…",
+    "invalid": "No video ID found in that link.",
+    "videoId": "Video ID",
+    "thumbAlt": "Thumbnail, {size}",
+    "open": "Open full size",
+    "maxresNote": "Not every video has a 1280 × 720 thumbnail — YouTube only creates one when the source was large enough. If it fails to load, use the next size down."
+  },
+  "color": {
+    "pick": "Pick",
+    "hexLabel": "HEX value",
+    "invalid": "That is not a valid HEX colour.",
+    "contrast": "Contrast",
+    "onWhite": "on white {ratio}:1",
+    "onBlack": "on black {ratio}:1",
+    "wcagNote": "WCAG asks for at least 4.5:1 for body text and 3:1 for large text."
+  },
   "password": {
     "regenerate": "Generate again",
     "length": "Length: {n} characters",
@@ -327,6 +380,250 @@
         "a3": "No. PNG is lossless and the data is embedded as-is with no re-encoding, so screenshots and diagrams stay pixel-perfect and text in them stays sharp.",
         "q4": "Why is my PDF larger than the PNGs?",
         "a4": "PNG is efficient for flat graphics but the PDF wrapper adds structure around each image, and nothing is re-compressed to make up for it. For screenshot-heavy documents that is a fair trade for keeping the images exact."
+      }
+    },
+    "webp-to-pdf": {
+      "name": "WebP to PDF",
+      "short": "Turn WebP images into a single PDF.",
+      "title": "WebP to PDF — convert WebP images to PDF online, free",
+      "description": "Free online WebP to PDF converter. Combine WebP images into one PDF at A4 or original size. Runs in your browser — nothing is uploaded.",
+      "intro": "Add your WebP files, order them, and create a PDF. WebP is converted to JPEG on the way in, because the PDF format itself has no way to store WebP.",
+      "howTo": {
+        "step1": "Add your WebP images.",
+        "step2": "Order them and choose A4 or original size.",
+        "step3": "Press Create PDF and download the file."
+      },
+      "faq": {
+        "q1": "Why does WebP need converting?",
+        "a1": "PDF supports JPEG and PNG image streams but has no WebP equivalent, so every tool has to re-encode. This one converts to JPEG at high quality inside your browser, which is the same thing server-based converters do — just without the upload.",
+        "q2": "Does that lose quality?",
+        "a2": "Slightly, because JPEG is lossy and the image is encoded a second time. At the quality used here the difference is hard to see on photographs. For screenshots and flat graphics, PNG to PDF gives a cleaner result.",
+        "q3": "Are my images uploaded?",
+        "a3": "No. Decoding, conversion and PDF assembly all happen in your browser. Nothing is transmitted or stored.",
+        "q4": "Can I mix WebP with other formats?",
+        "a4": "This page accepts WebP. To combine formats, convert each set separately and then use Merge PDF, which joins the results without re-encoding anything."
+      }
+    },
+    "heic-to-pdf": {
+      "name": "HEIC to PDF",
+      "short": "Turn iPhone HEIC photos into a single PDF.",
+      "title": "HEIC to PDF — convert iPhone photos to PDF online, free",
+      "description": "Free online HEIC to PDF converter. Turn iPhone HEIC photos into one PDF without installing anything. Runs in your browser — nothing is uploaded.",
+      "intro": "Add the HEIC photos from your iPhone, put them in order, and create a PDF. This is the usual problem with photographing a document on an iPhone: the file is HEIC, and most places will not accept it.",
+      "howTo": {
+        "step1": "Add your HEIC photos.",
+        "step2": "Order them and choose A4 or original size.",
+        "step3": "Press Create PDF and download the file."
+      },
+      "faq": {
+        "q1": "Why will nothing open my HEIC files?",
+        "a1": "HEIC is Apple's default photo format. Safari can display it, but most other browsers, Windows without an add-on, and many upload forms cannot. Converting to PDF sidesteps that entirely, since PDF opens everywhere.",
+        "q2": "Is the conversion done on a server?",
+        "a2": "No. HEIC decoding runs in your browser using a WebAssembly decoder loaded only when a HEIC file is added. Photographs of passports and contracts never leave your device, which is exactly why this matters.",
+        "q3": "Why is it slower than JPG to PDF?",
+        "a3": "HEIC has to be decoded before anything else can happen, and no browser except Safari can do it natively. The decoder is a few hundred kilobytes and each photo takes a moment. Large batches on an older phone will feel slow.",
+        "q4": "Does the photo lose quality?",
+        "a4": "There is one re-encode, from HEIC to JPEG at high quality, because PDF cannot store HEIC. For documents and receipts the difference is invisible."
+      }
+    },
+    "image-compress": {
+      "name": "Compress image",
+      "short": "Make images smaller by adjusting quality and format.",
+      "title": "Compress Image — reduce photo file size online, free",
+      "description": "Free online image compressor. Reduce JPG, PNG, WebP and HEIC file sizes with a quality slider and see the saving instantly. Runs in your browser — nothing is uploaded.",
+      "intro": "Add an image, choose a quality level and output format, and download a smaller version. The result card shows the before and after sizes so you can judge the trade-off rather than guess at it.",
+      "howTo": {
+        "step1": "Add the image you want to shrink.",
+        "step2": "Set the quality, and pick JPEG or WebP for the biggest savings.",
+        "step3": "Press Compress image and check the size before downloading."
+      },
+      "faq": {
+        "q1": "What quality should I use?",
+        "a1": "Around 75% is the usual sweet spot for photographs — a large size reduction with no visible difference at normal viewing size. Go higher for images that will be printed or zoomed into, and lower for thumbnails.",
+        "q2": "Which format compresses best?",
+        "a2": "WebP is typically 25-35% smaller than JPEG at the same visual quality and is supported by every current browser. Choose JPEG when the file has to work with older software or be accepted by a form that does not recognise WebP.",
+        "q3": "Why does PNG not get smaller?",
+        "a3": "PNG is lossless, so the quality slider does nothing for it — that is why it is disabled. To shrink a PNG photograph meaningfully, convert it to JPEG or WebP. PNG is the right choice only for screenshots, logos and images with sharp edges or transparency.",
+        "q4": "Are my images uploaded anywhere?",
+        "a4": "No. Compression uses your browser's own image encoder, so nothing is transmitted. That also means speed depends on your device rather than on someone else's queue."
+      }
+    },
+    "image-resize": {
+      "name": "Resize image",
+      "short": "Change an image's dimensions, keeping the aspect ratio.",
+      "title": "Resize Image — change image dimensions online, free",
+      "description": "Free online image resizer. Set an exact width or height, or scale by percentage, with the aspect ratio locked. Runs in your browser — nothing is uploaded.",
+      "intro": "Add an image and set a new width or height. With the ratio locked, the other dimension follows automatically, so nothing gets stretched. The quick percentage buttons handle the common cases.",
+      "howTo": {
+        "step1": "Add the image you want to resize.",
+        "step2": "Type a width or height, or use the 25/50/75% buttons.",
+        "step3": "Press Resize image and download the result."
+      },
+      "faq": {
+        "q1": "Will the image get stretched?",
+        "a1": "Not while 'Keep aspect ratio' is ticked — changing one dimension updates the other automatically. Untick it only when you genuinely want to distort the image, which is rare.",
+        "q2": "Can I make an image larger?",
+        "a2": "You can, but enlarging cannot add detail that is not there. The result will look soft, and the bigger the increase the more obvious it becomes. Resizing down is always safe; resizing up is a compromise.",
+        "q3": "Does it keep the original format?",
+        "a3": "Yes. A PNG stays a PNG and a WebP stays a WebP, so resizing does not quietly change the file type. To change format as well, use one of the converter tools afterwards.",
+        "q4": "Why is the resized file sometimes larger?",
+        "a4": "Re-encoding is not always smaller, particularly when the source was heavily compressed and the new file is written at higher quality. If size matters more than dimensions, use Compress image instead."
+      }
+    },
+    "png-to-jpg": {
+      "name": "PNG to JPG",
+      "short": "Convert PNG images to JPG, usually much smaller.",
+      "title": "PNG to JPG — convert PNG images online, free",
+      "description": "Free online PNG to JPG converter with a quality slider. Photographs saved as PNG usually shrink dramatically. Runs in your browser — nothing is uploaded.",
+      "intro": "Add a PNG and download it as a JPG. This is worth doing when a photograph has been saved as PNG — the file is often several times larger than it needs to be, with no visible benefit.",
+      "howTo": {
+        "step1": "Add your PNG image.",
+        "step2": "Choose a quality level.",
+        "step3": "Press Convert to JPEG and download the result."
+      },
+      "faq": {
+        "q1": "How much smaller will it be?",
+        "a1": "For photographs, often five to ten times smaller. PNG stores every pixel exactly, which suits flat graphics but is wasteful for photographic detail that JPEG can approximate almost invisibly.",
+        "q2": "What happens to transparency?",
+        "a2": "JPEG has no alpha channel, so transparent areas are filled with white rather than turning black — which is what happens in tools that skip this step. If you need transparency, keep the PNG.",
+        "q3": "Is the conversion reversible?",
+        "a3": "No. JPEG discards information permanently, so converting back to PNG restores the format but not the lost detail. Keep the original PNG if you may need to edit it later.",
+        "q4": "When should I not convert?",
+        "a4": "Keep PNG for screenshots, logos, diagrams and anything with sharp edges or text. JPEG blurs hard edges into visible artefacts, which is most obvious on screenshots of text."
+      }
+    },
+    "jpg-to-png": {
+      "name": "JPG to PNG",
+      "short": "Convert JPG images to lossless PNG.",
+      "title": "JPG to PNG — convert JPG images online, free",
+      "description": "Free online JPG to PNG converter. Produce a lossless PNG that survives further editing without extra compression. Runs in your browser — nothing is uploaded.",
+      "intro": "Add a JPG and download it as a PNG. Useful when a tool or upload form insists on PNG, or when you are about to edit an image and want no further compression applied on each save.",
+      "howTo": {
+        "step1": "Add your JPG image.",
+        "step2": "Press Convert to PNG.",
+        "step3": "Download the result."
+      },
+      "faq": {
+        "q1": "Does converting improve quality?",
+        "a1": "No, and this is worth being clear about. Whatever JPEG discarded is already gone — PNG simply stops any further loss. It preserves what is there rather than restoring what was lost.",
+        "q2": "Why is the PNG so much bigger?",
+        "a2": "PNG is lossless, so it stores every pixel exactly, including the compression artefacts JPEG introduced. A photograph converted to PNG is commonly several times larger than the JPEG it came from.",
+        "q3": "When is this worth doing?",
+        "a3": "When something requires PNG, or when you are about to edit and re-save repeatedly — each JPEG save compounds the loss, while PNG saves do not. It is also useful before adding transparency.",
+        "q4": "Will it have transparency?",
+        "a4": "The format supports it, but the image will not gain any: a JPEG has no transparency to carry over, so the result is fully opaque. You would need an editor to remove a background."
+      }
+    },
+    "webp-to-jpg": {
+      "name": "WebP to JPG",
+      "short": "Convert WebP images to widely supported JPG.",
+      "title": "WebP to JPG — convert WebP images online, free",
+      "description": "Free online WebP to JPG converter. Turn WebP files into JPG that any program will open. Runs in your browser — nothing is uploaded.",
+      "intro": "Add a WebP file and download it as a JPG. WebP is what most sites now serve, which means images saved from the web often will not open in older software or upload forms.",
+      "howTo": {
+        "step1": "Add your WebP image.",
+        "step2": "Choose a quality level.",
+        "step3": "Press Convert to JPEG and download the result."
+      },
+      "faq": {
+        "q1": "Why will nothing open my WebP file?",
+        "a1": "WebP is well supported in browsers but much less so elsewhere — older versions of Windows Photo Viewer, some office software and many upload forms still reject it. JPEG is accepted essentially everywhere.",
+        "q2": "Does converting lose quality?",
+        "a2": "There is one re-encode from WebP to JPEG, so a small amount is lost. At high quality it is not visible on photographs. The bigger practical change is that the file usually gets larger, since JPEG is less efficient.",
+        "q3": "What happens to transparent WebP?",
+        "a3": "JPEG has no alpha channel, so transparent areas become white. If transparency matters, convert to PNG instead.",
+        "q4": "Are animated WebP files supported?",
+        "a4": "No. Only the first frame is converted, because JPEG cannot hold animation. For animated files you would need a GIF or video converter instead."
+      }
+    },
+    "heic-to-jpg": {
+      "name": "HEIC to JPG",
+      "short": "Convert iPhone HEIC photos to JPG.",
+      "title": "HEIC to JPG — convert iPhone photos online, free",
+      "description": "Free online HEIC to JPG converter. Turn iPhone photos into JPG that opens anywhere, without installing anything. Runs in your browser — nothing is uploaded.",
+      "intro": "Add a HEIC photo from your iPhone and download it as a JPG. Decoding happens in your browser, so the photo never leaves your device — which matters when it is a picture of a document.",
+      "howTo": {
+        "step1": "Add your HEIC photo.",
+        "step2": "Choose a quality level.",
+        "step3": "Press Convert to JPEG and download the result."
+      },
+      "faq": {
+        "q1": "Why are my iPhone photos HEIC?",
+        "a1": "It is Apple's default since iOS 11, chosen because it stores similar quality in roughly half the space of JPEG. The cost is compatibility: outside Apple's own software, support is patchy. Setting Camera to 'Most Compatible' makes the phone shoot JPEG instead.",
+        "q2": "Is my photo uploaded to a server?",
+        "a2": "No. A WebAssembly decoder runs in your browser, loaded only when a HEIC file is added. Most HEIC converters online upload the file; this one does not, which matters for photos of identity documents.",
+        "q3": "Why does it take a few seconds?",
+        "a3": "HEIC uses HEVC compression, which is heavy to decode, and only Safari can do it natively. Everywhere else the decoder has to be downloaded and run in software. Expect roughly a second or two per photo.",
+        "q4": "Does the photo lose quality?",
+        "a4": "There is one re-encode to JPEG. At the default quality the difference is not visible for normal photographs, though the JPEG will typically be larger than the HEIC it came from."
+      }
+    },
+    "qr-generator": {
+      "name": "QR code generator",
+      "short": "Create a QR code from any link or text, ready to download.",
+      "title": "QR Code Generator — create free QR codes online",
+      "description": "Free online QR code generator. Turn any link or text into a downloadable PNG QR code, with adjustable size and error correction. Runs in your browser.",
+      "intro": "Type a link or any text and the QR code appears as you type. Download it as a PNG to print on a menu, a poster or a business card. The codes never expire and do not pass through any tracking redirect.",
+      "howTo": {
+        "step1": "Type or paste your link or text.",
+        "step2": "Adjust the size and error correction if you need to.",
+        "step3": "Download the PNG."
+      },
+      "faq": {
+        "q1": "Do these codes expire?",
+        "a1": "No. The QR code encodes your link directly, so it works for as long as that link does. Beware of generators offering 'dynamic' codes — those point at the generator's own redirect, which can stop working or start charging.",
+        "q2": "What does error correction do?",
+        "a2": "It adds redundancy so the code still scans when part of it is damaged, dirty or covered. L tolerates about 7% damage and H about 30%. Higher levels make the pattern denser, so for a fixed print size the modules get smaller.",
+        "q3": "Which level should I choose?",
+        "a3": "M is a good default for screens and clean printing. Choose H if the code will be printed small, placed outdoors, or have a logo overlaid on the middle — that overlay is damage as far as the scanner is concerned.",
+        "q4": "Why does it say there is too much data?",
+        "a4": "QR codes have a capacity limit that falls as error correction rises. Long URLs with tracking parameters hit it surprisingly often. Shorten the link or lower the level.",
+        "q5": "Is my data sent anywhere?",
+        "a5": "No. The code is generated in your browser, so the link — which might be a private document or an internal address — is never transmitted or logged."
+      }
+    },
+    "youtube-thumbnail": {
+      "name": "YouTube thumbnail downloader",
+      "short": "Get the thumbnail image from any YouTube video.",
+      "title": "YouTube Thumbnail Downloader — grab video covers, free",
+      "description": "Free YouTube thumbnail downloader. Paste any video link and get every available thumbnail size, up to 1280 × 720. No sign-up.",
+      "intro": "Paste a YouTube link and every available thumbnail size appears. Works with normal watch links, youtu.be short links, Shorts and embed URLs, or just the video ID on its own.",
+      "howTo": {
+        "step1": "Paste the YouTube link, or just the video ID.",
+        "step2": "Pick the size you want.",
+        "step3": "Open it full size, then save the image."
+      },
+      "faq": {
+        "q1": "Why is the 1280 × 720 version missing?",
+        "a1": "YouTube only generates the maximum-resolution thumbnail when the uploaded video was large enough, so older and lower-resolution videos simply do not have one. When it fails to load, the next size down always exists.",
+        "q2": "Which link formats work?",
+        "a2": "Standard watch links, youtu.be short links, Shorts, embed and live URLs, and a bare 11-character video ID. The ID is extracted locally — the link is never sent anywhere.",
+        "q3": "Can I use these images freely?",
+        "a3": "Not automatically. Thumbnails are usually the uploader's copyrighted work. Referencing a video, commentary and reviews are commonly acceptable; republishing as your own or using them commercially generally is not.",
+        "q4": "Does it work for private videos?",
+        "a4": "No. Thumbnails are served from a public URL only for public and unlisted videos. Private videos have no publicly reachable image, so nothing will load."
+      }
+    },
+    "color-picker": {
+      "name": "Colour picker",
+      "short": "Convert between HEX, RGB and HSL, with contrast checking.",
+      "title": "Colour Picker — HEX to RGB and HSL converter, free",
+      "description": "Free online colour picker and converter. Move between HEX, RGB and HSL and check WCAG contrast against white and black. Runs in your browser.",
+      "intro": "Pick a colour or type a HEX value and get it in every common notation, along with its contrast against white and black. The contrast figures are the ones accessibility guidelines actually use.",
+      "howTo": {
+        "step1": "Pick a colour, or type a HEX value like #0369a1.",
+        "step2": "Copy whichever notation you need.",
+        "step3": "Check the contrast figures before using it for text."
+      },
+      "faq": {
+        "q1": "What do the contrast numbers mean?",
+        "a1": "They are the ratio between your colour's brightness and white or black, as defined by WCAG. Body text needs at least 4.5:1 against its background, and large or bold text at least 3:1. Below that, the text is hard to read for many people and fails accessibility audits.",
+        "q2": "Why not just compare RGB values?",
+        "a2": "Because the eye is far more sensitive to green than to blue. The calculation weights the channels accordingly and linearises them first, which is why two colours with similar RGB numbers can have very different contrast.",
+        "q3": "When is HSL more useful than HEX?",
+        "a3": "When building a palette. HSL separates hue from saturation and lightness, so you can produce a lighter or more muted version of a colour by changing one number, instead of guessing at a new HEX value.",
+        "q4": "Does it accept short HEX codes?",
+        "a4": "Yes. Three-digit values like #0af are expanded automatically, with or without the leading hash."
       }
     },
     "password-generator": {
