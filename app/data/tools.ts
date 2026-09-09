@@ -39,6 +39,27 @@ export interface ToolDef {
   component: string
   icon: string
   /**
+   * Whether this tool is shipped.
+   *
+   * `false` means it exists in the codebase but gets no URL in production: no
+   * route, no sitemap entry, no nav link, no related-tools link, and a direct
+   * hit 404s. It stays fully reachable in `nuxt dev` so it can be tested.
+   *
+   * Flip to `true` only after a human has actually used the tool. Everything
+   * that reads the registry fails closed, so forgetting to set it hides the
+   * tool rather than shipping something untested.
+   */
+  published: boolean
+  /**
+   * Optional preset for entries that share one component.
+   *
+   * Search treats "JPG to PDF" and "HEIC to PDF" as different queries even
+   * though they are one function, so each deserves its own page. That is
+   * several registry entries pointing at the same component with a different
+   * `config`, not several components.
+   */
+  config?: Record<string, unknown>
+  /**
    * Locales this tool is PUBLISHED in. A tool without written content for a
    * locale gets no URL there — no thin pages, no wasted crawl budget, and
    * hreflang only points at pages that actually exist.
@@ -69,6 +90,9 @@ export const tools: ToolDef[] = [
     group: 'organize',
     component: 'pdf/Merge',
     icon: 'layers',
+    // Already live before this flag existed. Not yet human-tested end to end -
+    // set to false to pull it until it has been.
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: {
       en: 'merge',
@@ -85,6 +109,8 @@ export const tools: ToolDef[] = [
     group: 'organize',
     component: 'pdf/Split',
     icon: 'scissors',
+    // Already live before this flag existed. Not yet human-tested end to end.
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: {
       en: 'split',
@@ -101,6 +127,7 @@ export const tools: ToolDef[] = [
     group: 'analyze',
     component: 'text/WordCounter',
     icon: 'type',
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: {
       en: 'word-counter',
@@ -115,6 +142,15 @@ export const tools: ToolDef[] = [
 /* Lookups                                                             */
 /* ------------------------------------------------------------------ */
 
+/**
+ * Every lookup takes `includeDrafts`, defaulting to `false` so production
+ * behaviour is the safe one. Callers in the app pass `import.meta.dev`, which
+ * makes unpublished tools reachable while developing and invisible once built.
+ */
+function visible(tool: ToolDef, includeDrafts: boolean): boolean {
+  return tool.published || includeDrafts
+}
+
 export function getCategory(id: CategoryId): CategoryDef | undefined {
   return categories.find(c => c.id === id)
 }
@@ -126,22 +162,38 @@ export function categoryBySlug(slug: string, locale: Locale): CategoryDef | unde
 export function toolBySlug(
   categorySlug: string,
   toolSlug: string,
-  locale: Locale
+  locale: Locale,
+  includeDrafts = false
 ): ToolDef | undefined {
   const category = categoryBySlug(categorySlug, locale)
   if (!category) return undefined
   return tools.find(
-    t => t.category === category.id && t.locales.includes(locale) && t.slugs[locale] === toolSlug
+    t =>
+      t.category === category.id &&
+      t.locales.includes(locale) &&
+      t.slugs[locale] === toolSlug &&
+      visible(t, includeDrafts)
   )
 }
 
-export function toolsInCategory(id: CategoryId, locale: Locale): ToolDef[] {
-  return tools.filter(t => t.category === id && t.locales.includes(locale))
+export function toolsInCategory(
+  id: CategoryId,
+  locale: Locale,
+  includeDrafts = false
+): ToolDef[] {
+  return tools.filter(
+    t => t.category === id && t.locales.includes(locale) && visible(t, includeDrafts)
+  )
 }
 
-/** Categories that have at least one published tool in this locale. */
-export function categoriesWithTools(locale: Locale): CategoryDef[] {
-  return categories.filter(c => toolsInCategory(c.id, locale).length > 0)
+/** Categories that have at least one visible tool in this locale. */
+export function categoriesWithTools(locale: Locale, includeDrafts = false): CategoryDef[] {
+  return categories.filter(c => toolsInCategory(c.id, locale, includeDrafts).length > 0)
+}
+
+/** Published tools only — what the site actually ships. */
+export function publishedTools(): ToolDef[] {
+  return tools.filter(t => t.published)
 }
 
 /* ------------------------------------------------------------------ */
@@ -180,7 +232,9 @@ export function prerenderRoutes(): string[] {
       routes.add(categoryPath(category, locale))
     }
 
-    for (const tool of tools) {
+    // Drafts are never prerendered, so an unpublished tool has no static page
+    // and no chance of being crawled or indexed.
+    for (const tool of publishedTools()) {
       const path = toolPath(tool, locale)
       if (path) routes.add(path)
     }

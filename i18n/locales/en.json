@@ -96,6 +96,9 @@
     "useAsInput": "Use as input",
     "startOver": "Start over"
   },
+  "draft": {
+    "badge": "Draft — not published"
+  },
   "confirmLeave": {
     "title": "Leave this tool?",
     "body": "You still have {count} file(s) open here. Because your files stay on your device and are never uploaded, leaving this page discards them. Download anything you want to keep first.",

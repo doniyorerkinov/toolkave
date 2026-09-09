@@ -11,12 +11,12 @@ const { t, locale } = useI18n()
 const currentLocale = computed(() => locale.value as Locale)
 
 const groups = computed(() =>
-  categoriesWithTools(currentLocale.value).map(category => ({
+  categoriesWithTools(currentLocale.value, import.meta.dev).map(category => ({
     id: category.id,
     name: t(`categories.${category.id}.name`),
     description: t(`categories.${category.id}.description`),
     href: categoryPath(category, currentLocale.value),
-    tools: toolsInCategory(category.id, currentLocale.value)
+    tools: toolsInCategory(category.id, currentLocale.value, import.meta.dev)
   }))
 )
 

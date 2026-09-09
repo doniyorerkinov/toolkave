@@ -15,7 +15,9 @@ if (!category.value) {
 
 useCategorySeo(category.value, currentLocale.value)
 
-const categoryTools = computed(() => toolsInCategory(category.value!.id, currentLocale.value))
+const categoryTools = computed(() =>
+  toolsInCategory(category.value!.id, currentLocale.value, import.meta.dev)
+)
 </script>
 
 <template>

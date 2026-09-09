@@ -10,7 +10,10 @@ const currentLocale = computed(() => locale.value as Locale)
 const categorySlug = computed(() => String(route.params.category ?? ''))
 const toolSlug = computed(() => String(route.params.tool ?? ''))
 
-const tool = computed(() => toolBySlug(categorySlug.value, toolSlug.value, currentLocale.value))
+// Drafts resolve in dev so they can be tested, and 404 in production.
+const tool = computed(() =>
+  toolBySlug(categorySlug.value, toolSlug.value, currentLocale.value, import.meta.dev)
+)
 
 if (!tool.value) {
   throw createError({ statusCode: 404, statusMessage: 'Tool not found', fatal: true })

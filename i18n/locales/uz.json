@@ -96,6 +96,9 @@
     "useAsInput": "Keyingi vositaga berish",
     "startOver": "Qaytadan boshlash"
   },
+  "draft": {
+    "badge": "Qoralama — chop etilmagan"
+  },
   "confirmLeave": {
     "title": "Bu vositadan chiqasizmi?",
     "body": "Bu yerda hali {count} ta fayl ochiq. Fayllaringiz qurilmangizda qoladi va hech qayerga yuklanmaydi, shuning uchun sahifadan chiqsangiz ular o'chiriladi. Saqlamoqchi bo'lgan narsani avval yuklab oling.",

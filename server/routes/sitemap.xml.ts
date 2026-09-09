@@ -1,10 +1,18 @@
-﻿import { LOCALES, categoriesWithTools, categoryPath, toolPath, tools } from '../../app/data/tools'
+﻿import {
+  LOCALES,
+  categoriesWithTools,
+  categoryPath,
+  publishedTools,
+  toolPath
+} from '../../app/data/tools'
 
 const SITE_URL = 'https://toolkave.com'
 
 /**
  * Sitemap generated from the registry, with hreflang alternates per entry.
- * A tool only appears in the locales it is actually published in.
+ *
+ * Published tools only, and only in the locales they have content for. An
+ * unpublished tool must never be advertised to a crawler.
  */
 export default defineEventHandler(event => {
   interface Entry {
@@ -41,7 +49,7 @@ export default defineEventHandler(event => {
   }
 
   // Tools
-  for (const tool of tools) {
+  for (const tool of publishedTools()) {
     const alternates = LOCALES.map(l => ({ locale: l as string, path: toolPath(tool, l) })).filter(
       (a): a is { locale: string; path: string } => typeof a.path === 'string'
     )

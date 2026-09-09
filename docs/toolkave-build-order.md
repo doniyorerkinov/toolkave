@@ -25,6 +25,8 @@ These are settled. The older docs contradict some of them — this file wins.
 | URLs | Category-nested **and** translated: `/pdf/merge`, `/ru/pdf/obedinit` | plan §4 flat slugs |
 | Content | Prose written per tool per locale **on demand**, never as a bulk batch | plan §9 "all languages" |
 | Locale coverage | Per-tool `locales` field. A tool with no content in a locale gets **no URL** there | — |
+| Shipping | Per-tool `published` flag. Nothing reaches production until a human has tested it | — |
+| Order | **All 48 tools first**, then content, then ads | plan §5, pdf-and-ui §5 |
 
 **Why the content rule matters:** ~47 tools × 3 locales = ~141 pages. At the plan's 3–4 h/week
 that is over budget before starting. Real capacity is ~100–120 pages in year one. Spend them
@@ -115,31 +117,90 @@ the merge inputs. Two defences:
 
 **Exit:** a 100-page PDF compresses without freezing the UI; CWV still green.
 
-## Phase 4 — Scale horizontally
+## Scope — the full tool set
 
-- [ ] Rotate · Reorder/Delete · JPG→PDF (completes Tier 1)
-- [ ] QR generator · password generator · JSON formatter · Base64
-- [ ] ~15 tools live
+| Group | Tools |
+| --- | --- |
+| PDF & docs — tier 1 | 7 |
+| PDF & docs — tier 2 | 12 |
+| PDF & docs — tier 3 | 12 |
+| Image (compress, resize, convert) | 3 |
+| Generators (QR, password, YouTube thumbnail) | 3 |
+| Text (word counter) | 1 |
+| Converters (unit, currency, timezone) | 3 |
+| Calculators (percent/VAT, age/date, BMI, loan) | 4 |
+| Dev (JSON, Base64/URL, colour) | 3 |
+| **Free, browser-only total** | **48** |
+| Server-backed premium (PDF→Word, edit text, PPT→PDF, repair, redaction) | 5 |
+| **Everything** | **53** |
+| + `@toolkavebot` | 1 |
 
-## Phase 5 — Content + indexing
+**Pages, not tools, is what ranks.** iLovePDF lists "JPG to PDF", "PNG to PDF" and "HEIC to PDF"
+as separate tools even though it is one function, because each is a separate query. Split the
+converters the same way and 48 tools become **60–70 tool pages**; at three locales that is
+**180–210 indexable pages**. That is the actual asset. In the registry this is several entries
+sharing one `component` with a different `config` — never several components.
+
+**Target pace:** ~20 tools live by end of month one (tier-1 PDF plus the simple ones), ~35 by
+month three, all 48 by month six. Search data then says which tier-3 tools are worth finishing
+and which to drop.
+
+---
+
+## Publishing gate
+
+Every tool carries `published: boolean`. **Only human-tested tools get shipped.**
+
+`published: false` means the tool exists in the codebase but has no URL in production: no route,
+no sitemap entry, no nav or related-tools link, and a direct hit 404s. It stays fully reachable
+in `nuxt dev`, with a "Draft" badge on the page, so it can be built and tested first.
+
+Every registry lookup takes `includeDrafts` and **defaults to `false`**, so the failure mode is
+hiding a tool rather than shipping an untested one.
+
+Flip to `true` only after using the tool on real files.
+
+---
+
+## Phase 4 — Wave 1: finish tier 1 + the easy wins (~20 tools)
+
+- [ ] Rotate · Reorder/Delete · JPG→PDF · PDF→JPG · Compress (completes tier-1 PDF)
+- [ ] Split the image→PDF converters into per-format pages (JPG / PNG / WebP / HEIC)
+- [ ] Image compress · resize · format convert
+- [ ] QR generator · password generator · YouTube thumbnail
+- [ ] JSON formatter · Base64/URL · colour picker
+
+## Phase 5 — Wave 2: tier 2 PDF + the rest of the simple tools (~35 tools)
+
+- [ ] Page numbers · watermark · header/footer · sign · fill forms · flatten
+- [ ] PDF→text · crop/resize · protect/unlock · metadata · PDF info · text/Markdown→PDF
+- [ ] Unit · currency · timezone converters
+- [ ] Percent/VAT · age/date · BMI · loan calculators
+
+## Phase 6 — Wave 3: tier 3 differentiators (48 tools)
+
+- [ ] **OCR uz/ru/en** and **broken Cyrillic → UTF-8** — the two nobody else builds
+- [ ] DOCX→PDF · Excel/CSV→PDF · grayscale · compare · annotate/redact
+- [ ] DOCX→text/HTML/MD · CSV⇄JSON⇄Excel · word count for PDF/DOCX · Markdown⇄HTML
+- [ ] Scanned photos → PDF (web version of the bot)
+
+## Phase 7 — Content + indexing
 
 - [ ] 200–400 words + FAQ per tool, allocated by traffic (top ~15 in 3 locales; long tail 1–2)
 - [ ] Google Search Console + Yandex Webmaster verified, sitemap submitted
 - [ ] Confirm Googlebot reaches pages via URL Inspection
-- [ ] ~15 content pages → AdSense eligible
 
-## Phase 6 — Ads
+## Phase 8 — Ads
 
 - [ ] `AdSlot` switched on; AdSense + Yandex РСЯ on separate slots
 - [ ] Scripts loaded once in the layout, lazily, after hydration
 - [ ] Never between input and result; max 3–4 units per page
 - [ ] CWV measured before and after
 
-## Phase 7 — Long tail
+## Phase 9 — Beyond the free site
 
-- [ ] Tier 2 PDF tools
-- [ ] Tier 3, incl. the local differentiators: **OCR uz/ru/en** and **broken Cyrillic → UTF-8**
 - [ ] `@toolkavebot`
+- [ ] Server-backed premium tier (5 tools, separate FastAPI service)
 - [ ] Revisit Ezoic at ~10k sessions/month
 - [ ] Revisit a European locale once a page proves it ranks
 

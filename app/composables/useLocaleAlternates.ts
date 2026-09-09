@@ -30,7 +30,7 @@ export function useLocaleAlternates() {
     const out: Partial<Record<Locale, string>> = {}
 
     if (categorySlug && toolSlug) {
-      const tool = toolBySlug(categorySlug, toolSlug, current)
+      const tool = toolBySlug(categorySlug, toolSlug, current, import.meta.dev)
       if (tool) {
         for (const candidate of LOCALES) {
           const path = toolPath(tool, candidate)

@@ -42,7 +42,7 @@ function toolAt(route: RouteLocationNormalized): ToolDef | undefined {
   const tool = route.params.tool
   if (typeof category !== 'string' || typeof tool !== 'string') return undefined
 
-  return toolBySlug(category, tool, destinationLocale)
+  return toolBySlug(category, tool, destinationLocale, import.meta.dev)
 }
 
 onBeforeRouteLeave(async to => {
@@ -90,6 +90,7 @@ const relatedTools = computed(() =>
   props.tool.related
     .map(id => allTools.find(candidate => candidate.id === id))
     .filter((candidate): candidate is ToolDef => !!candidate)
+    .filter(candidate => candidate.published || import.meta.dev)
     .filter(candidate => !!toolPath(candidate, currentLocale.value))
 )
 </script>
@@ -116,6 +117,12 @@ const relatedTools = computed(() =>
       </nav>
 
       <header class="mb-6">
+        <p
+          v-if="!tool.published"
+          class="mb-2 inline-block rounded bg-amber-100 px-2 py-1 text-xs font-semibold tracking-wide text-amber-900 uppercase"
+        >
+          {{ t('draft.badge') }}
+        </p>
         <h1 class="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
           {{ t(`tools.${tool.id}.name`) }}
         </h1>

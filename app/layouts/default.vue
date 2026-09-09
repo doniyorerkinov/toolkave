@@ -8,7 +8,7 @@ const currentLocale = computed(() => locale.value as Locale)
 
 // Only categories that actually have a published tool in this locale.
 const navCategories = computed(() =>
-  categoriesWithTools(currentLocale.value).map(category => ({
+  categoriesWithTools(currentLocale.value, import.meta.dev).map(category => ({
     id: category.id,
     name: t(`categories.${category.id}.name`),
     href: categoryPath(category, currentLocale.value)
