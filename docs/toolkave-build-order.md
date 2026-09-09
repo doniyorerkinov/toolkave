@@ -187,10 +187,23 @@ no other tool pays for it.
 
 ## Phase 5 — Wave 2: tier 2 PDF + the rest of the simple tools (~35 tools)
 
-- [ ] Page numbers · watermark · header/footer · sign · fill forms · flatten
-- [ ] PDF→text · crop/resize · protect/unlock · metadata · PDF info · text/Markdown→PDF
-- [ ] Unit · currency · timezone converters
-- [ ] Percent/VAT · age/date · BMI · loan calculators
+- [x] Page numbers · watermark · PDF info
+- [x] Percent/VAT · age/date · BMI · loan calculators
+- [x] Unit converter · time zone converter
+- [ ] Header/footer · sign · fill forms · flatten · crop/resize
+- [ ] **Currency converter** — the only tool here that needs live data. Everything else is
+      offline; this one wants the CBU API plus a rates fallback, cached at the edge. It breaks
+      the browser-only rule, so it needs its own decision before building.
+- [ ] **Protect / unlock** — `pdf-lib` cannot encrypt. Needs `pdfcpu-wasm` or similar.
+- [ ] **PDF→text** — needs pdf.js, so it belongs with Phase 3.
+
+**27 tools in the registry, 24 drafts.** 81 pages across three locales, all 200 in dev.
+
+> **Watermarks and page numbers are Latin-only.** The fonts built into the PDF format are
+> WinAnsi-encoded, so Cyrillic cannot be drawn without embedding a TTF plus fontkit — a large
+> download on every visit for a feature most visitors will not use. The tool says so plainly
+> instead of producing a page full of empty boxes. Worth revisiting if `ru`/`uz` watermark
+> traffic ever justifies the weight.
 
 ## Phase 6 — Wave 3: tier 3 differentiators (48 tools)
 

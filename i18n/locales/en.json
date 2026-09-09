@@ -137,6 +137,41 @@
       "wouldEmpty": "You cannot remove every page — a PDF must keep at least one.",
       "action": "Remove pages"
     },
+    "pageNumbers": {
+      "positionLabel": "Position",
+      "positions": {
+        "bottom-center": "Bottom centre",
+        "bottom-right": "Bottom right",
+        "bottom-left": "Bottom left",
+        "top-right": "Top right"
+      },
+      "startAt": "Start numbering at",
+      "fontSize": "Text size: {n} pt",
+      "skipFirst": "Skip the first page (cover)",
+      "action": "Add page numbers"
+    },
+    "watermark": {
+      "textLabel": "Watermark text",
+      "fontSize": "Text size: {n} pt",
+      "opacity": "Opacity: {n}%",
+      "angle": "Angle: {n}°",
+      "action": "Add watermark",
+      "unsupportedText": "Only Latin characters work in watermarks for now. Cyrillic needs an embedded font, which is not available yet."
+    },
+    "info": {
+      "pages": "Pages",
+      "fileSize": "File size",
+      "title": "Title",
+      "author": "Author",
+      "subject": "Subject",
+      "creator": "Created with",
+      "producer": "Produced by",
+      "created": "Created",
+      "modified": "Modified",
+      "pageSizes": "Page sizes",
+      "notSet": "Not set",
+      "encrypted": "This PDF is encrypted. Details may be incomplete, and editing tools may refuse it."
+    },
     "imagesToPdf": {
       "fitLabel": "Page size",
       "fit": {
@@ -164,6 +199,104 @@
       "action": "Resize image"
     },
     "convert": { "action": "Convert to {format}" }
+  },
+  "percent": {
+    "modes": {
+      "of": "% of a number",
+      "what": "X is what % of Y",
+      "change": "% change",
+      "discount": "Discount",
+      "vat": "VAT"
+    },
+    "labels": {
+      "of": { "a": "Percentage", "b": "Of value" },
+      "what": { "a": "This number", "b": "Is what % of" },
+      "change": { "a": "From", "b": "To" },
+      "discount": { "a": "Price", "b": "Discount %" },
+      "vat": { "a": "Amount", "b": "Amount" }
+    },
+    "resultOf": "{p}% of {v}",
+    "resultWhat": "Percentage",
+    "increase": "Increase",
+    "decrease": "Decrease",
+    "youSave": "You save",
+    "finalPrice": "Final price",
+    "net": "Net",
+    "tax": "VAT",
+    "gross": "Gross",
+    "vatRate": "VAT rate %",
+    "vatInclusive": "Amount already includes VAT",
+    "enterValues": "Enter values above to see the result."
+  },
+  "age": {
+    "fromLabel": "From (date of birth)",
+    "toLabel": "To",
+    "exact": "Exact difference",
+    "value": "{y} years, {m} months, {d} days",
+    "totalMonths": "Total months",
+    "totalWeeks": "Total weeks",
+    "totalDays": "Total days",
+    "nextBirthday": "Next anniversary in {days} days, on {date}.",
+    "enterDates": "Choose both dates to see the result."
+  },
+  "bmi": {
+    "weight": "Weight (kg)",
+    "height": "Height (cm)",
+    "yourBmi": "Your BMI",
+    "categories": {
+      "underweight": "Underweight",
+      "normal": "Normal weight",
+      "overweight": "Overweight",
+      "obese": "Obese"
+    },
+    "healthyRange": "A normal BMI at this height means {min}–{max} kg.",
+    "disclaimer": "BMI is a rough screening figure, not a diagnosis. It does not distinguish muscle from fat, and is less meaningful for athletes, older adults, pregnancy and children.",
+    "enterValues": "Enter weight and height to see the result."
+  },
+  "loan": {
+    "amount": "Loan amount",
+    "rate": "Annual rate %",
+    "years": "Term (years)",
+    "monthly": "Monthly payment",
+    "overMonths": "over {n} payments",
+    "totalPaid": "Total repaid",
+    "totalInterest": "Total interest",
+    "interestShare": "{n}% of everything you repay is interest.",
+    "enterValues": "Enter the amount, rate and term to see the result."
+  },
+  "units": {
+    "categories": {
+      "length": "Length",
+      "weight": "Weight",
+      "temperature": "Temperature",
+      "area": "Area",
+      "volume": "Volume",
+      "speed": "Speed"
+    },
+    "names": {
+      "mm": "Millimetres", "cm": "Centimetres", "m": "Metres", "km": "Kilometres",
+      "in": "Inches", "ft": "Feet", "yd": "Yards", "mi": "Miles",
+      "mg": "Milligrams", "g": "Grams", "kg": "Kilograms", "t": "Tonnes",
+      "oz": "Ounces", "lb": "Pounds",
+      "c": "Celsius", "f": "Fahrenheit", "k": "Kelvin",
+      "cm2": "Square centimetres", "m2": "Square metres", "km2": "Square kilometres",
+      "ha": "Hectares", "ft2": "Square feet", "ac": "Acres",
+      "ml": "Millilitres", "l": "Litres", "m3": "Cubic metres",
+      "gal": "Gallons (US)", "qt": "Quarts (US)", "floz": "Fluid ounces (US)",
+      "mps": "Metres/second", "kmh": "Kilometres/hour", "mph": "Miles/hour", "kn": "Knots"
+    },
+    "from": "From",
+    "to": "To",
+    "swap": "Swap units",
+    "allUnits": "In every unit"
+  },
+  "timezone": {
+    "date": "Date",
+    "time": "Time",
+    "sourceZone": "In time zone",
+    "addZone": "Add a zone",
+    "choose": "Choose…",
+    "remove": "Remove {zone}"
   },
   "qr": {
     "inputLabel": "Text or link",
@@ -380,6 +513,204 @@
         "a3": "No. PNG is lossless and the data is embedded as-is with no re-encoding, so screenshots and diagrams stay pixel-perfect and text in them stays sharp.",
         "q4": "Why is my PDF larger than the PNGs?",
         "a4": "PNG is efficient for flat graphics but the PDF wrapper adds structure around each image, and nothing is re-compressed to make up for it. For screenshot-heavy documents that is a fair trade for keeping the images exact."
+      }
+    },
+    "pdf-page-numbers": {
+      "name": "Add page numbers to PDF",
+      "short": "Number the pages of a PDF, in any corner.",
+      "title": "Add Page Numbers to PDF — free online tool",
+      "description": "Free online tool to add page numbers to a PDF. Choose the corner, starting number and text size, and skip the cover page. Runs in your browser.",
+      "intro": "Add a PDF, choose where the numbers go and what to start at, and download the numbered file. Useful for contracts, reports and anything that has to be referenced by page.",
+      "howTo": {
+        "step1": "Add the PDF you want to number.",
+        "step2": "Pick a position, a starting number and a text size.",
+        "step3": "Press Add page numbers and download the result."
+      },
+      "faq": {
+        "q1": "Can I skip the cover page?",
+        "a1": "Yes. Tick 'Skip the first page' and numbering starts on page two. The count still advances, so page two shows the second number — which is what a report with an unnumbered cover normally wants.",
+        "q2": "Can numbering start at something other than 1?",
+        "a2": "Yes. Set any starting number, which is what you need when the PDF is one section of a longer document and its first page is really page 47.",
+        "q3": "Will the numbers cover existing content?",
+        "a3": "They are placed in the margin, about 28 points from the edge, so on ordinary documents they sit clear of the text. On a PDF with no margins they could overlap, so check before sharing.",
+        "q4": "Are my files uploaded?",
+        "a4": "No. The numbers are drawn into the document inside your browser, so contracts and reports never leave your device."
+      }
+    },
+    "pdf-watermark": {
+      "name": "Watermark PDF",
+      "short": "Stamp text across every page of a PDF.",
+      "title": "Watermark PDF — add a text watermark online, free",
+      "description": "Free online PDF watermark tool. Stamp DRAFT, CONFIDENTIAL or your own text across every page, with adjustable size, angle and opacity. Runs in your browser.",
+      "intro": "Add a PDF, type the text you want stamped across it, and adjust the size, angle and opacity until it reads clearly without hiding the content underneath.",
+      "howTo": {
+        "step1": "Add the PDF you want to watermark.",
+        "step2": "Type the text and adjust size, opacity and angle.",
+        "step3": "Press Add watermark and download the result."
+      },
+      "faq": {
+        "q1": "Why will it not accept Cyrillic text?",
+        "a1": "The fonts built into the PDF format only cover Latin characters. Drawing Cyrillic means embedding a font file, which would add a large download to every visit for a feature most people do not need. The tool tells you rather than producing a file full of blank boxes.",
+        "q2": "Can the watermark be removed?",
+        "a2": "It is drawn into the page content, so it will not come off by toggling a setting. It is not security, though — anyone determined enough can edit it out. Treat it as a clear label, not protection.",
+        "q3": "What opacity should I use?",
+        "a3": "Around 20-30% is usually right: clearly visible, but the text underneath stays readable. Go higher only when the watermark matters more than the content, such as a sample document you do not want used.",
+        "q4": "Does it go on every page?",
+        "a4": "Yes, every page gets the same watermark, centred and rotated by the angle you choose. Per-page watermarks are not supported."
+      }
+    },
+    "pdf-info": {
+      "name": "PDF info",
+      "short": "See page count, size, author and other PDF details.",
+      "title": "PDF Info — view PDF metadata and page sizes online, free",
+      "description": "Free online PDF inspector. See page count, file size, page dimensions, title, author and creation dates without opening the file in an editor. Runs in your browser.",
+      "intro": "Add a PDF to see what is actually inside it: how many pages, what size they are, which software produced it, and what metadata is attached. Nothing is uploaded, so it is safe to inspect confidential files.",
+      "howTo": {
+        "step1": "Add the PDF you want to inspect.",
+        "step2": "Read the details, including page sizes.",
+        "step3": "Press Start over to check another file."
+      },
+      "faq": {
+        "q1": "Why does the page size matter?",
+        "a1": "Printers and upload forms often require a specific size. This shows both the familiar name — A4, Letter — and the exact point dimensions, so you can tell whether a document that 'looks A4' really is. Mixed sizes in one file are shown separately.",
+        "q2": "What is the difference between creator and producer?",
+        "a2": "Creator is the program the document was originally written in, such as Word. Producer is what converted it to PDF. Together they often reveal how a file was made, which is useful when a PDF behaves oddly.",
+        "q3": "Why are the fields empty?",
+        "a3": "PDF metadata is optional, and many generators leave it blank. An empty title or author means nothing was set, not that anything is wrong with the file.",
+        "q4": "What does 'encrypted' mean here?",
+        "a4": "The file carries a password or permission restrictions. Details can still usually be read, but editing tools may refuse to modify it. Files with a user password cannot be opened at all without it."
+      }
+    },
+    "percentage-calculator": {
+      "name": "Percentage calculator",
+      "short": "Percentages, discounts, changes and VAT in one place.",
+      "title": "Percentage Calculator — percent, discount and VAT, free",
+      "description": "Free online percentage calculator. Work out a percentage of a number, percentage change, discounts and VAT both inclusive and exclusive. Runs in your browser.",
+      "intro": "Pick what you need — a percentage of a number, what percentage one number is of another, a change between two figures, a discount, or VAT — and the answer updates as you type.",
+      "howTo": {
+        "step1": "Choose the type of calculation.",
+        "step2": "Enter your numbers.",
+        "step3": "Read the result, which updates as you type."
+      },
+      "faq": {
+        "q1": "What is the difference between inclusive and exclusive VAT?",
+        "a1": "Exclusive means the price does not yet contain the tax, so VAT is added on top. Inclusive means the price already contains it, so the tax is extracted from within. Prices in Uzbekistan and most of Europe are quoted inclusive, and getting this backwards is the most common mistake in VAT sums.",
+        "q2": "How do I take VAT out of a price?",
+        "a2": "Tick 'Amount already includes VAT'. Dividing by 1.12 for a 12% rate is correct; subtracting 12% is not, and gives a number that is too low. The tool does the division for you.",
+        "q3": "Why is a 50% rise then a 50% fall not back where you started?",
+        "a3": "Because each percentage applies to a different base. 100 rises by 50% to 150; 50% of 150 is 75, so falling by 50% lands on 75, not 100. Use the '% change' mode to see the real change between two figures.",
+        "q4": "Is the discount before or after tax?",
+        "a4": "The discount mode works on whatever figure you enter, so it depends on which price you type in. For an inclusive price, the result is also inclusive."
+      }
+    },
+    "age-calculator": {
+      "name": "Age calculator",
+      "short": "Exact age or the difference between any two dates.",
+      "title": "Age Calculator — exact age and date difference, free",
+      "description": "Free online age calculator. Get exact years, months and days between two dates, plus totals in months, weeks and days. Runs in your browser.",
+      "intro": "Enter a date of birth and a date to measure to. You get the exact difference in years, months and days, plus the totals — and how long until the next anniversary.",
+      "howTo": {
+        "step1": "Enter the date of birth, or any start date.",
+        "step2": "Set the end date — today by default.",
+        "step3": "Read the exact difference and the totals."
+      },
+      "faq": {
+        "q1": "How are months counted?",
+        "a1": "By the calendar, not a flat 30 days. From 31 January, one month lands on 28 February, because February has no 31st. That matches how people talk about months and how date libraries behave.",
+        "q2": "What about someone born on 29 February?",
+        "a2": "In a common year they age on 28 February. That follows from the same clamping rule and matches how most jurisdictions treat leap-day birthdays, though a few use 1 March.",
+        "q3": "Can I measure future dates?",
+        "a3": "Yes. The order does not matter — the difference is always reported as a positive amount, so you can use it as a countdown as easily as an age.",
+        "q4": "Why do total months and years plus months differ?",
+        "a4": "They do not: total months is the same figure expressed differently. 3 years and 5 months is 41 total months. Days beyond that are shown separately rather than rounded into it."
+      }
+    },
+    "bmi-calculator": {
+      "name": "BMI calculator",
+      "short": "Body mass index with the healthy weight range for your height.",
+      "title": "BMI Calculator — body mass index, free online",
+      "description": "Free online BMI calculator. Enter weight and height to see your body mass index, which category it falls in, and the healthy weight range for your height.",
+      "intro": "Enter your weight in kilograms and height in centimetres. You get your BMI, the category it falls into, and the weight range that would put you in the normal band at that height.",
+      "howTo": {
+        "step1": "Enter your weight in kilograms.",
+        "step2": "Enter your height in centimetres.",
+        "step3": "Read your BMI and where it sits on the scale."
+      },
+      "faq": {
+        "q1": "What do the categories mean?",
+        "a1": "Below 18.5 is underweight, 18.5 to 24.9 normal, 25 to 29.9 overweight, and 30 or above obese. These are the World Health Organization bands used for adults.",
+        "q2": "How reliable is BMI?",
+        "a2": "It is a screening figure, not a diagnosis. It uses only height and weight, so it cannot tell muscle from fat — a muscular athlete can register as overweight while carrying very little. Treat an unexpected result as a reason to ask a doctor, not a conclusion.",
+        "q3": "Does it work for children?",
+        "a3": "No. Children and teenagers are assessed against age and sex percentile charts, not these fixed bands. The same applies during pregnancy.",
+        "q4": "Why does the healthy range look wide?",
+        "a4": "Because BMI scales with the square of height, so the normal band covers a real spread of weights — roughly 20 kg at 175 cm. Where you sit within it depends on build."
+      }
+    },
+    "loan-calculator": {
+      "name": "Loan calculator",
+      "short": "Monthly payment, total repaid and total interest.",
+      "title": "Loan Calculator — monthly payment and total interest, free",
+      "description": "Free online loan and mortgage calculator. See the monthly payment, total repaid and how much of it is interest, for any amount, rate and term.",
+      "intro": "Enter the amount, the annual interest rate and the term. You get the monthly payment and — more usefully — the total you will repay and how much of that is interest rather than principal.",
+      "howTo": {
+        "step1": "Enter the loan amount.",
+        "step2": "Enter the annual interest rate and the term in years.",
+        "step3": "Read the monthly payment and the total interest."
+      },
+      "faq": {
+        "q1": "Which kind of loan does this model?",
+        "a1": "An annuity loan, where every payment is the same and the split between interest and principal shifts over time. That covers most mortgages, car loans and consumer credit. Loans with a fixed principal repayment plus interest work differently and start higher.",
+        "q2": "Is the rate monthly or annual?",
+        "a2": "Annual. It is divided by twelve internally. Entering a monthly rate by mistake produces a payment roughly twelve times too high, which is the usual sign something is wrong.",
+        "q3": "Why is the total interest so large?",
+        "a3": "Because interest is charged on the outstanding balance for the whole term. Over a long term it compounds into a large share of the total — the bar shows exactly what proportion. Shortening the term usually saves far more than a small rate reduction.",
+        "q4": "Does it include fees and insurance?",
+        "a4": "No. Arrangement fees, insurance and other charges are not modelled, so a lender's stated total cost will normally be higher than this figure."
+      }
+    },
+    "unit-converter": {
+      "name": "Unit converter",
+      "short": "Length, weight, temperature, area, volume and speed.",
+      "title": "Unit Converter — length, weight, temperature and more, free",
+      "description": "Free online unit converter. Convert length, weight, temperature, area, volume and speed between metric and imperial units. Runs in your browser.",
+      "intro": "Choose a category, enter a value and pick the units. Alongside the answer you get the same value in every other unit in that category, which is often faster than converting one pair at a time.",
+      "howTo": {
+        "step1": "Choose a category such as length or weight.",
+        "step2": "Enter a value and pick the units to convert between.",
+        "step3": "Read the result, or check the full list below it."
+      },
+      "faq": {
+        "q1": "Why is temperature handled differently?",
+        "a1": "Because its scales have different zero points, so you cannot just multiply by a factor. Converting Celsius to Fahrenheit needs both a multiplication and an offset — which is why 0 °C is 32 °F rather than 0 °F.",
+        "q2": "How accurate are the conversions?",
+        "a2": "The factors are exact by definition where one exists — an inch is exactly 25.4 mm and a pound exactly 0.45359237 kg. Results are rounded for display only.",
+        "q3": "Are gallons US or imperial?",
+        "a3": "US. A US gallon is about 3.785 litres and an imperial gallon about 4.546, so they are not interchangeable — a recipe using imperial measures will come out roughly 20% short.",
+        "q4": "What is a knot?",
+        "a4": "One nautical mile per hour, about 1.852 km/h. It is used in aviation and shipping because a nautical mile corresponds to one minute of latitude."
+      }
+    },
+    "timezone-converter": {
+      "name": "Time zone converter",
+      "short": "Compare a time across several zones at once.",
+      "title": "Time Zone Converter — compare times across zones, free",
+      "description": "Free online time zone converter and meeting planner. Pick a date and time in one zone and see it in as many others as you need, with daylight saving handled correctly.",
+      "intro": "Choose a date, a time and the zone it is in, then add the zones you want to compare against. Useful for arranging a call across Tashkent, Moscow, London and New York without counting on your fingers.",
+      "howTo": {
+        "step1": "Set the date and time, and the zone they are in.",
+        "step2": "Add the zones you want to compare.",
+        "step3": "Read the equivalent local time in each."
+      },
+      "faq": {
+        "q1": "Is daylight saving handled?",
+        "a1": "Yes. Conversions use your browser's own time zone database, so each zone's offset is computed for the specific date you chose. Tools that store fixed offsets go wrong twice a year, and are wrong for a fortnight when regions change dates.",
+        "q2": "Why does the offset change with the date?",
+        "a2": "Because many zones shift by an hour seasonally. London is UTC+0 in winter and UTC+1 in summer, so the gap to a non-shifting zone such as Tashkent changes depending on the month.",
+        "q3": "Does Uzbekistan use daylight saving?",
+        "a3": "No. Tashkent stays on UTC+5 all year, which means the difference to Europe changes twice a year even though nothing changes locally — the usual source of confusion when scheduling with European colleagues.",
+        "q4": "Why show the offset next to each zone?",
+        "a4": "So you can sanity-check the result. If a converted time looks wrong, the offset usually explains it — most often because one of the zones has just entered or left daylight saving."
       }
     },
     "webp-to-pdf": {

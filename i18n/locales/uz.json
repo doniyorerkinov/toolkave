@@ -137,6 +137,41 @@
       "wouldEmpty": "Barcha sahifalarni o'chirib bo'lmaydi — PDF da kamida bitta sahifa qolishi kerak.",
       "action": "Sahifalarni o'chirish"
     },
+    "pageNumbers": {
+      "positionLabel": "Joylashuvi",
+      "positions": {
+        "bottom-center": "Pastda markazda",
+        "bottom-right": "Pastda o'ngda",
+        "bottom-left": "Pastda chapda",
+        "top-right": "Yuqorida o'ngda"
+      },
+      "startAt": "Raqamlashni boshlash",
+      "fontSize": "Matn o'lchami: {n} pt",
+      "skipFirst": "Birinchi sahifani (muqovani) tashlab ketish",
+      "action": "Sahifa raqamlarini qo'shish"
+    },
+    "watermark": {
+      "textLabel": "Suv belgisi matni",
+      "fontSize": "Matn o'lchami: {n} pt",
+      "opacity": "Shaffoflik: {n}%",
+      "angle": "Burchak: {n}°",
+      "action": "Suv belgisini qo'shish",
+      "unsupportedText": "Hozircha suv belgilarida faqat lotin harflari ishlaydi. Kirill uchun ichki shrift kerak, u hali mavjud emas."
+    },
+    "info": {
+      "pages": "Sahifalar",
+      "fileSize": "Fayl hajmi",
+      "title": "Sarlavha",
+      "author": "Muallif",
+      "subject": "Mavzu",
+      "creator": "Yaratilgan dastur",
+      "producer": "Shakllantirgan",
+      "created": "Yaratilgan",
+      "modified": "O'zgartirilgan",
+      "pageSizes": "Sahifa o'lchamlari",
+      "notSet": "Belgilanmagan",
+      "encrypted": "Bu PDF shifrlangan. Ma'lumotlar to'liq bo'lmasligi mumkin, tahrirlash vositalari esa uni rad etishi mumkin."
+    },
     "imagesToPdf": {
       "fitLabel": "Sahifa o'lchami",
       "fit": {
@@ -164,6 +199,104 @@
       "action": "O'lchamni o'zgartirish"
     },
     "convert": { "action": "{format} ga o'girish" }
+  },
+  "percent": {
+    "modes": {
+      "of": "Sonning % i",
+      "what": "X — Y ning necha % i",
+      "change": "% o'zgarish",
+      "discount": "Chegirma",
+      "vat": "QQS"
+    },
+    "labels": {
+      "of": { "a": "Foiz", "b": "Qiymatdan" },
+      "what": { "a": "Bu son", "b": "Nimaning % i" },
+      "change": { "a": "Dan", "b": "Gacha" },
+      "discount": { "a": "Narx", "b": "Chegirma %" },
+      "vat": { "a": "Summa", "b": "Summa" }
+    },
+    "resultOf": "{v} ning {p}% i",
+    "resultWhat": "Foiz",
+    "increase": "O'sish",
+    "decrease": "Kamayish",
+    "youSave": "Tejaysiz",
+    "finalPrice": "Yakuniy narx",
+    "net": "QQS siz",
+    "tax": "QQS",
+    "gross": "QQS bilan",
+    "vatRate": "QQS stavkasi %",
+    "vatInclusive": "Summa QQS ni o'z ichiga oladi",
+    "enterValues": "Natijani ko'rish uchun yuqoriga qiymat kiriting."
+  },
+  "age": {
+    "fromLabel": "Dan (tug'ilgan sana)",
+    "toLabel": "Gacha",
+    "exact": "Aniq farq",
+    "value": "{y} yil, {m} oy, {d} kun",
+    "totalMonths": "Jami oylar",
+    "totalWeeks": "Jami haftalar",
+    "totalDays": "Jami kunlar",
+    "nextBirthday": "Keyingi yillik {days} kundan keyin, {date}.",
+    "enterDates": "Natijani ko'rish uchun ikkala sanani tanlang."
+  },
+  "bmi": {
+    "weight": "Vazn (kg)",
+    "height": "Bo'y (sm)",
+    "yourBmi": "Sizning TVI",
+    "categories": {
+      "underweight": "Vazn yetishmasligi",
+      "normal": "Normal vazn",
+      "overweight": "Ortiqcha vazn",
+      "obese": "Semizlik"
+    },
+    "healthyRange": "Bu bo'yda normal TVI {min}–{max} kg ga to'g'ri keladi.",
+    "disclaimer": "TVI — taxminiy skrining ko'rsatkichi, tashxis emas. U mushak bilan yog'ni ajratmaydi va sportchilar, keksalar, homiladorlar va bolalar uchun kamroq ma'noli.",
+    "enterValues": "Natijani ko'rish uchun vazn va bo'yni kiriting."
+  },
+  "loan": {
+    "amount": "Kredit summasi",
+    "rate": "Yillik stavka %",
+    "years": "Muddat (yil)",
+    "monthly": "Oylik to'lov",
+    "overMonths": "{n} ta to'lovda",
+    "totalPaid": "Jami to'laysiz",
+    "totalInterest": "Ortiqcha to'lov",
+    "interestShare": "Barcha to'lovlarning {n}% i — foizlar.",
+    "enterValues": "Natijani ko'rish uchun summa, stavka va muddatni kiriting."
+  },
+  "units": {
+    "categories": {
+      "length": "Uzunlik",
+      "weight": "Vazn",
+      "temperature": "Harorat",
+      "area": "Maydon",
+      "volume": "Hajm",
+      "speed": "Tezlik"
+    },
+    "names": {
+      "mm": "Millimetr", "cm": "Santimetr", "m": "Metr", "km": "Kilometr",
+      "in": "Dyuym", "ft": "Fut", "yd": "Yard", "mi": "Mil",
+      "mg": "Milligramm", "g": "Gramm", "kg": "Kilogramm", "t": "Tonna",
+      "oz": "Untsiya", "lb": "Funt",
+      "c": "Selsiy", "f": "Farengeyt", "k": "Kelvin",
+      "cm2": "Kvadrat santimetr", "m2": "Kvadrat metr", "km2": "Kvadrat kilometr",
+      "ha": "Gektar", "ft2": "Kvadrat fut", "ac": "Akr",
+      "ml": "Millilitr", "l": "Litr", "m3": "Kub metr",
+      "gal": "Gallon (AQSh)", "qt": "Kvarta (AQSh)", "floz": "Suyuq untsiya (AQSh)",
+      "mps": "Metr/sekund", "kmh": "Kilometr/soat", "mph": "Mil/soat", "kn": "Uzel"
+    },
+    "from": "Dan",
+    "to": "Ga",
+    "swap": "Birliklarni almashtirish",
+    "allUnits": "Barcha birliklarda"
+  },
+  "timezone": {
+    "date": "Sana",
+    "time": "Vaqt",
+    "sourceZone": "Vaqt mintaqasida",
+    "addZone": "Mintaqa qo'shish",
+    "choose": "Tanlang…",
+    "remove": "{zone} ni olib tashlash"
   },
   "qr": {
     "inputLabel": "Matn yoki havola",
@@ -380,6 +513,204 @@
         "a3": "Yo'q. PNG yo'qotishsiz format va ma'lumotlar qayta kodlanmasdan joylashtiriladi, shuning uchun skrinshot va sxemalar piksel darajasida aniq, ulardagi matn esa tiniq qoladi.",
         "q4": "Nega PDF asl PNG lardan kattaroq?",
         "a4": "PNG tekis grafika uchun tejamli, lekin PDF tuzilmasi har bir rasm atrofiga qo'shimcha qo'shadi va buni qoplash uchun hech narsa qayta siqilmaydi. Skrinshotlardan iborat hujjatlar uchun bu rasm aniqligi evaziga adolatli almashuv."
+      }
+    },
+    "pdf-page-numbers": {
+      "name": "PDF ga sahifa raqamlarini qo'shish",
+      "short": "PDF sahifalarini istalgan burchakda raqamlang.",
+      "title": "PDF ga sahifa raqamlarini qo'shish — bepul onlayn vosita",
+      "description": "PDF ga sahifa raqamlarini bepul onlayn qo'shish. Burchak, boshlang'ich raqam va matn o'lchamini tanlang, muqovani tashlab keting. Brauzerda ishlaydi.",
+      "intro": "PDF qo'shing, raqamlar qayerda turishini va nechadan boshlanishini tanlang va raqamlangan faylni yuklab oling. Shartnoma, hisobot va sahifa bo'yicha havola qilinadigan hujjatlar uchun foydali.",
+      "howTo": {
+        "step1": "Raqamlamoqchi bo'lgan PDF ni qo'shing.",
+        "step2": "Joylashuv, boshlang'ich raqam va matn o'lchamini tanlang.",
+        "step3": "«Sahifa raqamlarini qo'shish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Muqovani tashlab ketsa bo'ladimi?",
+        "a1": "Ha. «Birinchi sahifani tashlab ketish» ni belgilang va raqamlash ikkinchi sahifadan boshlanadi. Hisob esa davom etadi, shuning uchun ikkinchi sahifada ikkinchi raqam turadi — raqamlanmagan muqovali hisobotga odatda shu kerak.",
+        "q2": "Raqamlashni 1 dan boshqa sondan boshlasa bo'ladimi?",
+        "a2": "Ha. Istalgan boshlang'ich raqamni belgilang — bu PDF uzunroq hujjatning bir qismi bo'lib, uning birinchi sahifasi aslida qirq yettinchi bo'lganda kerak.",
+        "q3": "Raqamlar mazmunni yopib qo'ymaydimi?",
+        "a3": "Ular chetdan taxminan 28 punkt masofada, hoshiyada joylashadi, shuning uchun oddiy hujjatlarda matnga tegmaydi. Hoshiyasiz PDF da ustma-ust tushishi mumkin — yuborishdan oldin tekshiring.",
+        "q4": "Fayllarim serverga yuklanadimi?",
+        "a4": "Yo'q. Raqamlar hujjatga brauzer ichida chiziladi, shuning uchun shartnoma va hisobotlar qurilmangizdan chiqmaydi."
+      }
+    },
+    "pdf-watermark": {
+      "name": "PDF ga suv belgisi",
+      "short": "PDF ning har bir sahifasiga matn bosing.",
+      "title": "PDF ga suv belgisi — matn qo'shish onlayn, bepul",
+      "description": "Bepul onlayn PDF suv belgisi vositasi. DRAFT, CONFIDENTIAL yoki o'z matningizni har bir sahifaga o'lcham, burchak va shaffoflik sozlamalari bilan bosing. Brauzerda ishlaydi.",
+      "intro": "PDF qo'shing, bosmoqchi bo'lgan matnni yozing va o'lcham, burchak hamda shaffoflikni belgi aniq o'qiladigan, lekin ostidagi mazmunni yopmaydigan qilib sozlang.",
+      "howTo": {
+        "step1": "Suv belgisi qo'yiladigan PDF ni qo'shing.",
+        "step2": "Matnni yozing va o'lcham, shaffoflik hamda burchakni sozlang.",
+        "step3": "«Suv belgisini qo'shish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega kirill matni qabul qilinmayapti?",
+        "a1": "PDF formatiga o'rnatilgan shriftlar faqat lotin harflarini qamraydi. Kirillni chizish uchun shrift faylini ichiga joylash kerak, bu esa hammaga ham kerak bo'lmagan imkoniyat uchun har tashrifda katta yuklamani anglatadi. Vosita bo'sh kvadratlar bilan to'la fayl bermasdan, buni ochiq aytadi.",
+        "q2": "Suv belgisini olib tashlash mumkinmi?",
+        "a2": "U sahifa mazmuniga chiziladi, shuning uchun sozlama bilan o'chmaydi. Lekin bu himoya emas: xohlagan odam uni muharrirda kesib tashlashi mumkin. Buni tushunarli yorliq deb qarang, xavfsizlik vositasi emas.",
+        "q3": "Qanday shaffoflik tanlash kerak?",
+        "a3": "Odatda 20-30% to'g'ri keladi: belgi aniq ko'rinadi, ostidagi matn esa o'qiladi. Yuqoriroq faqat belgi mazmundan muhimroq bo'lganda, masalan namuna hujjat uchun kerak.",
+        "q4": "Belgi barcha sahifalarga tushadimi?",
+        "a4": "Ha, har bir sahifaga bir xil belgi markazda, siz tanlagan burchakka burilgan holda tushadi. Har sahifaga alohida belgi qo'llab-quvvatlanmaydi."
+      }
+    },
+    "pdf-info": {
+      "name": "PDF ma'lumotlari",
+      "short": "Sahifalar soni, hajmi, muallifi va boshqa PDF ma'lumotlarini ko'ring.",
+      "title": "PDF ma'lumotlari — metama'lumot va sahifa o'lchamlari onlayn, bepul",
+      "description": "Bepul onlayn PDF tekshiruvchi. Sahifalar soni, fayl hajmi, sahifa o'lchamlari, sarlavha, muallif va sanalarni muharrirda ochmasdan ko'ring. Brauzerda ishlaydi.",
+      "intro": "PDF qo'shing va uning ichida nima borligini ko'ring: necha sahifa, ular qanday o'lchamda, qaysi dastur yaratgan va qanday metama'lumot biriktirilgan. Hech narsa yuklanmaydi, shuning uchun maxfiy hujjatlarni ham tekshirsa bo'ladi.",
+      "howTo": {
+        "step1": "Tekshirmoqchi bo'lgan PDF ni qo'shing.",
+        "step2": "Ma'lumotlarni, jumladan sahifa o'lchamlarini o'qing.",
+        "step3": "Boshqa faylni tekshirish uchun «Qaytadan boshlash» ni bosing."
+      },
+      "faq": {
+        "q1": "Sahifa o'lchami nega muhim?",
+        "a1": "Bosmaxonalar va yuklash shakllari ko'pincha aniq formatni talab qiladi. Bu yerda ham tanish nom — A4, Letter — ham aniq punktdagi o'lchamlar ko'rsatiladi, shunda «A4 ga o'xshagan» hujjat haqiqatan A4 ekanini bilasiz. Bitta fayldagi turli o'lchamlar alohida ko'rsatiladi.",
+        "q2": "«Yaratilgan dastur» va «Shakllantirgan» nimasi bilan farq qiladi?",
+        "a2": "Birinchisi — hujjat dastlab yozilgan dastur, masalan Word. Ikkinchisi — uni PDF ga o'girgan narsa. Ular birgalikda fayl qanday yaratilganini ko'rsatadi, bu PDF g'alati ishlaganda foydali.",
+        "q3": "Nega maydonlar bo'sh?",
+        "a3": "PDF metama'lumotlari majburiy emas va ko'p generatorlar ularni bo'sh qoldiradi. Bo'sh sarlavha yoki muallif faqat ular belgilanmaganini bildiradi, faylda nuqson borligini emas.",
+        "q4": "«Shifrlangan» nimani anglatadi?",
+        "a4": "Faylda parol yoki huquq cheklovlari bor. Ma'lumotlar odatda baribir o'qiladi, lekin tahrirlash vositalari uni o'zgartirishdan bosh tortishi mumkin. Foydalanuvchi paroli bor fayllar parolsiz umuman ochilmaydi."
+      }
+    },
+    "percentage-calculator": {
+      "name": "Foiz kalkulyatori",
+      "short": "Foizlar, chegirmalar, o'zgarishlar va QQS bir joyda.",
+      "title": "Foiz kalkulyatori — foiz, chegirma va QQS, bepul",
+      "description": "Bepul onlayn foiz kalkulyatori. Sonning foizi, foizdagi o'zgarish, chegirmalar va QQS — ichiga kirgan va kirmagan holda. Brauzerda ishlaydi.",
+      "intro": "Kerakli hisobni tanlang — sonning foizi, bir son ikkinchisining necha foizi ekani, ikki qiymat orasidagi o'zgarish, chegirma yoki QQS — javob yozayotganingizda yangilanadi.",
+      "howTo": {
+        "step1": "Hisob turini tanlang.",
+        "step2": "Sonlaringizni kiriting.",
+        "step3": "Natijani o'qing — u darhol yangilanadi."
+      },
+      "faq": {
+        "q1": "QQS ichiga kirgan va kirmagan holda nimasi bilan farq qiladi?",
+        "a1": "«Kirmagan» narxda soliq hali yo'q va QQS ustiga qo'shiladi. «Kirgan» esa narx soliqni o'z ichiga oladi va soliq ichidan ajratiladi. O'zbekiston va Yevropaning ko'p mamlakatlarida narxlar QQS bilan ko'rsatiladi, bu yerdagi chalkashlik esa hisob-kitobdagi eng ko'p uchraydigan xato.",
+        "q2": "Narxdan QQS ni qanday ajrataman?",
+        "a2": "«Summa QQS ni o'z ichiga oladi» ni belgilang. 12% stavkada 1,12 ga bo'lish to'g'ri, 12% ni ayirish esa noto'g'ri — natija kamayib ketadi. Vosita bo'lishni o'zi bajaradi.",
+        "q3": "Nega 50% o'sish va 50% kamayish boshlang'ich qiymatga qaytarmaydi?",
+        "a3": "Chunki foizlar turli asosdan hisoblanadi. 100 ta 50% o'sib 150 bo'ladi; 150 ning 50% i 75, shuning uchun 50% kamayish 100 ga emas, 75 ga olib keladi. Ikki qiymat orasidagi haqiqiy o'zgarishni ko'rish uchun «% o'zgarish» rejimidan foydalaning.",
+        "q4": "Chegirma soliqdan oldin hisoblanadimi?",
+        "a4": "Chegirma rejimi siz kiritgan son bilan ishlaydi, shuning uchun qaysi narxni yozganingizga bog'liq. QQS bilan narx uchun natija ham QQS bilan bo'ladi."
+      }
+    },
+    "age-calculator": {
+      "name": "Yosh kalkulyatori",
+      "short": "Aniq yosh yoki istalgan ikki sana orasidagi farq.",
+      "title": "Yosh kalkulyatori — aniq yosh va sanalar farqi, bepul",
+      "description": "Bepul onlayn yosh kalkulyatori. Ikki sana orasidagi aniq yil, oy va kunlar, shuningdek oy, hafta va kunlardagi jami. Brauzerda ishlaydi.",
+      "intro": "Tug'ilgan sanani va qaysi sanagacha hisoblashni kiriting. Yil, oy va kunlardagi aniq farqni, jami qiymatlarni va keyingi yillikkacha qancha qolganini olasiz.",
+      "howTo": {
+        "step1": "Tug'ilgan sanani yoki istalgan boshlang'ich sanani kiriting.",
+        "step2": "Yakuniy sanani belgilang — sukut bo'yicha bugun.",
+        "step3": "Aniq farq va jami qiymatlarni o'qing."
+      },
+      "faq": {
+        "q1": "Oylar qanday sanaladi?",
+        "a1": "Kalendar bo'yicha, 30 kun deb emas. 31 yanvardan bir oy 28 fevralga to'g'ri keladi, chunki fevralda 31-sana yo'q. Bu odamlarning gapirish tarziga ham, sana kutubxonalarining ishlashiga ham mos.",
+        "q2": "29 fevralda tug'ilganlar-chi?",
+        "a2": "Oddiy yilda ular 28 fevralda yoshga to'ladi. Bu o'sha qirqish qoidasidan kelib chiqadi va ko'p mamlakatlar amaliyotiga mos, garchi ba'zilari 1 martni ishlatadi.",
+        "q3": "Kelajakdagi sanalarni hisoblasa bo'ladimi?",
+        "a3": "Ha. Tartib muhim emas — farq har doim musbat qilib ko'rsatiladi, shuning uchun vositani yosh uchun ham, teskari sanoq uchun ham ishlatsa bo'ladi.",
+        "q4": "Nega jami oylar va «yil qo'shuv oy» farq qiladi?",
+        "a4": "Farq qilmaydi: jami oylar — o'sha qiymatning boshqacha ifodasi. 3 yil 5 oy — bu 41 oy. Undan ortiq kunlar ichiga yaxlitlanmasdan alohida ko'rsatiladi."
+      }
+    },
+    "bmi-calculator": {
+      "name": "TVI kalkulyatori",
+      "short": "Tana vazni indeksi va bo'yingizga mos sog'lom vazn oralig'i.",
+      "title": "TVI kalkulyatori — tana vazni indeksi onlayn, bepul",
+      "description": "Bepul onlayn TVI kalkulyatori. Vazn va bo'yni kiriting, tana vazni indeksini, u qaysi toifaga tushishini va bo'yingizga mos sog'lom vazn oralig'ini ko'ring.",
+      "intro": "Vazningizni kilogrammda, bo'yingizni santimetrda kiriting. TVI, u tushadigan toifa va shu bo'yda normani beradigan vazn oralig'ini olasiz.",
+      "howTo": {
+        "step1": "Vazningizni kilogrammda kiriting.",
+        "step2": "Bo'yingizni santimetrda kiriting.",
+        "step3": "TVI ni va uning shkaladagi o'rnini ko'ring."
+      },
+      "faq": {
+        "q1": "Toifalar nimani anglatadi?",
+        "a1": "18,5 dan past — vazn yetishmasligi, 18,5-24,9 — norma, 25-29,9 — ortiqcha vazn, 30 va undan yuqori — semizlik. Bular Jahon sog'liqni saqlash tashkilotining kattalar uchun oralig'i.",
+        "q2": "TVI qanchalik ishonchli?",
+        "a2": "Bu skrining ko'rsatkichi, tashxis emas. U faqat bo'y va vaznni ishlatadi, shuning uchun mushak bilan yog'ni ajrata olmaydi — muskulli sportchi yog'i kam bo'lsa ham «ortiqcha vazn» ga tushishi mumkin. Kutilmagan natijani xulosa emas, shifokorga murojaat qilish sababi deb biling.",
+        "q3": "Bolalar uchun ishlaydimi?",
+        "a3": "Yo'q. Bolalar va o'smirlar yosh hamda jins bo'yicha protsentil jadvallar asosida baholanadi, bu qat'iy oraliqlar bilan emas. Homiladorlikda ham shunday.",
+        "q4": "Nega sog'lom oraliq shunchalik keng?",
+        "a4": "Chunki TVI bo'yning kvadratiga bog'liq, shuning uchun norma sezilarli vazn tarqalishini qamraydi — 175 sm da taxminan 20 kg. Oraliqning qayerida turish gavda tuzilishiga bog'liq."
+      }
+    },
+    "loan-calculator": {
+      "name": "Kredit kalkulyatori",
+      "short": "Oylik to'lov, jami to'lov va ortiqcha to'lov.",
+      "title": "Kredit kalkulyatori — oylik to'lov va ortiqcha to'lov, bepul",
+      "description": "Bepul onlayn kredit va ipoteka kalkulyatori. Istalgan summa, stavka va muddat uchun oylik to'lov, jami to'lov va foizlar ulushini ko'ring.",
+      "intro": "Summa, yillik foiz stavkasi va muddatni kiriting. Oylik to'lovni va — bundan ham muhimi — jami qancha to'lashingizni hamda uning qancha qismi asosiy qarz emas, foiz ekanini olasiz.",
+      "howTo": {
+        "step1": "Kredit summasini kiriting.",
+        "step2": "Yillik stavka va muddatni yilda kiriting.",
+        "step3": "Oylik to'lov va ortiqcha to'lovni o'qing."
+      },
+      "faq": {
+        "q1": "Qanday kredit hisoblanadi?",
+        "a1": "Annuitet kredit, unda har bir to'lov bir xil, foiz va asosiy qarz nisbati esa vaqt o'tishi bilan o'zgaradi. Ko'p ipoteka, avtokredit va iste'mol krediti shunday. Differensial to'lovli kreditlar boshqacha ishlaydi va kattaroq summadan boshlanadi.",
+        "q2": "Stavka oylikmi yoki yillik?",
+        "a2": "Yillik. U ichkarida o'n ikkiga bo'linadi. Xato bilan oylik stavka kiritilsa, to'lov taxminan o'n ikki barobar katta chiqadi — bu odatda xatolik belgisi.",
+        "q3": "Nega ortiqcha to'lov shunchalik katta?",
+        "a3": "Chunki foiz butun muddat davomida qolgan qarzga hisoblanadi. Uzoq muddatda u umumiy summaning katta qismiga aylanadi — chiziq aniq nisbatni ko'rsatadi. Muddatni qisqartirish odatda stavkani biroz pasaytirishdan ko'ra ko'proq tejaydi.",
+        "q4": "Komissiya va sug'urta hisobga olinadimi?",
+        "a4": "Yo'q. Rasmiylashtirish komissiyasi, sug'urta va boshqa to'lovlar hisobga olinmaydi, shuning uchun bank ko'rsatgan umumiy qiymat odatda bundan yuqori bo'ladi."
+      }
+    },
+    "unit-converter": {
+      "name": "Birlik konvertori",
+      "short": "Uzunlik, vazn, harorat, maydon, hajm va tezlik.",
+      "title": "Birlik konvertori — uzunlik, vazn, harorat va boshqalar, bepul",
+      "description": "Bepul onlayn o'lchov birliklari konvertori. Uzunlik, vazn, harorat, maydon, hajm va tezlikni metrik va imperial birliklar orasida o'giring.",
+      "intro": "Turkumni tanlang, qiymat kiriting va birliklarni belgilang. Javob yonida o'sha qiymat turkumdagi barcha boshqa birliklarda ham ko'rsatiladi — bu ko'pincha juftma-juft o'girishdan tezroq.",
+      "howTo": {
+        "step1": "Uzunlik yoki vazn kabi turkumni tanlang.",
+        "step2": "Qiymat kiriting va o'giriladigan birliklarni tanlang.",
+        "step3": "Natijani yoki quyidagi to'liq ro'yxatni ko'ring."
+      },
+      "faq": {
+        "q1": "Nega harorat boshqacha hisoblanadi?",
+        "a1": "Chunki uning shkalalarida nol nuqtalari har xil va oddiy ko'paytirish yetmaydi. Selsiydan Farengeytga o'girish uchun ham ko'paytirish, ham siljitish kerak — shuning uchun 0 °C 0 °F emas, 32 °F ga teng.",
+        "q2": "O'girishlar qanchalik aniq?",
+        "a2": "Ta'rif bo'yicha aniq koeffitsient bor joyda u aniq: dyuym aynan 25,4 mm, funt aynan 0,45359237 kg. Yaxlitlash faqat ko'rsatishda qo'llanadi.",
+        "q3": "Gallonlar AQShnikimi yoki Britaniyanikimi?",
+        "a3": "AQShniki. AQSh galloni taxminan 3,785 litr, Britaniyaniki esa 4,546 litr, shuning uchun ular almashtirib bo'lmaydi: Britaniya o'lchovidagi retsept taxminan 20% kam chiqadi.",
+        "q4": "Uzel nima?",
+        "a4": "Soatiga bir dengiz mili, taxminan 1,852 km/soat. Aviatsiya va dengiz transportida ishlatiladi, chunki dengiz mili kenglikning bir daqiqasiga to'g'ri keladi."
+      }
+    },
+    "timezone-converter": {
+      "name": "Vaqt mintaqasi konvertori",
+      "short": "Bir vaqtni bir nechta mintaqada solishtiring.",
+      "title": "Vaqt mintaqasi konvertori — vaqtlarni solishtirish, bepul",
+      "description": "Bepul onlayn vaqt mintaqasi konvertori va uchrashuv rejalashtiruvchi. Bir mintaqadagi sana va vaqtni tanlang va uni kerakli miqdordagi boshqa mintaqalarda ko'ring, yozgi vaqt hisobga olingan holda.",
+      "intro": "Sana, vaqt va ular tegishli mintaqani tanlang, so'ng solishtirmoqchi bo'lgan mintaqalarni qo'shing. Toshkent, Moskva, London va Nyu-York o'rtasida qo'ng'iroq belgilashda qo'lda sanamaslik uchun qulay.",
+      "howTo": {
+        "step1": "Sana, vaqt va ularning mintaqasini belgilang.",
+        "step2": "Solishtirish uchun mintaqalarni qo'shing.",
+        "step3": "Har birida mos mahalliy vaqtni o'qing."
+      },
+      "faq": {
+        "q1": "Yozgi vaqtga o'tish hisobga olinadimi?",
+        "a1": "Ha. Hisob brauzeringizning o'z vaqt mintaqalari bazasidan foydalanadi, shuning uchun har bir mintaqaning siljishi siz tanlagan sana uchun hisoblanadi. Qat'iy siljishlarni saqlaydigan vositalar yiliga ikki marta, mintaqalar turli sanada o'tganda esa ikki hafta davomida xato beradi.",
+        "q2": "Nega siljish sanaga qarab o'zgaradi?",
+        "a2": "Chunki ko'p mintaqalar mavsumiy ravishda bir soatga suriladi. London qishda UTC+0, yozda UTC+1, shuning uchun Toshkent kabi surilmaydigan mintaqa bilan farq oyga bog'liq.",
+        "q3": "O'zbekistonda yozgi vaqt bormi?",
+        "a3": "Yo'q. Toshkent yil bo'yi UTC+5 da qoladi, shuning uchun mahalliy hech narsa o'zgarmasa ham Yevropa bilan farq yiliga ikki marta o'zgaradi — yevropalik hamkasblar bilan rejalashtirishdagi odatiy chalkashlik manbai.",
+        "q4": "Nega har bir mintaqa yonida siljish ko'rsatiladi?",
+        "a4": "Natijani tekshirish uchun. Agar o'girilgan vaqt g'alati ko'rinsa, sababini odatda siljish tushuntiradi — ko'pincha mintaqalardan biri yozgi vaqtga endigina o'tgani yoki qaytgani uchun."
       }
     },
     "webp-to-pdf": {
