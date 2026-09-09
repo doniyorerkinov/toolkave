@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { parsePageRanges, withSuffix } from '~/utils/formatters'
+import { withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
 const { t } = useI18n()
 const store = useFilesStore()
 
 const turn = ref(90)
-const ranges = ref('')
+const selected = ref<number[]>([])
 const pageCount = ref(0)
 const infoError = ref(false)
 
@@ -20,6 +20,10 @@ watch(
     if (!current) return
     try {
       pageCount.value = (await readPdfInfo(current)).pageCount
+      // All pages start selected — rotating everything is the common case,
+      // and starting from "all checked" is easier to read at a glance than a
+      // blank picker that secretly also means "all".
+      selected.value = Array.from({ length: pageCount.value }, (_unused, i) => i)
     } catch {
       infoError.value = true
     }
@@ -27,14 +31,7 @@ watch(
   { immediate: true }
 )
 
-// Empty means every page, which is what most people want from a rotate tool.
-const selected = computed(() =>
-  ranges.value.trim() && pageCount.value ? parsePageRanges(ranges.value, pageCount.value) : []
-)
-
-const canRun = computed(
-  () => !!file.value && !!pageCount.value && !store.busy && (!ranges.value.trim() || selected.value.length > 0)
-)
+const canRun = computed(() => !!file.value && !!pageCount.value && selected.value.length > 0 && !store.busy)
 
 async function run() {
   if (!canRun.value || !file.value) return
@@ -57,7 +54,7 @@ async function run() {
 
 function onFiles(files: File[]) {
   store.reset()
-  ranges.value = ''
+  selected.value = []
   store.add(files.slice(0, 1))
 }
 </script>
@@ -96,25 +93,14 @@ function onFiles(files: File[]) {
         </div>
       </fieldset>
 
-      <div class="space-y-1">
-        <label for="rotate-ranges" class="block text-sm font-medium text-slate-900">
-          {{ t('pdf.rotate.pagesLabel', { count: pageCount }) }}
-        </label>
-        <input
-          id="rotate-ranges"
-          v-model="ranges"
-          type="text"
-          :placeholder="t('pdf.rotate.pagesPlaceholder')"
-          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
-        />
-        <p class="text-sm text-slate-500">
-          {{
-            ranges.trim()
-              ? t('pdf.rotate.selected', { n: selected.length })
-              : t('pdf.rotate.allPages')
-          }}
-        </p>
-      </div>
+      <ShellPagePicker
+        v-model="selected"
+        :file="file"
+        :page-count="pageCount"
+        :range-label="t('pdf.rotate.pagesLabel', { count: pageCount })"
+        :range-placeholder="t('pdf.rotate.pagesPlaceholder')"
+      />
+      <p class="text-sm text-slate-500">{{ t('pdf.rotate.selected', { n: selected.length }) }}</p>
     </div>
 
     <div v-if="file" class="flex flex-wrap gap-2">

@@ -50,3 +50,32 @@ export function parsePageRanges(input: string, pageCount: number): number[] {
 
   return [...pages].sort((a, b) => a - b)
 }
+
+/**
+ * The inverse of `parsePageRanges`: zero-based indices back into a compact
+ * "1-3, 5, 8-10" expression, so a visual page picker and the range text field
+ * it sits beside can stay in sync in both directions.
+ */
+export function formatPageRanges(indices: number[]): string {
+  const sorted = [...new Set(indices)].sort((a, b) => a - b)
+  if (!sorted.length) return ''
+
+  const parts: string[] = []
+  let start = sorted[0]!
+  let prev = start
+
+  for (let i = 1; i <= sorted.length; i++) {
+    const current = sorted[i]
+    if (current !== undefined && current === prev + 1) {
+      prev = current
+      continue
+    }
+    parts.push(start === prev ? `${start + 1}` : `${start + 1}-${prev + 1}`)
+    if (current !== undefined) {
+      start = current
+      prev = current
+    }
+  }
+
+  return parts.join(', ')
+}

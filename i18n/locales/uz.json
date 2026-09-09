@@ -251,6 +251,23 @@
       "pages": "Sahifalar: {n}",
       "notice": "Rang oʻchiriladi, lekin olib tashlanmaydi — asl rang maʼlumoti faylda qoladi. Buni chop etish uchun ishlating, rangdan butunlay qutulish uchun emas.",
       "action": "Oq-qora qilish"
+    },
+    "toJpg": {
+      "pagesLabel": "Eksport qilinadigan sahifalar (jami {count})",
+      "size": "Rasm oʻlchami",
+      "sizeSmall": "Kichik (800px)",
+      "sizeMedium": "Oʻrta (1600px)",
+      "sizeLarge": "Katta (2500px)",
+      "quality": "Sifat",
+      "zipNote": "Bir nechta sahifa tanlangan — natija JPG lardan iborat .zip boʻladi.",
+      "progress": "{done} / {total} sahifa",
+      "action": "{n} sahifani JPG ga oʻgirish"
+    },
+    "toText": {
+      "action": "Matnni ajratib olish",
+      "progress": "{done} / {total} sahifa",
+      "result": "Ajratilgan matn",
+      "empty": "Matn topilmadi. Ehtimol, bu matn qatlami boʻlmagan skan — buning oʻrniga «Rasmdan matn» (OCR) vositasini sinab koʻring."
     }
   },
   "image": {
@@ -1773,6 +1790,50 @@
         "q4": "Suratlarim biror joyga yuklanadimi?",
         "a4": "Yoʻq. Hammasi sizning qurilmangizda boʻladi — pasport yoki shartnomani suratga olayotganda aynan shu muhim."
       }
+    },
+    "pdf-to-jpg": {
+      "name": "PDF dan JPG",
+      "short": "PDF sahifalarini JPG rasmlarga aylantirish.",
+      "title": "PDF dan JPG — PDF sahifalarini rasmga oʻgirish onlayn, bepul",
+      "description": "PDF sahifalarini brauzerda JPG rasmlarga oʻgiradigan bepul onlayn vosita, kerakli sahifalarni tanlash uchun sahifama-sahifa koʻrinish bilan. Hech narsa yuklanmaydi.",
+      "intro": "PDF ning ayrim yoki barcha sahifalarini JPG rasmlarga aylantiring. Sahifalarni koʻzdan kechirib tanlang, oʻlcham va sifatni belgilang — natijada bitta rasm yoki, birdan ortiq sahifa tanlansa, .zip olasiz.",
+      "howTo": {
+        "step1": "PDF ni qoʻshing va sahifalar koʻrinishi yuklanishini kuting.",
+        "step2": "Kerakli sahifalarni bosing yoki diapazonni matn bilan yozing.",
+        "step3": "Oʻlcham va sifatni tanlang, soʻng «Oʻgirish» tugmasini bosing."
+      },
+      "faq": {
+        "q1": "Nega baʼzida bitta fayl, baʼzida .zip chiqadi?",
+        "a1": "Bitta sahifa tanlansa, u tayyor bitta JPG boʻlib qaytadi. Birdan ortiq tanlansa, ular .zip ga yigʻiladi — sayt bir vaqtda faqat bitta yuklab olishni taklif qila oladi.",
+        "q2": "Qaysi oʻlchamni tanlash kerak?",
+        "a2": "Oʻrta (1600px) ekranda yaxshi oʻqiladi va bemalol chop etiladi. Katta (2500px) chop etish yoki keyingi tahrir uchun; kichik (800px) miniatyura yoki tezkor koʻrish uchun yetarli.",
+        "q3": "Skanerlangan PDF bilan ishlaydimi?",
+        "a3": "Ha — skan allaqachon rasm, shuning uchun u tanlangan oʻlchamda shunchaki qayta chiqariladi.",
+        "q4": "Juda uzun PDF muammo emasmi?",
+        "a4": "Bir necha yuzdan koʻp sahifali hujjatlarda tezkorlik uchun koʻrinishlar oʻtkazib yuboriladi, lekin sahifa diapazoni maydoni ularni raqami boʻyicha baribir tanlaydi, oʻgirishning oʻzi esa fonda ishlaydi va sahifani qotirmaydi."
+      }
+    },
+    "pdf-to-text": {
+      "name": "PDF dan matn",
+      "short": "PDF dan matnni ajratib olish.",
+      "title": "PDF dan matn — PDF dan matn olish onlayn, bepul",
+      "description": "PDF dagi matn qatlamini toʻliq brauzerda ajratib oladigan bepul onlayn vosita. Hech narsa yuklanmaydi.",
+      "intro": "Matn qatlami allaqachon mavjud PDF dan — Word dan eksport qilingan hujjat, hisobot, hisob-faktura — oddiy matnni olish. Brauzerda ishlaydi, shuning uchun fayl haqida hech narsa qurilmangizdan chiqmaydi.",
+      "howTo": {
+        "step1": "PDF ni qoʻshing.",
+        "step2": "«Matnni ajratib olish» tugmasini bosing va barcha sahifalar oʻqilishini kuting.",
+        "step3": "Natijani nusxalang yoki .txt qilib saqlang."
+      },
+      "faq": {
+        "q1": "Nega natija boʻsh?",
+        "a1": "PDF da matn qatlami yoʻq — bu skan yoki PDF qilib saqlangan surat, yaʼni matn emas, matn rasmi. Buning oʻrniga «Rasmdan matn» (OCR) vositasini ishlating — u rasmni toʻgʻridan-toʻgʻri oʻqiydi.",
+        "q2": "Sahifalash saqlanadimi?",
+        "a2": "Yoʻq, faqat soʻzlar, taxminan oʻqish tartibida. Ustunlar, jadvallar, kolontitullar tiklanmaydi — bu matnni ajratib olish uchun vosita, sahifalash konvertori emas.",
+        "q3": "Kirill toʻgʻri ajratib olinadimi?",
+        "a3": "Ha, agar PDF da shriftlar toʻgʻri joylashtirilgan boʻlsa — bu esa Word, Excel yoki brauzerning oʻz PDF eksporti yaratgan aksariyat fayllar uchun toʻgʻri.",
+        "q4": "Fayl serverga yuklanadimi?",
+        "a4": "Yoʻq. U toʻliq brauzerda oʻqiladi va qayta ishlanadi."
+      }
     }
   },
   "wordCounter": {
@@ -1919,5 +1980,13 @@
     },
     "progress": "Ishlov berilmoqda {percent}%",
     "action": "{n} ta suratdan PDF yigʻish"
+  },
+  "pagePicker": {
+    "selectAll": "Hammasini tanlash",
+    "selectNone": "Tanlovni bekor qilish",
+    "loading": "Koʻrinishlar yuklanmoqda… {done}/{total}",
+    "page": "{n}-sahifa",
+    "tooManyPages": "Hujjatda {max} tadan koʻp sahifa bor, shuning uchun koʻrinishlar oʻtkazib yuborildi — yuqoridagi maydon baribir ishlaydi.",
+    "loadError": "Koʻrinishlarni yaratib boʻlmadi. Yuqoridagi maydon baribir ishlaydi."
   }
 }

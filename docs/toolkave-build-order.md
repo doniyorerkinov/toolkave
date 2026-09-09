@@ -102,18 +102,62 @@ the merge inputs. Two defences:
 
 ## Phase 3 — Heavy pipeline
 
-- [ ] `app/web-workers/pdf.worker.ts` + message protocol (avoid the name `workers/` — this
+- [x] `app/web-workers/pdf.worker.ts` + message protocol (avoid the name `workers/` — this
       project deploys to Cloudflare *Workers*)
-- [ ] Page thumbnails via pdf.js, reused by Split / Reorder / Rotate / Delete
-- [ ] **Compress** — ⚠ see risk below
-- [ ] **PDF → JPG**
-- [ ] Core Web Vitals measured before/after
+- [x] Page thumbnails via pdf.js, reused by Rotate / Delete. **Split intentionally not touched —
+      see below.**
+- [ ] **Compress** — ⚠ still open, see risk below. Genuinely deferred, not attempted.
+- [x] **PDF → JPG**
+- [x] **PDF → text** (was deferred here from Wave 2)
+- [ ] Core Web Vitals measured before/after — needs a real browser session, not done yet
+
+**Architecture.** One worker (`pdf.worker.ts`) does both parsing and rendering, using
+`OffscreenCanvas` for the render step. pdf.js is still told where its own worker script is
+(`GlobalWorkerOptions.workerSrc`, via Vite's `?url` import of `pdf.worker.min.mjs`); it spawns
+that as a *nested* worker for parsing, which every evergreen browser supports and is pdf.js's own
+documented pattern for running inside a worker. The alternative — leaving `workerSrc` unset so
+pdf.js quietly falls back to running synchronously in the calling thread — is an internal fallback
+pdf.js itself documents only as a last resort, so it was not relied on here.
+
+`usePdfWorker.ts` wraps it: one `Worker` per composable instance, created lazily on first call and
+terminated automatically on `onScopeDispose` — a tool page that never touches a multi-page PDF
+never constructs it, and one that does gets it cleaned up on navigation without the calling
+component having to remember to.
+
+**`ShellPagePicker.vue`** is the reusable page picker the docs called for: a range-text field
+(unchanged from before — still the fastest path for anyone who already knows the page numbers)
+sitting above a thumbnail grid that stays in sync with it in both directions. Selection is
+zero-based indices throughout, matching what `parsePageRanges` already produced and what
+`rotatePdf` / `removePdfPages` / `extractPages` already expect, so it drops in without a
+conversion at the boundary. Thumbnails are skipped past 300 pages — the text field still works,
+uninterrupted by page count.
+
+**Verification.** No browser automation is available in this environment, so verification split
+two ways: the actual pdf.js render path (viewport scaling, `page.render`, real pixel output, JPEG
+encoding, `getTextContent` with `hasEOL` line breaks) was run in Node against real generated PDFs
+using `@napi-rs/canvas` standing in for `OffscreenCanvas` — 25 cases, all against genuine
+multi-page and landscape fixtures, not mocks. Every route (now 201 across three locales) was
+checked live against the dev server for actual render failures, not just HTTP 200. What this
+*cannot* verify is the literal `new Worker(new URL(...))` construction and the nested pdf.js
+worker spawn succeeding in a real browser tab — that needs an actual click, which is exactly what
+the `published: false` gate on these tools is already for. Nothing here bypasses that gate.
+
+**Split was deliberately left untouched.** It is the one *published, live* PDF tool with real
+traffic. Rotate and Remove pages were both still drafts, so upgrading their range-input to the new
+picker cost nothing — a real user sees no difference until a human tests and ships it. Applying
+the same upgrade to Split's already-shipped interaction is a different kind of change — new,
+untested UI reaching production the next time this deploys — and was judged worth a separate,
+explicit decision rather than folding it into the rest of this pass. The picker is a drop-in for
+Split whenever that's wanted.
 
 > **Open risk — Compress.** pdf-and-ui §2 specifies "pdf.js render → JPEG re-encode → pdf-lib
 > rebuild". That rasterises every page: text stops being selectable or searchable, and
 > text-heavy files can come out *larger*. This is a Tier-1 tool where users compare directly
-> against iLovePDF, which preserves text. Validate against a real text-heavy PDF before
-> committing; `mupdf-wasm` / `pdfcpu-wasm` recompress images without destroying the text layer.
+> against iLovePDF, which preserves text. The better-aimed fix doesn't need a new dependency at
+> all: recompress the raster images already embedded in the PDF's XObjects at a lower quality,
+> leaving text and vectors completely alone — `@cantoo/pdf-lib`'s low-level object access can
+> reach those. `mupdf-wasm` / `pdfcpu-wasm` are the fallback if that turns out not to cover enough
+> real-world PDFs. Needs a decision before building, not silently picked.
 
 **Exit:** a 100-page PDF compresses without freezing the UI; CWV still green.
 
@@ -193,10 +237,10 @@ no other tool pays for it.
 - [x] **Protect / unlock PDF** — on `@cantoo/pdf-lib`
 - [x] **Currency converter** — CBU primary, open.er-api fallback, fetched in the browser
 - [x] Header/footer · resize · flatten · fill forms · sign
-- [ ] **PDF→text** — needs pdf.js, so it belongs with Phase 3.
+- [x] **PDF→text** — built in Phase 3 once pdf.js landed; see that phase for detail.
 
-**Wave 2 complete except PDF→text: 38 tools in the registry, 35 drafts.** 114 pages across
-three locales, all 200 in dev.
+**Wave 2 complete: 38 tools in the registry at the time, 35 drafts.** 114 pages across three
+locales, all 200 in dev.
 
 Notes on the last five:
 
@@ -249,12 +293,14 @@ Verified the rebasing maths against CBU's own direct EUR quote. The two sources 
 - [x] DOCX→PDF · Excel/CSV→PDF · grayscale
 - [x] DOCX→text/HTML/MD · CSV⇄JSON⇄Excel · word count for DOCX · Markdown⇄HTML
 - [x] Scanned photos → PDF (web version of the bot)
-- [ ] Compare · annotate/redact — deferred; both need the pdf.js page-rendering
-      pipeline from Phase 3, which is still open
+- [ ] Compare · annotate/redact — the pdf.js pipeline they needed landed in Phase 3,
+      but the annotation/diff UI on top of it is separate work, not yet built
 
-**Wave 3 mostly complete: 57 tools in the registry, 54 drafts.** 195 pages
-across three locales, all verified rendering (not just 200 — checked against
-markers a client-side render failure actually leaves behind).
+**Wave 3: 59 tools in the registry, 56 drafts.** 201 pages across three
+locales, all verified rendering (not just 200 — checked against markers a
+client-side render failure actually leaves behind). PDF→JPG and PDF→text
+(counted here since they are tier-3-adjacent heavy tools, even though one was
+a Wave-2 leftover) brought the total up from 57.
 
 Notes on the nineteen new tools:
 

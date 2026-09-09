@@ -251,6 +251,23 @@
       "pages": "{n} pages",
       "notice": "The colour is switched off, not removed — the original colour data stays in the file. Use this for printing, not for stripping colour permanently.",
       "action": "Convert to grayscale"
+    },
+    "toJpg": {
+      "pagesLabel": "Pages to export ({count} total)",
+      "size": "Image size",
+      "sizeSmall": "Small (800px)",
+      "sizeMedium": "Medium (1600px)",
+      "sizeLarge": "Large (2500px)",
+      "quality": "Quality",
+      "zipNote": "More than one page selected — the result is a .zip of JPGs.",
+      "progress": "Page {done} of {total}",
+      "action": "Convert {n} pages to JPG"
+    },
+    "toText": {
+      "action": "Extract text",
+      "progress": "Page {done} of {total}",
+      "result": "Extracted text",
+      "empty": "No text was found. The PDF may be a scan with no text layer — try the image-to-text (OCR) tool instead."
     }
   },
   "image": {
@@ -1773,6 +1790,50 @@
         "q4": "Are my photos uploaded?",
         "a4": "No. Everything happens on your device, which is the point when you are photographing a passport or a contract."
       }
+    },
+    "pdf-to-jpg": {
+      "name": "PDF to JPG",
+      "short": "Turn PDF pages into JPG images.",
+      "title": "PDF to JPG — convert PDF pages to images online, free",
+      "description": "Free online tool that converts PDF pages to JPG images in your browser, with a page-by-page preview to choose which ones. Nothing is uploaded.",
+      "intro": "Turn some or all pages of a PDF into JPG images. Pick the pages visually, choose a size and quality, and get a single image back or a .zip when more than one page is selected.",
+      "howTo": {
+        "step1": "Add the PDF and wait for the page previews to load.",
+        "step2": "Click the pages you want, or type a range instead.",
+        "step3": "Choose a size and quality, then press Convert."
+      },
+      "faq": {
+        "q1": "Why does it sometimes give one file and sometimes a .zip?",
+        "a1": "A single selected page comes back as one JPG, ready to use directly. Select more than one and they are bundled into a .zip, since the site can only offer one download at a time.",
+        "q2": "What size should I pick?",
+        "a2": "Medium (1600px) reads well on a screen and prints acceptably. Large (2500px) is for printing or further editing; small (800px) is enough for a thumbnail or a quick preview.",
+        "q3": "Does this work on a scanned PDF?",
+        "a3": "Yes — a scan is just a picture already, so this reproduces it as-is at the size you choose.",
+        "q4": "Is a very long PDF a problem?",
+        "a4": "Pages beyond a few hundred skip the visual previews to stay responsive, but the page-range field still selects them by number, and conversion itself runs in the background so the page does not freeze."
+      }
+    },
+    "pdf-to-text": {
+      "name": "PDF to text",
+      "short": "Pull the text out of a PDF.",
+      "title": "PDF to text — extract text from a PDF online, free",
+      "description": "Free online tool that extracts the text layer from a PDF, entirely in your browser. Nothing is uploaded.",
+      "intro": "Get the plain text out of a PDF that already has one — a document exported from Word, a report, an invoice. Runs in the browser, so nothing about the file leaves your device.",
+      "howTo": {
+        "step1": "Add the PDF.",
+        "step2": "Press Extract text and wait for every page to be read.",
+        "step3": "Copy the result or save it as a .txt file."
+      },
+      "faq": {
+        "q1": "Why is the result empty?",
+        "a1": "The PDF has no text layer — it is a scan or a photo saved as a PDF, which is a picture of text rather than text. Use the image-to-text (OCR) tool instead; it reads the picture directly.",
+        "q2": "Does the layout survive?",
+        "a2": "No, only the words do, roughly in reading order. Columns, tables and headers and footers are not reconstructed — this is for getting the text out, not a layout converter.",
+        "q3": "Does Cyrillic extract correctly?",
+        "a3": "Yes, as long as the PDF embeds its fonts properly, which is true of the vast majority of PDFs produced by Word, Excel or a browser's own PDF export.",
+        "q4": "Is the file uploaded?",
+        "a4": "No. It is read and processed entirely in your browser."
+      }
     }
   },
   "wordCounter": {
@@ -1919,5 +1980,13 @@
     },
     "progress": "Processing {percent}%",
     "action": "Create PDF from {n} photos"
+  },
+  "pagePicker": {
+    "selectAll": "Select all",
+    "selectNone": "Select none",
+    "loading": "Loading previews… {done}/{total}",
+    "page": "Page {n}",
+    "tooManyPages": "This document has more than {max} pages, so previews are skipped — the field above still works.",
+    "loadError": "Previews could not be generated. The field above still works."
   }
 }

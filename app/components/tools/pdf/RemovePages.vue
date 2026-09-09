@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { parsePageRanges, withSuffix } from '~/utils/formatters'
+import { withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
 const { t } = useI18n()
 const store = useFilesStore()
 
-const ranges = ref('')
+const selected = ref<number[]>([])
 const pageCount = ref(0)
 const infoError = ref(false)
 
@@ -24,10 +24,6 @@ watch(
     }
   },
   { immediate: true }
-)
-
-const selected = computed(() =>
-  pageCount.value ? parsePageRanges(ranges.value, pageCount.value) : []
 )
 
 const remaining = computed(() => pageCount.value - selected.value.length)
@@ -62,7 +58,7 @@ async function run() {
 
 function onFiles(files: File[]) {
   store.reset()
-  ranges.value = ''
+  selected.value = []
   store.add(files.slice(0, 1))
 }
 </script>
@@ -80,15 +76,12 @@ function onFiles(files: File[]) {
     <p v-if="infoError" class="text-sm text-red-700" role="alert">{{ t('pdf.errorRead') }}</p>
 
     <div v-else-if="file && pageCount" class="space-y-1">
-      <label for="remove-ranges" class="block text-sm font-medium text-slate-900">
-        {{ t('pdf.removePages.rangesLabel', { count: pageCount }) }}
-      </label>
-      <input
-        id="remove-ranges"
-        v-model="ranges"
-        type="text"
-        :placeholder="t('pdf.removePages.rangesPlaceholder')"
-        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+      <ShellPagePicker
+        v-model="selected"
+        :file="file"
+        :page-count="pageCount"
+        :range-label="t('pdf.removePages.rangesLabel', { count: pageCount })"
+        :range-placeholder="t('pdf.removePages.rangesPlaceholder')"
       />
       <p v-if="wouldEmpty" class="text-sm text-red-700">
         {{ t('pdf.removePages.wouldEmpty') }}

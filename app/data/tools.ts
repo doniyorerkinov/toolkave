@@ -839,6 +839,34 @@ export const tools: ToolDef[] = [
     maxFiles: 1
   },
   {
+    id: 'pdf-to-jpg',
+    category: 'pdf',
+    group: 'convert-from',
+    component: 'pdf/PdfToJpg',
+    icon: 'image',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'pdf-to-jpg', ru: 'pdf-v-jpg', uz: 'pdf-dan-jpg' },
+    related: ['jpg-to-pdf', 'pdf-split'],
+    heavy: true,
+    acceptedTypes: ['application/pdf'],
+    maxFiles: 1
+  },
+  {
+    id: 'pdf-to-text',
+    category: 'pdf',
+    group: 'convert-from',
+    component: 'pdf/PdfToText',
+    icon: 'file-text',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'pdf-to-text', ru: 'pdf-v-tekst', uz: 'pdf-dan-matn' },
+    related: ['word-counter', 'docx-to-text'],
+    heavy: true,
+    acceptedTypes: ['application/pdf'],
+    maxFiles: 1
+  },
+  {
     id: 'scan-to-pdf',
     category: 'pdf',
     group: 'convert-to',
