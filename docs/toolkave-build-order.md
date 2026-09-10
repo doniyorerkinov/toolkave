@@ -428,7 +428,7 @@ actually selected, and cached by the browser after that.
    symptom is a 500 saying "Tool component missing" for a file that plainly exists. Touching
    `[tool].vue` also forces it.
 8. **Never type a control character into source.** A literal NUL reached `usePdf.ts` inside a
-   regex character class. It silently widened `[ -ÿ]` to `[ -ÿ]`, so tabs
+   regex character class. It silently widened `[ -ÿ]` to `[0-ÿ]`, so tabs
    and newlines counted as valid watermark text, **and git treated the entire file as binary** —
    no diff on it in commit `20d2fa1`. Write such bounds as `\u` escapes. `git diff --numstat`
    showing `-` for a source file is the tell.
