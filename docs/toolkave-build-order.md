@@ -106,7 +106,8 @@ the merge inputs. Two defences:
       project deploys to Cloudflare *Workers*)
 - [x] Page thumbnails via pdf.js, reused by Rotate / Delete. **Split intentionally not touched —
       see below.**
-- [ ] **Compress** — ⚠ still open, see risk below. Genuinely deferred, not attempted.
+- [x] **Compress** — built the way the risk note below called for: recompresses embedded
+      images only, text/vectors untouched. No new dependency.
 - [x] **PDF → JPG**
 - [x] **PDF → text** (was deferred here from Wave 2)
 - [ ] Core Web Vitals measured before/after — needs a real browser session, not done yet
@@ -150,16 +151,26 @@ untested UI reaching production the next time this deploys — and was judged wo
 explicit decision rather than folding it into the rest of this pass. The picker is a drop-in for
 Split whenever that's wanted.
 
-> **Open risk — Compress.** pdf-and-ui §2 specifies "pdf.js render → JPEG re-encode → pdf-lib
-> rebuild". That rasterises every page: text stops being selectable or searchable, and
-> text-heavy files can come out *larger*. This is a Tier-1 tool where users compare directly
-> against iLovePDF, which preserves text. The better-aimed fix doesn't need a new dependency at
-> all: recompress the raster images already embedded in the PDF's XObjects at a lower quality,
-> leaving text and vectors completely alone — `@cantoo/pdf-lib`'s low-level object access can
-> reach those. `mupdf-wasm` / `pdfcpu-wasm` are the fallback if that turns out not to cover enough
-> real-world PDFs. Needs a decision before building, not silently picked.
+**Compress, built.** pdf-and-ui §2's original spec — "pdf.js render → JPEG re-encode → pdf-lib
+rebuild" — was rejected for the reason flagged here originally: it rasterises every page, so text
+stops being selectable or searchable and a text-heavy file can come out *larger*. What shipped
+instead walks the PDF's object graph directly (`page.node.Resources()` → `/XObject` → `context.lookup`,
+recursing into Form XObjects) and recompresses only Image XObjects it can be fully confident about:
+already `DCTDecode` (JPEG), already `DeviceRGB`/`DeviceGray`. Everything else — indexed colour,
+ICC profiles, `JPXDecode` — is left untouched rather than guessed at, and the result says how many
+images it touched versus skipped. No new dependency; `mupdf-wasm`/`pdfcpu-wasm` were the fallback
+if this scoped approach didn't cover enough real PDFs, but it does for the dominant case (a scan or
+a phone photo dropped into a page).
 
-**Exit:** a 100-page PDF compresses without freezing the UI; CWV still green.
+Verified against real embedded JPEGs (not mocks): 14 cases in Node using `@napi-rs/canvas` for the
+decode/encode step pdf-lib itself doesn't do — a photo-heavy PDF shrinks meaningfully with its text
+byte-for-byte identical before and after (checked with a real embedded Cyrillic+Uzbek font via
+fontkit, not just ASCII), a text-only PDF reports nothing to compress rather than faking a win, an
+already-small image is left alone rather than made larger, and multi-page/multi-image documents are
+all considered.
+
+**Exit:** a 100-page PDF compresses without freezing the UI; CWV still green (CWV check itself still
+needs a real browser session).
 
 ## Scope — the full tool set
 
@@ -293,14 +304,54 @@ Verified the rebasing maths against CBU's own direct EUR quote. The two sources 
 - [x] DOCX→PDF · Excel/CSV→PDF · grayscale
 - [x] DOCX→text/HTML/MD · CSV⇄JSON⇄Excel · word count for DOCX · Markdown⇄HTML
 - [x] Scanned photos → PDF (web version of the bot)
-- [ ] Compare · annotate/redact — the pdf.js pipeline they needed landed in Phase 3,
-      but the annotation/diff UI on top of it is separate work, not yet built
+- [x] Compare · Annotate · Redact — split into three tools rather than one,
+      since "annotate" and "redact" turned out to need genuinely different,
+      not merely differently-skinned, mechanisms (see below)
 
-**Wave 3: 59 tools in the registry, 56 drafts.** 201 pages across three
+**Wave 3: 63 tools in the registry, 60 drafts.** 213 pages across three
 locales, all verified rendering (not just 200 — checked against markers a
-client-side render failure actually leaves behind). PDF→JPG and PDF→text
-(counted here since they are tier-3-adjacent heavy tools, even though one was
-a Wave-2 leftover) brought the total up from 57.
+client-side render failure actually leaves behind). PDF→JPG, PDF→text, and
+Compress/Compare/Annotate/Redact (counted here since they're tier-3-adjacent
+heavy tools even though PDF→text was a Wave-2 leftover) brought the total up
+from 57.
+
+**Compare, Annotate and Redact** are three separate tools sharing one
+category, not one "compare/annotate/redact" tool wearing three hats — the
+original phase note lumped them together, but they turned out to need
+different guarantees, not just different UI:
+
+- **Compare** runs on extracted text per page (`usePdfCompare.ts`, pure and
+  tested on its own: 13 cases covering identical/changed/added/removed
+  classification and the page-count-mismatch boundary), not a pixel diff —
+  cheap enough for a long document without rendering any of it, and it's what
+  actually answers "what changed" rather than "do these pixels differ." Pages
+  flagged changed get a real word-level diff (`diff`/jsdiff, BSD-3) plus
+  side-by-side thumbnails rendered only for those pages, not every page.
+  Deliberately outside the shared file store — comparison genuinely needs two
+  independent files at once, which the store's one-tool-owns-one-fileset model
+  (`store.claim`) isn't built for.
+- **Annotate** (highlight + short Latin-only notes) is purely additive —
+  `page.drawRectangle`/`drawText` on top of the existing content stream,
+  nothing underneath is touched. Safe to build on the simple public API for
+  exactly that reason.
+- **Redact** is not annotate-with-a-different-colour, and treating it as one
+  would have been the dangerous shortcut: a black box drawn *on top of* live
+  text — which is what "highlight, but black" amounts to — still leaves that
+  text selectable and copyable underneath, the exact failure behind real,
+  public redaction incidents. So any page with a redaction box is rasterised
+  (via the same `rasterizePages` the PDF→JPG tool uses), the box is painted
+  directly onto the decoded pixels *before* re-encoding, and the flattened
+  result replaces the entire page — text layer, form fields, everything —
+  via a new `replacePagesWithImages` primitive in `usePdf.ts`
+  (`doc.removePage` + `doc.insertPage` + `embedJpg`, page size preserved).
+  Pages with no box are left completely untouched. The cost — a redacted
+  page's text is no longer selectable or searchable, because it is no longer
+  text — is stated on the page above the file picker, not folded into the
+  FAQ where it's easy to skip past. Verified directly against the property
+  that actually matters: 16 cases in Node confirm the redacted page has zero
+  extractable text via pdf.js's own `getTextContent`, the box renders solid
+  black at the right position, an untouched page keeps its real text, and a
+  page with no box survives byte-identical.
 
 Notes on the nineteen new tools:
 

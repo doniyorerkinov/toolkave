@@ -268,6 +268,64 @@
       "progress": "{done} / {total} sahifa",
       "result": "Ajratilgan matn",
       "empty": "Matn topilmadi. Ehtimol, bu matn qatlami boʻlmagan skan — buning oʻrniga «Rasmdan matn» (OCR) vositasini sinab koʻring."
+    },
+    "compress": {
+      "level": "Siqish darajasi",
+      "levels": {
+        "light": "Yengil",
+        "balanced": "Muvozanatli",
+        "strong": "Kuchli"
+      },
+      "notice": "Bu PDF ichidagi fotosurat va skanlarni kichraytiradi. Matnga tegilmaydi — faqat matndan iborat hujjat allaqachon kichik, shuning uchun vosita yordam bergandek qilmasdan, siqiladigan narsa yoʻqligini ochiq aytadi.",
+      "action": "PDF ni siqish",
+      "nothingToCompress": "Bu yerda siqiladigan narsa topilmadi — yo faylda rasm yoʻq, yoki ular allaqachon kichik va qayta siqish faylni faqat kattalashtirar edi.",
+      "summary": "{compressed} ta rasm kichraytirildi, {skipped} tasi oʻzgarishsiz qoldirildi."
+    },
+    "compare": {
+      "documentA": "A hujjat (avval)",
+      "documentB": "B hujjat (keyin)",
+      "change": "Faylni almashtirish",
+      "action": "Taqqoslash",
+      "working": "Taqqoslanmoqda…",
+      "errorGeneric": "Bu PDF larni taqqoslab boʻlmadi.",
+      "summary": "Bir xil sahifalar: {identical}, oʻzgargan: {changed}, qoʻshilgan: {added}, olib tashlangan: {removed}.",
+      "page": "{n}-sahifa",
+      "status": {
+        "identical": "Oʻzgarishsiz",
+        "changed": "Oʻzgargan",
+        "added": "Qoʻshilgan",
+        "removed": "Olib tashlangan"
+      },
+      "show": "Farqlarni koʻrsatish",
+      "hide": "Yashirish",
+      "progress": "{done} / {total} sahifa oʻqilmoqda"
+    },
+    "annotate": {
+      "page": "{n} / {count} sahifa",
+      "mode": {
+        "highlight": "Belgilash",
+        "note": "Izoh"
+      },
+      "loadingPreview": "Sahifa yuklanmoqda…",
+      "noteLabel": "Izoh matni",
+      "latinOnly": "Izohlarni faqat lotin harflarida yozish mumkin — PDF ichidagi shriftlar ancha katta yuklamasiz kirillni chiza olmaydi.",
+      "addNote": "Izoh qoʻshish",
+      "cancelNote": "Bekor qilish",
+      "onThisPage": "Bu sahifada: {n}",
+      "clearPage": "Sahifani tozalash",
+      "remove": "Oʻchirish",
+      "action": "{n} ta belgi qoʻshish",
+      "notesSkipped": "Lotin boʻlmagan belgili {n} ta izoh oʻtkazib yuborildi, qolgani qoʻllanildi."
+    },
+    "redact": {
+      "safetyNotice": "Yashirilgan sahifa tekis rasmga aylantiriladi, shuning uchun qora toʻrtburchak ostida tiklab boʻladigan hech narsa qolmaydi — bu jonli matn ustiga qora toʻrtburchak chizishdan farq qiladi, chunki u holda matnni baribir belgilash va nusxalash mumkin boʻlib qoladi. Shu sababli yashirilgan sahifa matnini endi belgilab yoki qidirib boʻlmaydi. Siz belgilamagan sahifalar butunlay tegilmagan holda qoladi.",
+      "page": "{n} / {count} sahifa",
+      "loadingPreview": "Sahifa yuklanmoqda…",
+      "onThisPage": "Bu sahifadagi joylar: {n}",
+      "undo": "Oxirgisini bekor qilish",
+      "clearPage": "Sahifani tozalash",
+      "action": "{n} ta joyni yashirish",
+      "progress": "{done} / {total} sahifa ishlanmoqda"
     }
   },
   "image": {
@@ -1833,6 +1891,94 @@
         "a3": "Ha, agar PDF da shriftlar toʻgʻri joylashtirilgan boʻlsa — bu esa Word, Excel yoki brauzerning oʻz PDF eksporti yaratgan aksariyat fayllar uchun toʻgʻri.",
         "q4": "Fayl serverga yuklanadimi?",
         "a4": "Yoʻq. U toʻliq brauzerda oʻqiladi va qayta ishlanadi."
+      }
+    },
+    "pdf-compress": {
+      "name": "PDF ni siqish",
+      "short": "Matnga tegmasdan, rasmlarni qayta siqib PDF ni kichraytirish.",
+      "title": "PDF ni siqish onlayn — bepul, matn qidiriladigan boʻlib qoladi",
+      "description": "PDF ichidagi rasmlarni qayta siqib, faylni kichraytiradigan bepul onlayn vosita. Matn va sahifalash butunlay tegilmaydi, shuning uchun natija baribir belgilanadigan va qidiriladigan boʻlib qoladi. Hech narsa yuklanmaydi.",
+      "intro": "Aksariyat «juda katta» PDF lar matn tufayli emas, ichidagi fotosurat yoki skanlangan sahifalar tufayli katta boʻladi. Vosita aynan shu rasmlarni topib qayta siqadi — matn esa qanday boʻlsa, shundayligicha qoladi: belgilanadigan va qidiriladigan, buni «chizib qayta yigʻish» usulidagi siquvchi vaʼda qila olmaydi.",
+      "howTo": {
+        "step1": "PDF ni qoʻshing.",
+        "step2": "Siqish darajasini tanlang.",
+        "step3": "«PDF ni siqish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega «siqiladigan narsa yoʻq» deyilyapti?",
+        "a1": "Demak, PDF da ishonch bilan qayta siqish mumkin boʻlgan rasm yoʻq — masalan, bu allaqachon kichik boʻlgan faqat matndan iborat hujjat. Sunʼiy ravishda kichikroq fayl yaratish uchun butun sahifani rasmga aylantirish oʻrniga (bu matnni buzardi), vosita buni ochiq aytadi.",
+        "q2": "Hujjat avvalgidek koʻrinishda qoladimi?",
+        "a2": "Ha. Sahifalash, shriftlar va boshqa hamma narsa tegilmagan — faqat ichidagi siqilgan rasm maʼlumotlari kichikroq versiyaga almashtiriladi.",
+        "q3": "Matn shundan keyin belgilanadigan boʻlib qoladimi?",
+        "a3": "Ha, toʻliq. Matn qatlamida hech narsa oʻzgarmaydi. Vosita aynan shuning uchun sahifalarni rasmga aylantirish oʻrniga shu tarzda ishlaydi.",
+        "q4": "U qaysi rasmlarni oʻtkazib yuboradi?",
+        "a4": "Tegishi xavfsizligiga toʻliq ishonch hosil qilmagan hamma narsani — indekslangan yoki gʻayrioddiy rang makonidagi rasmlarni, yoki shunchalik kichikki, qayta siqish yordam bermaydi. U faqat natijaga ishonchi komil boʻlgan joyda ishlaydi."
+      }
+    },
+    "pdf-compare": {
+      "name": "PDF larni taqqoslash",
+      "short": "PDF ning ikki versiyasi orasida nima oʻzgarganini koʻrish.",
+      "title": "PDF fayllarni taqqoslash — farqlarni onlayn koʻrish, bepul",
+      "description": "Ikki PDF ni sahifama-sahifa taqqoslab, qaysi matn oʻzgarganini aniq koʻrsatadigan bepul onlayn vosita. Toʻliq brauzerda ishlaydi. Hech narsa yuklanmaydi.",
+      "intro": "Hujjatning ikki versiyasini qoʻshing va sahifama-sahifa qaysilari bir xil, qaysilari oʻzgargan, qaysilari qoʻshilgan yoki olib tashlanganini koʻring — oʻzgargan sahifalarda aynan qaysi soʻzlar farq qilishi belgilab koʻrsatiladi.",
+      "howTo": {
+        "step1": "Avvalgi versiyani A hujjat, yangisini B hujjat sifatida qoʻshing.",
+        "step2": "«Taqqoslash» tugmasini bosing.",
+        "step3": "«Oʻzgargan» deb belgilangan istalgan sahifani ochib, aynan qaysi soʻzlar farq qilishini ikkala sahifa yonma-yon holda koʻring."
+      },
+      "faq": {
+        "q1": "Nima «oʻzgargan» hisoblanadi?",
+        "a1": "Matn mazmuni shunchaki boʻshliqlardan boshqacha tarzda farq qiladi. Bir xil soʻzlar bilan qayta formatlangan sahifa bir xil deb oʻqiladi; bitta soʻz almashtirilishi oʻzgargan deb oʻqiladi.",
+        "q2": "Rasmlar solishtiriladimi yoki faqat matn?",
+        "a2": "«Oʻzgargan / bir xil» qarori matn boʻyicha qabul qilinadi — bu «nima oʻzgardi» degan savolga toʻgʻridan-toʻgʻri javob beradi va har bir sahifani chizmasdan istalgan uzunlikdagi hujjatda ishlaydi. «Oʻzgargan» deb belgilangan sahifalarda ham ikkala hujjatning haqiqiy koʻrinishlari yonma-yon koʻrsatiladi, shuning uchun vizual tekshiruv baribir bir bosishda.",
+        "q3": "Ikki PDF da sahifalar soni har xil boʻlsa-chi?",
+        "a3": "Qisqaroq hujjatdan keyingi sahifalar boʻshliq bilan majburan solishtirilmasdan, «Qoʻshilgan» yoki «Olib tashlangan» deb belgilanadi.",
+        "q4": "Fayllar serverga yuklanadimi?",
+        "a4": "Yoʻq. Ikkalasi ham toʻliq brauzerda oʻqiladi va taqqoslanadi."
+      }
+    },
+    "pdf-annotate": {
+      "name": "PDF ga belgi qoʻyish",
+      "short": "PDF ustiga toʻgʻridan-toʻgʻri belgilash va qisqa izoh qoʻshish.",
+      "title": "PDF ni belgilash va izohlash onlayn — bepul",
+      "description": "PDF ning chizilgan sahifasida toʻgʻridan-toʻgʻri matnni belgilaydigan va qisqa izohlar qoʻshadigan bepul onlayn vosita. Hech narsa yuklanmaydi.",
+      "intro": "PDF ni qogʻozdagidek markerlar va stikerlar bilan belgilash — tortib belgilash, bosib qisqa izoh qoldirish — toʻgʻridan-toʻgʻri sahifaning oʻzida, soʻng hammasini qaytarib yuborish uchun bitta faylga jamlash.",
+      "howTo": {
+        "step1": "PDF ni qoʻshing va belgilamoqchi boʻlgan sahifaga oʻting.",
+        "step2": "Sohani belgilash uchun torting, yoki «Izoh»ga oʻtib qisqa izoh qoʻyish uchun bosing.",
+        "step3": "Kerakli sahifalarda takrorlang, soʻng «Belgilarni qoʻshish» tugmasini bosing."
+      },
+      "faq": {
+        "q1": "Bu bilan maʼlumotni yashirish yoki oʻchirish mumkinmi?",
+        "a1": "Yoʻq — bu yerdagi hammasi sahifa ustiga chiziladi, ostidagi asl mazmun esa butunlay tegilmagan holda qoladi. Maxfiy mazmunni butunlay olib tashlash kerak boʻlsa, alohida «Maʼlumotlarni yashirish» vositasini ishlating — u aynan shuning uchun boshqacha qurilgan, chunki bu vosita bunga mos emas.",
+        "q2": "Nega izohlarni faqat lotin harflarida yozish mumkin?",
+        "a2": "PDF formatiga oʻrnatilgan shriftlar ancha katta shrift faylini oʻrnatmasdan kirillni chiza olmaydi. Boshqa belgili izoh jim-jimgina boʻsh kvadratchalarga aylanmasdan, oʻtkazib yuboriladi — qoʻshgan boshqa hamma narsangiz odatdagidek qoʻllanadi.",
+        "q3": "Hammasini qaytadan boshlamasdan bitta belgini bekor qilsa boʻladimi?",
+        "a3": "Ha — joriy sahifadagi har bir belgining oʻz «Oʻchirish» tugmasi bor, «Sahifani tozalash» esa faqat shu sahifadagi hammasini olib tashlaydi.",
+        "q4": "Fayl serverga yuklanadimi?",
+        "a4": "Yoʻq. Chizish va boshqa hamma narsa brauzerda boʻladi."
+      }
+    },
+    "pdf-redact": {
+      "name": "PDF dagi maʼlumotni yashirish",
+      "short": "Maxfiy maʼlumotni xavfsiz va butunlay yashirish.",
+      "title": "PDF dagi maʼlumotni yashirish — maxfiy matnni butunlay olib tashlash, bepul",
+      "description": "PDF sahifasidagi maxfiy mazmunni shunchaki yopib qoʻymasdan, butunlay olib tashlaydigan bepul onlayn vosita. Yashirilgan sahifa tekis rasmga aylanadi, shuning uchun qora toʻrtburchak ostida tiklab boʻladigan hech narsa qolmaydi. Hech narsa yuklanmaydi.",
+      "intro": "Maxfiy maʼlumotni haqiqatan qanday qilish kerak boʻlsa, shundoq qilib yashirish: sahifa toʻgʻridan-toʻgʻri ustiga chizilgan toʻrtburchak bilan tekis rasmga aylantiriladi, shuning uchun uning ostida belgilash, nusxalash yoki ajratib olish mumkin boʻlgan hech narsa qolmaydi. Buni biror maxfiy narsaga qoʻllashdan oldin yuqoridagi ogohlantirishni oʻqing.",
+      "howTo": {
+        "step1": "PDF ni qoʻshing va maxfiy mazmuni bor sahifaga oʻting.",
+        "step2": "Olib tashlanadigan har bir soha ustiga toʻrtburchak torting.",
+        "step3": "«Yashirish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Bu haqiqatan xavfsizmi, yoki shunchaki ustidan qora toʻrtburchakmi?",
+        "a1": "Bu haqiqiy. Ko‘p tezkor vositalar qiladigan — jonli matn ustiga chizilgan qora toʻrtburchak — baribir uning ostidagi matnni belgilash va nusxalashga imkon beradi. Bu yerda esa saqlashdan oldin butun yashiriladigan sahifa tekis rasmga aylantiriladi, shuning uchun toʻrtburchak ostida umuman matn qatlami qolmaydi.",
+        "q2": "Buning evaziga nima yoʻqoladi?",
+        "a2": "Shundan keyin yashirilgan sahifa matnini endi belgilab yoki qidirib boʻlmaydi, chunki u endi matn emas — bu maxfiy soha olib tashlangan sahifaning rasmi. Bu xavfsiz bajarishning halol narxi, aylanib oʻtish kerak boʻlgan cheklov emas.",
+        "q3": "Men belgilamagan sahifalarga nima boʻladi?",
+        "a3": "Hech narsa. Faqat kamida bitta yashirish maydoni bor sahifalar tegiladi; qolgan barcha sahifalarda asl, haqiqiy matn saqlanib qoladi.",
+        "q4": "Yuklab olgandan keyin yashirishni bekor qilish mumkinmi?",
+        "a4": "Yoʻq — qoʻllanilib yuklab olingandan keyin bu qaytarib boʻlmaydi, va shunday moʻljallangan. «Yashirish» tugmasini bosishdan oldin har bir toʻrtburchakni ikki marta tekshiring va olib tashlangan mazmun yana kerak boʻlib qolishi mumkin boʻlsa, asl faylingizni saqlab qoʻying."
       }
     }
   },

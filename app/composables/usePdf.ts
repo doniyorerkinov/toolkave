@@ -1,4 +1,7 @@
 import type { HeldFile } from '~/stores/files'
+// Type-only: erased at build time, so this does not force an eager load of
+// the library the way a value import would.
+import type { PDFDict as PDFDictType, PDFRawStream as PDFRawStreamType } from '@cantoo/pdf-lib'
 
 /**
  * Thin PDF API. Every entry point imports `pdf-lib` dynamically, so the library
@@ -31,6 +34,150 @@ export async function readPdfInfo(file: HeldFile): Promise<PdfInfo> {
   // report the page count for owner-password-only documents.
   const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
   return { pageCount: doc.getPageCount() }
+}
+
+/** Each page's size in PDF points — what Annotate and Redact place their overlays against. */
+export async function getPageSizes(file: HeldFile): Promise<{ width: number; height: number }[]> {
+  const { PDFDocument } = await loadPdfLib()
+  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  return doc.getPages().map(page => page.getSize())
+}
+
+/* ------------------------------------------------------------------ */
+/* Annotate                                                             */
+/* ------------------------------------------------------------------ */
+
+interface AnnotationBase {
+  /** Zero-based page index. */
+  page: number
+  /** Fraction of page width/height, measured from the top-left — screen convention, matching how it was drawn. */
+  x: number
+  y: number
+}
+
+export interface HighlightAnnotation extends AnnotationBase {
+  kind: 'highlight'
+  width: number
+  height: number
+}
+
+export interface NoteAnnotation extends AnnotationBase {
+  kind: 'note'
+  text: string
+}
+
+export type Annotation = HighlightAnnotation | NoteAnnotation
+
+export interface AnnotateResult {
+  data: Uint8Array
+  /** Notes that couldn't be drawn (non-Latin text) — skipped, not fatal to the rest. */
+  notesSkipped: number
+}
+
+/**
+ * Add highlight boxes and short text notes on top of a PDF's existing
+ * content. Purely additive — every draw call here paints on top of the page,
+ * nothing already on it is touched or removed, which is what makes this safe
+ * to build on the public `drawRectangle`/`drawText` API rather than needing
+ * the object-level surgery `compressPdf` and `redactPdf` do.
+ *
+ * Note text is Latin-1 only, the same limitation watermark/page-numbers/
+ * header-footer already have and for the same reason (no embedded Cyrillic
+ * font). A note that fails this is skipped, not fatal — one bad note
+ * shouldn't discard every highlight and note around it.
+ */
+export async function annotatePdf(file: HeldFile, annotations: Annotation[]): Promise<AnnotateResult> {
+  const { PDFDocument, rgb } = await loadPdfLib()
+  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const pages = doc.getPages()
+
+  let notesSkipped = 0
+
+  for (const annotation of annotations) {
+    const page = pages[annotation.page]
+    if (!page) continue
+    const { width, height } = page.getSize()
+
+    // The UI's y is measured from the top (how the overlay was drawn); PDF
+    // page space measures from the bottom, and drawRectangle/drawText take
+    // the *bottom* edge of what they place.
+    if (annotation.kind === 'highlight') {
+      const boxWidth = annotation.width * width
+      const boxHeight = annotation.height * height
+      const x = annotation.x * width
+      const y = height - annotation.y * height - boxHeight
+      page.drawRectangle({ x, y, width: boxWidth, height: boxHeight, color: rgb(1, 0.92, 0.2), opacity: 0.45 })
+    } else {
+      if (!isLatin1(annotation.text)) {
+        notesSkipped++
+        continue
+      }
+      const fontSize = 11
+      const x = annotation.x * width
+      const y = height - annotation.y * height - fontSize
+      page.drawRectangle({
+        x: x - 3,
+        y: y - 3,
+        width: Math.max(20, annotation.text.length * fontSize * 0.55),
+        height: fontSize + 6,
+        color: rgb(1, 1, 0.85),
+        opacity: 0.9,
+        borderColor: rgb(0.8, 0.65, 0),
+        borderWidth: 0.75
+      })
+      page.drawText(annotation.text, { x, y, size: fontSize, color: rgb(0.35, 0.25, 0) })
+    }
+  }
+
+  return { data: await doc.save(), notesSkipped }
+}
+
+/* ------------------------------------------------------------------ */
+/* Redact (page replacement half — the rendering half lives in the      */
+/* component, since rasterising a page needs pdf.js, not pdf-lib)       */
+/* ------------------------------------------------------------------ */
+
+export interface FlattenedPageImage {
+  /** Zero-based page index this image replaces. */
+  page: number
+  data: Uint8Array
+  mimeType: 'image/jpeg'
+}
+
+/**
+ * Replace specific pages with flattened images, leaving every other page
+ * completely untouched.
+ *
+ * This is what makes redaction actually safe rather than merely appearing
+ * to be: a black rectangle drawn *on top of* live text (the same
+ * `annotatePdf` approach above uses for highlights) still leaves that text
+ * selectable and copyable underneath it — which is precisely the failure
+ * mode behind real, embarrassing "redaction" incidents. The caller rasterises
+ * each affected page, paints the redaction boxes directly onto those pixels
+ * — so the box overwrites whatever was there before any encoding happens —
+ * and hands the flattened result here. The replacement page has no text
+ * layer, no annotations, no form fields: nothing behind the box to extract.
+ * Pages nobody drew a box on are left exactly as they were, real text intact.
+ */
+export async function replacePagesWithImages(
+  file: HeldFile,
+  images: FlattenedPageImage[]
+): Promise<Uint8Array> {
+  const { PDFDocument } = await loadPdfLib()
+  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+
+  for (const image of images) {
+    if (image.page < 0 || image.page >= doc.getPageCount()) continue
+    const original = doc.getPage(image.page)
+    const { width, height } = original.getSize()
+
+    const embedded = await doc.embedJpg(image.data)
+    doc.removePage(image.page)
+    const replacement = doc.insertPage(image.page, [width, height])
+    replacement.drawImage(embedded, { x: 0, y: 0, width, height })
+  }
+
+  return await doc.save()
 }
 
 export async function mergePdfs(files: HeldFile[]): Promise<Uint8Array> {
@@ -672,6 +819,179 @@ export async function grayscalePdf(file: HeldFile): Promise<Uint8Array> {
   }
 
   return await doc.save()
+}
+
+/* ------------------------------------------------------------------ */
+/* Compress                                                             */
+/* ------------------------------------------------------------------ */
+
+export interface CompressOptions {
+  /** JPEG re-encode quality, 0–1. */
+  quality?: number
+  /** Images with a longer side above this are downsampled to it. */
+  maxDimension?: number
+}
+
+export interface CompressResult {
+  data: Uint8Array
+  imagesCompressed: number
+  imagesSkipped: number
+}
+
+/** Nothing eligible was found to shrink — the caller shows this rather than a silent no-op. */
+export const NOTHING_TO_COMPRESS = 'toolkave/nothing-to-compress'
+
+/**
+ * Shrink a PDF by recompressing the raster images already embedded in it,
+ * leaving every page's text and vector content completely untouched.
+ *
+ * The obvious approach — render each page to an image, re-encode, rebuild —
+ * was rejected early (see the build-order doc): it rasterises text along with
+ * everything else, so the result is no longer selectable or searchable, and a
+ * text-heavy file can come out *larger*. This instead reaches into the PDF's
+ * object graph, finds the Image XObjects a scan or a photo-heavy document
+ * actually carries the weight in, and replaces just their compressed stream
+ * data. Nothing about how the page positions or paints its content changes.
+ *
+ * Deliberately scoped to the case this can be fully confident about: an image
+ * whose filter is already `DCTDecode` (JPEG) in `DeviceRGB` or `DeviceGray`.
+ * That covers the overwhelming majority of "this PDF is huge" cases — a scan
+ * or a phone photo dropped into a page — decodable natively by the browser
+ * with no image-format guessing. A `FlateDecode` raw bitmap, an indexed or
+ * ICC colour space, or a JPXDecode (JPEG 2000) image is left exactly as it
+ * was rather than risk writing back a colour space that doesn't match what
+ * canvas re-encoding actually produces. That is a real gap for something
+ * scanned by unusual software, not this function reaching for every case —
+ * it says so in the result rather than silently doing nothing.
+ */
+export async function compressPdf(
+  file: HeldFile,
+  options: CompressOptions = {}
+): Promise<CompressResult> {
+  const { quality = 0.72, maxDimension = 1600 } = options
+  const { PDFDocument, PDFName, PDFNumber, PDFDict, PDFStream, PDFRawStream } = await loadPdfLib()
+
+  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const context = doc.context
+
+  let imagesCompressed = 0
+  let imagesSkipped = 0
+  // Resource dictionaries are frequently shared between pages (and Form
+  // XObjects reused across pages), so each is only visited once.
+  const visited = new Set<PDFDictType>()
+
+  const RGB_SPACE = new Set(['DeviceRGB', 'CalRGB'])
+  const GRAY_SPACE = new Set(['DeviceGray', 'CalGray'])
+
+  function colorSpaceName(spaceEntry: unknown): string | null {
+    if (spaceEntry instanceof PDFName) return spaceEntry.decodeText()
+    // An indirect reference to a name, or an array (ICC/indexed spaces) —
+    // resolved separately below; arrays are intentionally not unwrapped here,
+    // since an indexed or ICC space is exactly what gets skipped.
+    return null
+  }
+
+  async function recompressImage(stream: PDFRawStreamType): Promise<boolean> {
+    const dict = stream.dict
+    const filter = dict.get(PDFName.of('Filter'))
+    const filterName = filter instanceof PDFName ? filter.decodeText() : null
+    if (filterName !== 'DCTDecode') return false // Not already a JPEG — out of scope.
+
+    const spaceEntry = dict.get(PDFName.of('ColorSpace'))
+    const resolvedSpace = spaceEntry instanceof PDFName ? spaceEntry : context.lookupMaybe(spaceEntry, PDFName)
+    const spaceName = colorSpaceName(resolvedSpace)
+    const isRgb = spaceName !== null && RGB_SPACE.has(spaceName)
+    const isGray = spaceName !== null && GRAY_SPACE.has(spaceName)
+    if (!isRgb && !isGray) return false // Indexed/ICC/unknown — leave untouched rather than guess.
+
+    const originalBytes = stream.getContents()
+    if (originalBytes.length < 20 * 1024) return false // Already tiny; recompressing risks looking worse for no real gain.
+
+    let bitmap: ImageBitmap
+    try {
+      bitmap = await createImageBitmap(new Blob([originalBytes as BlobPart], { type: 'image/jpeg' }))
+    } catch {
+      return false // Not actually a decodable JPEG despite the filter name — leave it alone.
+    }
+
+    const scale = Math.min(1, maxDimension / Math.max(bitmap.width, bitmap.height))
+    const targetWidth = Math.max(1, Math.round(bitmap.width * scale))
+    const targetHeight = Math.max(1, Math.round(bitmap.height * scale))
+
+    const canvas = document.createElement('canvas')
+    canvas.width = targetWidth
+    canvas.height = targetHeight
+    const canvasContext = canvas.getContext('2d')
+    if (!canvasContext) {
+      bitmap.close()
+      return false
+    }
+    canvasContext.imageSmoothingQuality = 'high'
+    canvasContext.drawImage(bitmap, 0, 0, targetWidth, targetHeight)
+    bitmap.close()
+
+    const blob = await new Promise<Blob | null>(resolve =>
+      canvas.toBlob(resolve, 'image/jpeg', quality)
+    )
+    if (!blob) return false
+    const recompressed = new Uint8Array(await blob.arrayBuffer())
+
+    // Only keep it if it actually helped — a already-compact or already
+    // low-quality source can come back larger after a fresh JPEG encode.
+    if (recompressed.length >= originalBytes.length) return false
+
+    stream.updateContents(recompressed)
+    dict.set(PDFName.of('Width'), PDFNumber.of(targetWidth))
+    dict.set(PDFName.of('Height'), PDFNumber.of(targetHeight))
+    // A downstream canvas re-encode always yields full 8-bit samples,
+    // regardless of what the original bit depth happened to be.
+    dict.set(PDFName.of('BitsPerComponent'), PDFNumber.of(8))
+    // Re-encoding through a canvas can only produce RGB pixels; a source
+    // that was DeviceGray is written back as such, since canvas has no
+    // grayscale JPEG output mode — the visual result is unaffected, only the
+    // colour space declaration and channel count change to match reality.
+    if (isGray) dict.set(PDFName.of('ColorSpace'), PDFName.of('DeviceRGB'))
+
+    return true
+  }
+
+  async function processResources(resources: PDFDictType | undefined): Promise<void> {
+    if (!resources || visited.has(resources)) return
+    visited.add(resources)
+
+    const xObjects = resources.lookupMaybe(PDFName.of('XObject'), PDFDict)
+    if (!xObjects) return
+
+    for (const [, ref] of xObjects.entries()) {
+      const stream = context.lookupMaybe(ref, PDFStream)
+      if (!stream) continue
+
+      const subtype = stream.dict.get(PDFName.of('Subtype'))
+      const subtypeName = subtype instanceof PDFName ? subtype.decodeText() : null
+
+      if (subtypeName === 'Image' && stream instanceof PDFRawStream) {
+        const ok = await recompressImage(stream)
+        if (ok) imagesCompressed++
+        else imagesSkipped++
+      } else if (subtypeName === 'Form') {
+        // A Form XObject carries its own Resources, which can reference
+        // further images — grouped or transformed content commonly nests
+        // this way.
+        const formResources = stream.dict.lookupMaybe(PDFName.of('Resources'), PDFDict)
+        await processResources(formResources ?? resources)
+      }
+    }
+  }
+
+  for (const page of doc.getPages()) {
+    await processResources(page.node.Resources())
+  }
+
+  return {
+    data: await doc.save(),
+    imagesCompressed,
+    imagesSkipped
+  }
 }
 
 /**

@@ -268,6 +268,64 @@
       "progress": "Page {done} of {total}",
       "result": "Extracted text",
       "empty": "No text was found. The PDF may be a scan with no text layer — try the image-to-text (OCR) tool instead."
+    },
+    "compress": {
+      "level": "Compression level",
+      "levels": {
+        "light": "Light",
+        "balanced": "Balanced",
+        "strong": "Strong"
+      },
+      "notice": "This shrinks the photos and scans embedded in the PDF. It does not touch text — a text-only PDF is already small and this tool will say there is nothing worth compressing rather than pretend to help.",
+      "action": "Compress PDF",
+      "nothingToCompress": "Nothing here was worth compressing — either there are no images, or they're already small and re-encoding them would only make the file larger.",
+      "summary": "{compressed} image(s) shrunk, {skipped} left as they were."
+    },
+    "compare": {
+      "documentA": "Document A (before)",
+      "documentB": "Document B (after)",
+      "change": "Change file",
+      "action": "Compare",
+      "working": "Comparing…",
+      "errorGeneric": "These PDFs could not be compared.",
+      "summary": "{identical} page(s) identical, {changed} changed, {added} added, {removed} removed.",
+      "page": "Page {n}",
+      "status": {
+        "identical": "Identical",
+        "changed": "Changed",
+        "added": "Added",
+        "removed": "Removed"
+      },
+      "show": "Show differences",
+      "hide": "Hide",
+      "progress": "Reading page {done} of {total}"
+    },
+    "annotate": {
+      "page": "Page {n} of {count}",
+      "mode": {
+        "highlight": "Highlight",
+        "note": "Note"
+      },
+      "loadingPreview": "Loading page…",
+      "noteLabel": "Note text",
+      "latinOnly": "Notes can only use Latin letters — the fonts built into a PDF can't draw Cyrillic without a much larger download.",
+      "addNote": "Add note",
+      "cancelNote": "Cancel",
+      "onThisPage": "{n} on this page",
+      "clearPage": "Clear this page",
+      "remove": "Remove",
+      "action": "Add {n} annotation(s)",
+      "notesSkipped": "{n} note(s) used non-Latin characters and were skipped; everything else was applied."
+    },
+    "redact": {
+      "safetyNotice": "A redacted page is turned into a flattened image so nothing can be recovered from underneath the black box — not the same as drawing a black box over live text, which can still be selected and copied. That means the redacted page's text is no longer selectable or searchable afterwards. Pages you don't mark are left completely untouched.",
+      "page": "Page {n} of {count}",
+      "loadingPreview": "Loading page…",
+      "onThisPage": "{n} area(s) on this page",
+      "undo": "Undo last",
+      "clearPage": "Clear this page",
+      "action": "Redact {n} area(s)",
+      "progress": "Processing page {done} of {total}"
     }
   },
   "image": {
@@ -1833,6 +1891,94 @@
         "a3": "Yes, as long as the PDF embeds its fonts properly, which is true of the vast majority of PDFs produced by Word, Excel or a browser's own PDF export.",
         "q4": "Is the file uploaded?",
         "a4": "No. It is read and processed entirely in your browser."
+      }
+    },
+    "pdf-compress": {
+      "name": "Compress PDF",
+      "short": "Shrink a PDF by recompressing its images, without touching the text.",
+      "title": "Compress PDF — shrink file size online, free, text stays searchable",
+      "description": "Free online tool that shrinks a PDF by recompressing the images inside it. Text and layout are left completely untouched, so the result stays selectable and searchable. Nothing is uploaded.",
+      "intro": "Most oversized PDFs are oversized because of the photos or scanned pages inside them, not the text. This finds those images and recompresses them — the text stays exactly as it was, still selectable and searchable, which a render-and-rebuild compressor can't promise.",
+      "howTo": {
+        "step1": "Add the PDF.",
+        "step2": "Pick a compression level.",
+        "step3": "Press Compress PDF and download the result."
+      },
+      "faq": {
+        "q1": "Why does it say there's nothing to compress?",
+        "a1": "That means the PDF has no images it can confidently recompress — a text-only document, for instance, which is already small. Rather than rasterise the whole page to manufacture a smaller file (which would break the text), it says so plainly.",
+        "q2": "Will my document still look right?",
+        "a2": "Yes. Layout, fonts and every other piece of content are untouched — only the compressed image data inside is replaced with a smaller version.",
+        "q3": "Does the text stay selectable afterwards?",
+        "a3": "Yes, completely. Nothing about the text layer changes. This is the entire reason this tool works the way it does rather than rendering pages to pictures.",
+        "q4": "Which images does it skip?",
+        "a4": "Anything it isn't fully confident is safe to touch — images already using an indexed or unusual colour space, or ones so small that recompressing them wouldn't help. It only acts where it can be sure of the result."
+      }
+    },
+    "pdf-compare": {
+      "name": "Compare PDFs",
+      "short": "See exactly what changed between two versions of a PDF.",
+      "title": "Compare PDF files — see the differences online, free",
+      "description": "Free online tool that compares two PDFs page by page and shows exactly what text changed. Runs entirely in your browser. Nothing is uploaded.",
+      "intro": "Add two versions of a document and see, page by page, which ones are identical, which changed, and which were added or removed — with the exact words that differ highlighted on the pages that changed.",
+      "howTo": {
+        "step1": "Add the earlier version as Document A and the newer one as Document B.",
+        "step2": "Press Compare.",
+        "step3": "Open any page marked \"Changed\" to see exactly which words differ, side by side with both pages."
+      },
+      "faq": {
+        "q1": "What counts as \"changed\"?",
+        "a1": "The text content differs in a way that isn't just whitespace. A page reformatted with identical wording reads as identical; a single word swapped reads as changed.",
+        "q2": "Does it compare images or just text?",
+        "a2": "Text drives the changed/identical decision, since that answers \"what changed\" directly and works on documents of any length without rendering every page. Pages flagged as changed also show real thumbnails from both documents side by side, so a visual difference is still one click away.",
+        "q3": "What if the two PDFs have different page counts?",
+        "a3": "Pages past the end of the shorter document are marked \"Added\" or \"Removed\" rather than forced into a false comparison against nothing.",
+        "q4": "Is either file uploaded?",
+        "a4": "No. Both are read and compared entirely in your browser."
+      }
+    },
+    "pdf-annotate": {
+      "name": "Annotate PDF",
+      "short": "Highlight and add short notes directly on a PDF.",
+      "title": "Annotate PDF — highlight and add notes online, free",
+      "description": "Free online tool to highlight text and add short notes on a PDF, drawn directly on the rendered page. Nothing is uploaded.",
+      "intro": "Mark up a PDF the way you would with a highlighter and sticky notes on paper — drag to highlight, click to drop a short note — right on the actual page, then bake it all in as one file to send back.",
+      "howTo": {
+        "step1": "Add the PDF and move to the page you want to mark up.",
+        "step2": "Drag to highlight an area, or switch to Note and click to place a short comment.",
+        "step3": "Repeat across as many pages as you need, then press Add annotations."
+      },
+      "faq": {
+        "q1": "Can this hide or remove information?",
+        "a1": "No — everything here is drawn on top of the page, and the original content underneath is completely untouched and still there. If you need to permanently remove sensitive content, use the separate Redact tool, which is built differently precisely because this one isn't safe for that.",
+        "q2": "Why can notes only use Latin letters?",
+        "a2": "The fonts built into the PDF format can't draw Cyrillic without embedding a much larger font file. A note using other characters is skipped rather than silently turning into empty boxes — everything else you added still goes through.",
+        "q3": "Can I undo one highlight without starting over?",
+        "a3": "Yes — each mark on the current page has its own Remove button, and \"Clear this page\" drops everything on just that page.",
+        "q4": "Is my file uploaded?",
+        "a4": "No. Rendering and everything else happens in your browser."
+      }
+    },
+    "pdf-redact": {
+      "name": "Redact PDF",
+      "short": "Permanently black out sensitive content — safely.",
+      "title": "Redact PDF — permanently remove sensitive content, free",
+      "description": "Free online tool that permanently removes sensitive content from a PDF page, not just covers it. The redacted page becomes a flattened image, so nothing is left behind the black box to recover. Nothing is uploaded.",
+      "intro": "Black out sensitive information the way it actually needs to be done: the page is flattened to an image with the black box painted directly onto it, so there is nothing hidden underneath left to select, copy or extract. Read the notice above before using this on anything sensitive.",
+      "howTo": {
+        "step1": "Add the PDF and move to the page with sensitive content.",
+        "step2": "Drag a box over each area to remove.",
+        "step3": "Press Redact and download the result."
+      },
+      "faq": {
+        "q1": "Is this actually safe, or just a black box on top?",
+        "a1": "It's the real thing. A black box drawn on top of live text — which is what many quick tools do — still leaves that text selectable and copyable underneath. This instead turns the whole redacted page into a flattened image before anything is saved, so there is no text layer left behind the box at all.",
+        "q2": "What's the trade-off?",
+        "a2": "A redacted page's text is no longer selectable or searchable afterwards, because it is no longer text — it's a picture of the page with the sensitive area removed. That is the honest cost of doing this safely, not a limitation to work around.",
+        "q3": "What happens to pages I don't mark?",
+        "a3": "Nothing at all. Only pages with at least one redaction box are touched; every other page keeps its real, original text.",
+        "q4": "Can I undo a redaction after downloading?",
+        "a4": "No — once applied and downloaded, it's permanent, by design. Double-check every box before pressing Redact, and keep your original file if you might need the removed content again."
       }
     }
   },
