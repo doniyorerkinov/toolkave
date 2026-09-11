@@ -47,12 +47,51 @@ function isPasswordError(error: unknown): boolean {
  * the tools can turn into "unlock it first" rather than a broken download.
  */
 async function loadEditable(file: HeldFile) {
-  const { PDFDocument } = await loadPdfLib()
+  const { PDFDocument, PDFDict, PDFName } = await loadPdfLib()
+  let doc
   try {
-    return await PDFDocument.load(toArrayBuffer(file.data), { password: '' })
+    doc = await PDFDocument.load(toArrayBuffer(file.data), { password: '' })
   } catch (error) {
     if (isPasswordError(error)) throw new Error(ENCRYPTED_INPUT)
     throw error
+  }
+
+  // A decrypted parse leaves two objects behind that the writer must not see
+  // again: the file's old cross-reference dictionary, which pdf-lib registers
+  // as a plain dict once its stream is consumed, and the /Encrypt dictionary
+  // it points at. Written back, the next reader takes that dictionary for a
+  // trailer and the plaintext output reads as encrypted — "needs a password"
+  // on a file that has none, which breaks chaining one tool into the next.
+  for (const [ref, object] of doc.context.enumerateIndirectObjects()) {
+    if (!(object instanceof PDFDict)) continue
+    const staleTrailer = object.has(PDFName.of('Root')) && object.has(PDFName.of('Size'))
+    const encryptDict = object.get(PDFName.of('Filter')) === PDFName.of('Standard') && object.has(PDFName.of('O'))
+    if (staleTrailer || encryptDict) doc.context.delete(ref)
+  }
+
+  return doc
+}
+
+/**
+ * Load a document for reading only (page count, metadata, sizes).
+ *
+ * Decrypting first matters even here: a PDF that is merely *restricted* —
+ * owner password, no password to open — usually keeps its page tree inside
+ * object streams, and `ignoreEncryption` leaves those encrypted, so the
+ * page count is unreachable and the tool wrongly reports the file unreadable.
+ * Only a file that genuinely needs a password falls back to the encrypted
+ * view, which is enough for the Info tool to say so.
+ */
+async function loadReadable(file: HeldFile) {
+  const { PDFDocument } = await loadPdfLib()
+  // `updateMetadata` defaults to true and rewrites Producer and ModDate on
+  // load — the Info tool would then report pdf-lib and today's date instead
+  // of what the file actually says.
+  try {
+    return await PDFDocument.load(toArrayBuffer(file.data), { password: '', updateMetadata: false })
+  } catch (error) {
+    if (!isPasswordError(error)) throw error
+    return await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true, updateMetadata: false })
   }
 }
 
@@ -106,17 +145,13 @@ export interface PdfInfo {
 }
 
 export async function readPdfInfo(file: HeldFile): Promise<PdfInfo> {
-  const { PDFDocument } = await loadPdfLib()
-  // Encrypted files would otherwise throw; ignoreEncryption lets us at least
-  // report the page count for owner-password-only documents.
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const doc = await loadReadable(file)
   return { pageCount: doc.getPageCount() }
 }
 
 /** Each page's size in PDF points — what Annotate and Redact place their overlays against. */
 export async function getPageSizes(file: HeldFile): Promise<{ width: number; height: number }[]> {
-  const { PDFDocument } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const doc = await loadReadable(file)
   return doc.getPages().map(page => page.getSize())
 }
 
@@ -530,8 +565,10 @@ function paperName(width: number, height: number): string {
 }
 
 export async function readPdfMetadata(file: HeldFile): Promise<PdfMetadata> {
-  const { PDFDocument } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  // Asked before decrypting: a restricted file reads as open once decrypted,
+  // and the Info tool should still say it carries a password.
+  const encrypted = await isPdfEncrypted(file)
+  const doc = await loadReadable(file)
 
   // pdf-lib throws on a malformed date string, which plenty of generators
   // write; a bad date must not make the whole document unreadable.
@@ -563,7 +600,7 @@ export async function readPdfMetadata(file: HeldFile): Promise<PdfMetadata> {
     created: iso(() => doc.getCreationDate()),
     modified: iso(() => doc.getModificationDate()),
     pageSizes: sizes,
-    encrypted: doc.isEncrypted
+    encrypted
   }
 }
 
@@ -797,7 +834,7 @@ export const NOT_ENCRYPTED = 'toolkave/not-encrypted'
 /** Whether a file is password-protected, without needing the password. */
 export async function isPdfEncrypted(file: HeldFile): Promise<boolean> {
   const { PDFDocument } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true, updateMetadata: false })
   return doc.isEncrypted
 }
 

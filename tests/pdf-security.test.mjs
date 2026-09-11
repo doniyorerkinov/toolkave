@@ -100,3 +100,26 @@ test('the Latin-1 guard and the tools that rely on it', async () => {
     { message: pdf.UNSUPPORTED_TEXT }
   )
 })
+
+test('a restricted PDF (owner password only, object streams) reads and edits without a password', async () => {
+  // The common "you may not print this" PDF: opens without a password, page
+  // tree inside object streams. `ignoreEncryption` cannot see into those, so
+  // the read-only probe has to decrypt first or every tool calls it unreadable.
+  const doc = await PDFDocument.create()
+  doc.addPage([200, 300])
+  doc.addPage([200, 300])
+  doc.encrypt({ userPassword: '', ownerPassword: 'owner' })
+  const bytes = await doc.save({ useObjectStreams: true })
+
+  assert.equal((await pdf.readPdfInfo(held(bytes))).pageCount, 2)
+  const meta = await pdf.readPdfMetadata(held(bytes))
+  assert.equal(meta.pageCount, 2)
+  assert.equal(meta.encrypted, true, 'still reported as carrying a password')
+  assert.deepEqual(meta.pageSizes.map(s => s.label), ['Custom', 'Custom'])
+  const rotated = await PDFDocument.load(await pdf.rotatePdf(held(bytes), 90))
+  assert.equal(rotated.getPage(0).getRotation().angle, 90)
+  assert.equal(rotated.isEncrypted, false)
+  // The edited file must open plainly and chain into the next tool without a password.
+  const chained = await pdf.extractPages(held(await pdf.rotatePdf(held(bytes), 90)), [1])
+  assert.equal((await PDFDocument.load(chained)).getPageCount(), 1)
+})
