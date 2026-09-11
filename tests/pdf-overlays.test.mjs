@@ -8,7 +8,7 @@
  */
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { pdf, held, rotatedPages, render, inkFraction, inkOutside, artifact, solidPng, ROTATIONS } from './helpers/pdf.mjs'
+import { pdf, held, rotatedPages, render, pageTexts, inkFraction, inkOutside, artifact, solidPng, ROTATIONS } from './helpers/pdf.mjs'
 
 const NONE = 0.0005
 
@@ -30,7 +30,7 @@ test('pages keep their /Rotate and display landscape when rotated', async () => 
 })
 
 test('page numbers sit at the bottom centre of the page as displayed', async () => {
-  const out = await pdf.addPageNumbers(held(await rotatedPages()), { position: 'bottom-center', startAt: 1, fontSize: 16, skipFirst: false })
+  const out = await pdf.addPageNumbers(held(await rotatedPages()), { position: 'bottom-center', style: 'plain', startAt: 1, fontSize: 16, margin: 28, skipFirst: false })
   const pages = await render(out)
   artifact('page-numbers', pages)
   expectPlaced(pages, (w, h) => [[w / 2 - 24, h - 48, w / 2 + 24, h - 22]], 'bottom-center')
@@ -38,7 +38,7 @@ test('page numbers sit at the bottom centre of the page as displayed', async () 
 })
 
 test('page numbers honour top-right on rotated pages', async () => {
-  const out = await pdf.addPageNumbers(held(await rotatedPages()), { position: 'top-right', startAt: 7, fontSize: 16, skipFirst: true })
+  const out = await pdf.addPageNumbers(held(await rotatedPages()), { position: 'top-right', style: 'plain', startAt: 7, fontSize: 16, margin: 28, skipFirst: true })
   const pages = await render(out)
   assert.equal(inkFraction(pages[0].canvas, [0, 0, pages[0].width, pages[0].height]), 0, 'skipFirst leaves page 1 blank')
   expectPlaced(pages.slice(1), (w, h) => [[w - 62, 22, w - 20, 48]], 'top-right')
@@ -114,4 +114,33 @@ test('replacing a rotated page with its raster keeps the displayed size and cont
     assert.ok(Math.abs(inkFraction(before[1].canvas, box) - inkFraction(after[1].canvas, box)) < 0.03, `quadrant ${box.map(Math.round)} changed`)
   }
   for (const i of [0, 2, 3]) assert.equal(after[i].rotate, before[i].rotate, 'untouched pages are untouched')
+})
+
+test('page-number margin is honoured, top-left and top-centre included', async () => {
+  const out = await pdf.addPageNumbers(held(await rotatedPages()), { position: 'bottom-center', style: 'plain', startAt: 1, fontSize: 16, margin: 60, skipFirst: false })
+  const pages = await render(out)
+  expectPlaced(pages, (w, h) => [[w / 2 - 24, h - 80, w / 2 + 24, h - 54]], 'margin 60')
+  for (const page of pages) assert.equal(inkFraction(page.canvas, [page.width / 2 - 24, page.height - 48, page.width / 2 + 24, page.height - 22]), 0, 'nothing at the old 28pt spot')
+  const left = await render(await pdf.addPageNumbers(held(await rotatedPages()), { position: 'top-left', style: 'plain', startAt: 1, fontSize: 16, margin: 28, skipFirst: false }))
+  expectPlaced(left, () => [[26, 22, 60, 48]], 'top-left')
+  const centre = await render(await pdf.addPageNumbers(held(await rotatedPages()), { position: 'top-center', style: 'plain', startAt: 1, fontSize: 16, margin: 28, skipFirst: false }))
+  expectPlaced(centre, w => [[w / 2 - 24, 22, w / 2 + 24, 48]], 'top-center')
+})
+
+test('page-number styles: fraction text, label, and decorations that add ink', async () => {
+  const opts = { position: 'bottom-center', startAt: 1, fontSize: 16, margin: 28, skipFirst: false }
+  const texts = await pageTexts(await pdf.addPageNumbers(held(await rotatedPages()), { ...opts, style: 'fraction', label: 'Page' }))
+  assert.deepEqual(texts.map(t => t.trim()), ['Page 1 / 4', 'Page 2 / 4', 'Page 3 / 4', 'Page 4 / 4'])
+  await assert.rejects(pdf.addPageNumbers(held(await rotatedPages()), { ...opts, style: 'plain', label: 'Стр.' }), { message: pdf.UNSUPPORTED_TEXT })
+
+  const ink = async style => {
+    const [page] = await render(await pdf.addPageNumbers(held(await rotatedPages()), { ...opts, style }))
+    return inkFraction(page.canvas, [0, page.height - 70, page.width, page.height])
+  }
+  const plain = await ink('plain')
+  assert.ok(plain > 0)
+  for (const style of ['rule', 'circle', 'box']) assert.ok((await ink(style)) > plain * 1.5, style + ' decorates the number')
+  // Decorations stay inside the numbered band: nothing above it.
+  const [ruled] = await render(await pdf.addPageNumbers(held(await rotatedPages()), { ...opts, style: 'rule' }))
+  assert.equal(inkFraction(ruled.canvas, [0, 0, ruled.width, ruled.height - 70]), 0)
 })

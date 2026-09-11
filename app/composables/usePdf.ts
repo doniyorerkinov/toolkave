@@ -446,51 +446,93 @@ export function isLatin1(text: string): boolean {
   return /^[\u0020-\u007E\u00A0-\u00FF]*$/.test(text)
 }
 
-export type NumberPosition = 'bottom-center' | 'bottom-right' | 'bottom-left' | 'top-right'
+export type NumberPosition =
+  | 'top-left'
+  | 'top-center'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right'
+
+/** How the number is dressed. All language-neutral, since the built-in fonts are Latin-only. */
+export type NumberStyle = 'plain' | 'fraction' | 'rule' | 'circle' | 'box'
+
+export const NUMBER_STYLES: NumberStyle[] = ['plain', 'fraction', 'rule', 'circle', 'box']
 
 export interface PageNumberOptions {
   position: NumberPosition
+  style: NumberStyle
   startAt: number
   fontSize: number
+  /** Distance from the page edge to the number, in points. */
+  margin: number
   skipFirst: boolean
+  /** Optional Latin text before the number, e.g. "Page". */
+  label?: string
 }
 
 export async function addPageNumbers(
   file: HeldFile,
   options: PageNumberOptions
 ): Promise<Uint8Array> {
+  const label = options.label?.trim() ?? ''
+  if (!isLatin1(label)) throw new Error(UNSUPPORTED_TEXT)
+
   const { StandardFonts, rgb, degrees } = await loadPdfLib()
   const doc = await loadEditable(file)
   const font = await doc.embedFont(StandardFonts.Helvetica)
-
   const pages = doc.getPages()
-  const margin = 28
+
+  const { style, fontSize, margin } = options
+  const ink = rgb(0.1, 0.1, 0.1)
+  const soft = rgb(0.62, 0.62, 0.62)
+  const last = options.startAt + pages.length - 1
+  // Helvetica's capital height; the margin is measured to the visible top of
+  // the digits, not to the font's invisible ascender.
+  const capHeight = fontSize * 0.72
 
   pages.forEach((page, index) => {
     if (options.skipFirst && index === 0) return
 
-    const label = String(options.startAt + index)
-    const width = font.widthOfTextAtSize(label, options.fontSize)
+    const number = String(options.startAt + index)
+    const text = `${label ? `${label} ` : ''}${number}${style === 'fraction' ? ` / ${last}` : ''}`
+    const textWidth = font.widthOfTextAtSize(text, fontSize)
     const frame = displayFrame(page, degrees)
-    const { width: pageWidth, height: pageHeight } = frame
+    const { width: pageWidth, height: pageHeight, rotate } = frame
+    const [vertical, horizontal] = options.position.split('-') as ['top' | 'bottom', 'left' | 'center' | 'right']
 
-    let x = (pageWidth - width) / 2
-    let y = margin
+    // Baseline-left of the text in displayed space.
+    const x = horizontal === 'left' ? margin : horizontal === 'right' ? pageWidth - margin - textWidth : (pageWidth - textWidth) / 2
+    const y = vertical === 'bottom' ? margin : pageHeight - margin - capHeight
+    const centerX = x + textWidth / 2
+    const centerY = y + capHeight / 2
 
-    if (options.position === 'bottom-right') x = pageWidth - width - margin
-    else if (options.position === 'bottom-left') x = margin
-    else if (options.position === 'top-right') {
-      x = pageWidth - width - margin
-      y = pageHeight - margin - options.fontSize
+    if (style === 'rule') {
+      // A hairline across the text area, on the content side of the number.
+      const lineY = vertical === 'bottom' ? y + fontSize * 1.25 : y - fontSize * 0.55
+      page.drawLine({ start: frame.toPage(margin, lineY), end: frame.toPage(pageWidth - margin, lineY), thickness: 0.6, color: soft })
+    } else if (style === 'circle') {
+      // A circle for a short number, a pill once the text gets wider.
+      page.drawEllipse({
+        ...frame.toPage(centerX, centerY),
+        xScale: Math.max(textWidth, capHeight) / 2 + fontSize * 0.5,
+        yScale: capHeight / 2 + fontSize * 0.5,
+        rotate,
+        color: rgb(0.91, 0.91, 0.91)
+      })
+    } else if (style === 'box') {
+      const pad = fontSize * 0.45
+      page.drawRectangle({
+        ...frame.toPage(x - pad, y - pad * 0.8),
+        width: textWidth + pad * 2,
+        height: capHeight + pad * 1.6,
+        rotate,
+        borderColor: soft,
+        borderWidth: 0.75
+      })
     }
 
-    page.drawText(label, {
-      ...frame.toPage(x, y),
-      rotate: frame.rotate,
-      size: options.fontSize,
-      font,
-      color: rgb(0.1, 0.1, 0.1)
-    })
+    page.drawText(text, { ...frame.toPage(x, y), rotate, size: fontSize, font, color: ink })
   })
 
   return await doc.save()

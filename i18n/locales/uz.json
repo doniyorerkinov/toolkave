@@ -147,13 +147,28 @@
     "pageNumbers": {
       "positionLabel": "Joylashuvi",
       "positions": {
-        "bottom-center": "Pastda markazda",
-        "bottom-right": "Pastda o'ngda",
+        "top-left": "Yuqorida chapda",
+        "top-center": "Yuqorida markazda",
+        "top-right": "Yuqorida o'ngda",
         "bottom-left": "Pastda chapda",
-        "top-right": "Yuqorida o'ngda"
+        "bottom-center": "Pastda markazda",
+        "bottom-right": "Pastda o'ngda"
+      },
+      "styleLabel": "Uslub",
+      "styles": {
+        "plain": "Oddiy",
+        "fraction": "Jamidan",
+        "rule": "Chiziq bilan",
+        "circle": "Doira ichida",
+        "box": "Ramka ichida"
       },
       "startAt": "Raqamlashni boshlash",
       "fontSize": "Matn o'lchami: {n} pt",
+      "margin": "Chetdan masofa: {n} mm",
+      "label": "Raqam oldidagi matn (ixtiyoriy)",
+      "labelPlaceholder": "Sahifa",
+      "unsupportedText": "Hozircha faqat lotin harflari ishlaydi: kirill uchun o'rnatilgan shrift kerak, u hali yo'q.",
+      "preview": "Joylashuv namunasi",
       "skipFirst": "Birinchi sahifani (muqovani) tashlab ketish",
       "action": "Sahifa raqamlarini qo'shish"
     },

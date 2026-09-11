@@ -147,13 +147,28 @@
     "pageNumbers": {
       "positionLabel": "Position",
       "positions": {
-        "bottom-center": "Bottom centre",
-        "bottom-right": "Bottom right",
+        "top-left": "Top left",
+        "top-center": "Top centre",
+        "top-right": "Top right",
         "bottom-left": "Bottom left",
-        "top-right": "Top right"
+        "bottom-center": "Bottom centre",
+        "bottom-right": "Bottom right"
+      },
+      "styleLabel": "Style",
+      "styles": {
+        "plain": "Plain",
+        "fraction": "Of total",
+        "rule": "With a line",
+        "circle": "In a circle",
+        "box": "In a box"
       },
       "startAt": "Start numbering at",
       "fontSize": "Text size: {n} pt",
+      "margin": "Distance from the edge: {n} mm",
+      "label": "Text before the number (optional)",
+      "labelPlaceholder": "Page",
+      "unsupportedText": "Only Latin letters work here for now — Cyrillic needs an embedded font, which is not available yet.",
+      "preview": "Placement preview",
       "skipFirst": "Skip the first page (cover)",
       "action": "Add page numbers"
     },

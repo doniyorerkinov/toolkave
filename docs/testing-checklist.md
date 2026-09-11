@@ -321,10 +321,13 @@ header/footer are Latin-only by design — confirm the ru/uz pages say so before
   show the page count without needing the password).
 
 - [ ] **Add page numbers to PDF** — stamps a number on every page.
-  Expect: position options (bottom-center etc.) all land correctly. **Type
-  Cyrillic into any custom text field here and confirm the tool explicitly
-  says it can't draw non-Latin text**, rather than silently producing empty
-  boxes — this is a known, intentional limitation, not a bug to "fix."
+  Expect: five styles (plain, "1 / 12", with a line, in a circle, in a box),
+  six positions laid out like the page, a distance-from-edge slider in mm
+  (default 15) and the placement preview all agree with the output. Try a
+  sideways scan (`/Rotate 90`): the number must sit where the viewer shows
+  it. **Type Cyrillic into the "text before the number" field and confirm
+  the tool explicitly says it can't draw non-Latin text**, rather than
+  silently producing empty boxes — a known, intentional limitation.
 
 - [ ] **Add header and footer to PDF** — text in the top/bottom margin.
   Expect: same Latin-only text limitation as watermark/page-numbers.
