@@ -137,7 +137,7 @@ async function onKeydown(event: KeyboardEvent, index: number) {
 
       <button
         type="button"
-        class="shrink-0 rounded border border-stone-200 px-2 py-1 text-xs text-stone-600 hover:bg-red-50 hover:text-red-700"
+        class="flex size-9 shrink-0 items-center justify-center rounded-lg border border-stone-200 text-sm text-stone-600 hover:bg-red-50 hover:text-red-700"
         :aria-label="t('fileList.remove', { name: file.name })"
         @click="emit('remove', file.id)"
       >

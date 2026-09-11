@@ -192,14 +192,14 @@ onBeforeUnmount(closeAllBitmaps)
         <div class="flex gap-2">
           <button
             type="button"
-            class="text-xs font-medium text-ember-700 hover:underline"
+            class="-my-2 rounded px-2 py-2 text-xs font-medium text-ember-700 hover:underline"
             @click="selectAll"
           >
             {{ t('pagePicker.selectAll') }}
           </button>
           <button
             type="button"
-            class="text-xs font-medium text-ember-700 hover:underline"
+            class="-my-2 rounded px-2 py-2 text-xs font-medium text-ember-700 hover:underline"
             @click="selectNone"
           >
             {{ t('pagePicker.selectNone') }}

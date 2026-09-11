@@ -34,7 +34,7 @@ const navCategories = computed(() =>
 
         <nav
           :aria-label="t('nav.allTools')"
-          class="order-3 -mx-4 w-[calc(100%+2rem)] overflow-x-auto px-4 sm:order-none sm:mx-0 sm:w-auto sm:min-w-0 sm:flex-1 sm:px-0"
+          class="order-3 -mx-4 w-[calc(100%+2rem)] overflow-x-auto px-4 [scrollbar-width:none] sm:order-none sm:mx-0 sm:w-auto sm:min-w-0 sm:flex-1 sm:px-0 [&::-webkit-scrollbar]:hidden"
         >
           <ul class="flex items-center gap-1 text-sm whitespace-nowrap">
             <li v-for="category in navCategories" :key="category.id">
