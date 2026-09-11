@@ -215,6 +215,10 @@ hiding a tool rather than shipping an untested one.
 
 Flip to `true` only after using the tool on real files.
 
+The order in which to test — and so to publish — is the wave order in
+`testing-checklist.md`: ranked by search volume, by where the site has no competition,
+and by how much human time a tool costs to test. One wave, one deploy.
+
 ---
 
 ## Phase 4 — Wave 1: finish tier 1 + the easy wins (~20 tools)
