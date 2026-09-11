@@ -32,7 +32,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **63 tools, 5 published, 58 drafts** (Merge, Split, Rotate, Remove pages, Word counter).
+Registry snapshot: **64 tools, 6 published, 58 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -320,7 +320,7 @@ header/footer are Latin-only by design — confirm the ru/uz pages say so before
   Test against both a plain PDF and a password-protected one (should still
   show the page count without needing the password).
 
-- [ ] **Add page numbers to PDF** — stamps a number on every page.
+- [x] **Add page numbers to PDF** — stamps a number on every page.
   Expect: five styles (plain, "1 / 12", with a line, in a circle, in a box),
   six positions laid out like the page, a distance-from-edge slider in mm
   (default 15) and the placement preview all agree with the output. Try a

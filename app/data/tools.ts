@@ -183,7 +183,7 @@ export const tools: ToolDef[] = [
     group: 'edit',
     component: 'pdf/PageNumbers',
     icon: 'hash',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'add-page-numbers', ru: 'nomera-stranits', uz: 'sahifa-raqamlari' },
     related: ['pdf-watermark', 'pdf-merge'],
