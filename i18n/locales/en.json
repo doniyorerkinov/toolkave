@@ -100,7 +100,8 @@
     "preview": "Preview",
     "pages": "{n} pages",
     "rendering": "Rendering…",
-    "showAllPages": "Show all {n} pages"
+    "showAllPages": "Show all {n} pages",
+    "large": "This PDF is {size}. {tool} usually makes it much smaller."
   },
   "draft": {
     "badge": "Draft — not published",
@@ -269,7 +270,17 @@
         "image": "Match image size"
       },
       "action": "Create PDF",
-      "errorUnsupported": "One of those files is not a supported image."
+      "errorUnsupported": "One of those files is not a supported image.",
+      "sizeLabel": "File size",
+      "size": {
+        "smaller": "Smaller file",
+        "original": "Original quality"
+      },
+      "sizeHint": {
+        "smaller": "Photos resized to 2000 px and re-encoded at high quality — usually a fifth of the size, still sharp to print.",
+        "original": "Every pixel kept. Phone photos make a large PDF — 3–5 MB per page."
+      },
+      "anyFormat": "Other formats too (WebP, HEIC, GIF)? Your files come along:"
     },
     "grayscale": {
       "pages": "{n} pages",
@@ -713,7 +724,7 @@
         "q2": "Should I choose A4 or original size?",
         "a2": "Choose A4 if the PDF will be printed or sent somewhere official — every page comes out the same standard size with the image centred. Choose original size to keep the exact pixel dimensions, which suits screenshots and images meant only for screens.",
         "q3": "Does converting reduce photo quality?",
-        "a3": "No. The JPG data is embedded exactly as it is, with no re-encoding, so there is no second round of compression. The PDF is roughly the combined size of the originals.",
+        "a3": "Only if you choose to. “Original quality” embeds the JPG data exactly as it is — no second round of compression, and a PDF roughly the combined size of the originals, which for phone photos means several megabytes per page. “Smaller file” (the default) resizes photos to 2000 px on the long side and re-encodes them at high quality: usually a fifth of the size, and still sharp for reading and printing.",
         "q4": "How many photos can I add?",
         "a4": "There is no fixed limit. Every image is held in memory while the PDF is assembled, so the practical ceiling is your device — dozens of phone photos are fine on a laptop, and fewer on an older phone.",
         "q5": "The file is named .jpg but will not convert. Why?",
@@ -737,7 +748,7 @@
         "q2": "What happens to transparency?",
         "a2": "PDF pages are not transparent, so any transparent areas end up showing the page behind them as white. If transparency matters to the final look, flatten the image onto the background you want before converting.",
         "q3": "Is the image quality reduced?",
-        "a3": "No. PNG is lossless and the data is embedded as-is with no re-encoding, so screenshots and diagrams stay pixel-perfect and text in them stays sharp.",
+        "a3": "No. PNG is lossless and is embedded as-is, so screenshots and diagrams stay pixel-perfect and text in them stays sharp. The one exception is “Smaller file” with a very large PNG: it is scaled down to 2000 px but stays PNG — never turned into a JPEG.",
         "q4": "Why is my PDF larger than the PNGs?",
         "a4": "PNG is efficient for flat graphics but the PDF wrapper adds structure around each image, and nothing is re-compressed to make up for it. For screenshot-heavy documents that is a fair trade for keeping the images exact."
       }
@@ -1179,7 +1190,7 @@
         "q3": "Should I choose A4 or original size?",
         "a3": "Choose A4 if the PDF will be printed or sent somewhere official — every page comes out the same standard size with the image centred. Choose original size to keep the exact pixel dimensions, which suits screenshots and images meant only for screens.",
         "q4": "Does it reduce quality?",
-        "a4": "JPG and PNG are embedded without re-encoding, so no. HEIC, WebP and GIF are converted to JPEG at high quality — a small, usually invisible loss that cannot be avoided, since a PDF cannot contain those formats.",
+        "a4": "With “Original quality”, JPG and PNG are embedded without re-encoding; HEIC, WebP and GIF become high-quality JPEGs, an unavoidable and usually invisible loss. “Smaller file” (the default) also resizes photos to 2000 px and re-encodes them at high quality — a fraction of the size, still sharp to print. PNGs are only ever downscaled, never turned into JPEG.",
         "q5": "Can I mix photos and screenshots?",
         "a5": "Yes. Each image becomes one page. With A4 selected every page is the same size with the image centred; with original size each page takes the dimensions of its own image."
       }

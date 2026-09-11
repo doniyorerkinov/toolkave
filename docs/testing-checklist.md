@@ -35,7 +35,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **64 tools, 6 published, 58 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Word counter).
+Registry snapshot: **64 tools, 9 published, 55 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, JPG/PNG/Image to PDF, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -162,12 +162,12 @@ test JPG fully, spot-check the wording and one file on each of the other three.
   deliberate). Try selecting every page — the tool must refuse ("would leave
   an empty PDF") rather than produce a broken zero-page file.
 
-- [ ] **JPG to PDF** — one or more JPGs into a single PDF, one page each.
+- [x] **JPG to PDF** — one or more JPGs into a single PDF, one page each.
   Expect: multi-file, reorderable, shares its component with PNG/WebP/HEIC to
   PDF below — confirm the "JPG" wording is correct on *this* page specifically
   (config-driven, easy for the wrong variant to leak through).
 
-- [ ] **PNG to PDF** — same as JPG to PDF, for PNGs.
+- [x] **PNG to PDF** — same as JPG to PDF, for PNGs.
   Expect: same behavior; PNG transparency should not turn black in the output
   (page background should be white, not the alpha channel rendered as black).
 

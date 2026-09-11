@@ -329,20 +329,50 @@ export async function enhanceScan(
  * JPEG first. Files already in a supported format are passed through untouched
  * so nothing is recompressed unnecessarily.
  */
-export async function normaliseForPdf(files: HeldFile[]): Promise<HeldFile[]> {
+export interface NormaliseOptions {
+  /**
+   * Longest side photos are downscaled to. A 12-megapixel phone photo is
+   * 4000 px across and 3–5 MB; at 2000 px it is a fifth of that and still
+   * sharp on paper. Undefined keeps every pixel — and every megabyte.
+   */
+  maxDimension?: number
+  /** JPEG quality for anything re-encoded, 0–1. */
+  quality?: number
+}
+
+export async function normaliseForPdf(files: HeldFile[], options: NormaliseOptions = {}): Promise<HeldFile[]> {
+  const { maxDimension, quality = 0.92 } = options
+  const shrink = maxDimension !== undefined
   const out: HeldFile[] = []
 
   for (const file of files) {
     const kind = sniffImage(file.data)
-    // A JPEG whose EXIF says it was shot sideways has to be re-encoded, since
-    // the embedder copies pixels as stored and PDF viewers ignore the tag.
-    if (kind === 'png' || (kind === 'jpeg' && jpegOrientation(file.data) === 1)) {
+    if (!kind) throw new Error(`unsupported image: ${file.name}`)
+
+    let target: { width?: number; height?: number } | null = null
+    if (shrink) {
+      const { width, height } = await readImageSize(file)
+      if (Math.max(width, height) > maxDimension) target = width >= height ? { width: maxDimension } : { height: maxDimension }
+    }
+
+    // Lossless stays lossless: a screenshot is only ever downscaled, never
+    // turned into a JPEG that would blur its text.
+    if (kind === 'png') {
+      out.push(target ? { ...file, data: (await resizeImage(file, target, 'png')).data } : file)
+      continue
+    }
+
+    // A JPEG is copied byte-for-byte unless it has to be re-encoded: a smaller
+    // file was asked for, or its EXIF says it was shot sideways (the embedder
+    // copies pixels as stored and PDF viewers ignore the tag).
+    if (kind === 'jpeg' && !shrink && jpegOrientation(file.data) === 1) {
       out.push(file)
       continue
     }
-    if (!kind) throw new Error(`unsupported image: ${file.name}`)
 
-    const converted = await compressImage(file, 'jpeg', 0.92)
+    const converted = target
+      ? await resizeImage(file, target, 'jpeg', quality)
+      : await compressImage(file, 'jpeg', quality)
     out.push({ ...file, data: converted.data, type: MIME.jpeg })
   }
 

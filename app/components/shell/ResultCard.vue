@@ -33,12 +33,17 @@ function download() {
  * PDF" and Resize. The current tool's curated `related` list comes first,
  * then the rest of its category, then everything else, capped at four.
  */
+/** A PDF past this is worth a nudge towards Compress before anything else. */
+const LARGE_PDF = 2 * 1024 * 1024
+const isLargePdf = computed(() => props.result.type === 'application/pdf' && outSize.value > LARGE_PDF)
+
 const nextTools = computed(() => {
   if (!props.chainable) return []
   const mime = props.result.type.split(';')[0]
   const current = tools.find(candidate => candidate.id === store.ownerToolId)
   const rank = (tool: ToolDef) =>
-    current?.related.includes(tool.id) ? 0 : tool.category === current?.category ? 1 : 2
+    isLargePdf.value && tool.id === 'pdf-compress' ? -1
+      : current?.related.includes(tool.id) ? 0 : tool.category === current?.category ? 1 : 2
   return tools
     .filter(tool => tool.id !== current?.id && !!mime && tool.acceptedTypes?.includes(mime))
     .filter(tool => (tool.published || import.meta.dev) && !!toolPath(tool, currentLocale.value))
@@ -96,6 +101,9 @@ function continueWith(tool: ToolDef) {
 
     <div v-if="nextTools.length" class="mt-4 border-t border-emerald-200 pt-3">
       <p class="text-xs font-semibold tracking-wide text-emerald-800 uppercase">{{ t('result.next') }}</p>
+      <p v-if="isLargePdf && nextTools.some(tool => tool.id === 'pdf-compress')" class="mt-1 text-sm text-emerald-900">
+        {{ t('result.large', { size: formatBytes(outSize), tool: t('tools.pdf-compress.name') }) }}
+      </p>
       <ul class="mt-2 flex flex-wrap gap-2">
         <li v-for="tool in nextTools" :key="tool.id">
           <button

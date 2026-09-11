@@ -100,7 +100,8 @@
     "preview": "Oldindan koʻrish",
     "pages": "{n} sahifa",
     "rendering": "Chizilmoqda…",
-    "showAllPages": "Barcha {n} sahifani koʻrsatish"
+    "showAllPages": "Barcha {n} sahifani koʻrsatish",
+    "large": "Bu PDF {size}. «{tool}» odatda uni ancha kichraytiradi."
   },
   "draft": {
     "badge": "Qoralama — chop etilmagan",
@@ -269,7 +270,17 @@
         "image": "Rasm o'lchamiday"
       },
       "action": "PDF yaratish",
-      "errorUnsupported": "Fayllardan biri qo'llab-quvvatlanadigan rasm emas."
+      "errorUnsupported": "Fayllardan biri qo'llab-quvvatlanadigan rasm emas.",
+      "sizeLabel": "Fayl hajmi",
+      "size": {
+        "smaller": "Kichikroq fayl",
+        "original": "Asl sifat"
+      },
+      "sizeHint": {
+        "smaller": "Suratlar 2000 px gacha kichraytirilib, yuqori sifatda qayta siqiladi — odatda besh barobar kichik, chop etish uchun hali ham aniq.",
+        "original": "Barcha piksellar saqlanadi. Telefon suratlari bilan PDF katta chiqadi — har sahifa 3–5 MB."
+      },
+      "anyFormat": "Boshqa formatlar ham bormi (WebP, HEIC, GIF)? Fayllaringiz o'zingiz bilan o'tadi:"
     },
     "grayscale": {
       "pages": "Sahifalar: {n}",
@@ -713,7 +724,7 @@
         "q2": "A4 mi yoki asl o'lcham mi?",
         "a2": "PDF chop etilsa yoki rasmiy joyga yuborilsa, A4 ni tanlang: barcha sahifalar bir xil standart o'lchamda, rasm markazda bo'ladi. Asl o'lcham aniq piksel o'lchamini saqlaydi va skrinshotlar hamda ekran uchun mo'ljallangan rasmlarga mos.",
         "q3": "Surat sifati pasayadimi?",
-        "a3": "Yo'q. JPG ma'lumotlari qayta kodlanmasdan o'z holicha joylashtiriladi, shuning uchun ikkinchi marta siqilish bo'lmaydi. PDF hajmi asl fayllar yig'indisiga yaqin bo'ladi.",
+        "a3": "Faqat o'zingiz tanlasangiz. «Asl sifat» JPG ma'lumotlarini o'z holicha joylashtiradi — ikkinchi marta siqilmaydi, PDF hajmi esa asl fayllar yig'indisiga teng bo'ladi, telefon suratlari uchun bu har sahifaga bir necha megabayt. «Kichikroq fayl» (odatiy) suratlarni uzun tomoni bo'yicha 2000 px gacha kichraytirib, yuqori sifatda qayta siqadi: odatda besh barobar kichik, o'qish va chop etish uchun hali ham aniq.",
         "q4": "Nechta surat qo'shsa bo'ladi?",
         "a4": "Qat'iy cheklov yo'q. Har bir rasm PDF yig'ilayotganda xotirada turadi, shuning uchun chegara qurilmangizga bog'liq: noutbukda o'nlab telefon surati muammosiz, eski telefonda kamroq.",
         "q5": "Fayl nomi .jpg, lekin o'girilmayapti. Nega?",
@@ -737,7 +748,7 @@
         "q2": "Shaffoflik nima bo'ladi?",
         "a2": "PDF sahifalari shaffof bo'lmaydi, shuning uchun shaffof joylar oq bo'lib ko'rinadi. Agar shaffoflik yakuniy ko'rinish uchun muhim bo'lsa, o'girishdan oldin rasmni kerakli fonga tekislang.",
         "q3": "Rasm sifati pasayadimi?",
-        "a3": "Yo'q. PNG yo'qotishsiz format va ma'lumotlar qayta kodlanmasdan joylashtiriladi, shuning uchun skrinshot va sxemalar piksel darajasida aniq, ulardagi matn esa tiniq qoladi.",
+        "a3": "Yo'q. PNG yo'qotishsiz siqiladi va o'z holicha joylashtiriladi, shuning uchun skrinshotlar va sxemalar pikselma-piksel aniq, ulardagi matn esa o'tkir qoladi. Yagona istisno — juda katta PNG bilan «Kichikroq fayl»: u 2000 px gacha kichraytiriladi, lekin PNG bo'lib qoladi va hech qachon JPEG ga aylantirilmaydi.",
         "q4": "Nega PDF asl PNG lardan kattaroq?",
         "a4": "PNG tekis grafika uchun tejamli, lekin PDF tuzilmasi har bir rasm atrofiga qo'shimcha qo'shadi va buni qoplash uchun hech narsa qayta siqilmaydi. Skrinshotlardan iborat hujjatlar uchun bu rasm aniqligi evaziga adolatli almashuv."
       }
@@ -1179,7 +1190,7 @@
         "q3": "A4 mi yoki asl o'lcham mi?",
         "a3": "PDF chop etilsa yoki rasmiy joyga yuborilsa, A4 ni tanlang: barcha sahifalar bir xil standart o'lchamda, rasm markazda bo'ladi. Asl o'lcham aniq piksel o'lchamini saqlaydi va skrinshotlar hamda ekran uchun mo'ljallangan rasmlarga mos.",
         "q4": "Sifat pasayadimi?",
-        "a4": "JPG va PNG qayta kodlanmasdan joylashtiriladi, shuning uchun yo'q. HEIC, WebP va GIF yuqori sifatda JPEG ga o'giriladi — kichik, odatda sezilmaydigan yo'qotish, undan qochib bo'lmaydi: PDF bu formatlarni saqlay olmaydi.",
+        "a4": "«Asl sifat»da JPG va PNG qayta kodlanmasdan joylashtiriladi; HEIC, WebP va GIF yuqori sifatli JPEG ga aylanadi — muqarrar va odatda sezilmaydigan yo'qotish. «Kichikroq fayl» (odatiy) qo'shimcha ravishda suratlarni 2000 px gacha kichraytirib, yuqori sifatda qayta siqadi — bir necha barobar kichik, chop etish uchun hali ham aniq. PNG faqat kichraytiriladi, hech qachon JPEG ga aylantirilmaydi.",
         "q5": "Suratlar va skrinshotlarni aralashtirsa bo'ladimi?",
         "a5": "Ha. Har bir rasm alohida sahifa bo'ladi. A4 tanlansa, barcha sahifalar bir xil o'lchamda, rasm markazda; asl o'lchamda esa har bir sahifa o'z rasmining o'lchamini oladi."
       }
