@@ -32,7 +32,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot at time of writing: **63 tools, 3 published, 60 drafts.**
+Registry snapshot: **63 tools, 5 published, 58 drafts** (Merge, Split, Rotate, Remove pages, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -47,11 +47,11 @@ pass plus a spot-check covers the set. Each wave is one deploy: test it, flip
 These three have real traffic and were published before the gate existed. They have
 never had the pass every other tool is waiting for. Half an hour, today.
 
-- [ ] **Merge PDF** — combine multiple PDFs into one.
+- [x] **Merge PDF** — combine multiple PDFs into one.
   Expect: add 3+ PDFs, drag to reorder (touch and keyboard both work on the
   drag handle), output page order matches the list order exactly.
 
-- [ ] **Split PDF** — extract a page range into a new PDF.
+- [x] **Split PDF** — extract a page range into a new PDF.
   Expect: type a range like `1-3, 5`; the page-range field is the only input
   (no visual picker here — deliberately not upgraded, see docs). Invalid or
   out-of-bounds numbers in the range are just ignored, not an error.
@@ -147,14 +147,14 @@ PDF→JPG's zip, and for Compress both a scan (should shrink a lot) and a text-o
 (must say there is nothing to compress). The four image-to-PDF pages are one component:
 test JPG fully, spot-check the wording and one file on each of the other three.
 
-- [ ] **Rotate PDF** — rotate some or all pages by 90/180/270°.
+- [x] **Rotate PDF** — rotate some or all pages by 90/180/270°.
   Expect: **every page starts pre-selected** in the picker (rotating
   everything is the common case) — you exclude pages by clicking, not include
   them. Thumbnails load progressively; the range-text field above the grid
   works immediately even before thumbnails finish. Only the selected pages
   rotate; unselected ones are untouched.
 
-- [ ] **Remove PDF pages** — delete pages from a PDF.
+- [x] **Remove PDF pages** — delete pages from a PDF.
   Expect: picker starts with **nothing selected** (removal should be
   deliberate). Try selecting every page — the tool must refuse ("would leave
   an empty PDF") rather than produce a broken zero-page file.

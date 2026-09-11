@@ -96,7 +96,11 @@
     "download": "Download",
     "useAsInput": "Use as input",
     "startOver": "Start over",
-    "next": "Continue with this file"
+    "next": "Continue with this file",
+    "preview": "Preview",
+    "pages": "{n} pages",
+    "rendering": "Rendering…",
+    "showAllPages": "Show all {n} pages"
   },
   "draft": {
     "badge": "Draft — not published"

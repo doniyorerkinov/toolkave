@@ -112,5 +112,7 @@ function continueWith(tool: ToolDef) {
         </li>
       </ul>
     </div>
+
+    <ShellResultPreview :result="result" />
   </div>
 </template>

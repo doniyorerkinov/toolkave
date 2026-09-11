@@ -69,7 +69,11 @@ export function usePageSeo(input: SeoInput) {
     ogDescription: input.description,
     ogUrl: canonical,
     ogType: 'website',
+    ogImage: `${SITE_URL}/og.png`,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
     twitterCard: 'summary_large_image',
+    twitterImage: `${SITE_URL}/og.png`,
     twitterTitle: input.title,
     twitterDescription: input.description
   })

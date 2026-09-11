@@ -96,7 +96,11 @@
     "download": "Yuklab olish",
     "useAsInput": "Keyingi vositaga berish",
     "startOver": "Qaytadan boshlash",
-    "next": "Shu fayl bilan davom eting"
+    "next": "Shu fayl bilan davom eting",
+    "preview": "Oldindan koʻrish",
+    "pages": "{n} sahifa",
+    "rendering": "Chizilmoqda…",
+    "showAllPages": "Barcha {n} sahifani koʻrsatish"
   },
   "draft": {
     "badge": "Qoralama — chop etilmagan"
@@ -587,7 +591,7 @@
       "name": "PDF ni birlashtirish",
       "short": "Bir nechta PDF faylni istalgan tartibda bittaga qo'shing.",
       "title": "PDF birlashtirish — PDF fayllarni onlayn qo'shish, bepul",
-      "description": "Bepul onlayn PDF birlashtirish. Bir nechta PDF ni bitta faylga qo'shing, tartibini o'zgartiring va darhol yuklab oling. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "description": "Bir nechta PDF ni onlayn bepul bitta faylga qo'shing: tartibini belgilang va darhol yuklab oling. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
       "intro": "Birlashtirmoqchi bo'lgan PDF fayllarni qo'shing, kerakli tartibga keltiring va birlashtiring. Fayllar brauzer ichida o'qiladi va qo'shiladi, shuning uchun hech narsa serverga yuborilmaydi va necha marta ishlatishingizda cheklov yo'q.",
       "howTo": {
         "step1": "Ikki yoki undan ortiq PDF faylni tashlang, tanlang yoki qo'ying.",
@@ -611,7 +615,7 @@
       "name": "PDF ni ajratish",
       "short": "Kerakli sahifalarni yangi PDF ga ajratib oling.",
       "title": "PDF ajratish — sahifalarni onlayn ajratib olish, bepul",
-      "description": "Bepul onlayn PDF ajratish. Kerakli sahifa yoki oraliqlarni ko'rsating va ularni alohida PDF sifatida yuklab oling. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "description": "Kerakli PDF sahifalarini onlayn bepul ajratib oling va alohida fayl sifatida yuklab oling. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
       "intro": "PDF qo'shing, qoldirmoqchi bo'lgan sahifalarni yozing va ularni yangi fayl sifatida yuklab oling. 1-3, 5, 8-10 kabi oraliqlar ishlaydi. Asl fayl o'zgarmaydi va qurilmangizdan chiqmaydi.",
       "howTo": {
         "step1": "Ajratmoqchi bo'lgan PDF ni qo'shing.",
@@ -657,7 +661,7 @@
       "name": "PDF sahifalarini o'chirish",
       "short": "Keraksiz sahifalarni o'chiring, qolganini saqlang.",
       "title": "PDF dan sahifalarni o'chirish — onlayn, bepul",
-      "description": "PDF dan sahifalarni bepul onlayn o'chirish. O'chiriladigan sahifalarni ko'rsating va qolganini yangi fayl sifatida yuklab oling. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "description": "PDF dan keraksiz sahifalarni onlayn bepul o'chiring va qolganini yangi fayl sifatida yuklab oling. Brauzerda ishlaydi — hech narsa yuklanmaydi.",
       "intro": "PDF qo'shing va olib tashlanadigan sahifalarni ko'rsating. Qolgani asl tartibda yangi fayl bo'lib saqlanadi. Qurilmangizdagi asl fayl o'zgarmaydi.",
       "howTo": {
         "step1": "Qisqartirmoqchi bo'lgan PDF ni qo'shing.",
