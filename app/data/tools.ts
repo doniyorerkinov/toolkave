@@ -222,7 +222,7 @@ export const tools: ToolDef[] = [
     group: 'edit',
     component: 'pdf/HeaderFooter',
     icon: 'panel-top',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'header-footer-pdf', ru: 'kolontituly-pdf', uz: 'pdf-kolontitul' },
     related: ['pdf-page-numbers', 'pdf-watermark'],
