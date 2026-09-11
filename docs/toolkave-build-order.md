@@ -537,3 +537,23 @@ the category page is the full list; every tool page lists its siblings in the si
     or mammoth, and never has to parse them — Rollup rejects papaparse's worker shim outright,
     which is what blocked the first deploy after Wave 3. Under Node (the test suite) the
     flag is undefined and the import runs. A new lazy import without the guard is wrong.
+
+## Cloudflare zone settings (dashboard only)
+
+Four things live in the Cloudflare dashboard rather than this repo, because
+static assets are served without invoking the Worker and `wrangler`'s token is
+zone-read-only. Tick them once, at dash.cloudflare.com → **toolkave.com**:
+
+- **SSL/TLS → Edge Certificates → Always Use HTTPS: On.** Without it
+  `http://toolkave.com` answers 200 in the clear and the browser says "Not
+  secure". The HSTS header in `public/_headers` only protects people who have
+  already arrived over https once.
+- **SSL/TLS → Overview → Full (strict)**, never Flexible.
+- **Rules → Redirect Rules → template "Redirect from WWW to Root"**, 301,
+  preserving path and query. `www.toolkave.com` is a second custom domain on
+  the same Worker, so without a rule it serves the whole site twice. Canonical
+  and hreflang tags already point at the apex, so this is tidiness and link
+  equity, not a live SEO problem. A `_redirects` file cannot do it: Workers
+  static assets match paths only, never hostnames.
+- After the redirect exists, `www.toolkave.com` can be dropped from `routes`
+  in `wrangler.jsonc` — but only after, or www stops resolving entirely.
