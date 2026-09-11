@@ -6,7 +6,12 @@
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "binding": "ASSETS",
-    "directory": ".output/public"
+    "directory": ".output/public",
+    // Prerendered pages live at <route>/index.html. The default ("auto-trailing-slash")
+    // answers /pdf/merge with a 307 to /pdf/merge/, so every canonical URL in the
+    // sitemap and hreflang tags would redirect. This serves /pdf/merge directly and
+    // sends the slash form back to it instead.
+    "html_handling": "drop-trailing-slash"
   },
   "routes": [
     { "pattern": "toolkave.com", "custom_domain": true },
