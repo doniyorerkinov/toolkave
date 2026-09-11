@@ -126,7 +126,7 @@ function download() {
         <!-- eslint-disable-next-line vue/no-v-html -- sanitised above -->
         <div
           v-if="showPreview"
-          class="prose-sm h-[26rem] overflow-auto rounded-lg border border-stone-300 bg-white p-3 text-sm text-stone-900 [&_h1]:mb-2 [&_h1]:text-xl [&_h1]:font-semibold [&_h2]:mb-2 [&_h2]:text-lg [&_h2]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_p]:mb-2 [&_table]:w-full [&_td]:border [&_td]:border-stone-200 [&_td]:px-2 [&_th]:border [&_th]:border-stone-200 [&_th]:px-2"
+          class="scroll-thin prose-sm h-[26rem] overflow-auto rounded-lg border border-stone-300 bg-white p-3 text-sm text-stone-900 [&_h1]:mb-2 [&_h1]:text-xl [&_h1]:font-semibold [&_h2]:mb-2 [&_h2]:text-lg [&_h2]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_p]:mb-2 [&_table]:w-full [&_td]:border [&_td]:border-stone-200 [&_td]:px-2 [&_th]:border [&_th]:border-stone-200 [&_th]:px-2"
           v-html="preview"
         />
         <textarea

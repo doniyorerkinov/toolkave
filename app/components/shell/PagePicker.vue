@@ -211,7 +211,7 @@ onBeforeUnmount(closeAllBitmaps)
       </div>
 
       <div
-        class="grid max-h-96 grid-cols-3 gap-2 overflow-y-auto rounded-lg border border-stone-200 p-2 sm:grid-cols-4 md:grid-cols-5"
+        class="scroll-thin grid max-h-96 grid-cols-3 gap-2 overflow-y-auto rounded-lg border border-stone-200 p-2 sm:grid-cols-4 md:grid-cols-5"
       >
         <button
           v-for="index in pageCount"
