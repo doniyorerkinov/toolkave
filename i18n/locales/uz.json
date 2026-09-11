@@ -95,7 +95,8 @@
   "result": {
     "download": "Yuklab olish",
     "useAsInput": "Keyingi vositaga berish",
-    "startOver": "Qaytadan boshlash"
+    "startOver": "Qaytadan boshlash",
+    "next": "Shu fayl bilan davom eting"
   },
   "draft": {
     "badge": "Qoralama — chop etilmagan"

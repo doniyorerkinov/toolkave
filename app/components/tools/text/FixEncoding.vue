@@ -18,7 +18,8 @@ const { t } = useI18n()
 const store = useFilesStore()
 
 type Mode = 'text' | 'file'
-const mode = ref<Mode>('text')
+// A file handed over from another tool (PDF to text, say) opens straight in file mode.
+const mode = ref<Mode>(useFilesStore().files.length ? 'file' : 'text')
 
 const input = ref('')
 const copied = ref(false)

@@ -422,6 +422,7 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'compress-image', ru: 'szhat-izobrazhenie', uz: 'rasmni-siqish' },
     related: ['image-resize', 'png-to-jpg'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
     maxFiles: 1
   },
   {
@@ -434,6 +435,7 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'resize-image', ru: 'izmenit-razmer', uz: 'rasm-olchamini-ozgartirish' },
     related: ['image-compress'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
     maxFiles: 1
   },
   // One component, one page per conversion pair - each is a separate query.
@@ -447,6 +449,7 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'png-to-jpg', ru: 'png-v-jpg', uz: 'png-dan-jpg' },
     related: ['jpg-to-png', 'image-compress'],
+    acceptedTypes: ['image/png'],
     config: { accept: 'image/png', to: 'jpeg' },
     maxFiles: 1
   },
@@ -460,6 +463,7 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'jpg-to-png', ru: 'jpg-v-png', uz: 'jpg-dan-png' },
     related: ['png-to-jpg', 'image-compress'],
+    acceptedTypes: ['image/jpeg'],
     config: { accept: 'image/jpeg', to: 'png' },
     maxFiles: 1
   },
@@ -473,6 +477,7 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'webp-to-jpg', ru: 'webp-v-jpg', uz: 'webp-dan-jpg' },
     related: ['png-to-jpg', 'image-compress'],
+    acceptedTypes: ['image/webp'],
     config: { accept: 'image/webp', to: 'jpeg' },
     maxFiles: 1
   },
@@ -486,6 +491,7 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'heic-to-jpg', ru: 'heic-v-jpg', uz: 'heic-dan-jpg' },
     related: ['heic-to-pdf', 'image-compress'],
+    acceptedTypes: ['image/heic'],
     config: { accept: 'image/heic,image/heif,.heic,.heif', to: 'jpeg' },
     maxFiles: 1
   },
@@ -596,7 +602,8 @@ export const tools: ToolDef[] = [
       ru: 'ispravit-krakozyabry',
       uz: 'buzilgan-matnni-tuzatish'
     },
-    related: ['word-counter', 'csv-to-json']
+    related: ['word-counter', 'csv-to-json'],
+    acceptedTypes: ['text/plain']
   },
   {
     id: 'image-to-text',
@@ -730,6 +737,7 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'csv-to-json', ru: 'csv-v-json', uz: 'csv-dan-json' },
     related: ['json-to-csv', 'csv-to-excel'],
+    acceptedTypes: ['text/csv'],
     config: { from: 'csv', to: 'json' },
     maxFiles: 1
   },
@@ -756,6 +764,7 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'csv-to-excel', ru: 'csv-v-excel', uz: 'csv-dan-excel' },
     related: ['excel-to-csv', 'csv-to-json'],
+    acceptedTypes: ['text/csv'],
     config: { from: 'csv', to: 'xlsx' },
     maxFiles: 1
   },
@@ -769,6 +778,7 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'excel-to-csv', ru: 'excel-v-csv', uz: 'excel-dan-csv' },
     related: ['csv-to-excel', 'excel-to-json'],
+    acceptedTypes: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
     config: { from: 'xlsx', to: 'csv' },
     maxFiles: 1
   },
@@ -782,6 +792,7 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'excel-to-json', ru: 'excel-v-json', uz: 'excel-dan-json' },
     related: ['json-to-excel', 'excel-to-csv'],
+    acceptedTypes: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
     config: { from: 'xlsx', to: 'json' },
     maxFiles: 1
   },
@@ -809,6 +820,7 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'csv-to-pdf', ru: 'csv-v-pdf', uz: 'csv-dan-pdf' },
     related: ['excel-to-pdf', 'csv-to-excel'],
+    acceptedTypes: ['text/csv'],
     config: { from: 'csv' },
     maxFiles: 1
   },
@@ -822,6 +834,7 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'excel-to-pdf', ru: 'excel-v-pdf', uz: 'excel-dan-pdf' },
     related: ['csv-to-pdf', 'excel-to-csv'],
+    acceptedTypes: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
     config: { from: 'xlsx' },
     maxFiles: 1
   },

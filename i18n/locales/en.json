@@ -95,7 +95,8 @@
   "result": {
     "download": "Download",
     "useAsInput": "Use as input",
-    "startOver": "Start over"
+    "startOver": "Start over",
+    "next": "Continue with this file"
   },
   "draft": {
     "badge": "Draft — not published"
