@@ -1,0 +1,13 @@
+# Response headers for every asset Cloudflare serves.
+#
+# HSTS is the half of "always HTTPS" that lives in the repo: after one visit
+# over https the browser refuses to use http for a year, so a typed
+# toolkave.com never leaves the machine unencrypted again. The other half -
+# redirecting the very first http request - is an edge setting:
+# Cloudflare dashboard > SSL/TLS > Edge Certificates > Always Use HTTPS.
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: geolocation=(), microphone=(), payment=(), usb=()
