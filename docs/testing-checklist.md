@@ -5,6 +5,10 @@ the tool on a real file and it did what "Expect" says — not just "it didn't
 crash." Flip `published: false` → `true` in [`app/data/tools.ts`](../app/data/tools.ts)
 for a tool once it passes.
 
+**Before the human pass:** `npm test` and `npm run typecheck` must be green. The
+test suite renders every PDF tool's output with pdf.js and checks placement on
+pixels, so a tool that fails there is not ready for a person's time.
+
 **How to test:** run `npm run dev`, then open `localhost:3000`. Every tool
 below is reachable in dev mode, published or not — drafts show an amber
 "Draft" badge on the page but work exactly like a live tool. Use the language

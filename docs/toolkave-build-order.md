@@ -492,3 +492,23 @@ actually selected, and cached by the browser after that.
     way and rendered an empty form in production. Use `instanceof` against the library's
     exported classes. More generally, anything that could behave differently minified needs
     one `npm run build && npx wrangler dev` pass; the dev-server checklist does not give you that.
+
+---
+
+## Tests
+
+`npm test` runs the headless suite in `tests/` on Node's built-in runner — no extra
+dependency. The composables are imported straight from `app/` (Node strips the types), so
+the code under test is the code the site ships. Output PDFs are rendered with pdf.js on
+`@napi-rs/canvas` and asserted on pixels: page numbers, headers, watermarks, signatures
+and annotations are checked *where a viewer shows them* on pages stored with every
+`/Rotate` value; redaction is checked to keep the displayed size; compress runs against a
+canvas shim. `TOOLKAVE_TEST_ARTIFACTS=1 npm test` also writes contact sheets to
+`tests/.artifacts/` for a look.
+
+Run it before the human pass on any PDF tool and before every deploy, alongside
+`npm run typecheck`. Two platform facts it records: Node's `TextDecoder('windows-1252')`
+returns C1 controls for 0x80–0x9F where browsers follow the Encoding Standard (worked
+around in `utils/encoding.ts`, which now decodes that label itself), and `@cantoo/pdf-lib`
+drops the document Info dictionary — title, author — on encrypted save, so Protect
+loses metadata; a `todo` test turns green when the fork fixes it.

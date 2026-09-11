@@ -8,6 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",
+    "test": "node --experimental-strip-types --disable-warning=ExperimentalWarning --test \"tests/*.test.mjs\"",
     "cf:preview": "nuxt build && wrangler dev",
     "deploy": "nuxt build && wrangler deploy",
     "postinstall": "nuxt prepare"

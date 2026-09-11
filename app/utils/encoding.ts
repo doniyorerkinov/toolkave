@@ -79,8 +79,27 @@ function latin1Decode(bytes: Uint8Array): string {
   return out
 }
 
+/**
+ * Windows-1252's 0x80–0x9F block, per the Encoding Standard. Browsers decode
+ * it this way; Node's `TextDecoder('windows-1252')` does not — it hands back
+ * the ISO-8859-1 control characters instead — so the block is applied here
+ * and this label is never left to the platform. The five undefined bytes
+ * (0x81, 0x8D, 0x8F, 0x90, 0x9D) map to their control code, as the standard
+ * says. Without this, "Привет" read as windows-1252 ("ÐŸÑ€Ð¸Ð²ÐµÑ‚") cannot be
+ * repaired under Node, because € and Ÿ never make it into the reverse table.
+ */
+const CP1252_HIGH = [
+  0x20ac, 0x0081, 0x201a, 0x0192, 0x201e, 0x2026, 0x2020, 0x2021, 0x02c6, 0x2030, 0x0160, 0x2039, 0x0152, 0x008d, 0x017d, 0x008f,
+  0x0090, 0x2018, 0x2019, 0x201c, 0x201d, 0x2022, 0x2013, 0x2014, 0x02dc, 0x2122, 0x0161, 0x203a, 0x0153, 0x009d, 0x017e, 0x0178
+]
+
+function cp1252Decode(bytes: Uint8Array): string {
+  return latin1Decode(bytes).replace(/[\u0080-\u009f]/g, c => String.fromCharCode(CP1252_HIGH[c.charCodeAt(0) - 0x80]!))
+}
+
 export function decodeBytes(bytes: Uint8Array, label: string): string | null {
   if (label === 'latin1') return latin1Decode(bytes)
+  if (label === 'windows-1252') return cp1252Decode(bytes)
   try {
     return new TextDecoder(label).decode(bytes)
   } catch {
