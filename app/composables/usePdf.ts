@@ -2,6 +2,8 @@ import type { HeldFile } from '~/stores/files'
 // Type-only: erased at build time, so this does not force an eager load of
 // the library the way a value import would.
 import type {
+  PDFDocument as PDFDocumentType,
+  PDFFont as PDFFontType,
   PDFForm,
   PDFDict as PDFDictType,
   PDFPage as PDFPageType,
@@ -825,8 +827,13 @@ export async function fillForm(
     }
   }
 
+  // Appearances are drawn here, with a font that can write the values, rather
+  // than left to save(): its own pass uses Helvetica, which turns Cyrillic
+  // into question marks.
+  const font = await appearanceFont(doc, form)
   if (flatten) await refreshStaleAppearances(form)
-  if (flatten) form.flatten()
+  form.updateFieldAppearances(font)
+  if (flatten) form.flatten({ updateFieldAppearances: false })
   return await doc.save()
 }
 
@@ -846,6 +853,49 @@ async function refreshStaleAppearances(form: PDFForm): Promise<void> {
 }
 
 /**
+ * Where the Unicode font's bytes come from: the site's own copy in the
+ * browser; the tests point this at the file on disk.
+ */
+let fontSource: () => Promise<ArrayBuffer> = async () => {
+  const response = await fetch('/fonts/roboto-regular.ttf')
+  if (!response.ok) throw new Error(`font: HTTP ${response.status}`)
+  return response.arrayBuffer()
+}
+
+export function setPdfFontSource(source: () => Promise<ArrayBuffer>): void {
+  fontSource = source
+}
+
+/**
+ * Roboto for any text the built-in Helvetica cannot write: Cyrillic (including
+ * the Uzbek and Kazakh letters), the Uzbek modifier apostrophe, anything past
+ * Latin-1. Manrope, the site's own face, lacks those glyphs. Fetched only when
+ * such text actually occurs, and subset on save so the PDF carries just the
+ * glyphs it uses, not the whole 500 KB.
+ */
+async function embedUnicodeFont(doc: PDFDocumentType): Promise<PDFFontType> {
+  if (import.meta.server) throw new Error('browser only')
+  const fontkit = await import('fontkit')
+  doc.registerFontkit(fontkit)
+  return doc.embedFont(await fontSource(), { subset: true })
+}
+
+/**
+ * The font to draw a form's values with: Helvetica while every value is
+ * Latin-1, so plain forms stay small and look standard; Manrope otherwise.
+ */
+async function appearanceFont(doc: PDFDocumentType, form: PDFForm): Promise<PDFFontType | undefined> {
+  const { PDFTextField, PDFDropdown } = await loadPdfLib()
+  const texts: string[] = []
+  for (const field of form.getFields()) {
+    if (field instanceof PDFTextField) texts.push(field.getText() ?? '')
+    else if (field instanceof PDFDropdown) texts.push(field.getSelected().join(''))
+  }
+  // Line breaks are layout, not glyphs: a multi-line Latin value stays Latin.
+  return texts.every(text => isLatin1(text.replace(/\s+/g, ''))) ? undefined : await embedUnicodeFont(doc)
+}
+
+/**
  * Turn form fields and annotations into static page content.
  *
  * Flattening a document with no form is a no-op rather than an error, since
@@ -857,7 +907,8 @@ export async function flattenPdf(file: HeldFile): Promise<Uint8Array> {
   try {
     const form = doc.getForm()
     await refreshStaleAppearances(form)
-    form.flatten()
+    form.updateFieldAppearances(await appearanceFont(doc, form))
+    form.flatten({ updateFieldAppearances: false })
   } catch {
     // No form, or a form pdf-lib cannot flatten. The save below still strips
     // nothing and returns a valid document.

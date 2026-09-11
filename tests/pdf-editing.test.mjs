@@ -133,3 +133,25 @@ test('flattening a NeedAppearances form bakes the values, not the stale streams'
   const filled = await pdf.fillForm(held(stale, 'form.pdf'), {}, true)
   assert.deepEqual(await pageTexts(filled), ['John Smith'])
 })
+
+test('Cyrillic and Uzbek values survive flatten and fill through the Unicode font', async () => {
+  const doc = await PDFDocument.create()
+  const page = doc.addPage([400, 300])
+  const form = doc.getForm()
+  const name = form.createTextField('name')
+  name.addToPage(page, { x: 32, y: 122, width: 296, height: 36 })
+  name.setText('Иван Петров')
+  form.acroForm.dict.set(lib.PDFName.of('NeedAppearances'), lib.PDFBool.True)
+  const stale = await doc.save({ updateFieldAppearances: false })
+
+  const flat = await pdf.flattenPdf(held(stale, 'form.pdf'))
+  assert.deepEqual(await pageTexts(flat), ['Иван Петров'], 'flatten draws Cyrillic, not question marks')
+
+  const filled = await pdf.fillForm(held(stale, 'form.pdf'), { name: 'Oʻzbekiston 2026' }, true)
+  assert.deepEqual(await pageTexts(filled), ['Oʻzbekiston 2026'], 'the modifier apostrophe is a real glyph')
+  assert.ok(filled.byteLength < 40_000, `the font is subset, not embedded whole: ${filled.byteLength} bytes`)
+
+  // A Latin-only form keeps the standard font and stays tiny.
+  const latin = await pdf.fillForm(held(stale, 'form.pdf'), { name: 'John Smith' }, true)
+  assert.ok(latin.byteLength < 5_000, `no font embedded for Latin: ${latin.byteLength} bytes`)
+})

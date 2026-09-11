@@ -499,6 +499,16 @@ actually selected, and cached by the browser after that.
 
 ---
 
+12. **Non-Latin text in a PDF goes through `embedUnicodeFont`** (usePdf.ts), never
+    the built-in Helvetica. Helvetica is WinAnsi: Cyrillic, the Uzbek letters ғ қ ҳ ў
+    and the modifier apostrophe ʻ come out as `?`. The font is Roboto
+    (`public/fonts/roboto-regular.ttf`, Apache-2.0), fetched only when such text
+    occurs and subset on save, so a form with two Cyrillic values adds ~3 KB, not
+    500. Manrope's TTF was tried first and lacks ғ қ ҳ ʻ ʼ. Form fill and flatten use
+    it today; page numbers, watermark and header/footer are still Latin-only and can
+    be switched the same way. Use `fontkit` v2, not `@pdf-lib/fontkit`: the
+    `@cantoo/pdf-lib` subsetter expects v2's `encode()`.
+
 ## Tests
 
 `npm test` runs the headless suite in `tests/` on Node's built-in runner — no extra

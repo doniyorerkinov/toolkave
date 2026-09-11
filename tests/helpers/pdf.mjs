@@ -16,6 +16,11 @@ const ROOT = path.resolve(fileURLToPath(import.meta.url), '../../..')
 const app = relative => import(pathToFileURL(path.join(ROOT, 'app', relative)).href)
 
 export const pdf = await app('composables/usePdf.ts')
+// In the browser the Unicode font is fetched from the site; here it is read from disk.
+pdf.setPdfFontSource(async () => {
+  const bytes = fs.readFileSync(path.join(ROOT, 'public/fonts/roboto-regular.ttf'))
+  return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength)
+})
 export const image = await app('composables/useImage.ts')
 export const lib = await import('@cantoo/pdf-lib')
 export const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs')

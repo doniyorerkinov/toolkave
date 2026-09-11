@@ -11,3 +11,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
   Permissions-Policy: geolocation=(), microphone=(), payment=(), usb=()
+
+# Fonts never change under the same name; the PDF font is half a megabyte.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
