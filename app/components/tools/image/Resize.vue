@@ -72,7 +72,11 @@ async function run() {
       name: withSuffix(file.value.name, `-${out.width}x${out.height}`, EXTENSION[outputFormat.value]),
       type: `image/${outputFormat.value}`,
       data: out.data,
-      sourceSize: file.value.size
+      sourceSize: file.value.size,
+      // Both previews scale to fit, so only the numbers show the resize.
+      note: dimensions.value
+        ? `${dimensions.value.width} × ${dimensions.value.height} px → ${out.width} × ${out.height} px`
+        : undefined
     })
   } catch (error) {
     store.error =

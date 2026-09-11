@@ -4,9 +4,9 @@
  */
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { pdf, lib, held } from './helpers/pdf.mjs'
+import { pdf, lib, held, render, inkFraction, inkOutside } from './helpers/pdf.mjs'
 
-const { PDFDocument } = lib
+const { PDFDocument, rgb } = lib
 
 /** Pages of distinct widths, so order is observable after any shuffle. */
 export async function pagesOfWidths(widths) {
@@ -71,4 +71,42 @@ test('form fields are read by kind and filled; one bad value does not abort the 
 test('flattening a document with no form is a no-op, not an error', async () => {
   const out = await pdf.flattenPdf(held(await pagesOfWidths([100, 200])))
   assert.deepEqual(await widthsOf(out), [100, 200])
+})
+
+test('resizePdfPages changes the page size, keeps orientation and centres the content', async () => {
+  const doc = await PDFDocument.create()
+  const page = doc.addPage([595.28, 841.89])
+  page.drawRectangle({ x: 250, y: 380, width: 95, height: 80, color: rgb(0, 0, 0) })
+  const a4 = held(await doc.save(), 'a4.pdf')
+
+  const size = async bytes => {
+    const out = await PDFDocument.load(bytes)
+    const first = out.getPage(0)
+    return [Math.round(first.getWidth()), Math.round(first.getHeight())]
+  }
+
+  assert.deepEqual(await size(await pdf.resizePdfPages(a4, 'letter')), [612, 792])
+  assert.deepEqual(await size(await pdf.resizePdfPages(a4, 'legal')), [612, 1008])
+  assert.deepEqual(await size(await pdf.resizePdfPages(a4, 'scale', 0.5)), [298, 421])
+
+  const landscape = await PDFDocument.create()
+  landscape.addPage([841.89, 595.28])
+  const wide = held(await landscape.save(), 'wide.pdf')
+  assert.deepEqual(await size(await pdf.resizePdfPages(wide, 'letter')), [792, 612], 'landscape stays landscape')
+
+  // The mark is centred on A4; it must still be centred on Letter, including
+  // when the page's own box does not start at (0, 0).
+  const offset = await PDFDocument.create()
+  const shifted = offset.addPage([595.28, 841.89])
+  shifted.setMediaBox(20, 20, 595.28, 841.89)
+  shifted.drawRectangle({ x: 270, y: 400, width: 95, height: 80, color: rgb(0, 0, 0) })
+  const boxed = held(await offset.save(), 'offset.pdf')
+
+  for (const [name, source] of [['plain', a4], ['offset box', boxed]]) {
+    const [{ canvas }] = await render(await pdf.resizePdfPages(source, 'letter'), 1)
+    const inset = [canvas.width * 0.18, canvas.height * 0.18]
+    const middle = [inset[0], inset[1], canvas.width - inset[0], canvas.height - inset[1]]
+    assert.ok(inkFraction(canvas, middle) > 0, `${name}: the mark is in the middle of the page`)
+    assert.equal(inkOutside(canvas, [middle]), 0, `${name}: nothing drifted to the edges`)
+  }
 })

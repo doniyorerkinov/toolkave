@@ -214,7 +214,9 @@
       },
       "scale": "Scale: {n}%",
       "fitNote": "Pages are scaled proportionally and centred, so nothing is stretched or cropped. Landscape pages stay landscape.",
-      "action": "Resize PDF"
+      "action": "Resize PDF",
+      "newSize": "New page size",
+      "noChange": "The pages are already this size — pick a different one to change them."
     },
     "flatten": {
       "noFields": "This PDF has no form fields. Flattening will still produce a valid copy, but nothing will change.",

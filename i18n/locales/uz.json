@@ -214,7 +214,9 @@
       },
       "scale": "Masshtab: {n}%",
       "fitNote": "Sahifalar mutanosib masshtablanadi va markazga joylashadi, shuning uchun hech narsa cho'zilmaydi va kesilmaydi. Albom sahifalar albom bo'lib qoladi.",
-      "action": "PDF formatini o'zgartirish"
+      "action": "PDF formatini o'zgartirish",
+      "newSize": "Yangi sahifa oʻlchami",
+      "noChange": "Sahifalar allaqachon shu o'lchamda — o'zgarishi uchun boshqasini tanlang."
     },
     "flatten": {
       "noFields": "Bu PDF da shakl maydonlari yo'q. Tekislash baribir to'g'ri nusxa yaratadi, lekin hech narsa o'zgarmaydi.",

@@ -705,7 +705,8 @@ export async function addHeaderFooter(
 
 export type PageSizePreset = 'a4' | 'letter' | 'legal' | 'scale'
 
-const PAPER: Record<Exclude<PageSizePreset, 'scale'>, [number, number]> = {
+/** Paper sizes in points, so a tool page can show what it is resizing to. */
+export const PAPER: Record<Exclude<PageSizePreset, 'scale'>, [number, number]> = {
   a4: [595.28, 841.89],
   letter: [612, 792],
   legal: [612, 1008]
@@ -732,13 +733,19 @@ export async function resizePdfPages(
     }
 
     const [targetWidth, targetHeight] = PAPER[preset]
-    const { width, height } = page.getSize()
+    const { x, y, width, height } = page.getMediaBox()
     // Keep the page's own orientation rather than forcing everything upright.
     const [tw, th] = width > height ? [targetHeight, targetWidth] : [targetWidth, targetHeight]
 
     const factor = Math.min(tw / width, th / height)
     page.scaleContent(factor, factor)
-    page.translateContent((tw - width * factor) / 2, (th - height * factor) / 2)
+    // Content coordinates are absolute and scaling works about (0, 0), so a
+    // page whose box does not start there drifts towards the origin; the
+    // `x * (1 - factor)` term puts it back, and the rest centres it.
+    page.translateContent(
+      x * (1 - factor) + (tw - width * factor) / 2,
+      y * (1 - factor) + (th - height * factor) / 2
+    )
     page.setSize(tw, th)
   }
 

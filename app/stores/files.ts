@@ -14,6 +14,12 @@ export interface ToolResult {
   data: Uint8Array
   /** Combined size of the inputs, so the result card can show before/after. */
   sourceSize: number
+  /**
+   * One short line about what changed, for tools whose work the byte count
+   * does not show — a resized page looks identical in any viewer that fits
+   * the page to the window.
+   */
+  note?: string
 }
 
 function makeId(): string {

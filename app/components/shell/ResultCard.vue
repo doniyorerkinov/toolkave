@@ -71,6 +71,7 @@ function continueWith(tool: ToolDef) {
             ({{ delta > 0 ? '+' : '' }}{{ delta }}%)
           </span>
         </p>
+        <p v-if="result.note" class="mt-0.5 text-sm font-medium text-emerald-900">{{ result.note }}</p>
       </div>
 
       <div class="flex flex-wrap gap-2">
