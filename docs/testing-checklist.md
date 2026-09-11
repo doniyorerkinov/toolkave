@@ -35,7 +35,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **64 tools, 9 published, 55 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, JPG/PNG/Image to PDF, Word counter).
+Registry snapshot: **64 tools, 10 published, 54 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Watermark, JPG/PNG/Image to PDF, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -335,7 +335,7 @@ header/footer are Latin-only by design — confirm the ru/uz pages say so before
 - [ ] **Add header and footer to PDF** — text in the top/bottom margin.
   Expect: same Latin-only text limitation as watermark/page-numbers.
 
-- [ ] **Watermark PDF** — diagonal/repeated text watermark.
+- [x] **Watermark PDF** — diagonal/repeated text watermark.
   Expect: same Latin-only limitation and same explicit message as page
   numbers, for the same reason (no embedded Cyrillic font).
 

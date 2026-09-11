@@ -196,7 +196,7 @@ export const tools: ToolDef[] = [
     group: 'edit',
     component: 'pdf/Watermark',
     icon: 'stamp',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'watermark-pdf', ru: 'vodyanoj-znak-pdf', uz: 'pdf-suv-belgisi' },
     related: ['pdf-page-numbers', 'pdf-info'],
