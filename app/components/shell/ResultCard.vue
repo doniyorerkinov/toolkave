@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { downloadBytes } from '~/utils/download'
 import { formatBytes } from '~/utils/formatters'
 import type { ToolResult } from '~/stores/files'
 
@@ -16,21 +17,8 @@ const delta = computed(() => {
   return Math.round(change)
 })
 
-/**
- * Downloads use an object URL rather than a data: URI so large files do not
- * have to be base64-encoded into memory. Revoked on the next tick, which is
- * long enough for the click to be handled.
- */
 function download() {
-  const blob = new Blob([props.result.data as BlobPart], { type: props.result.type })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = props.result.name
-  document.body.appendChild(link)
-  link.click()
-  link.remove()
-  setTimeout(() => URL.revokeObjectURL(url), 0)
+  downloadBytes(props.result.data, props.result.name, props.result.type)
 }
 </script>
 

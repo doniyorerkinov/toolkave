@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EXTENSION, type ImageFormat } from '~/composables/useImage'
+import { EXTENSION, UNSUPPORTED_OUTPUT, type ImageFormat } from '~/composables/useImage'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
@@ -58,8 +58,11 @@ async function run() {
       data: out.data,
       sourceSize: file.value.size
     })
-  } catch {
-    store.error = t('image.errorGeneric')
+  } catch (error) {
+    store.error =
+      error instanceof Error && error.message === UNSUPPORTED_OUTPUT
+        ? t('image.errorFormatUnsupported', { format: props.to.toUpperCase() })
+        : t('image.errorGeneric')
   } finally {
     store.busy = false
   }

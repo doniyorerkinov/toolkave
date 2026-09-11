@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EXTENSION, type ImageFormat } from '~/composables/useImage'
+import { EXTENSION, UNSUPPORTED_OUTPUT, type ImageFormat } from '~/composables/useImage'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
@@ -40,8 +40,11 @@ async function run() {
       data: out.data,
       sourceSize: file.value.size
     })
-  } catch {
-    store.error = t('image.errorGeneric')
+  } catch (error) {
+    store.error =
+      error instanceof Error && error.message === UNSUPPORTED_OUTPUT
+        ? t('image.errorFormatUnsupported', { format: format.value.toUpperCase() })
+        : t('image.errorGeneric')
   } finally {
     store.busy = false
   }
@@ -57,7 +60,7 @@ function onFiles(files: File[]) {
   <div class="space-y-4">
     <ShellFileDropzone
       v-if="!file"
-      accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
+      accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif"
       :multiple="false"
       @files="onFiles($event)"
     />

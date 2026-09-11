@@ -36,8 +36,8 @@ async function run() {
     )
     output.value = pages.join('\n\n').trim()
     if (!output.value) store.error = t('pdf.toText.empty')
-  } catch {
-    store.error = t('pdf.errorGeneric')
+  } catch (error) {
+    store.error = t(pdfErrorKey(error))
   } finally {
     store.busy = false
   }

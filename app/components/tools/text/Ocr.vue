@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { LANGUAGE_DOWNLOAD_MB, OCR_ACCEPTED, OCR_LANGUAGES, recogniseImage, type OcrLanguage } from '~/composables/useOcr'
+import { downloadBytes } from '~/utils/download'
 import { useFilesStore } from '~/stores/files'
 
 const props = withDefaults(defineProps<{ defaultLanguages?: OcrLanguage[] }>(), {
@@ -66,15 +67,8 @@ function onFiles(files: File[]) {
 }
 
 function download() {
-  const blob = new Blob([text.value], { type: 'text/plain;charset=utf-8' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = `${(file.value?.name ?? 'text').replace(/\.[^.]+$/, '')}.txt`
-  document.body.appendChild(link)
-  link.click()
-  link.remove()
-  setTimeout(() => URL.revokeObjectURL(url), 0)
+  const name = `${(file.value?.name ?? 'text').replace(/\.[^.]+$/, '')}.txt`
+  downloadBytes(text.value, name, 'text/plain;charset=utf-8')
 }
 
 async function copyText() {

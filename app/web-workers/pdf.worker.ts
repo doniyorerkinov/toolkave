@@ -17,6 +17,7 @@ import { GlobalWorkerOptions, getDocument, type PDFDocumentLoadingTask, type PDF
 // Vite's `?url` suffix resolves to the built asset's URL rather than its
 // contents — exactly what `workerSrc` needs to hand pdf.js a real worker file.
 import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
+import type { TextItem } from 'pdfjs-dist/types/src/display/api'
 import type { PdfWorkerRequest, PdfWorkerResponse } from './pdf-protocol'
 
 GlobalWorkerOptions.workerSrc = pdfWorkerUrl
@@ -139,9 +140,21 @@ async function handleText(request: Extract<PdfWorkerRequest, { kind: 'text' }>):
         const content = await page.getTextContent()
         // `hasEOL` is pdf.js's own line-break signal, read from the PDF's
         // actual text-positioning operators — not a guess from coordinates.
-        text = content.items
-          .map(item => ('str' in item ? item.str + (item.hasEOL ? '\n' : '') : ''))
-          .join('')
+        // Word gaps are another matter: justified and kerned text positions
+        // each word as its own item with no space character between them,
+        // so a horizontal gap wider than a sliver of the font size gets one.
+        text = ''
+        let previous: TextItem | null = null
+        for (const item of content.items) {
+          if (!('str' in item)) continue
+          if (previous && !previous.hasEOL && previous.str && item.str) {
+            const gap = item.transform[4]! - (previous.transform[4]! + previous.width)
+            const size = Math.hypot(previous.transform[0]!, previous.transform[1]!) || 1
+            if (gap > size * 0.15 && !/\s$/.test(previous.str) && !/^\s/.test(item.str)) text += ' '
+          }
+          text += item.str + (item.hasEOL ? '\n' : '')
+          previous = item
+        }
       } finally {
         page.cleanup()
       }

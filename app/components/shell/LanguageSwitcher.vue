@@ -25,7 +25,7 @@ const options = computed(() => {
       <span
         v-if="option.code === locale"
         class="rounded px-2 py-1 text-sm font-medium text-slate-900"
-        aria-current="true"
+        aria-current="page"
       >
         {{ option.name }}
       </span>

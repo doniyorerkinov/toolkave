@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { htmlToMarkdown, markdownToHtml, sanitiseHtml } from '~/composables/useDocx'
+import { downloadBytes } from '~/utils/download'
 
 /** One component, two pages: Markdown to HTML and HTML to Markdown. */
 const props = defineProps<{ from: 'markdown' | 'html' }>()
@@ -33,8 +34,13 @@ watch(input, () => {
 
 onBeforeUnmount(() => clearTimeout(timer))
 
+// Conversions are async, so a slow one started earlier could land after a
+// faster one for newer input; only the latest run is allowed to publish.
+let run = 0
+
 async function convert() {
   const value = input.value
+  const ticket = ++run
   if (!value.trim()) {
     output.value = ''
     preview.value = ''
@@ -44,19 +50,18 @@ async function convert() {
   busy.value = true
   error.value = null
   try {
-    if (props.from === 'markdown') {
-      output.value = await markdownToHtml(value)
-      preview.value = await sanitiseHtml(output.value)
-    } else {
-      output.value = await htmlToMarkdown(value)
-      // The preview shows the Markdown rendered back, which is the only way to
-      // see whether anything was lost in the conversion.
-      preview.value = await sanitiseHtml(await markdownToHtml(output.value))
-    }
+    const converted = props.from === 'markdown' ? await markdownToHtml(value) : await htmlToMarkdown(value)
+    // For HTML → Markdown the preview shows the Markdown rendered back, which
+    // is the only way to see whether anything was lost in the conversion.
+    const rendered = props.from === 'markdown' ? converted : await markdownToHtml(converted)
+    const safe = await sanitiseHtml(rendered)
+    if (ticket !== run) return
+    output.value = converted
+    preview.value = safe
   } catch {
-    error.value = t('markdown.errorGeneric')
+    if (ticket === run) error.value = t('markdown.errorGeneric')
   } finally {
-    busy.value = false
+    if (ticket === run) busy.value = false
   }
 }
 
@@ -74,15 +79,7 @@ async function copyOutput() {
 function download() {
   const extension = props.from === 'markdown' ? 'html' : 'md'
   const type = props.from === 'markdown' ? 'text/html' : 'text/markdown'
-  const blob = new Blob([output.value], { type: `${type};charset=utf-8` })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = `converted.${extension}`
-  document.body.appendChild(link)
-  link.click()
-  link.remove()
-  setTimeout(() => URL.revokeObjectURL(url), 0)
+  downloadBytes(output.value, `converted.${extension}`, `${type};charset=utf-8`)
 }
 </script>
 

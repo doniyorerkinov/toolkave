@@ -9,6 +9,13 @@ const store = useFilesStore()
 // survive a language switch on the same tool.
 const canRun = computed(() => store.files.length >= 2 && !store.busy)
 
+/** The registry's `maxFiles`; the dropzone only caps a single drop, not the running total. */
+const MAX_FILES = 50
+
+function onFiles(files: File[]) {
+  store.add(files.slice(0, Math.max(0, MAX_FILES - store.files.length)))
+}
+
 async function run() {
   if (!canRun.value) return
   store.busy = true
@@ -22,8 +29,8 @@ async function run() {
       data,
       sourceSize
     })
-  } catch {
-    store.error = t('pdf.errorGeneric')
+  } catch (error) {
+    store.error = t(pdfErrorKey(error))
   } finally {
     store.busy = false
   }
@@ -32,7 +39,7 @@ async function run() {
 
 <template>
   <div class="space-y-4">
-    <ShellFileDropzone accept="application/pdf" multiple @files="store.add($event)" />
+    <ShellFileDropzone accept="application/pdf" multiple :max-files="MAX_FILES" @files="onFiles($event)" />
 
     <ShellFileList
       :files="store.files"

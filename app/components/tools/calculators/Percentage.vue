@@ -16,9 +16,22 @@ const modes: Mode[] = ['of', 'what', 'change', 'discount', 'vat']
 const result = computed(() => {
   const x = a.value
   const y = b.value
-  if (x === null || y === null) return null
+  const current = mode.value
+  if (x === null) return null
 
-  switch (mode.value) {
+  // VAT has no second field, so a blank B left over from another mode must
+  // not hold the result hostage.
+  if (current === 'vat') {
+    const r = vat(x, vatRate.value, vatInclusive.value)
+    return [
+      { label: t('percent.net'), value: tidyNumber(r.net) },
+      { label: t('percent.tax'), value: tidyNumber(r.tax) },
+      { label: t('percent.gross'), value: tidyNumber(r.gross) }
+    ]
+  }
+  if (y === null) return null
+
+  switch (current) {
     case 'of':
       return [{ label: t('percent.resultOf', { p: x, v: tidyNumber(y) }), value: tidyNumber(percentOf(x, y)) }]
     case 'what': {
@@ -42,16 +55,7 @@ const result = computed(() => {
         { label: t('percent.youSave'), value: tidyNumber(saved) },
         { label: t('percent.finalPrice'), value: tidyNumber(final) }
       ]
-    }
-    case 'vat': {
-      const r = vat(x, vatRate.value, vatInclusive.value)
-      return [
-        { label: t('percent.net'), value: tidyNumber(r.net) },
-        { label: t('percent.tax'), value: tidyNumber(r.tax) },
-        { label: t('percent.gross'), value: tidyNumber(r.gross) }
-      ]
-    }
-  }
+    }  }
 })
 </script>
 

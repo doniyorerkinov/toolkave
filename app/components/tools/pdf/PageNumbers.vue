@@ -41,7 +41,8 @@ async function run() {
   try {
     const data = await addPageNumbers(file.value, {
       position: position.value,
-      startAt: startAt.value,
+      // `v-model.number` yields '' for a cleared field, which would number from "0".
+      startAt: Number.isFinite(startAt.value) ? startAt.value : 1,
       fontSize: fontSize.value,
       skipFirst: skipFirst.value
     })
@@ -51,8 +52,8 @@ async function run() {
       data,
       sourceSize: file.value.size
     })
-  } catch {
-    store.error = t('pdf.errorGeneric')
+  } catch (error) {
+    store.error = t(pdfErrorKey(error))
   } finally {
     store.busy = false
   }

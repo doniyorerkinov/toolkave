@@ -109,6 +109,7 @@
     "working": "Bajarilmoqda…",
     "errorGeneric": "Faylni qayta ishlab bo'lmadi. U shikastlangan yoki parol bilan himoyalangan bo'lishi mumkin.",
     "errorRead": "Bu PDF o'qilmadi. U shikastlangan yoki parol bilan himoyalangan bo'lishi mumkin.",
+    "errorEncrypted": "Bu PDF parol bilan himoyalangan. Avval «PDF parolini olib tashlash» vositasi bilan parolni olib tashlang, so'ng qayta urinib ko'ring.",
     "merge": {
       "needTwo": "Yana kamida bitta fayl qo'shing.",
       "action": "PDF ni birlashtirish"
@@ -332,6 +333,7 @@
     "working": "Bajarilmoqda…",
     "errorRead": "Rasmni o'qib bo'lmadi. U shikastlangan yoki qo'llab-quvvatlanmaydigan formatda bo'lishi mumkin.",
     "errorGeneric": "Rasmni qayta ishlab bo'lmadi.",
+    "errorFormatUnsupported": "Bu brauzer {format} formatidagi rasmlarni saqlay olmaydi. JPEG yoki PNG ni tanlang.",
     "dimensions": "{w} × {h} px",
     "original": "Asl",
     "quality": "Sifat: {n}%",
@@ -587,7 +589,7 @@
       "intro": "Birlashtirmoqchi bo'lgan PDF fayllarni qo'shing, kerakli tartibga keltiring va birlashtiring. Fayllar brauzer ichida o'qiladi va qo'shiladi, shuning uchun hech narsa serverga yuborilmaydi va necha marta ishlatishingizda cheklov yo'q.",
       "howTo": {
         "step1": "Ikki yoki undan ortiq PDF faylni tashlang, tanlang yoki qo'ying.",
-        "step2": "Strelkalar yordamida kerakli tartibga keltiring.",
+        "step2": "Fayllarni kerakli tartibga keltirish uchun ularni chap tomonidagi tutqichidan sudrang.",
         "step3": "«PDF ni birlashtirish» tugmasini bosing va tayyor faylni yuklab oling."
       },
       "faq": {

@@ -40,6 +40,8 @@ export function usePdfWorker() {
   // Keyed by request id, so calls issued back to back (or genuinely in
   // parallel) each resolve against their own responses rather than racing.
   const pending = new Map<number, { resolve: (pageCount: number) => void; reject: (error: Error) => void }>()
+  // Per-call listeners, so a worker-level failure can detach them too.
+  const listeners = new Set<(event: MessageEvent<PdfWorkerResponse>) => void>()
 
   function ensureWorker(): Worker {
     if (worker) return worker
@@ -67,6 +69,8 @@ export function usePdfWorker() {
         entry.reject(new Error(event.message || 'PDF worker failed'))
         pending.delete(id)
       }
+      for (const listener of listeners) worker?.removeEventListener('message', listener)
+      listeners.clear()
     }
 
     return worker
@@ -87,8 +91,12 @@ export function usePdfWorker() {
         if (message.id !== request.id) return
         if (message.kind === 'progress') progress?.onProgress?.(message.done, message.total)
         else if (message.kind !== 'done' && message.kind !== 'error') onMessage(message as M)
-        if (message.kind === 'done' || message.kind === 'error') instance.removeEventListener('message', listener)
+        if (message.kind === 'done' || message.kind === 'error') {
+          instance.removeEventListener('message', listener)
+          listeners.delete(listener)
+        }
       }
+      listeners.add(listener)
       instance.addEventListener('message', listener)
 
       instance.postMessage(request)
@@ -145,6 +153,7 @@ export function usePdfWorker() {
   function terminate(): void {
     worker?.terminate()
     worker = null
+    listeners.clear()
     for (const [id, entry] of pending) {
       entry.reject(new Error('PDF worker terminated'))
       pending.delete(id)

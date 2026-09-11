@@ -51,6 +51,51 @@ export function sniffImage(data: Uint8Array): 'jpeg' | 'png' | 'webp' | 'heic' |
   return null
 }
 
+/**
+ * Orientation tag (1–8) from a JPEG's EXIF block, or 1 when there is none.
+ *
+ * Phones store the sensor's pixels as-is and record how the camera was held
+ * in this tag. Browsers honour it when decoding; PDF viewers do not, so a
+ * JPEG embedded byte-for-byte in a PDF shows up sideways. Reading the tag is
+ * what lets the PDF tools leave the common case untouched and re-encode
+ * only the photos that need turning.
+ */
+export function jpegOrientation(data: Uint8Array): number {
+  if (data[0] !== 0xff || data[1] !== 0xd8) return 1
+  const view = new DataView(data.buffer, data.byteOffset, data.byteLength)
+
+  let offset = 2
+  while (offset + 4 <= data.length) {
+    if (data[offset] !== 0xff) return 1
+    const marker = data[offset + 1]!
+    // Start of scan or end of image: no more metadata segments.
+    if (marker === 0xda || marker === 0xd9) return 1
+    const length = view.getUint16(offset + 2)
+
+    // APP1 carrying "Exif\0\0", followed by a TIFF header.
+    if (marker === 0xe1 && offset + 10 <= data.length && view.getUint32(offset + 4) === 0x45786966) {
+      const tiff = offset + 10
+      if (tiff + 8 > data.length) return 1
+      const little = view.getUint16(tiff) === 0x4949
+      const ifd = tiff + view.getUint32(tiff + 4, little)
+      if (ifd + 2 > data.length) return 1
+      const entries = view.getUint16(ifd, little)
+      for (let i = 0; i < entries; i++) {
+        const entry = ifd + 2 + i * 12
+        if (entry + 12 > data.length) return 1
+        if (view.getUint16(entry, little) === 0x0112) {
+          const value = view.getUint16(entry + 8, little)
+          return value >= 1 && value <= 8 ? value : 1
+        }
+      }
+      return 1
+    }
+
+    offset += 2 + length
+  }
+  return 1
+}
+
 /** Decode to a bitmap, converting HEIC first if needed. */
 async function decode(data: Uint8Array): Promise<ImageBitmap> {
   const kind = sniffImage(data)
@@ -62,7 +107,9 @@ async function decode(data: Uint8Array): Promise<ImageBitmap> {
     blob = Array.isArray(converted) ? converted[0]! : converted
   }
 
-  return await createImageBitmap(blob)
+  // Explicit rather than relying on the default, which older engines set to
+  // "none": a photo must come out the way the camera was held.
+  return await createImageBitmap(blob, { imageOrientation: 'from-image' })
 }
 
 async function encode(
@@ -93,9 +140,16 @@ async function encode(
     canvas.toBlob(resolve, MIME[format], quality)
   )
   if (!blob) throw new Error('encode failed')
+  // A browser that cannot encode the requested format (Safari has no WebP
+  // encoder) quietly hands back a PNG instead. Saying so beats delivering a
+  // PNG with a .webp name and calling it compressed.
+  if (blob.type !== MIME[format]) throw new Error(UNSUPPORTED_OUTPUT)
 
   return new Uint8Array(await blob.arrayBuffer())
 }
+
+/** Thrown when this browser has no encoder for the requested output format. */
+export const UNSUPPORTED_OUTPUT = 'toolkave/unsupported-output'
 
 export interface ImageResult {
   data: Uint8Array
@@ -279,7 +333,9 @@ export async function normaliseForPdf(files: HeldFile[]): Promise<HeldFile[]> {
 
   for (const file of files) {
     const kind = sniffImage(file.data)
-    if (kind === 'jpeg' || kind === 'png') {
+    // A JPEG whose EXIF says it was shot sideways has to be re-encoded, since
+    // the embedder copies pixels as stored and PDF viewers ignore the tag.
+    if (kind === 'png' || (kind === 'jpeg' && jpegOrientation(file.data) === 1)) {
       out.push(file)
       continue
     }

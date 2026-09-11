@@ -50,7 +50,7 @@ async function run() {
         ? t('pdf.unlock.wrongPassword')
         : code === NOT_ENCRYPTED
           ? t('pdf.unlock.notEncrypted')
-          : t('pdf.errorGeneric')
+          : t(pdfErrorKey(e))
   } finally {
     store.busy = false
   }

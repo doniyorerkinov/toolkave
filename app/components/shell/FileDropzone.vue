@@ -1,3 +1,12 @@
+<script lang="ts">
+/**
+ * Every dropzone on the page, in mount order. A paste has no target zone of
+ * its own, so with two zones mounted (Compare PDF) it would otherwise land in
+ * both. A paste inside a zone goes to that zone; anywhere else, to the first.
+ */
+const mountedZones: HTMLElement[] = []
+</script>
+
 <script setup lang="ts">
 import { formatBytes } from '~/utils/formatters'
 
@@ -20,6 +29,7 @@ const emit = defineEmits<{ files: [File[]] }>()
 
 const { t } = useI18n()
 const dragging = ref(false)
+const root = ref<HTMLElement | null>(null)
 const input = ref<HTMLInputElement | null>(null)
 const rejected = ref<string | null>(null)
 
@@ -63,6 +73,11 @@ function onDrop(event: DragEvent) {
 }
 
 function onPaste(event: ClipboardEvent) {
+  const zone = root.value
+  if (!zone) return
+  const target = event.target instanceof Node ? event.target : null
+  const owner = mountedZones.find(el => target !== null && el.contains(target)) ?? mountedZones[0]
+  if (owner !== zone) return
   handle(event.clipboardData?.files)
 }
 
@@ -73,12 +88,19 @@ function onChange(event: Event) {
   target.value = ''
 }
 
-onMounted(() => window.addEventListener('paste', onPaste))
-onBeforeUnmount(() => window.removeEventListener('paste', onPaste))
+onMounted(() => {
+  if (root.value) mountedZones.push(root.value)
+  window.addEventListener('paste', onPaste)
+})
+onBeforeUnmount(() => {
+  const index = root.value ? mountedZones.indexOf(root.value) : -1
+  if (index !== -1) mountedZones.splice(index, 1)
+  window.removeEventListener('paste', onPaste)
+})
 </script>
 
 <template>
-  <div>
+  <div ref="root">
     <button
       type="button"
       class="flex w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-6 py-10 text-center transition"

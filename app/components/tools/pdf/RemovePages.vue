@@ -50,7 +50,7 @@ async function run() {
   } catch (e) {
     store.error = e instanceof Error && e.message === EMPTY_RESULT
       ? t('pdf.removePages.wouldEmpty')
-      : t('pdf.errorGeneric')
+      : t(pdfErrorKey(e))
   } finally {
     store.busy = false
   }

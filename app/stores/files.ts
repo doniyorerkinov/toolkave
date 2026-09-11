@@ -89,7 +89,13 @@ export const useFilesStore = defineStore('files', () => {
     result.value = next
   }
 
-  /** Feed the result back in as the input, so the next tool starts from it. */
+  /**
+   * Feed the result back in as the input, so the next tool starts from it.
+   *
+   * Ownership is released at the same time: the files become a hand-off, so
+   * `claim()` on whichever tool page opens next adopts them instead of
+   * discarding them, and the leave-page prompt stays quiet.
+   */
   function chainResult() {
     if (!result.value) return
     files.value = [
@@ -102,7 +108,11 @@ export const useFilesStore = defineStore('files', () => {
       }
     ]
     result.value = null
+    ownerToolId.value = null
   }
+
+  /** Whether the current files are a hand-off waiting for a tool to adopt them. */
+  const handedOff = computed(() => ownerToolId.value === null && files.value.length > 0)
 
   function reset() {
     files.value = []
@@ -120,6 +130,7 @@ export const useFilesStore = defineStore('files', () => {
     totalSize,
     hasFiles,
     hasWork,
+    handedOff,
     claim,
     add,
     remove,

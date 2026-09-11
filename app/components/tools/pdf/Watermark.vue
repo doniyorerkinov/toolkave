@@ -61,7 +61,7 @@ async function run() {
     store.error =
       e instanceof Error && e.message === UNSUPPORTED_TEXT
         ? t('pdf.watermark.unsupportedText')
-        : t('pdf.errorGeneric')
+        : t(pdfErrorKey(e))
   } finally {
     store.busy = false
   }

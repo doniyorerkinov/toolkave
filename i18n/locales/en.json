@@ -109,6 +109,7 @@
     "working": "Working…",
     "errorGeneric": "That file could not be processed. It may be damaged or password-protected.",
     "errorRead": "This PDF could not be read. It may be damaged or password-protected.",
+    "errorEncrypted": "This PDF is password-protected. Remove the password with Unlock PDF first, then try again.",
     "merge": {
       "needTwo": "Add at least one more file to merge.",
       "action": "Merge PDF"
@@ -332,6 +333,7 @@
     "working": "Working…",
     "errorRead": "That image could not be read. It may be damaged or in an unsupported format.",
     "errorGeneric": "That image could not be processed.",
+    "errorFormatUnsupported": "This browser cannot save {format} images. Choose JPEG or PNG instead.",
     "dimensions": "{w} × {h} px",
     "original": "Original",
     "quality": "Quality: {n}%",
@@ -587,7 +589,7 @@
       "intro": "Add the PDFs you want to combine, put them in the order you need, then merge. The files are read and combined inside your browser, so nothing is uploaded to a server and there is no limit on how many times you can do it.",
       "howTo": {
         "step1": "Add two or more PDF files by dropping, choosing or pasting them.",
-        "step2": "Use the arrows to put them in the order you want.",
+        "step2": "Drag the handle next to each file to put them in the order you want.",
         "step3": "Press Merge PDF and download the combined file."
       },
       "faq": {

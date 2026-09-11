@@ -21,6 +21,13 @@ const fit = ref<PageFit>('a4')
 
 const canRun = computed(() => store.hasFiles && !store.busy)
 
+/** The registry's `maxFiles`; the dropzone only caps a single drop, not the running total. */
+const MAX_FILES = 100
+
+function onFiles(files: File[]) {
+  store.add(files.slice(0, Math.max(0, MAX_FILES - store.files.length)))
+}
+
 async function run() {
   if (!canRun.value) return
   store.busy = true
@@ -47,7 +54,7 @@ async function run() {
 
 <template>
   <div class="space-y-4">
-    <ShellFileDropzone :accept="accept" multiple @files="store.add($event)" />
+    <ShellFileDropzone :accept="accept" multiple :max-files="MAX_FILES" @files="onFiles($event)" />
 
     <ShellFileList
       :files="store.files"

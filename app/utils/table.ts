@@ -256,7 +256,7 @@ export function gridToCsv(grid: Grid, delimiter: string = ',', bom = false): str
         .join(delimiter)
     )
     .join('\r\n')
-  return bom ? `﻿${body}` : body
+  return bom ? `\uFEFF${body}` : body
 }
 
 function escapeForClass(text: string): string {

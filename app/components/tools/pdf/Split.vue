@@ -21,7 +21,7 @@ watch(
     try {
       const info = await readPdfInfo(current)
       pageCount.value = info.pageCount
-      if (!ranges.value) ranges.value = `1-${Math.min(info.pageCount, 1)}`
+      if (!ranges.value) ranges.value = '1'
     } catch {
       infoError.value = true
     }
@@ -47,8 +47,8 @@ async function run() {
       data,
       sourceSize: file.value.size
     })
-  } catch {
-    store.error = t('pdf.errorGeneric')
+  } catch (error) {
+    store.error = t(pdfErrorKey(error))
   } finally {
     store.busy = false
   }

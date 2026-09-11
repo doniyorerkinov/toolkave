@@ -41,15 +41,18 @@ async function run() {
       data,
       sourceSize: store.totalSize
     })
-  } catch {
-    store.error = t('pdf.errorGeneric')
+  } catch (error) {
+    store.error = t(pdfErrorKey(error))
   } finally {
     store.busy = false
   }
 }
 
+/** The registry's `maxFiles`; the dropzone only caps a single drop, not the running total. */
+const MAX_FILES = 50
+
 function onFiles(files: File[]) {
-  store.add(files)
+  store.add(files.slice(0, Math.max(0, MAX_FILES - store.files.length)))
 }
 </script>
 

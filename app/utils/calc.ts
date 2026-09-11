@@ -89,8 +89,10 @@ export function dateDifference(from: Date, to: Date): AgeParts | null {
 
   const anchor = addMonths(start, months)
   const msPerDay = 86_400_000
-  const days = Math.floor((end.getTime() - anchor.getTime()) / msPerDay)
-  const totalDays = Math.floor((end.getTime() - start.getTime()) / msPerDay)
+  // Rounded, not floored: the inputs are local midnights, so the difference is
+  // a whole number of days give or take a daylight-saving hour.
+  const days = Math.round((end.getTime() - anchor.getTime()) / msPerDay)
+  const totalDays = Math.round((end.getTime() - start.getTime()) / msPerDay)
 
   return {
     years: Math.floor(months / 12),

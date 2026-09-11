@@ -487,3 +487,8 @@ actually selected, and cached by the browser after that.
    pass caught an invalid i18n config key that was being silently ignored, plus two unsound
    types. Note that a running `nuxt dev` holds `.output` through its workerd child and will
    make `nuxt build` fail with `EBUSY` — stop it first.
+10. **Never branch on `constructor.name`.** The production build minifies class names, so a
+    check that passes in `nuxt dev` matches nothing once deployed — Fill form shipped that
+    way and rendered an empty form in production. Use `instanceof` against the library's
+    exported classes. More generally, anything that could behave differently minified needs
+    one `npm run build && npx wrangler dev` pass; the dev-server checklist does not give you that.

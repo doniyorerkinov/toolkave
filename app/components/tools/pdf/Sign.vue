@@ -43,6 +43,17 @@ function setupCanvas() {
   const element = canvas.value
   if (!element) return
 
+  // Resizing the backing store wipes it, and on a phone a resize fires when
+  // the keyboard opens or the device turns. Keep what has been drawn so a
+  // signature never silently vanishes between drawing it and placing it.
+  let previous: HTMLCanvasElement | null = null
+  if (hasInk.value && element.width && element.height) {
+    previous = document.createElement('canvas')
+    previous.width = element.width
+    previous.height = element.height
+    previous.getContext('2d')?.drawImage(element, 0, 0)
+  }
+
   // Back the canvas at device resolution so the signature is not blurry.
   const ratio = window.devicePixelRatio || 1
   const rect = element.getBoundingClientRect()
@@ -52,6 +63,7 @@ function setupCanvas() {
   context = element.getContext('2d')
   if (!context) return
   context.scale(ratio, ratio)
+  if (previous) context.drawImage(previous, 0, 0, rect.width, rect.height)
   context.lineWidth = 2.5
   context.lineCap = 'round'
   context.lineJoin = 'round'
@@ -129,8 +141,8 @@ async function run() {
       data,
       sourceSize: file.value.size
     })
-  } catch {
-    store.error = t('pdf.errorGeneric')
+  } catch (error) {
+    store.error = t(pdfErrorKey(error))
   } finally {
     store.busy = false
   }

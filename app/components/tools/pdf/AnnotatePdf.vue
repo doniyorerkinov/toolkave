@@ -258,8 +258,8 @@ async function run() {
       data: result.data,
       sourceSize: file.value.size
     })
-  } catch {
-    store.error = t('pdf.errorGeneric')
+  } catch (error) {
+    store.error = t(pdfErrorKey(error))
   } finally {
     store.busy = false
   }

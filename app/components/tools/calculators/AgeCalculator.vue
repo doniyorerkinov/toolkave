@@ -3,29 +3,44 @@ import { dateDifference } from '~/utils/calc'
 
 const { t } = useI18n()
 
-function iso(date: Date) {
-  return date.toISOString().slice(0, 10)
+/**
+ * Dates are local calendar days throughout. `new Date('2026-01-15')` is UTC
+ * midnight and `toISOString()` prints UTC, so mixing either with the local
+ * getters shifts a day for anyone east or west of Greenwich — which is
+ * everyone this site is for.
+ */
+function parseLocal(value: string): Date | null {
+  const [y, m, d] = value.split('-').map(Number)
+  if (!y || !m || !d) return null
+  const date = new Date(y, m - 1, d)
+  return Number.isNaN(date.getTime()) ? null : date
+}
+
+function formatLocal(date: Date): string {
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
 }
 
 const from = ref('1990-01-15')
-const to = ref(iso(new Date()))
+const to = ref(formatLocal(new Date()))
 
 const result = computed(() => {
-  if (!from.value || !to.value) return null
-  return dateDifference(new Date(from.value), new Date(to.value))
+  const start = parseLocal(from.value)
+  const end = parseLocal(to.value)
+  if (!start || !end) return null
+  return dateDifference(start, end)
 })
 
 const nextBirthday = computed(() => {
-  if (!from.value) return null
-  const birth = new Date(from.value)
-  if (Number.isNaN(birth.getTime())) return null
+  const birth = parseLocal(from.value)
+  if (!birth) return null
 
-  const reference = new Date(to.value || iso(new Date()))
+  const reference = parseLocal(to.value) ?? parseLocal(formatLocal(new Date()))!
   let next = new Date(reference.getFullYear(), birth.getMonth(), birth.getDate())
   if (next < reference) next = new Date(reference.getFullYear() + 1, birth.getMonth(), birth.getDate())
 
-  const days = Math.ceil((next.getTime() - reference.getTime()) / 86_400_000)
-  return { days, date: iso(next) }
+  const days = Math.round((next.getTime() - reference.getTime()) / 86_400_000)
+  return { days, date: formatLocal(next) }
 })
 
 const stats = computed(() => {

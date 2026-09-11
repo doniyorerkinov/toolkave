@@ -45,8 +45,22 @@ function toolAt(route: RouteLocationNormalized): ToolDef | undefined {
   return toolBySlug(category, tool, destinationLocale, import.meta.dev)
 }
 
+/**
+ * A result produced here belongs to this tool again, even when the input
+ * arrived as a hand-off from another one.
+ */
+watch(
+  () => store.result,
+  result => {
+    if (result && store.ownerToolId === null) store.ownerToolId = props.tool.id
+  }
+)
+
 onBeforeRouteLeave(async to => {
   if (!store.hasWork) return true
+
+  // "Use as input" released the files for the next tool: leaving is the point.
+  if (store.handedOff) return true
 
   // Switching language on the same tool keeps the files - it is the same work,
   // just a different URL.

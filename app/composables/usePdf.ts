@@ -1,7 +1,12 @@
 import type { HeldFile } from '~/stores/files'
 // Type-only: erased at build time, so this does not force an eager load of
 // the library the way a value import would.
-import type { PDFDict as PDFDictType, PDFRawStream as PDFRawStreamType } from '@cantoo/pdf-lib'
+import type {
+  PDFDict as PDFDictType,
+  PDFPage as PDFPageType,
+  PDFRawStream as PDFRawStreamType,
+  Rotation as RotationType
+} from '@cantoo/pdf-lib'
 
 /**
  * Thin PDF API. Every entry point imports `pdf-lib` dynamically, so the library
@@ -22,6 +27,78 @@ import type { PDFDict as PDFDictType, PDFRawStream as PDFRawStreamType } from '@
  */
 async function loadPdfLib() {
   return await import('@cantoo/pdf-lib')
+}
+
+/** Thrown when an editing tool is handed a PDF that needs a password to open. */
+export const ENCRYPTED_INPUT = 'toolkave/encrypted-input'
+
+function isPasswordError(error: unknown): boolean {
+  return error instanceof Error && /password/i.test(error.message)
+}
+
+/**
+ * Load a document that is about to be modified or have pages copied out of it.
+ *
+ * `ignoreEncryption: true` is fine for reading metadata, but it leaves every
+ * stream encrypted, and copying those into a fresh document produces a file
+ * full of garbage. Passing an empty password instead decrypts the common
+ * "owner password only" case transparently (printing restrictions and the
+ * like), and a file that genuinely needs a password fails here with a code
+ * the tools can turn into "unlock it first" rather than a broken download.
+ */
+async function loadEditable(file: HeldFile) {
+  const { PDFDocument } = await loadPdfLib()
+  try {
+    return await PDFDocument.load(toArrayBuffer(file.data), { password: '' })
+  } catch (error) {
+    if (isPasswordError(error)) throw new Error(ENCRYPTED_INPUT)
+    throw error
+  }
+}
+
+/** i18n key for an error thrown by any function in this file. */
+export function pdfErrorKey(error: unknown): string {
+  return error instanceof Error && error.message === ENCRYPTED_INPUT ? 'pdf.errorEncrypted' : 'pdf.errorGeneric'
+}
+
+/**
+ * The page as a viewer shows it.
+ *
+ * pdf-lib draws in the page's own coordinate space, which ignores `/Rotate`
+ * and the CropBox origin. Scans routinely carry `/Rotate 90`, so "bottom
+ * centre" in that space lands on the wrong edge, sideways. Every overlay
+ * tool positions in *displayed* space instead and maps through this: the
+ * point is moved into page space and the drawn object rotated by the same
+ * angle, which cancels the viewer's rotation and leaves it upright where
+ * the user put it.
+ */
+interface DisplayFrame {
+  /** Displayed size, after rotation. */
+  width: number
+  height: number
+  /** Pass as `rotate` to draw calls so the object reads upright. */
+  rotate: RotationType
+  /** Displayed point (origin bottom-left, y up) to page space. */
+  toPage: (x: number, y: number) => { x: number; y: number }
+}
+
+function displayFrame(page: PDFPageType, degrees: (angle: number) => RotationType): DisplayFrame {
+  const box = page.getCropBox()
+  const angle = ((Math.round(page.getRotation().angle) % 360) + 360) % 360
+  const rotate = degrees(angle)
+  const w = box.width
+  const h = box.height
+
+  if (angle === 90) {
+    return { width: h, height: w, rotate, toPage: (x, y) => ({ x: box.x + w - y, y: box.y + x }) }
+  }
+  if (angle === 180) {
+    return { width: w, height: h, rotate, toPage: (x, y) => ({ x: box.x + w - x, y: box.y + h - y }) }
+  }
+  if (angle === 270) {
+    return { width: h, height: w, rotate, toPage: (x, y) => ({ x: box.x + y, y: box.y + h - x }) }
+  }
+  return { width: w, height: h, rotate, toPage: (x, y) => ({ x: box.x + x, y: box.y + y }) }
 }
 
 export interface PdfInfo {
@@ -87,8 +164,8 @@ export interface AnnotateResult {
  * shouldn't discard every highlight and note around it.
  */
 export async function annotatePdf(file: HeldFile, annotations: Annotation[]): Promise<AnnotateResult> {
-  const { PDFDocument, rgb } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const { rgb, degrees } = await loadPdfLib()
+  const doc = await loadEditable(file)
   const pages = doc.getPages()
 
   let notesSkipped = 0
@@ -96,7 +173,10 @@ export async function annotatePdf(file: HeldFile, annotations: Annotation[]): Pr
   for (const annotation of annotations) {
     const page = pages[annotation.page]
     if (!page) continue
-    const { width, height } = page.getSize()
+    // Fractions were measured on the rendered preview, i.e. in displayed
+    // space; the frame maps them onto the page's own axes and rotation.
+    const frame = displayFrame(page, degrees)
+    const { width, height, rotate } = frame
 
     // The UI's y is measured from the top (how the overlay was drawn); PDF
     // page space measures from the bottom, and drawRectangle/drawText take
@@ -104,28 +184,30 @@ export async function annotatePdf(file: HeldFile, annotations: Annotation[]): Pr
     if (annotation.kind === 'highlight') {
       const boxWidth = annotation.width * width
       const boxHeight = annotation.height * height
-      const x = annotation.x * width
-      const y = height - annotation.y * height - boxHeight
-      page.drawRectangle({ x, y, width: boxWidth, height: boxHeight, color: rgb(1, 0.92, 0.2), opacity: 0.45 })
+      const { x, y } = frame.toPage(annotation.x * width, height - annotation.y * height - boxHeight)
+      page.drawRectangle({ x, y, width: boxWidth, height: boxHeight, rotate, color: rgb(1, 0.92, 0.2), opacity: 0.45 })
     } else {
       if (!isLatin1(annotation.text)) {
         notesSkipped++
         continue
       }
       const fontSize = 11
-      const x = annotation.x * width
-      const y = height - annotation.y * height - fontSize
+      const left = annotation.x * width
+      const baseline = height - annotation.y * height - fontSize
+      const box = frame.toPage(left - 3, baseline - 3)
       page.drawRectangle({
-        x: x - 3,
-        y: y - 3,
+        x: box.x,
+        y: box.y,
         width: Math.max(20, annotation.text.length * fontSize * 0.55),
         height: fontSize + 6,
+        rotate,
         color: rgb(1, 1, 0.85),
         opacity: 0.9,
         borderColor: rgb(0.8, 0.65, 0),
         borderWidth: 0.75
       })
-      page.drawText(annotation.text, { x, y, size: fontSize, color: rgb(0.35, 0.25, 0) })
+      const text = frame.toPage(left, baseline)
+      page.drawText(annotation.text, { x: text.x, y: text.y, size: fontSize, rotate, color: rgb(0.35, 0.25, 0) })
     }
   }
 
@@ -163,13 +245,16 @@ export async function replacePagesWithImages(
   file: HeldFile,
   images: FlattenedPageImage[]
 ): Promise<Uint8Array> {
-  const { PDFDocument } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const { degrees } = await loadPdfLib()
+  const doc = await loadEditable(file)
 
   for (const image of images) {
     if (image.page < 0 || image.page >= doc.getPageCount()) continue
     const original = doc.getPage(image.page)
-    const { width, height } = original.getSize()
+    // The raster was rendered the way a viewer shows the page, so the
+    // replacement takes the *displayed* size and carries no /Rotate of its
+    // own — otherwise a scanned page stored sideways comes back squashed.
+    const { width, height } = displayFrame(original, degrees)
 
     const embedded = await doc.embedJpg(image.data)
     doc.removePage(image.page)
@@ -185,7 +270,7 @@ export async function mergePdfs(files: HeldFile[]): Promise<Uint8Array> {
   const out = await PDFDocument.create()
 
   for (const file of files) {
-    const source = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+    const source = await loadEditable(file)
     const pages = await out.copyPages(source, source.getPageIndices())
     for (const page of pages) out.addPage(page)
   }
@@ -195,10 +280,11 @@ export async function mergePdfs(files: HeldFile[]): Promise<Uint8Array> {
 
 export async function extractPages(file: HeldFile, pageIndices: number[]): Promise<Uint8Array> {
   const { PDFDocument } = await loadPdfLib()
-  const source = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const source = await loadEditable(file)
   const out = await PDFDocument.create()
 
   const valid = pageIndices.filter(i => i >= 0 && i < source.getPageCount())
+  if (!valid.length) throw new Error(EMPTY_RESULT)
   const pages = await out.copyPages(source, valid)
   for (const page of pages) out.addPage(page)
 
@@ -211,8 +297,8 @@ export async function rotatePdf(
   turn: number,
   pageIndices: number[] = []
 ): Promise<Uint8Array> {
-  const { PDFDocument, degrees } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const { degrees } = await loadPdfLib()
+  const doc = await loadEditable(file)
 
   const targets = pageIndices.length ? pageIndices : doc.getPageIndices()
   for (const index of targets) {
@@ -220,7 +306,7 @@ export async function rotatePdf(
     // Add to the existing rotation rather than replacing it, so a page that was
     // already sideways in the source ends up where the user expects.
     const current = page.getRotation().angle
-    page.setRotation(degrees((current + turn) % 360))
+    page.setRotation(degrees((((current + turn) % 360) + 360) % 360))
   }
 
   return await doc.save()
@@ -235,7 +321,7 @@ export async function removePdfPages(
   pageIndices: number[]
 ): Promise<Uint8Array> {
   const { PDFDocument } = await loadPdfLib()
-  const source = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const source = await loadEditable(file)
 
   const drop = new Set(pageIndices)
   const keep = source.getPageIndices().filter(i => !drop.has(i))
@@ -334,8 +420,8 @@ export async function addPageNumbers(
   file: HeldFile,
   options: PageNumberOptions
 ): Promise<Uint8Array> {
-  const { PDFDocument, StandardFonts, rgb } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const { StandardFonts, rgb, degrees } = await loadPdfLib()
+  const doc = await loadEditable(file)
   const font = await doc.embedFont(StandardFonts.Helvetica)
 
   const pages = doc.getPages()
@@ -346,7 +432,8 @@ export async function addPageNumbers(
 
     const label = String(options.startAt + index)
     const width = font.widthOfTextAtSize(label, options.fontSize)
-    const { width: pageWidth, height: pageHeight } = page.getSize()
+    const frame = displayFrame(page, degrees)
+    const { width: pageWidth, height: pageHeight } = frame
 
     let x = (pageWidth - width) / 2
     let y = margin
@@ -358,7 +445,13 @@ export async function addPageNumbers(
       y = pageHeight - margin - options.fontSize
     }
 
-    page.drawText(label, { x, y, size: options.fontSize, font, color: rgb(0.1, 0.1, 0.1) })
+    page.drawText(label, {
+      ...frame.toPage(x, y),
+      rotate: frame.rotate,
+      size: options.fontSize,
+      font,
+      color: rgb(0.1, 0.1, 0.1)
+    })
   })
 
   return await doc.save()
@@ -377,12 +470,13 @@ export async function addWatermark(
 ): Promise<Uint8Array> {
   if (!isLatin1(options.text)) throw new Error(UNSUPPORTED_TEXT)
 
-  const { PDFDocument, StandardFonts, degrees, rgb } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const { StandardFonts, degrees, rgb } = await loadPdfLib()
+  const doc = await loadEditable(file)
   const font = await doc.embedFont(StandardFonts.HelveticaBold)
 
   for (const page of doc.getPages()) {
-    const { width, height } = page.getSize()
+    const frame = displayFrame(page, degrees)
+    const { width, height } = frame
     const textWidth = font.widthOfTextAtSize(options.text, options.fontSize)
 
     // Rotate about the page centre, so the text stays centred at any angle.
@@ -391,13 +485,13 @@ export async function addWatermark(
     const y = height / 2 - (textWidth / 2) * Math.sin(radians)
 
     page.drawText(options.text, {
-      x,
-      y,
+      ...frame.toPage(x, y),
       size: options.fontSize,
       font,
       color: rgb(0.45, 0.45, 0.45),
       opacity: options.opacity,
-      rotate: degrees(options.angle)
+      // The page's own rotation first, so the angle is relative to the page as seen.
+      rotate: degrees(frame.rotate.angle + options.angle)
     })
   }
 
@@ -439,7 +533,16 @@ export async function readPdfMetadata(file: HeldFile): Promise<PdfMetadata> {
   const { PDFDocument } = await loadPdfLib()
   const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
 
-  const iso = (date: Date | undefined) => (date ? date.toISOString().slice(0, 10) : '')
+  // pdf-lib throws on a malformed date string, which plenty of generators
+  // write; a bad date must not make the whole document unreadable.
+  const iso = (read: () => Date | undefined) => {
+    try {
+      const date = read()
+      return date && !Number.isNaN(date.getTime()) ? date.toISOString().slice(0, 10) : ''
+    } catch {
+      return ''
+    }
+  }
 
   const sizes = doc.getPages().map(page => {
     const { width, height } = page.getSize()
@@ -457,8 +560,8 @@ export async function readPdfMetadata(file: HeldFile): Promise<PdfMetadata> {
     subject: doc.getSubject() ?? '',
     creator: doc.getCreator() ?? '',
     producer: doc.getProducer() ?? '',
-    created: iso(doc.getCreationDate()),
-    modified: iso(doc.getModificationDate()),
+    created: iso(() => doc.getCreationDate()),
+    modified: iso(() => doc.getModificationDate()),
     pageSizes: sizes,
     encrypted: doc.isEncrypted
   }
@@ -477,8 +580,8 @@ export async function addHeaderFooter(
 ): Promise<Uint8Array> {
   if (!isLatin1(options.header) || !isLatin1(options.footer)) throw new Error(UNSUPPORTED_TEXT)
 
-  const { PDFDocument, StandardFonts, rgb } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const { StandardFonts, rgb, degrees } = await loadPdfLib()
+  const doc = await loadEditable(file)
   const font = await doc.embedFont(StandardFonts.Helvetica)
   const margin = 28
 
@@ -490,13 +593,14 @@ export async function addHeaderFooter(
   }
 
   for (const page of doc.getPages()) {
-    const { width, height } = page.getSize()
+    const frame = displayFrame(page, degrees)
+    const { width, height, rotate } = frame
     const colour = rgb(0.25, 0.25, 0.25)
 
     if (options.header) {
       page.drawText(options.header, {
-        x: place(options.header, width),
-        y: height - margin - options.fontSize,
+        ...frame.toPage(place(options.header, width), height - margin - options.fontSize),
+        rotate,
         size: options.fontSize,
         font,
         color: colour
@@ -504,8 +608,8 @@ export async function addHeaderFooter(
     }
     if (options.footer) {
       page.drawText(options.footer, {
-        x: place(options.footer, width),
-        y: margin,
+        ...frame.toPage(place(options.footer, width), margin),
+        rotate,
         size: options.fontSize,
         font,
         color: colour
@@ -536,8 +640,7 @@ export async function resizePdfPages(
   preset: PageSizePreset,
   scale = 1
 ): Promise<Uint8Array> {
-  const { PDFDocument } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const doc = await loadEditable(file)
 
   for (const page of doc.getPages()) {
     if (preset === 'scale') {
@@ -566,39 +669,38 @@ export interface FormField {
   options: string[]
 }
 
+/**
+ * Field kinds are told apart with `instanceof`, never `constructor.name`:
+ * the production build minifies class names, so a name check passes in
+ * `nuxt dev` and silently matches nothing once deployed.
+ */
 export async function readFormFields(file: HeldFile): Promise<FormField[]> {
-  const { PDFDocument } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const { PDFTextField, PDFCheckBox, PDFDropdown, PDFRadioGroup } = await loadPdfLib()
+  const doc = await loadEditable(file)
 
-  const form = doc.getForm()
-  return form.getFields().map(field => {
+  return doc.getForm().getFields().map(field => {
     const name = field.getName()
-    const kind = field.constructor.name
 
-    if (kind === 'PDFTextField') {
-      const typed = form.getTextField(name)
-      return { name, type: 'text' as const, value: typed.getText() ?? '', options: [] }
+    if (field instanceof PDFTextField) {
+      return { name, type: 'text' as const, value: field.getText() ?? '', options: [] }
     }
-    if (kind === 'PDFCheckBox') {
-      const typed = form.getCheckBox(name)
-      return { name, type: 'checkbox' as const, value: typed.isChecked() ? 'on' : '', options: [] }
+    if (field instanceof PDFCheckBox) {
+      return { name, type: 'checkbox' as const, value: field.isChecked() ? 'on' : '', options: [] }
     }
-    if (kind === 'PDFDropdown') {
-      const typed = form.getDropdown(name)
+    if (field instanceof PDFDropdown) {
       return {
         name,
         type: 'dropdown' as const,
-        value: typed.getSelected()[0] ?? '',
-        options: typed.getOptions()
+        value: field.getSelected()[0] ?? '',
+        options: field.getOptions()
       }
     }
-    if (kind === 'PDFRadioGroup') {
-      const typed = form.getRadioGroup(name)
+    if (field instanceof PDFRadioGroup) {
       return {
         name,
         type: 'radio' as const,
-        value: typed.getSelected() ?? '',
-        options: typed.getOptions()
+        value: field.getSelected() ?? '',
+        options: field.getOptions()
       }
     }
     return { name, type: 'other' as const, value: '', options: [] }
@@ -611,23 +713,21 @@ export async function fillForm(
   values: Record<string, string>,
   flatten: boolean
 ): Promise<Uint8Array> {
-  const { PDFDocument } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const { PDFTextField, PDFCheckBox, PDFDropdown, PDFRadioGroup } = await loadPdfLib()
+  const doc = await loadEditable(file)
   const form = doc.getForm()
 
   for (const field of form.getFields()) {
     const name = field.getName()
     if (!(name in values)) continue
     const value = values[name] ?? ''
-    const kind = field.constructor.name
 
     try {
-      if (kind === 'PDFTextField') form.getTextField(name).setText(value)
-      else if (kind === 'PDFCheckBox') {
-        const box = form.getCheckBox(name)
-        value ? box.check() : box.uncheck()
-      } else if (kind === 'PDFDropdown' && value) form.getDropdown(name).select(value)
-      else if (kind === 'PDFRadioGroup' && value) form.getRadioGroup(name).select(value)
+      if (field instanceof PDFTextField) field.setText(value)
+      else if (field instanceof PDFCheckBox) {
+        value ? field.check() : field.uncheck()
+      } else if (field instanceof PDFDropdown && value) field.select(value)
+      else if (field instanceof PDFRadioGroup && value) field.select(value)
     } catch {
       // A value that no longer matches the field's options should not abort the
       // whole fill; the remaining fields are still worth writing.
@@ -645,8 +745,7 @@ export async function fillForm(
  * "make this uneditable" is a reasonable thing to ask of any PDF.
  */
 export async function flattenPdf(file: HeldFile): Promise<Uint8Array> {
-  const { PDFDocument } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const doc = await loadEditable(file)
 
   try {
     doc.getForm().flatten()
@@ -669,20 +768,22 @@ export interface SignaturePlacement {
 }
 
 export async function signPdf(file: HeldFile, placement: SignaturePlacement): Promise<Uint8Array> {
-  const { PDFDocument } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const { degrees } = await loadPdfLib()
+  const doc = await loadEditable(file)
 
   const png = await doc.embedPng(toArrayBuffer(placement.image))
   const page = doc.getPage(Math.min(placement.pageIndex, doc.getPageCount() - 1))
-  const { width, height } = page.getSize()
+  // "From the left / from the top" mean the page as the user sees it.
+  const frame = displayFrame(page, degrees)
+  const { width, height } = frame
 
   const drawWidth = width * placement.widthRatio
   const drawHeight = drawWidth * (png.height / png.width)
 
   page.drawImage(png, {
-    x: width * placement.xRatio,
     // PDF origin is bottom-left; the UI works top-down, so flip here.
-    y: height * (1 - placement.yRatio) - drawHeight,
+    ...frame.toPage(width * placement.xRatio, height * (1 - placement.yRatio) - drawHeight),
+    rotate: frame.rotate,
     width: drawWidth,
     height: drawHeight
   })
@@ -713,8 +814,7 @@ export async function protectPdf(
   userPassword: string,
   ownerPassword?: string
 ): Promise<Uint8Array> {
-  const { PDFDocument } = await loadPdfLib()
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const doc = await loadEditable(file)
 
   doc.encrypt({
     userPassword,
@@ -740,8 +840,11 @@ export async function unlockPdf(file: HeldFile, password: string): Promise<Uint8
   let source
   try {
     source = await PDFDocument.load(toArrayBuffer(file.data), { password })
-  } catch {
-    throw new Error(WRONG_PASSWORD)
+  } catch (error) {
+    // Only a password failure is reported as one; a corrupt file must not
+    // send someone hunting for a password they already have right.
+    if (isPasswordError(error)) throw new Error(WRONG_PASSWORD)
+    throw error
   }
 
   const out = await PDFDocument.create()
@@ -782,7 +885,6 @@ export async function unlockPdf(file: HeldFile, password: string): Promise<Uint8
  */
 export async function grayscalePdf(file: HeldFile): Promise<Uint8Array> {
   const {
-    PDFDocument,
     PDFName,
     pushGraphicsState,
     popGraphicsState,
@@ -792,7 +894,7 @@ export async function grayscalePdf(file: HeldFile): Promise<Uint8Array> {
     fill
   } = await loadPdfLib()
 
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const doc = await loadEditable(file)
 
   for (const page of doc.getPages()) {
     // The MediaBox rather than getSize(), because its origin is not always
@@ -869,16 +971,20 @@ export async function compressPdf(
   options: CompressOptions = {}
 ): Promise<CompressResult> {
   const { quality = 0.72, maxDimension = 1600 } = options
-  const { PDFDocument, PDFName, PDFNumber, PDFDict, PDFStream, PDFRawStream } = await loadPdfLib()
+  const { PDFName, PDFNumber, PDFArray, PDFDict, PDFStream, PDFRawStream } = await loadPdfLib()
 
-  const doc = await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true })
+  const doc = await loadEditable(file)
   const context = doc.context
 
   let imagesCompressed = 0
   let imagesSkipped = 0
   // Resource dictionaries are frequently shared between pages (and Form
-  // XObjects reused across pages), so each is only visited once.
+  // XObjects reused across pages), so each is only visited once. Images are
+  // tracked separately: a letterhead referenced from several pages' own
+  // Resources would otherwise be decoded and re-encoded once per page,
+  // losing quality each time.
   const visited = new Set<PDFDictType>()
+  const seenImages = new Set<PDFRawStreamType>()
 
   const RGB_SPACE = new Set(['DeviceRGB', 'CalRGB'])
   const GRAY_SPACE = new Set(['DeviceGray', 'CalGray'])
@@ -893,8 +999,14 @@ export async function compressPdf(
 
   async function recompressImage(stream: PDFRawStreamType): Promise<boolean> {
     const dict = stream.dict
-    const filter = dict.get(PDFName.of('Filter'))
-    const filterName = filter instanceof PDFName ? filter.decodeText() : null
+    // `/Filter /DCTDecode` and `/Filter [/DCTDecode]` are both common spellings.
+    const filter = dict.lookup(PDFName.of('Filter'))
+    const filterName =
+      filter instanceof PDFName
+        ? filter.decodeText()
+        : filter instanceof PDFArray && filter.size() === 1
+          ? (filter.lookupMaybe(0, PDFName)?.decodeText() ?? null)
+          : null
     if (filterName !== 'DCTDecode') return false // Not already a JPEG — out of scope.
 
     const spaceEntry = dict.get(PDFName.of('ColorSpace'))
@@ -903,6 +1015,9 @@ export async function compressPdf(
     const isRgb = spaceName !== null && RGB_SPACE.has(spaceName)
     const isGray = spaceName !== null && GRAY_SPACE.has(spaceName)
     if (!isRgb && !isGray) return false // Indexed/ICC/unknown — leave untouched rather than guess.
+    // A /Decode array remaps sample values per component, so it would no
+    // longer fit once a grey image is rewritten as RGB below.
+    if (dict.has(PDFName.of('Decode'))) return false
 
     const originalBytes = stream.getContents()
     if (originalBytes.length < 20 * 1024) return false // Already tiny; recompressing risks looking worse for no real gain.
@@ -914,7 +1029,10 @@ export async function compressPdf(
       return false // Not actually a decodable JPEG despite the filter name — leave it alone.
     }
 
-    const scale = Math.min(1, maxDimension / Math.max(bitmap.width, bitmap.height))
+    // A soft mask or stencil mask is sized to the image it belongs to, so an
+    // image that carries one keeps its dimensions and is only re-encoded.
+    const hasMask = dict.has(PDFName.of('SMask')) || dict.has(PDFName.of('Mask'))
+    const scale = hasMask ? 1 : Math.min(1, maxDimension / Math.max(bitmap.width, bitmap.height))
     const targetWidth = Math.max(1, Math.round(bitmap.width * scale))
     const targetHeight = Math.max(1, Math.round(bitmap.height * scale))
 
@@ -941,6 +1059,10 @@ export async function compressPdf(
     if (recompressed.length >= originalBytes.length) return false
 
     stream.updateContents(recompressed)
+    dict.set(PDFName.of('Filter'), PDFName.of('DCTDecode'))
+    // Any decode parameters (a /ColorTransform hint, say) described the old
+    // stream; the canvas writes a plain JFIF that needs none.
+    dict.delete(PDFName.of('DecodeParms'))
     dict.set(PDFName.of('Width'), PDFNumber.of(targetWidth))
     dict.set(PDFName.of('Height'), PDFNumber.of(targetHeight))
     // A downstream canvas re-encode always yields full 8-bit samples,
@@ -970,6 +1092,8 @@ export async function compressPdf(
       const subtypeName = subtype instanceof PDFName ? subtype.decodeText() : null
 
       if (subtypeName === 'Image' && stream instanceof PDFRawStream) {
+        if (seenImages.has(stream)) continue
+        seenImages.add(stream)
         const ok = await recompressImage(stream)
         if (ok) imagesCompressed++
         else imagesSkipped++

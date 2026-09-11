@@ -28,6 +28,8 @@ const CACHE_KEY = 'toolkave:rates'
 
 interface CbuRow {
   Ccy: string
+  /** `Rate` is som per this many units — 10 for IDR, IRR and VND, 1 for the rest. */
+  Nominal: string
   Rate: string
   Date: string
 }
@@ -44,7 +46,8 @@ async function fetchCbu(): Promise<RateTable> {
   const rows = (await response.json()) as CbuRow[]
   const perUzs: Record<string, number> = {}
   for (const row of rows) {
-    const value = Number(row.Rate)
+    const nominal = Number(row.Nominal) || 1
+    const value = Number(row.Rate) / nominal
     if (row.Ccy && Number.isFinite(value) && value > 0) perUzs[row.Ccy] = value
   }
 
