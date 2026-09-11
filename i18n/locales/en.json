@@ -103,7 +103,9 @@
     "showAllPages": "Show all {n} pages"
   },
   "draft": {
-    "badge": "Draft — not published"
+    "badge": "Draft — not published",
+    "live": "Published",
+    "toTest": "to test"
   },
   "confirmLeave": {
     "title": "Leave this tool?",

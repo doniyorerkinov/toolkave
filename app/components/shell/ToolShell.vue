@@ -89,6 +89,8 @@ const category = computed(() => getCategory(props.tool.category)!)
 const categoryName = computed(() => t(`categories.${props.tool.category}.name`))
 const categoryHref = computed(() => categoryPath(category.value, currentLocale.value))
 const tone = TONES[props.tool.category]
+/** Dev only: green = published, red = draft. */
+const showStatus = import.meta.dev
 
 /** The rest of this category, for the sidebar — every tool page links its siblings. */
 const siblings = computed(() =>
@@ -214,6 +216,12 @@ const relatedTools = computed(() =>
                 <ShellIcon :name="sibling.icon" :size="14" />
               </span>
               <span class="truncate group-hover:underline">{{ t(`tools.${sibling.id}.name`) }}</span>
+              <span
+                v-if="showStatus"
+                class="ms-auto inline-block size-2 shrink-0 rounded-full"
+                :class="sibling.published ? 'bg-emerald-500' : 'bg-red-500'"
+                :title="sibling.published ? t('draft.live') : t('draft.badge')"
+              />
             </NuxtLink>
           </li>
         </ul>

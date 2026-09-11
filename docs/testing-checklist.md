@@ -11,7 +11,10 @@ pixels, so a tool that fails there is not ready for a person's time.
 
 **How to test:** run `npm run dev`, then open `localhost:3000`. Every tool
 below is reachable in dev mode, published or not — drafts show an amber
-"Draft" badge on the page but work exactly like a live tool. Use the language
+"Draft" badge on the page but work exactly like a live tool. In dev every tool
+card and sidebar entry also carries a dot — **green** published, **red** still
+to test — and the home page shows the running tally; none of that renders in
+production. Use the language
 switcher (top of the page) to spot-check the `ru`/`uz` version of a tool once
 the English pass is clean — same component, translated content, so the only
 things that can differ are the words and Cyrillic-specific edge cases (flagged

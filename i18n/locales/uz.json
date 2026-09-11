@@ -103,7 +103,9 @@
     "showAllPages": "Barcha {n} sahifani koʻrsatish"
   },
   "draft": {
-    "badge": "Qoralama — chop etilmagan"
+    "badge": "Qoralama — chop etilmagan",
+    "live": "Chop etilgan",
+    "toTest": "tekshirish kerak"
   },
   "confirmLeave": {
     "title": "Bu vositadan chiqasizmi?",

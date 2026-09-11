@@ -4,6 +4,7 @@ import {
   categoriesWithTools,
   categoryPath,
   toolsInCategory,
+  tools,
   type Locale
 } from '~/data/tools'
 import { TONES } from '~/utils/tone'
@@ -34,6 +35,15 @@ const groups = computed(() =>
     }
   })
 )
+
+/** Dev only: how much of the registry is live versus still waiting for a human pass. */
+const devTally = import.meta.dev
+  ? computed(() => {
+      const all = tools.filter(tool => tool.locales.includes(currentLocale.value))
+      const live = all.filter(tool => tool.published).length
+      return { live, drafts: all.length - live }
+    })
+  : null
 
 const trust = [
   { key: 'private', icon: 'shield-check' },
@@ -68,6 +78,10 @@ usePageSeo({
           {{ t('home.heroTitle') }}
         </h1>
         <p class="mt-4 text-lg leading-relaxed text-stone-600">{{ t('home.heroSubtitle') }}</p>
+        <p v-if="devTally" class="mt-3 inline-flex items-center gap-3 rounded-full border border-stone-300 bg-white px-3 py-1 text-xs font-semibold text-stone-700">
+          <span class="inline-flex items-center gap-1.5"><span class="size-2 rounded-full bg-emerald-500" />{{ devTally.live }} {{ t('draft.live') }}</span>
+          <span class="inline-flex items-center gap-1.5"><span class="size-2 rounded-full bg-red-500" />{{ devTally.drafts }} {{ t('draft.toTest') }}</span>
+        </p>
         <ul class="mt-6 flex flex-wrap gap-2">
           <li
             v-for="item in trust"
