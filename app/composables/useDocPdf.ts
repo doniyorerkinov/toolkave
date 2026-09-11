@@ -43,6 +43,7 @@ async function loadPdfMake(): Promise<PdfMakeModule> {
   // Cached: the fonts are 850 KB and re-registering them on every conversion
   // would repeat that work for no reason.
   pdfMakePromise ??= (async () => {
+    if (import.meta.server) throw new Error('browser only')
     // Extensions spelled out: Node's ESM resolver, used by the test scripts,
     // does not add one, and the package has no `exports` map to do it either.
     const [pdfMakeImport, vfsImport] = await Promise.all([

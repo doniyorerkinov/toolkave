@@ -26,6 +26,10 @@ import type {
  * unpacked, one commit, and untouched since July 2025.
  */
 async function loadPdfLib() {
+  // Browser only. `import.meta.server` is a build-time constant, so in the server
+  // build this throws before the import and Rollup drops the import as dead code:
+  // the Worker bundle never carries the library, and never has to parse it.
+  if (import.meta.server) throw new Error('browser only')
   return await import('@cantoo/pdf-lib')
 }
 

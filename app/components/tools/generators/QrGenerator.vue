@@ -18,6 +18,7 @@ async function render() {
   }
   busy.value = true
   try {
+    if (import.meta.server) throw new Error('browser only')
     const QR = await import('qrcode')
     dataUrl.value = await QR.toDataURL(text.value, {
       width: size.value,

@@ -32,6 +32,9 @@ export interface ReadCsvResult {
  * Cyrillic column into replacement characters before the parser even starts.
  */
 export async function readCsv(data: Uint8Array): Promise<ReadCsvResult> {
+  // Browser only (see loadPdfLib in usePdf.ts): Rollup cannot even parse
+  // papaparse's worker shim, so it must never reach the server bundle.
+  if (import.meta.server) throw new Error('browser only')
   const { default: Papa } = await import('papaparse')
 
   const { best } = detectEncoding(data)
@@ -77,6 +80,7 @@ export interface ReadWorkbookResult {
  * account number keeps its digits instead of turning into scientific notation.
  */
 export async function readWorkbook(data: Uint8Array): Promise<ReadWorkbookResult> {
+  if (import.meta.server) throw new Error('browser only')
   const XLSX = await import('xlsx')
   const workbook = XLSX.read(data, { type: 'array', cellDates: true, cellNF: false })
 
@@ -102,6 +106,7 @@ export async function readWorkbook(data: Uint8Array): Promise<ReadWorkbookResult
 
 /** Build an .xlsx workbook from one or more grids. */
 export async function writeWorkbook(grids: Record<string, Grid>): Promise<Uint8Array> {
+  if (import.meta.server) throw new Error('browser only')
   const XLSX = await import('xlsx')
   const workbook = XLSX.utils.book_new()
 

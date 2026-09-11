@@ -13,6 +13,7 @@ export interface ZipEntry {
 }
 
 export async function zipFiles(entries: ZipEntry[]): Promise<Uint8Array> {
+  if (import.meta.server) throw new Error('browser only')
   const { default: JSZip } = await import('jszip')
   const zip = new JSZip()
   for (const entry of entries) zip.file(entry.name, entry.data)

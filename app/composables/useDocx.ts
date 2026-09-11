@@ -17,6 +17,10 @@
  * scripts use, does not add one.
  */
 async function loadMammoth() {
+  // Browser only. `import.meta.server` is a build-time constant, so in the server
+  // build this throws before the import and Rollup drops the import as dead code:
+  // the Worker bundle never carries the library, and never has to parse it.
+  if (import.meta.server) throw new Error('browser only')
   return (await import('mammoth/mammoth.browser.js')).default
 }
 
@@ -110,6 +114,7 @@ function renderTable(table: HTMLElement, inline: (node: Node) => string): string
 }
 
 async function makeTurndown() {
+  if (import.meta.server) throw new Error('browser only')
   const { default: TurndownService } = await import('turndown')
 
   const service = new TurndownService({
@@ -174,6 +179,7 @@ export async function htmlToMarkdown(html: string): Promise<string> {
 }
 
 export async function markdownToHtml(markdown: string): Promise<string> {
+  if (import.meta.server) throw new Error('browser only')
   const { marked } = await import('marked')
   const html = await marked.parse(markdown, { gfm: true, breaks: false })
   return html
@@ -196,6 +202,7 @@ export async function docxToMarkdown(data: Uint8Array): Promise<string> {
  * script tag cannot execute inside the tool while they are previewing it.
  */
 export async function sanitiseHtml(html: string): Promise<string> {
+  if (import.meta.server) throw new Error('browser only')
   const { default: DOMPurify } = await import('dompurify')
   return DOMPurify.sanitize(html, { USE_PROFILES: { html: true } })
 }

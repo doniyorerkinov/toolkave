@@ -102,6 +102,7 @@ async function decode(data: Uint8Array): Promise<ImageBitmap> {
   let blob = new Blob([data as BlobPart])
 
   if (kind === 'heic') {
+    if (import.meta.server) throw new Error('browser only')
     const { default: heic2any } = await import('heic2any')
     const converted = await heic2any({ blob, toType: 'image/jpeg', quality: 0.92 })
     blob = Array.isArray(converted) ? converted[0]! : converted

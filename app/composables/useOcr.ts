@@ -101,6 +101,7 @@ export async function recogniseImage(
 ): Promise<OcrResult> {
   if (!languages.length) throw new Error('NO_LANGUAGE')
 
+  if (import.meta.server) throw new Error('browser only')
   const { createWorker } = await import('tesseract.js')
   const image = await prepare(file.data, file.type || 'image/png')
 

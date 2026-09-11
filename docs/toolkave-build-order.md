@@ -531,3 +531,9 @@ registry's `icon` names in `ShellIcon`. Neutrals are `stone`, never `slate`; the
 
 The home page shows at most six tools per category with a counted "All N tools" link;
 the category page is the full list; every tool page lists its siblings in the sidebar.
+11. **Every browser-only library import sits behind `if (import.meta.server) throw`.** Nuxt
+    replaces that with a constant at build time, so Rollup drops the `import()` from the
+    Worker bundle: the server never carries pdf-lib, pdfmake and its fonts, xlsx, tesseract
+    or mammoth, and never has to parse them — Rollup rejects papaparse's worker shim outright,
+    which is what blocked the first deploy after Wave 3. Under Node (the test suite) the
+    flag is undefined and the import runs. A new lazy import without the guard is wrong.
