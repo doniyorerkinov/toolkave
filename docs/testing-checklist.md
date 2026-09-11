@@ -35,7 +35,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **64 tools, 11 published, 53 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Watermark, PDF info, JPG/PNG/Image to PDF, Word counter).
+Registry snapshot: **64 tools, 12 published, 52 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Watermark, PDF info, Resize pages, JPG/PNG/Image to PDF, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -339,7 +339,7 @@ header/footer are Latin-only by design — confirm the ru/uz pages say so before
   Expect: same Latin-only limitation and same explicit message as page
   numbers, for the same reason (no embedded Cyrillic font).
 
-- [ ] **Resize PDF pages** — change page size (A4/Letter/etc.) or scale %.
+- [x] **Resize PDF pages** — change page size (A4/Letter/etc.) or scale %.
   Expect: content is **centered** on the new page, not stuck in a corner.
   Test a landscape-oriented source — it should stay landscape at the new
   size, not get forced upright.

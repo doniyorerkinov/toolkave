@@ -235,7 +235,7 @@ export const tools: ToolDef[] = [
     group: 'edit',
     component: 'pdf/Resize',
     icon: 'scaling',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'resize-pdf', ru: 'izmenit-format-pdf', uz: 'pdf-formatini-ozgartirish' },
     related: ['pdf-rotate', 'pdf-info'],
