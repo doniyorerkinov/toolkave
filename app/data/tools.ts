@@ -209,7 +209,7 @@ export const tools: ToolDef[] = [
     group: 'other',
     component: 'pdf/Info',
     icon: 'info',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'pdf-info', ru: 'informatsiya-o-pdf', uz: 'pdf-malumotlari' },
     related: ['pdf-split', 'pdf-watermark'],

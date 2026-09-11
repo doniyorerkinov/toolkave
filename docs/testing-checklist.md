@@ -35,7 +35,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **64 tools, 10 published, 54 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Watermark, JPG/PNG/Image to PDF, Word counter).
+Registry snapshot: **64 tools, 11 published, 53 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Watermark, PDF info, JPG/PNG/Image to PDF, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -318,7 +318,7 @@ Bring the sideways scan again: every overlay here is placed as the viewer shows 
 and the tests cover it, but a person should see it once. Page numbers, watermark and
 header/footer are Latin-only by design — confirm the ru/uz pages say so before shipping.
 
-- [ ] **PDF info** — read-only metadata viewer.
+- [x] **PDF info** — read-only metadata viewer.
   Expect: page count, title/author/subject if present, encryption status.
   Test against both a plain PDF and a password-protected one (should still
   show the page count without needing the password).
