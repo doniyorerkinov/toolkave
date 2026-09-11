@@ -101,7 +101,14 @@
     "pages": "{n} pages",
     "rendering": "Rendering…",
     "showAllPages": "Show all {n} pages",
-    "large": "This PDF is {size}. {tool} usually makes it much smaller."
+    "large": "This PDF is {size}. {tool} usually makes it much smaller.",
+    "openPage": "Open page {n}",
+    "close": "Close",
+    "prevPage": "Previous page",
+    "nextPage": "Next page",
+    "zoomIn": "Enlarge",
+    "zoomOut": "Fit to screen",
+    "pageOf": "Page {n} of {total}"
   },
   "draft": {
     "badge": "Draft — not published",

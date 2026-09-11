@@ -101,7 +101,14 @@
     "pages": "{n} sahifa",
     "rendering": "Chizilmoqda…",
     "showAllPages": "Barcha {n} sahifani koʻrsatish",
-    "large": "Bu PDF {size}. «{tool}» odatda uni ancha kichraytiradi."
+    "large": "Bu PDF {size}. «{tool}» odatda uni ancha kichraytiradi.",
+    "openPage": "{n}-sahifani ochish",
+    "close": "Yopish",
+    "prevPage": "Oldingi sahifa",
+    "nextPage": "Keyingi sahifa",
+    "zoomIn": "Kattalashtirish",
+    "zoomOut": "Ekranga moslash",
+    "pageOf": "{total} sahifadan {n}-si"
   },
   "draft": {
     "badge": "Qoralama — chop etilmagan",

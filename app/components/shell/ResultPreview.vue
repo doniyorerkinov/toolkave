@@ -35,6 +35,9 @@ interface Thumbnail {
 const thumbnails = shallowRef(new Map<number, Thumbnail>())
 const canvases = new Map<number, HTMLCanvasElement>()
 
+/** Zero-based page open in the lightbox; a thumbnail is a button that sets it. */
+const openPage = ref<number | null>(null)
+
 function draw(index: number) {
   const canvas = canvases.get(index)
   const entry = thumbnails.value.get(index)
@@ -61,6 +64,7 @@ function clear() {
   pageCount.value = 0
   shown.value = 0
   failed.value = false
+  openPage.value = null
 }
 
 /** Render pages `from`..`to` (zero-based, exclusive end). */
@@ -118,23 +122,33 @@ onBeforeUnmount(clear)
       <span v-if="loading" class="text-xs text-emerald-700">{{ t('result.rendering') }}</span>
     </div>
 
-    <img
+    <button
       v-if="isImage"
-      :src="imageUrl"
-      :alt="result.name"
-      class="mt-2 max-h-80 rounded-lg border border-stone-200 bg-white object-contain"
-    />
+      type="button"
+      class="mt-2 block cursor-zoom-in rounded-lg focus-visible:ring-2 focus-visible:ring-ember-300 focus-visible:outline-none"
+      :aria-label="t('result.openPage', { n: 1 })"
+      @click="openPage = 0"
+    >
+      <img
+        :src="imageUrl"
+        :alt="result.name"
+        class="max-h-80 rounded-lg border border-stone-200 bg-white object-contain"
+      />
+    </button>
 
     <template v-else>
       <div class="mt-2 grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8">
-        <div
+        <button
           v-for="index in shown"
           :key="index - 1"
-          class="relative flex aspect-3/4 items-center justify-center overflow-hidden rounded-md border border-stone-200 bg-white"
+          type="button"
+          class="relative flex aspect-3/4 cursor-zoom-in items-center justify-center overflow-hidden rounded-md border border-stone-200 bg-white hover:border-ember-400 hover:ring-2 hover:ring-ember-200 focus-visible:ring-2 focus-visible:ring-ember-300 focus-visible:outline-none"
+          :aria-label="t('result.openPage', { n: index })"
+          @click="openPage = index - 1"
         >
           <canvas :ref="el => register(index - 1, el)" class="max-h-full max-w-full object-contain" />
           <span class="absolute right-1 top-1 rounded bg-white/90 px-1 text-[10px] font-medium text-stone-600">{{ index }}</span>
-        </div>
+        </button>
       </div>
       <button
         v-if="shown < Math.min(pageCount, MAX) && !loading"
@@ -145,5 +159,13 @@ onBeforeUnmount(clear)
         {{ t('result.showAllPages', { n: Math.min(pageCount, MAX) }) }}
       </button>
     </template>
+
+    <ShellLightbox
+      :result="result"
+      :page-count="isImage ? 1 : pageCount"
+      :image-url="isImage ? imageUrl : undefined"
+      :page="openPage"
+      @update:page="openPage = $event"
+    />
   </div>
 </template>
