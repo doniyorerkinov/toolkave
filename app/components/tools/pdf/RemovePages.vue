@@ -86,7 +86,7 @@ function onFiles(files: File[]) {
       <p v-if="wouldEmpty" class="text-sm text-red-700">
         {{ t('pdf.removePages.wouldEmpty') }}
       </p>
-      <p v-else class="text-sm text-slate-500">
+      <p v-else class="text-sm text-stone-500">
         {{
           selected.length
             ? t('pdf.removePages.summary', { removed: selected.length, left: remaining })
@@ -99,14 +99,14 @@ function onFiles(files: File[]) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.removePages.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

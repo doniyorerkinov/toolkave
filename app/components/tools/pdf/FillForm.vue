@@ -81,11 +81,11 @@ function onFiles(files: File[]) {
     </p>
 
     <template v-else-if="editable.length">
-      <p class="text-sm text-slate-500">{{ t('pdf.fillForm.found', { n: editable.length }) }}</p>
+      <p class="text-sm text-stone-500">{{ t('pdf.fillForm.found', { n: editable.length }) }}</p>
 
       <div class="space-y-3">
         <div v-for="field in editable" :key="field.name">
-          <label :for="`ff-${field.name}`" class="block text-sm font-medium break-words text-slate-900">
+          <label :for="`ff-${field.name}`" class="block text-sm font-medium break-words text-stone-900">
             {{ field.name }}
           </label>
 
@@ -94,18 +94,18 @@ function onFiles(files: File[]) {
             :id="`ff-${field.name}`"
             v-model="values[field.name]"
             type="text"
-            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+            class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
           />
 
           <label
             v-else-if="field.type === 'checkbox'"
-            class="mt-1 flex items-center gap-2 text-sm text-slate-700"
+            class="mt-1 flex items-center gap-2 text-sm text-stone-700"
           >
             <input
               :id="`ff-${field.name}`"
               type="checkbox"
               :checked="values[field.name] === 'on'"
-              class="size-4 accent-sky-700"
+              class="size-4 accent-ember-700"
               @change="values[field.name] = ($event.target as HTMLInputElement).checked ? 'on' : ''"
             />
             {{ t('pdf.fillForm.checked') }}
@@ -115,7 +115,7 @@ function onFiles(files: File[]) {
             v-else
             :id="`ff-${field.name}`"
             v-model="values[field.name]"
-            class="mt-1 w-full rounded-lg border border-slate-300 px-2 py-2 outline-none focus:border-sky-500"
+            class="mt-1 w-full rounded-lg border border-stone-300 px-2 py-2 outline-none focus:border-ember-500"
           >
             <option value="">{{ t('pdf.fillForm.notSelected') }}</option>
             <option v-for="option in field.options" :key="option" :value="option">
@@ -125,8 +125,8 @@ function onFiles(files: File[]) {
         </div>
       </div>
 
-      <label class="flex items-center gap-2 text-sm text-slate-700">
-        <input v-model="flatten" type="checkbox" class="size-4 accent-sky-700" />
+      <label class="flex items-center gap-2 text-sm text-stone-700">
+        <input v-model="flatten" type="checkbox" class="size-4 accent-ember-700" />
         {{ t('pdf.fillForm.flatten') }}
       </label>
     </template>
@@ -135,14 +135,14 @@ function onFiles(files: File[]) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.fillForm.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

@@ -66,7 +66,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
   <Teleport to="body">
     <div
       v-if="open"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/50 p-4"
       @click.self="emit('cancel')"
     >
       <div
@@ -77,13 +77,13 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
         aria-describedby="confirm-body"
         class="w-full max-w-md rounded-xl bg-white p-5 shadow-xl"
       >
-        <h2 id="confirm-title" class="text-lg font-semibold text-slate-900">{{ title }}</h2>
-        <p id="confirm-body" class="mt-2 text-sm leading-relaxed text-slate-600">{{ body }}</p>
+        <h2 id="confirm-title" class="text-lg font-semibold text-stone-900">{{ title }}</h2>
+        <p id="confirm-body" class="mt-2 text-sm leading-relaxed text-stone-600">{{ body }}</p>
 
         <div class="mt-5 flex flex-wrap justify-end gap-2">
           <button
             type="button"
-            class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
             @click="emit('cancel')"
           >
             {{ cancelLabel }}

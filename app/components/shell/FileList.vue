@@ -86,20 +86,20 @@ async function onKeydown(event: KeyboardEvent, index: number) {
   <ul
     v-if="files.length"
     ref="listEl"
-    class="divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white"
+    class="divide-y divide-stone-200 rounded-lg border border-stone-200 bg-white"
   >
     <li
       v-for="(file, index) in files"
       :key="file.id"
       data-row
       class="flex items-center gap-3 p-3 transition-colors"
-      :class="dragIndex === index ? 'bg-sky-50' : ''"
+      :class="dragIndex === index ? 'bg-ember-50' : ''"
     >
       <button
         v-if="reorderable && files.length > 1"
         :ref="el => { if (el) handles[index] = el as HTMLElement }"
         type="button"
-        class="flex size-9 shrink-0 cursor-grab touch-none items-center justify-center rounded text-slate-400 hover:bg-slate-100 hover:text-slate-600 focus:ring-2 focus:ring-sky-400 focus:outline-none active:cursor-grabbing"
+        class="flex size-9 shrink-0 cursor-grab touch-none items-center justify-center rounded text-stone-400 hover:bg-stone-100 hover:text-stone-600 focus:ring-2 focus:ring-ember-400 focus:outline-none active:cursor-grabbing"
         :aria-label="
           t('fileList.reorder', { name: file.name, position: index + 1, total: files.length })
         "
@@ -121,23 +121,23 @@ async function onKeydown(event: KeyboardEvent, index: number) {
 
       <span
         v-else
-        class="flex size-9 shrink-0 items-center justify-center rounded bg-slate-100 text-xs font-medium text-slate-500"
+        class="flex size-9 shrink-0 items-center justify-center rounded bg-stone-100 text-xs font-medium text-stone-500"
         aria-hidden="true"
       >
         {{ index + 1 }}
       </span>
 
       <span class="min-w-0 flex-1">
-        <span class="block truncate text-sm font-medium text-slate-900">
-          <span v-if="reorderable && files.length > 1" class="text-slate-400">{{ index + 1 }}.</span>
+        <span class="block truncate text-sm font-medium text-stone-900">
+          <span v-if="reorderable && files.length > 1" class="text-stone-400">{{ index + 1 }}.</span>
           {{ file.name }}
         </span>
-        <span class="block text-xs text-slate-500">{{ formatBytes(file.size) }}</span>
+        <span class="block text-xs text-stone-500">{{ formatBytes(file.size) }}</span>
       </span>
 
       <button
         type="button"
-        class="shrink-0 rounded border border-slate-200 px-2 py-1 text-xs text-slate-600 hover:bg-red-50 hover:text-red-700"
+        class="shrink-0 rounded border border-stone-200 px-2 py-1 text-xs text-stone-600 hover:bg-red-50 hover:text-red-700"
         :aria-label="t('fileList.remove', { name: file.name })"
         @click="emit('remove', file.id)"
       >
@@ -146,7 +146,7 @@ async function onKeydown(event: KeyboardEvent, index: number) {
     </li>
   </ul>
 
-  <p v-if="reorderable && files.length > 1" class="mt-2 text-xs text-slate-500">
+  <p v-if="reorderable && files.length > 1" class="mt-2 text-xs text-stone-500">
     {{ t('fileList.dragHint') }}
   </p>
 </template>

@@ -178,7 +178,7 @@ function reset() {
     </template>
 
     <div v-else>
-      <label for="tbl-json" class="mb-1 block text-sm font-medium text-slate-700">
+      <label for="tbl-json" class="mb-1 block text-sm font-medium text-stone-700">
         {{ t('table.jsonInput') }}
       </label>
       <textarea
@@ -187,54 +187,54 @@ function reset() {
         rows="10"
         spellcheck="false"
         placeholder='[{"name": "Иван", "age": 30}]'
-        class="w-full resize-y rounded-lg border border-slate-300 bg-white p-3 font-mono text-sm text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+        class="w-full resize-y rounded-lg border border-stone-300 bg-white p-3 font-mono text-sm text-stone-900 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
       />
     </div>
 
     <p
       v-if="sourceEncoding || delimiter"
-      class="rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 text-sm text-sky-900"
+      class="rounded-lg border border-ember-200 bg-ember-50 px-3 py-2 text-sm text-ember-900"
     >
       {{ t('table.detected', { encoding: sourceEncoding, delimiter }) }}
     </p>
 
     <div v-if="sheetNames.length > 1">
-      <label for="tbl-sheet" class="mb-1 block text-sm font-medium text-slate-700">
+      <label for="tbl-sheet" class="mb-1 block text-sm font-medium text-stone-700">
         {{ t('table.sheet') }}
       </label>
       <select
         id="tbl-sheet"
         v-model="activeSheet"
-        class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+        class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm"
       >
         <option v-for="name in sheetNames" :key="name" :value="name">{{ name }}</option>
       </select>
     </div>
 
     <!-- Options -->
-    <div v-if="grid.length" class="flex flex-wrap items-center gap-4 rounded-lg border border-slate-200 p-3">
-      <label class="flex items-center gap-2 text-sm text-slate-700">
-        <input v-model="hasHeader" type="checkbox" class="rounded border-slate-300" />
+    <div v-if="grid.length" class="flex flex-wrap items-center gap-4 rounded-lg border border-stone-200 p-3">
+      <label class="flex items-center gap-2 text-sm text-stone-700">
+        <input v-model="hasHeader" type="checkbox" class="rounded border-stone-300" />
         {{ t('table.hasHeader') }}
       </label>
 
-      <label v-if="to === 'json'" class="flex items-center gap-2 text-sm text-slate-700">
-        <input v-model="typedValues" type="checkbox" class="rounded border-slate-300" />
+      <label v-if="to === 'json'" class="flex items-center gap-2 text-sm text-stone-700">
+        <input v-model="typedValues" type="checkbox" class="rounded border-stone-300" />
         {{ t('table.typedValues') }}
       </label>
 
       <template v-if="to === 'csv'">
-        <label class="flex items-center gap-2 text-sm text-slate-700">
+        <label class="flex items-center gap-2 text-sm text-stone-700">
           {{ t('table.delimiter') }}
-          <select v-model="outputDelimiter" class="rounded-lg border border-slate-300 bg-white px-2 py-1 text-sm">
+          <select v-model="outputDelimiter" class="rounded-lg border border-stone-300 bg-white px-2 py-1 text-sm">
             <option value=",">,</option>
             <option value=";">;</option>
             <option value="&#9;">Tab</option>
             <option value="|">|</option>
           </select>
         </label>
-        <label class="flex items-center gap-2 text-sm text-slate-700">
-          <input v-model="excelBom" type="checkbox" class="rounded border-slate-300" />
+        <label class="flex items-center gap-2 text-sm text-stone-700">
+          <input v-model="excelBom" type="checkbox" class="rounded border-stone-300" />
           {{ t('table.excelBom') }}
         </label>
       </template>
@@ -248,21 +248,21 @@ function reset() {
 
     <!-- Preview -->
     <div v-if="preview.length" class="space-y-2">
-      <p class="text-sm font-medium text-slate-700">
+      <p class="text-sm font-medium text-stone-700">
         {{ t('table.preview', { rows: rowCount, columns: grid[0]?.length ?? 0 }) }}
       </p>
-      <div class="overflow-x-auto rounded-lg border border-slate-200">
+      <div class="overflow-x-auto rounded-lg border border-stone-200">
         <table class="w-full text-left text-xs">
           <tbody>
             <tr
               v-for="(row, rowIndex) in preview"
               :key="rowIndex"
-              :class="hasHeader && rowIndex === 0 ? 'bg-slate-100 font-semibold' : rowIndex % 2 ? 'bg-slate-50' : ''"
+              :class="hasHeader && rowIndex === 0 ? 'bg-stone-100 font-semibold' : rowIndex % 2 ? 'bg-stone-50' : ''"
             >
               <td
                 v-for="(cell, cellIndex) in row"
                 :key="cellIndex"
-                class="max-w-[16rem] truncate border-b border-slate-100 px-2 py-1"
+                class="max-w-[16rem] truncate border-b border-stone-100 px-2 py-1"
               >
                 {{ cell }}
               </td>
@@ -270,20 +270,20 @@ function reset() {
           </tbody>
         </table>
       </div>
-      <p v-if="grid.length > 21" class="text-xs text-slate-500">
+      <p v-if="grid.length > 21" class="text-xs text-stone-500">
         {{ t('table.previewTruncated', { total: grid.length }) }}
       </p>
     </div>
 
     <div v-if="to === 'json' && jsonOutput" class="space-y-2">
-      <label for="tbl-out" class="block text-sm font-medium text-slate-700">{{ t('table.jsonOutput') }}</label>
+      <label for="tbl-out" class="block text-sm font-medium text-stone-700">{{ t('table.jsonOutput') }}</label>
       <textarea
         id="tbl-out"
         :value="jsonOutput"
         rows="10"
         readonly
         spellcheck="false"
-        class="w-full resize-y rounded-lg border border-slate-300 bg-slate-50 p-3 font-mono text-xs text-slate-900"
+        class="w-full resize-y rounded-lg border border-stone-300 bg-stone-50 p-3 font-mono text-xs text-stone-900"
       />
     </div>
 
@@ -291,14 +291,14 @@ function reset() {
       <button
         type="button"
         :disabled="store.busy"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="save"
       >
         {{ store.busy ? t('table.working') : t(`table.action.${to}`) }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="reset"
       >
         {{ t('result.startOver') }}

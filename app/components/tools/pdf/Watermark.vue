@@ -87,7 +87,7 @@ function onFiles(files: File[]) {
 
     <div v-else-if="file && pageCount" class="space-y-4">
       <div>
-        <label for="wm-text" class="block text-sm font-medium text-slate-900">
+        <label for="wm-text" class="block text-sm font-medium text-stone-900">
           {{ t('pdf.watermark.textLabel') }}
         </label>
         <input
@@ -95,8 +95,8 @@ function onFiles(files: File[]) {
           v-model="text"
           type="text"
           maxlength="60"
-          class="mt-1 w-full rounded-lg border px-3 py-2 text-slate-900 outline-none focus:ring-2 focus:ring-sky-200"
-          :class="textUnsupported ? 'border-red-400' : 'border-slate-300 focus:border-sky-500'"
+          class="mt-1 w-full rounded-lg border px-3 py-2 text-stone-900 outline-none focus:ring-2 focus:ring-ember-200"
+          :class="textUnsupported ? 'border-red-400' : 'border-stone-300 focus:border-ember-500'"
         />
         <p v-if="textUnsupported" class="mt-1 text-sm text-red-700" role="alert">
           {{ t('pdf.watermark.unsupportedText') }}
@@ -105,7 +105,7 @@ function onFiles(files: File[]) {
 
       <div class="grid gap-3 sm:grid-cols-3">
         <div>
-          <label for="wm-size" class="block text-sm font-medium text-slate-900">
+          <label for="wm-size" class="block text-sm font-medium text-stone-900">
             {{ t('pdf.watermark.fontSize', { n: fontSize }) }}
           </label>
           <input
@@ -114,11 +114,11 @@ function onFiles(files: File[]) {
             type="range"
             min="12"
             max="120"
-            class="mt-2 w-full accent-sky-700"
+            class="mt-2 w-full accent-ember-700"
           />
         </div>
         <div>
-          <label for="wm-opacity" class="block text-sm font-medium text-slate-900">
+          <label for="wm-opacity" class="block text-sm font-medium text-stone-900">
             {{ t('pdf.watermark.opacity', { n: opacity }) }}
           </label>
           <input
@@ -127,11 +127,11 @@ function onFiles(files: File[]) {
             type="range"
             min="5"
             max="100"
-            class="mt-2 w-full accent-sky-700"
+            class="mt-2 w-full accent-ember-700"
           />
         </div>
         <div>
-          <label for="wm-angle" class="block text-sm font-medium text-slate-900">
+          <label for="wm-angle" class="block text-sm font-medium text-stone-900">
             {{ t('pdf.watermark.angle', { n: angle }) }}
           </label>
           <input
@@ -141,7 +141,7 @@ function onFiles(files: File[]) {
             min="0"
             max="90"
             step="15"
-            class="mt-2 w-full accent-sky-700"
+            class="mt-2 w-full accent-ember-700"
           />
         </div>
       </div>
@@ -151,14 +151,14 @@ function onFiles(files: File[]) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.watermark.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

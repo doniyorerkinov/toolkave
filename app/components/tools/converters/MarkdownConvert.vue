@@ -87,7 +87,7 @@ function download() {
   <div class="space-y-4">
     <div class="grid gap-4 lg:grid-cols-2">
       <div>
-        <label for="md-in" class="mb-1 block text-sm font-medium text-slate-700">
+        <label for="md-in" class="mb-1 block text-sm font-medium text-stone-700">
           {{ t(`markdown.input.${from}`) }}
         </label>
         <textarea
@@ -96,12 +96,12 @@ function download() {
           rows="16"
           spellcheck="false"
           :placeholder="SAMPLES[from]"
-          class="w-full resize-y rounded-lg border border-slate-300 bg-white p-3 font-mono text-sm text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+          class="w-full resize-y rounded-lg border border-stone-300 bg-white p-3 font-mono text-sm text-stone-900 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         />
         <button
           v-if="!input"
           type="button"
-          class="mt-1 text-xs text-sky-700 hover:underline"
+          class="mt-1 text-xs text-ember-700 hover:underline"
           @click="input = SAMPLES[from]"
         >
           {{ t('markdown.trySample') }}
@@ -110,13 +110,13 @@ function download() {
 
       <div>
         <div class="mb-1 flex items-center justify-between gap-2">
-          <label for="md-out" class="text-sm font-medium text-slate-700">
+          <label for="md-out" class="text-sm font-medium text-stone-700">
             {{ t(`markdown.output.${from}`) }}
           </label>
           <button
             v-if="output"
             type="button"
-            class="text-xs text-sky-700 hover:underline"
+            class="text-xs text-ember-700 hover:underline"
             @click="showPreview = !showPreview"
           >
             {{ showPreview ? t('markdown.showSource') : t('markdown.showPreview') }}
@@ -126,7 +126,7 @@ function download() {
         <!-- eslint-disable-next-line vue/no-v-html -- sanitised above -->
         <div
           v-if="showPreview"
-          class="prose-sm h-[26rem] overflow-auto rounded-lg border border-slate-300 bg-white p-3 text-sm text-slate-900 [&_h1]:mb-2 [&_h1]:text-xl [&_h1]:font-semibold [&_h2]:mb-2 [&_h2]:text-lg [&_h2]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_p]:mb-2 [&_table]:w-full [&_td]:border [&_td]:border-slate-200 [&_td]:px-2 [&_th]:border [&_th]:border-slate-200 [&_th]:px-2"
+          class="prose-sm h-[26rem] overflow-auto rounded-lg border border-stone-300 bg-white p-3 text-sm text-stone-900 [&_h1]:mb-2 [&_h1]:text-xl [&_h1]:font-semibold [&_h2]:mb-2 [&_h2]:text-lg [&_h2]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_p]:mb-2 [&_table]:w-full [&_td]:border [&_td]:border-stone-200 [&_td]:px-2 [&_th]:border [&_th]:border-stone-200 [&_th]:px-2"
           v-html="preview"
         />
         <textarea
@@ -136,7 +136,7 @@ function download() {
           rows="16"
           readonly
           spellcheck="false"
-          class="w-full resize-y rounded-lg border border-slate-300 bg-slate-50 p-3 font-mono text-sm text-slate-900"
+          class="w-full resize-y rounded-lg border border-stone-300 bg-stone-50 p-3 font-mono text-sm text-stone-900"
         />
       </div>
     </div>
@@ -147,7 +147,7 @@ function download() {
       <button
         type="button"
         :disabled="!output || busy"
-        class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-4 py-2 text-sm font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="copyOutput"
       >
         {{ copied ? t('markdown.copied') : t('markdown.copy') }}
@@ -155,7 +155,7 @@ function download() {
       <button
         type="button"
         :disabled="!output || busy"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-400"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:cursor-not-allowed disabled:text-stone-400"
         @click="download"
       >
         {{ t('markdown.download') }}
@@ -163,7 +163,7 @@ function download() {
       <button
         type="button"
         :disabled="!input"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-400"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:cursor-not-allowed disabled:text-stone-400"
         @click="input = ''"
       >
         {{ t('markdown.clear') }}

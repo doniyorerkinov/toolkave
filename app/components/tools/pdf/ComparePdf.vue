@@ -197,7 +197,7 @@ function reset() {
 }
 
 const STATUS_STYLE: Record<PageComparison['status'], string> = {
-  identical: 'border-slate-200 bg-slate-50 text-slate-600',
+  identical: 'border-stone-200 bg-stone-50 text-stone-600',
   changed: 'border-amber-300 bg-amber-50 text-amber-900',
   added: 'border-emerald-300 bg-emerald-50 text-emerald-900',
   removed: 'border-red-300 bg-red-50 text-red-900'
@@ -208,21 +208,21 @@ const STATUS_STYLE: Record<PageComparison['status'], string> = {
   <div class="space-y-4">
     <div class="grid gap-4 sm:grid-cols-2">
       <div>
-        <p class="mb-1 text-sm font-medium text-slate-700">{{ t('pdf.compare.documentA') }}</p>
+        <p class="mb-1 text-sm font-medium text-stone-700">{{ t('pdf.compare.documentA') }}</p>
         <ShellFileDropzone v-if="!fileA" accept="application/pdf" :multiple="false" @files="onFilesA($event)" />
-        <div v-else class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
+        <div v-else class="rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-700">
           <p class="truncate font-medium">{{ fileA.name }}</p>
-          <button type="button" class="mt-1 text-xs text-sky-700 hover:underline" @click="fileA = null">
+          <button type="button" class="mt-1 text-xs text-ember-700 hover:underline" @click="fileA = null">
             {{ t('pdf.compare.change') }}
           </button>
         </div>
       </div>
       <div>
-        <p class="mb-1 text-sm font-medium text-slate-700">{{ t('pdf.compare.documentB') }}</p>
+        <p class="mb-1 text-sm font-medium text-stone-700">{{ t('pdf.compare.documentB') }}</p>
         <ShellFileDropzone v-if="!fileB" accept="application/pdf" :multiple="false" @files="onFilesB($event)" />
-        <div v-else class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
+        <div v-else class="rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-700">
           <p class="truncate font-medium">{{ fileB.name }}</p>
-          <button type="button" class="mt-1 text-xs text-sky-700 hover:underline" @click="fileB = null">
+          <button type="button" class="mt-1 text-xs text-ember-700 hover:underline" @click="fileB = null">
             {{ t('pdf.compare.change') }}
           </button>
         </div>
@@ -233,14 +233,14 @@ const STATUS_STYLE: Record<PageComparison['status'], string> = {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ busy ? t('pdf.compare.working') : t('pdf.compare.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="reset"
       >
         {{ t('result.startOver') }}
@@ -248,16 +248,16 @@ const STATUS_STYLE: Record<PageComparison['status'], string> = {
     </div>
 
     <div v-if="busy && progressTotal" class="space-y-1">
-      <div class="h-2 w-full overflow-hidden rounded-full bg-slate-200">
-        <div class="h-full rounded-full bg-sky-600 transition-all" :style="{ width: `${(progress / progressTotal) * 100}%` }" />
+      <div class="h-2 w-full overflow-hidden rounded-full bg-stone-200">
+        <div class="h-full rounded-full bg-ember-600 transition-all" :style="{ width: `${(progress / progressTotal) * 100}%` }" />
       </div>
-      <p class="text-xs text-slate-500">{{ t('pdf.compare.progress', { done: progress, total: progressTotal }) }}</p>
+      <p class="text-xs text-stone-500">{{ t('pdf.compare.progress', { done: progress, total: progressTotal }) }}</p>
     </div>
 
     <p v-if="error" class="text-sm text-red-700" role="alert">{{ error }}</p>
 
     <div v-if="summary" class="space-y-3">
-      <p class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
+      <p class="rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-700">
         {{
           t('pdf.compare.summary', {
             identical: summary.identical,
@@ -284,10 +284,10 @@ const STATUS_STYLE: Record<PageComparison['status'], string> = {
 
           <div v-if="item.status === 'changed' && expanded.has(item.page)" class="space-y-3 border-t border-current/20 bg-white p-3">
             <div v-if="thumbs.get(item.page)" class="grid grid-cols-2 gap-3">
-              <canvas :ref="el => registerThumbCanvas(item.page, 'a', el)" class="w-full rounded border border-slate-200" />
-              <canvas :ref="el => registerThumbCanvas(item.page, 'b', el)" class="w-full rounded border border-slate-200" />
+              <canvas :ref="el => registerThumbCanvas(item.page, 'a', el)" class="w-full rounded border border-stone-200" />
+              <canvas :ref="el => registerThumbCanvas(item.page, 'b', el)" class="w-full rounded border border-stone-200" />
             </div>
-            <p class="whitespace-pre-wrap wrap-break-word font-mono text-xs leading-relaxed text-slate-800">
+            <p class="whitespace-pre-wrap wrap-break-word font-mono text-xs leading-relaxed text-stone-800">
               <template v-for="(part, index) in diffWords(item.textA, item.textB)" :key="index">
                 <span
                   v-if="part.removed"

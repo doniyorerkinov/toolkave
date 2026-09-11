@@ -109,7 +109,7 @@ const sample = 'ÐŸÑ€Ð¸Ð²ÐµÑ‚, Ð¼Ð¸Ñ€!'
 
 <template>
   <div class="space-y-4">
-    <div class="flex gap-1 rounded-lg bg-slate-100 p-1" role="tablist">
+    <div class="flex gap-1 rounded-lg bg-stone-100 p-1" role="tablist">
       <button
         v-for="option in (['text', 'file'] as Mode[])"
         :key="option"
@@ -117,7 +117,7 @@ const sample = 'ÐŸÑ€Ð¸Ð²ÐµÑ‚, Ð¼Ð¸Ñ€!'
         role="tab"
         :aria-selected="mode === option"
         class="flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition"
-        :class="mode === option ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'"
+        :class="mode === option ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-600 hover:text-stone-900'"
         @click="mode = option"
       >
         {{ t(`fixEncoding.mode.${option}`) }}
@@ -127,7 +127,7 @@ const sample = 'ÐŸÑ€Ð¸Ð²ÐµÑ‚, Ð¼Ð¸Ñ€!'
     <!-- Pasted text -->
     <div v-if="mode === 'text'" class="space-y-4">
       <div>
-        <label for="fix-in" class="mb-1 block text-sm font-medium text-slate-700">
+        <label for="fix-in" class="mb-1 block text-sm font-medium text-stone-700">
           {{ t('fixEncoding.inputLabel') }}
         </label>
         <textarea
@@ -136,12 +136,12 @@ const sample = 'ÐŸÑ€Ð¸Ð²ÐµÑ‚, Ð¼Ð¸Ñ€!'
           rows="6"
           spellcheck="false"
           :placeholder="sample"
-          class="w-full resize-y rounded-lg border border-slate-300 bg-white p-3 font-mono text-sm text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+          class="w-full resize-y rounded-lg border border-stone-300 bg-white p-3 font-mono text-sm text-stone-900 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         />
         <button
           v-if="!input"
           type="button"
-          class="mt-1 text-xs text-sky-700 hover:underline"
+          class="mt-1 text-xs text-ember-700 hover:underline"
           @click="input = sample"
         >
           {{ t('fixEncoding.trySample') }}
@@ -150,38 +150,38 @@ const sample = 'ÐŸÑ€Ð¸Ð²ÐµÑ‚, Ð¼Ð¸Ñ€!'
 
       <p
         v-if="input && !analysis?.changed && !chosen"
-        class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700"
+        class="rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-700"
       >
         {{ t('fixEncoding.looksFine') }}
       </p>
 
       <div v-if="output && (analysis?.changed || chosen)" class="space-y-2">
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <label for="fix-out" class="text-sm font-medium text-slate-700">
+          <label for="fix-out" class="text-sm font-medium text-stone-700">
             {{ t('fixEncoding.outputLabel') }}
           </label>
-          <span v-if="detectedLabel" class="text-xs text-slate-500">{{ detectedLabel }}</span>
+          <span v-if="detectedLabel" class="text-xs text-stone-500">{{ detectedLabel }}</span>
         </div>
         <textarea
           id="fix-out"
           :value="output"
           rows="6"
           readonly
-          class="w-full resize-y rounded-lg border border-emerald-200 bg-emerald-50/50 p-3 font-mono text-sm text-slate-900"
+          class="w-full resize-y rounded-lg border border-emerald-200 bg-emerald-50/50 p-3 font-mono text-sm text-stone-900"
         />
       </div>
 
-      <div v-if="alternatives.length" class="rounded-lg border border-slate-200 p-3">
-        <p class="mb-2 text-sm font-medium text-slate-700">{{ t('fixEncoding.otherReadings') }}</p>
+      <div v-if="alternatives.length" class="rounded-lg border border-stone-200 p-3">
+        <p class="mb-2 text-sm font-medium text-stone-700">{{ t('fixEncoding.otherReadings') }}</p>
         <ul class="space-y-1">
           <li v-for="candidate in alternatives" :key="`${candidate.actual}/${candidate.misread}`">
             <button
               type="button"
-              class="w-full rounded-md border border-slate-200 px-2 py-1.5 text-left text-xs hover:border-sky-300 hover:bg-sky-50"
+              class="w-full rounded-md border border-stone-200 px-2 py-1.5 text-left text-xs hover:border-ember-300 hover:bg-ember-50"
               @click="chosen = candidate"
             >
-              <span class="block truncate font-mono text-slate-900">{{ candidate.text.slice(0, 70) }}</span>
-              <span class="text-slate-500">
+              <span class="block truncate font-mono text-stone-900">{{ candidate.text.slice(0, 70) }}</span>
+              <span class="text-stone-500">
                 {{ encodingName(candidate.actual) }}
                 <template v-if="candidate.misread"> → {{ encodingName(candidate.misread) }}</template>
               </span>
@@ -193,7 +193,7 @@ const sample = 'ÐŸÑ€Ð¸Ð²ÐµÑ‚, Ð¼Ð¸Ñ€!'
       <button
         v-if="output"
         type="button"
-        class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-medium text-white hover:bg-sky-800"
+        class="rounded-lg bg-ember-700 px-4 py-2 text-sm font-medium text-white hover:bg-ember-800"
         @click="copyOutput"
       >
         {{ copied ? t('fixEncoding.copied') : t('fixEncoding.copy') }}
@@ -210,12 +210,12 @@ const sample = 'ÐŸÑ€Ð¸Ð²ÐµÑ‚, Ð¼Ð¸Ñ€!'
       />
       <ShellFileList v-else :files="store.files" :reorderable="false" @remove="store.remove($event)" />
 
-      <p v-if="fileEncoding" class="rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 text-sm text-sky-900">
+      <p v-if="fileEncoding" class="rounded-lg border border-ember-200 bg-ember-50 px-3 py-2 text-sm text-ember-900">
         {{ t('fixEncoding.detected', { encoding: fileEncoding }) }}
       </p>
 
       <div v-if="fileText">
-        <label for="fix-file-out" class="mb-1 block text-sm font-medium text-slate-700">
+        <label for="fix-file-out" class="mb-1 block text-sm font-medium text-stone-700">
           {{ t('fixEncoding.preview') }}
         </label>
         <textarea
@@ -223,7 +223,7 @@ const sample = 'ÐŸÑ€Ð¸Ð²ÐµÑ‚, Ð¼Ð¸Ñ€!'
           :value="fileText.slice(0, 4000)"
           rows="10"
           readonly
-          class="w-full resize-y rounded-lg border border-slate-300 bg-white p-3 font-mono text-sm text-slate-900"
+          class="w-full resize-y rounded-lg border border-stone-300 bg-white p-3 font-mono text-sm text-stone-900"
         />
       </div>
 
@@ -231,14 +231,14 @@ const sample = 'ÐŸÑ€Ð¸Ð²ÐµÑ‚, Ð¼Ð¸Ñ€!'
         <button
           type="button"
           :disabled="!fileText"
-          class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+          class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
           @click="saveFile"
         >
           {{ t('fixEncoding.saveUtf8') }}
         </button>
         <button
           type="button"
-          class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
           @click="store.reset()"
         >
           {{ t('result.startOver') }}

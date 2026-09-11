@@ -37,7 +37,7 @@ const bands = [
   <div class="space-y-4">
     <div class="grid gap-3 sm:grid-cols-2">
       <div>
-        <label for="bmi-kg" class="block text-sm font-medium text-slate-900">
+        <label for="bmi-kg" class="block text-sm font-medium text-stone-900">
           {{ t('bmi.weight') }}
         </label>
         <input
@@ -46,11 +46,11 @@ const bands = [
           type="number"
           min="1"
           step="any"
-          class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         />
       </div>
       <div>
-        <label for="bmi-cm" class="block text-sm font-medium text-slate-900">
+        <label for="bmi-cm" class="block text-sm font-medium text-stone-900">
           {{ t('bmi.height') }}
         </label>
         <input
@@ -59,7 +59,7 @@ const bands = [
           type="number"
           min="1"
           step="any"
-          class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         />
       </div>
     </div>
@@ -82,22 +82,22 @@ const bands = [
         </div>
         <div class="relative mt-1 h-4">
           <span
-            class="absolute -translate-x-1/2 text-xs font-medium text-slate-700"
+            class="absolute -translate-x-1/2 text-xs font-medium text-stone-700"
             :style="{ left: `${markerPercent}%` }"
           >
             ▲
           </span>
         </div>
-        <div class="flex justify-between text-xs text-slate-500">
+        <div class="flex justify-between text-xs text-stone-500">
           <span>15</span><span>18.5</span><span>25</span><span>30</span><span>40</span>
         </div>
       </div>
 
-      <p v-if="healthy" class="text-sm text-slate-600">
+      <p v-if="healthy" class="text-sm text-stone-600">
         {{ t('bmi.healthyRange', { min: tidyNumber(healthy.min), max: tidyNumber(healthy.max) }) }}
       </p>
-      <p class="text-xs text-slate-500">{{ t('bmi.disclaimer') }}</p>
+      <p class="text-xs text-stone-500">{{ t('bmi.disclaimer') }}</p>
     </template>
-    <p v-else class="text-sm text-slate-500">{{ t('bmi.enterValues') }}</p>
+    <p v-else class="text-sm text-stone-500">{{ t('bmi.enterValues') }}</p>
   </div>
 </template>

@@ -109,14 +109,14 @@ async function copyOutput() {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('docs.working') : t(`docs.action.${to}`) }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}
@@ -125,31 +125,31 @@ async function copyOutput() {
 
     <p v-if="store.error" class="text-sm text-red-700" role="alert">{{ store.error }}</p>
 
-    <ul v-if="notes.length" class="rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
+    <ul v-if="notes.length" class="rounded-lg border border-stone-200 bg-stone-50 p-3 text-xs text-stone-600">
       <li v-for="note in notes" :key="note">{{ note }}</li>
     </ul>
 
     <div v-if="output" class="space-y-2">
-      <label for="docs-out" class="block text-sm font-medium text-slate-700">{{ t('docs.result') }}</label>
+      <label for="docs-out" class="block text-sm font-medium text-stone-700">{{ t('docs.result') }}</label>
       <textarea
         id="docs-out"
         :value="output"
         rows="14"
         readonly
         spellcheck="false"
-        class="w-full resize-y rounded-lg border border-slate-300 bg-white p-3 font-mono text-xs text-slate-900"
+        class="w-full resize-y rounded-lg border border-stone-300 bg-white p-3 font-mono text-xs text-stone-900"
       />
       <div class="flex flex-wrap gap-2">
         <button
           type="button"
-          class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-medium text-white hover:bg-sky-800"
+          class="rounded-lg bg-ember-700 px-4 py-2 text-sm font-medium text-white hover:bg-ember-800"
           @click="copyOutput"
         >
           {{ copied ? t('docs.copied') : t('docs.copy') }}
         </button>
         <button
           type="button"
-          class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
           @click="save"
         >
           {{ t('docs.saveFile') }}

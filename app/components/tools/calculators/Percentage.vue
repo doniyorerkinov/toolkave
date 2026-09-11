@@ -68,8 +68,8 @@ const result = computed(() => {
         class="cursor-pointer rounded-lg border px-3 py-2 text-sm font-medium"
         :class="
           mode === option
-            ? 'border-sky-500 bg-sky-50 text-sky-900'
-            : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+            ? 'border-ember-500 bg-ember-50 text-ember-900'
+            : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
         "
       >
         <input v-model="mode" type="radio" :value="option" class="sr-only" />
@@ -79,7 +79,7 @@ const result = computed(() => {
 
     <div class="grid gap-3 sm:grid-cols-2">
       <div>
-        <label for="pc-a" class="block text-sm font-medium text-slate-900">
+        <label for="pc-a" class="block text-sm font-medium text-stone-900">
           {{ t(`percent.labels.${mode}.a`) }}
         </label>
         <input
@@ -87,11 +87,11 @@ const result = computed(() => {
           v-model.number="a"
           type="number"
           step="any"
-          class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         />
       </div>
       <div v-if="mode !== 'vat'">
-        <label for="pc-b" class="block text-sm font-medium text-slate-900">
+        <label for="pc-b" class="block text-sm font-medium text-stone-900">
           {{ t(`percent.labels.${mode}.b`) }}
         </label>
         <input
@@ -99,11 +99,11 @@ const result = computed(() => {
           v-model.number="b"
           type="number"
           step="any"
-          class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         />
       </div>
       <div v-else>
-        <label for="pc-vat" class="block text-sm font-medium text-slate-900">
+        <label for="pc-vat" class="block text-sm font-medium text-stone-900">
           {{ t('percent.vatRate') }}
         </label>
         <input
@@ -111,13 +111,13 @@ const result = computed(() => {
           v-model.number="vatRate"
           type="number"
           step="any"
-          class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         />
       </div>
     </div>
 
-    <label v-if="mode === 'vat'" class="flex items-center gap-2 text-sm text-slate-700">
-      <input v-model="vatInclusive" type="checkbox" class="size-4 accent-sky-700" />
+    <label v-if="mode === 'vat'" class="flex items-center gap-2 text-sm text-stone-700">
+      <input v-model="vatInclusive" type="checkbox" class="size-4 accent-ember-700" />
       {{ t('percent.vatInclusive') }}
     </label>
 
@@ -125,12 +125,12 @@ const result = computed(() => {
       <div
         v-for="item in result"
         :key="item.label"
-        class="rounded-lg border border-sky-200 bg-sky-50 p-3"
+        class="rounded-lg border border-ember-200 bg-ember-50 p-3"
       >
-        <dt class="text-xs text-sky-800">{{ item.label }}</dt>
-        <dd class="mt-1 text-2xl font-semibold tabular-nums text-sky-900">{{ item.value }}</dd>
+        <dt class="text-xs text-ember-800">{{ item.label }}</dt>
+        <dd class="mt-1 text-2xl font-semibold tabular-nums text-ember-900">{{ item.value }}</dd>
       </div>
     </dl>
-    <p v-else class="text-sm text-slate-500">{{ t('percent.enterValues') }}</p>
+    <p v-else class="text-sm text-stone-500">{{ t('percent.enterValues') }}</p>
   </div>
 </template>

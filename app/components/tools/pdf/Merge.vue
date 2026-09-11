@@ -47,7 +47,7 @@ async function run() {
       @move="(from, to) => store.move(from, to)"
     />
 
-    <p v-if="store.files.length === 1" class="text-sm text-slate-500">
+    <p v-if="store.files.length === 1" class="text-sm text-stone-500">
       {{ t('pdf.merge.needTwo') }}
     </p>
 
@@ -55,14 +55,14 @@ async function run() {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.merge.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

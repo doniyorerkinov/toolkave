@@ -63,7 +63,7 @@ function onFiles(files: File[]) {
     <ShellFileList v-else :files="store.files" :reorderable="false" @remove="store.remove($event)" />
 
     <fieldset v-if="file">
-      <legend class="mb-2 text-sm font-medium text-slate-700">{{ t('pdf.compress.level') }}</legend>
+      <legend class="mb-2 text-sm font-medium text-stone-700">{{ t('pdf.compress.level') }}</legend>
       <div class="flex flex-wrap gap-2">
         <button
           v-for="option in (['light', 'balanced', 'strong'] as const)"
@@ -73,8 +73,8 @@ function onFiles(files: File[]) {
           class="rounded-lg border px-3 py-1.5 text-sm font-medium transition"
           :class="
             level === option
-              ? 'border-sky-600 bg-sky-50 text-sky-900'
-              : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+              ? 'border-ember-600 bg-ember-50 text-ember-900'
+              : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
           "
           @click="level = option"
         >
@@ -88,7 +88,7 @@ function onFiles(files: File[]) {
       already small, and pretending otherwise would be exactly the kind of
       "looks like it worked" result that erodes trust in the tool.
     -->
-    <p class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
+    <p class="rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-700">
       {{ t('pdf.compress.notice') }}
     </p>
 
@@ -96,14 +96,14 @@ function onFiles(files: File[]) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.compress.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}
@@ -114,7 +114,7 @@ function onFiles(files: File[]) {
 
     <p
       v-if="lastRun && lastRun.imagesCompressed > 0"
-      class="text-sm text-slate-500"
+      class="text-sm text-stone-500"
     >
       {{ t('pdf.compress.summary', { compressed: lastRun.imagesCompressed, skipped: lastRun.imagesSkipped }) }}
     </p>

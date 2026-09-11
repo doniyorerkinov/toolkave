@@ -306,16 +306,16 @@ function onFiles(files: File[]) {
       <div class="flex items-center gap-2">
         <button
           type="button"
-          class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-40"
+          class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
           :disabled="currentPage === 0"
           @click="prevPage"
         >
           ‹
         </button>
-        <span class="text-sm text-slate-600">{{ t('pdf.redact.page', { n: currentPage + 1, count: pageCount }) }}</span>
+        <span class="text-sm text-stone-600">{{ t('pdf.redact.page', { n: currentPage + 1, count: pageCount }) }}</span>
         <button
           type="button"
-          class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-40"
+          class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
           :disabled="currentPage === pageCount - 1"
           @click="nextPage"
         >
@@ -323,7 +323,7 @@ function onFiles(files: File[]) {
         </button>
       </div>
 
-      <div class="relative overflow-hidden rounded-lg border border-slate-300 bg-slate-100">
+      <div class="relative overflow-hidden rounded-lg border border-stone-300 bg-stone-100">
         <canvas
           ref="canvasEl"
           class="block w-full touch-none cursor-crosshair"
@@ -332,18 +332,18 @@ function onFiles(files: File[]) {
           @pointerup="onPointerUp"
           @pointercancel="onPointerUp"
         />
-        <p v-if="loadingPage" class="absolute inset-0 flex items-center justify-center text-sm text-slate-500">
+        <p v-if="loadingPage" class="absolute inset-0 flex items-center justify-center text-sm text-stone-500">
           {{ t('pdf.redact.loadingPreview') }}
         </p>
       </div>
 
-      <div v-if="onThisPage.length" class="flex flex-wrap items-center justify-between gap-2 text-sm text-slate-600">
+      <div v-if="onThisPage.length" class="flex flex-wrap items-center justify-between gap-2 text-sm text-stone-600">
         <span>{{ t('pdf.redact.onThisPage', { n: onThisPage.length }) }}</span>
         <div class="flex gap-3">
-          <button type="button" class="text-xs font-medium text-sky-700 hover:underline" @click="undoLast">
+          <button type="button" class="text-xs font-medium text-ember-700 hover:underline" @click="undoLast">
             {{ t('pdf.redact.undo') }}
           </button>
-          <button type="button" class="text-xs font-medium text-sky-700 hover:underline" @click="clearPage">
+          <button type="button" class="text-xs font-medium text-ember-700 hover:underline" @click="clearPage">
             {{ t('pdf.redact.clearPage') }}
           </button>
         </div>
@@ -351,24 +351,24 @@ function onFiles(files: File[]) {
     </template>
 
     <div v-if="store.busy && progressTotal" class="space-y-1">
-      <div class="h-2 w-full overflow-hidden rounded-full bg-slate-200">
-        <div class="h-full rounded-full bg-sky-600 transition-all" :style="{ width: `${(progress / progressTotal) * 100}%` }" />
+      <div class="h-2 w-full overflow-hidden rounded-full bg-stone-200">
+        <div class="h-full rounded-full bg-ember-600 transition-all" :style="{ width: `${(progress / progressTotal) * 100}%` }" />
       </div>
-      <p class="text-xs text-slate-500">{{ t('pdf.redact.progress', { done: progress, total: progressTotal }) }}</p>
+      <p class="text-xs text-stone-500">{{ t('pdf.redact.progress', { done: progress, total: progressTotal }) }}</p>
     </div>
 
     <div v-if="file" class="flex flex-wrap gap-2">
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-red-700 px-5 py-2.5 font-medium text-white hover:bg-red-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-red-700 px-5 py-2.5 font-medium text-white hover:bg-red-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.redact.action', { n: totalBoxes }) }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

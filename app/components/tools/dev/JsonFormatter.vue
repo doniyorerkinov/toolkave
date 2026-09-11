@@ -61,25 +61,25 @@ async function copy() {
 <template>
   <div class="space-y-4">
     <div class="flex flex-wrap items-center gap-3">
-      <label class="flex items-center gap-2 text-sm text-slate-700">
+      <label class="flex items-center gap-2 text-sm text-stone-700">
         {{ t('json.indent') }}
         <select
           v-model.number="indent"
-          class="rounded-lg border border-slate-300 px-2 py-1.5 text-sm outline-none focus:border-sky-500"
+          class="rounded-lg border border-stone-300 px-2 py-1.5 text-sm outline-none focus:border-ember-500"
         >
           <option :value="2">2</option>
           <option :value="4">4</option>
           <option :value="0">{{ t('json.minified') }}</option>
         </select>
       </label>
-      <label class="flex items-center gap-2 text-sm text-slate-700">
-        <input v-model="sortKeys" type="checkbox" class="size-4 accent-sky-700" />
+      <label class="flex items-center gap-2 text-sm text-stone-700">
+        <input v-model="sortKeys" type="checkbox" class="size-4 accent-ember-700" />
         {{ t('json.sortKeys') }}
       </label>
     </div>
 
     <div>
-      <label for="json-in" class="mb-1 block text-sm font-medium text-slate-900">
+      <label for="json-in" class="mb-1 block text-sm font-medium text-stone-900">
         {{ t('json.inputLabel') }}
       </label>
       <textarea
@@ -88,8 +88,8 @@ async function copy() {
         rows="8"
         spellcheck="false"
         :placeholder="t('json.placeholder')"
-        class="w-full resize-y rounded-lg border p-3 font-mono text-sm text-slate-900 outline-none focus:ring-2 focus:ring-sky-200"
-        :class="parsed.ok ? 'border-slate-300 focus:border-sky-500' : 'border-red-400'"
+        class="w-full resize-y rounded-lg border p-3 font-mono text-sm text-stone-900 outline-none focus:ring-2 focus:ring-ember-200"
+        :class="parsed.ok ? 'border-stone-300 focus:border-ember-500' : 'border-red-400'"
       />
       <p v-if="!parsed.ok" class="mt-1 font-mono text-sm text-red-700" role="alert">
         {{ parsed.message }}
@@ -101,12 +101,12 @@ async function copy() {
 
     <div v-if="output">
       <div class="mb-1 flex items-center justify-between">
-        <label for="json-out" class="block text-sm font-medium text-slate-900">
+        <label for="json-out" class="block text-sm font-medium text-stone-900">
           {{ t('json.outputLabel') }}
         </label>
         <button
           type="button"
-          class="rounded border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50"
+          class="rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50"
           @click="copy"
         >
           {{ copied ? t('wordCounter.copied') : t('wordCounter.copy') }}
@@ -118,7 +118,7 @@ async function copy() {
         rows="10"
         readonly
         spellcheck="false"
-        class="w-full resize-y rounded-lg border border-slate-200 bg-slate-50 p-3 font-mono text-sm text-slate-900"
+        class="w-full resize-y rounded-lg border border-stone-200 bg-stone-50 p-3 font-mono text-sm text-stone-900"
       />
     </div>
   </div>

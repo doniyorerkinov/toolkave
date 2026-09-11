@@ -66,14 +66,14 @@ function onFiles(files: File[]) {
     />
     <ShellFileList v-else :files="store.files" :reorderable="false" @remove="store.remove($event)" />
 
-    <p v-if="dimensions" class="text-sm text-slate-500">
+    <p v-if="dimensions" class="text-sm text-stone-500">
       {{ t('image.dimensions', { w: dimensions.width, h: dimensions.height }) }} ·
       {{ formatBytes(file!.size) }}
     </p>
 
     <div v-if="file && dimensions" class="space-y-4">
       <div>
-        <label for="img-quality" class="block text-sm font-medium text-slate-900">
+        <label for="img-quality" class="block text-sm font-medium text-stone-900">
           {{ t('image.quality', { n: quality }) }}
         </label>
         <input
@@ -82,16 +82,16 @@ function onFiles(files: File[]) {
           type="range"
           min="10"
           max="100"
-          class="mt-2 w-full accent-sky-700"
+          class="mt-2 w-full accent-ember-700"
           :disabled="format === 'png'"
         />
-        <p v-if="format === 'png'" class="mt-1 text-xs text-slate-500">
+        <p v-if="format === 'png'" class="mt-1 text-xs text-stone-500">
           {{ t('image.pngLossless') }}
         </p>
       </div>
 
       <fieldset>
-        <legend class="mb-2 block text-sm font-medium text-slate-900">
+        <legend class="mb-2 block text-sm font-medium text-stone-900">
           {{ t('image.formatLabel') }}
         </legend>
         <div class="flex flex-wrap gap-2">
@@ -101,8 +101,8 @@ function onFiles(files: File[]) {
             class="cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium"
             :class="
               format === option
-                ? 'border-sky-500 bg-sky-50 text-sky-900'
-                : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+                ? 'border-ember-500 bg-ember-50 text-ember-900'
+                : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
             "
           >
             <input v-model="format" type="radio" :value="option" class="sr-only" />
@@ -116,14 +116,14 @@ function onFiles(files: File[]) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('image.working') : t('image.compress.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

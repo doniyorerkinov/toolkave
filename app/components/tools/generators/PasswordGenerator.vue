@@ -104,21 +104,21 @@ watch([length, useUpper, useLower, useDigits, useSymbols, avoidAmbiguous], gener
   <div class="space-y-4">
     <div class="flex flex-wrap items-center gap-2">
       <output
-        class="min-w-0 flex-1 truncate rounded-lg border border-slate-300 bg-slate-50 px-3 py-3 font-mono text-lg text-slate-900"
+        class="min-w-0 flex-1 truncate rounded-lg border border-stone-300 bg-stone-50 px-3 py-3 font-mono text-lg text-stone-900"
       >
         {{ password || '—' }}
       </output>
       <button
         type="button"
         :disabled="!password"
-        class="rounded-lg bg-sky-700 px-4 py-3 text-sm font-medium text-white hover:bg-sky-800 disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-4 py-3 text-sm font-medium text-white hover:bg-ember-800 disabled:bg-stone-300"
         @click="copy"
       >
         {{ copied ? t('wordCounter.copied') : t('wordCounter.copy') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-3 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="generate"
       >
         {{ t('password.regenerate') }}
@@ -129,14 +129,14 @@ watch([length, useUpper, useLower, useDigits, useSymbols, avoidAmbiguous], gener
       {{ t('password.noSets') }}
     </p>
     <p v-else class="text-sm">
-      <span class="text-slate-600">{{ t('password.entropy', { bits: entropyBits }) }}</span>
+      <span class="text-stone-600">{{ t('password.entropy', { bits: entropyBits }) }}</span>
       <span class="ms-2 font-medium" :class="strengthClass">
         {{ t(`password.strength.${strengthKey}`) }}
       </span>
     </p>
 
     <div>
-      <label for="pw-length" class="block text-sm font-medium text-slate-900">
+      <label for="pw-length" class="block text-sm font-medium text-stone-900">
         {{ t('password.length', { n: length }) }}
       </label>
       <input
@@ -145,7 +145,7 @@ watch([length, useUpper, useLower, useDigits, useSymbols, avoidAmbiguous], gener
         type="range"
         min="6"
         max="64"
-        class="mt-2 w-full accent-sky-700"
+        class="mt-2 w-full accent-ember-700"
       />
     </div>
 
@@ -159,33 +159,33 @@ watch([length, useUpper, useLower, useDigits, useSymbols, avoidAmbiguous], gener
           { model: 'symbols', label: t('password.symbols') }
         ]"
         :key="opt.model"
-        class="flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-700"
+        class="flex items-center gap-2 rounded-lg border border-stone-200 px-3 py-2 text-sm text-stone-700"
       >
         <input
           v-if="opt.model === 'upper'"
           v-model="useUpper"
           type="checkbox"
-          class="size-4 accent-sky-700"
+          class="size-4 accent-ember-700"
         />
         <input
           v-else-if="opt.model === 'lower'"
           v-model="useLower"
           type="checkbox"
-          class="size-4 accent-sky-700"
+          class="size-4 accent-ember-700"
         />
         <input
           v-else-if="opt.model === 'digits'"
           v-model="useDigits"
           type="checkbox"
-          class="size-4 accent-sky-700"
+          class="size-4 accent-ember-700"
         />
-        <input v-else v-model="useSymbols" type="checkbox" class="size-4 accent-sky-700" />
+        <input v-else v-model="useSymbols" type="checkbox" class="size-4 accent-ember-700" />
         {{ opt.label }}
       </label>
       <label
-        class="flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-700"
+        class="flex items-center gap-2 rounded-lg border border-stone-200 px-3 py-2 text-sm text-stone-700"
       >
-        <input v-model="avoidAmbiguous" type="checkbox" class="size-4 accent-sky-700" />
+        <input v-model="avoidAmbiguous" type="checkbox" class="size-4 accent-ember-700" />
         {{ t('password.avoidAmbiguous') }}
       </label>
     </fieldset>

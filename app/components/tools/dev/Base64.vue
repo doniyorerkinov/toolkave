@@ -59,26 +59,26 @@ async function copy() {
 <template>
   <div class="space-y-4">
     <div class="flex flex-wrap items-center gap-2">
-      <div class="flex rounded-lg border border-slate-300 p-0.5">
+      <div class="flex rounded-lg border border-stone-300 p-0.5">
         <label
           v-for="option in (['encode', 'decode'] as Mode[])"
           :key="option"
           class="cursor-pointer rounded px-3 py-1.5 text-sm font-medium"
-          :class="mode === option ? 'bg-sky-700 text-white' : 'text-slate-700 hover:bg-slate-50'"
+          :class="mode === option ? 'bg-ember-700 text-white' : 'text-stone-700 hover:bg-stone-50'"
         >
           <input v-model="mode" type="radio" :value="option" class="sr-only" />
           {{ t(`base64.${option}`) }}
         </label>
       </div>
 
-      <label class="flex items-center gap-2 text-sm text-slate-700">
-        <input v-model="urlSafe" type="checkbox" class="size-4 accent-sky-700" />
+      <label class="flex items-center gap-2 text-sm text-stone-700">
+        <input v-model="urlSafe" type="checkbox" class="size-4 accent-ember-700" />
         {{ t('base64.urlSafe') }}
       </label>
 
       <button
         type="button"
-        class="ms-auto rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="ms-auto rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="swap"
       >
         {{ t('base64.swap') }}
@@ -86,7 +86,7 @@ async function copy() {
     </div>
 
     <div>
-      <label for="b64-in" class="mb-1 block text-sm font-medium text-slate-900">
+      <label for="b64-in" class="mb-1 block text-sm font-medium text-stone-900">
         {{ t('base64.inputLabel') }}
       </label>
       <textarea
@@ -95,19 +95,19 @@ async function copy() {
         rows="5"
         spellcheck="false"
         :placeholder="t(`base64.placeholder.${mode}`)"
-        class="w-full resize-y rounded-lg border border-slate-300 p-3 font-mono text-sm text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+        class="w-full resize-y rounded-lg border border-stone-300 p-3 font-mono text-sm text-stone-900 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
       />
     </div>
 
     <div>
       <div class="mb-1 flex items-center justify-between">
-        <label for="b64-out" class="block text-sm font-medium text-slate-900">
+        <label for="b64-out" class="block text-sm font-medium text-stone-900">
           {{ t('base64.outputLabel') }}
         </label>
         <button
           type="button"
           :disabled="!output.text"
-          class="rounded border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-40"
+          class="rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
           @click="copy"
         >
           {{ copied ? t('wordCounter.copied') : t('wordCounter.copy') }}
@@ -119,7 +119,7 @@ async function copy() {
         rows="5"
         readonly
         spellcheck="false"
-        class="w-full resize-y rounded-lg border border-slate-200 bg-slate-50 p-3 font-mono text-sm text-slate-900"
+        class="w-full resize-y rounded-lg border border-stone-200 bg-stone-50 p-3 font-mono text-sm text-stone-900"
       />
       <p v-if="output.error" class="mt-1 text-sm text-red-700" role="alert">{{ output.error }}</p>
     </div>

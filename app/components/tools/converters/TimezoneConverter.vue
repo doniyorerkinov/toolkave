@@ -126,53 +126,53 @@ const zoneLabel = (zone: string) => zone.replace(/_/g, ' ').replace('/', ' / ')
   <div class="space-y-4">
     <div class="grid gap-3 sm:grid-cols-3">
       <div>
-        <label for="tz-date" class="block text-sm font-medium text-slate-900">
+        <label for="tz-date" class="block text-sm font-medium text-stone-900">
           {{ t('timezone.date') }}
         </label>
         <input
           id="tz-date"
           v-model="date"
           type="date"
-          class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         />
       </div>
       <div>
-        <label for="tz-time" class="block text-sm font-medium text-slate-900">
+        <label for="tz-time" class="block text-sm font-medium text-stone-900">
           {{ t('timezone.time') }}
         </label>
         <input
           id="tz-time"
           v-model="time"
           type="time"
-          class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         />
       </div>
       <div>
-        <label for="tz-source" class="block text-sm font-medium text-slate-900">
+        <label for="tz-source" class="block text-sm font-medium text-stone-900">
           {{ t('timezone.sourceZone') }}
         </label>
         <select
           id="tz-source"
           v-model="source"
-          class="mt-1 w-full rounded-lg border border-slate-300 px-2 py-2 outline-none focus:border-sky-500"
+          class="mt-1 w-full rounded-lg border border-stone-300 px-2 py-2 outline-none focus:border-ember-500"
         >
           <option v-for="zone in ZONES" :key="zone" :value="zone">{{ zoneLabel(zone) }}</option>
         </select>
       </div>
     </div>
 
-    <div v-if="sourceRow" class="rounded-lg border border-sky-200 bg-sky-50 p-3">
-      <p class="text-xs text-sky-800">{{ zoneLabel(sourceRow.zone) }} · {{ sourceRow.offset }}</p>
-      <p class="mt-0.5 text-lg font-semibold text-sky-900">{{ sourceRow.text }}</p>
+    <div v-if="sourceRow" class="rounded-lg border border-ember-200 bg-ember-50 p-3">
+      <p class="text-xs text-ember-800">{{ zoneLabel(sourceRow.zone) }} · {{ sourceRow.offset }}</p>
+      <p class="mt-0.5 text-lg font-semibold text-ember-900">{{ sourceRow.text }}</p>
     </div>
 
     <div>
-      <label for="tz-add" class="block text-sm font-medium text-slate-900">
+      <label for="tz-add" class="block text-sm font-medium text-stone-900">
         {{ t('timezone.addZone') }}
       </label>
       <select
         id="tz-add"
-        class="mt-1 w-full rounded-lg border border-slate-300 px-2 py-2 outline-none focus:border-sky-500 sm:w-auto"
+        class="mt-1 w-full rounded-lg border border-stone-300 px-2 py-2 outline-none focus:border-ember-500 sm:w-auto"
         @change="addTarget(($event.target as HTMLSelectElement).value); ($event.target as HTMLSelectElement).value = ''"
       >
         <option value="">{{ t('timezone.choose') }}</option>
@@ -180,18 +180,18 @@ const zoneLabel = (zone: string) => zone.replace(/_/g, ' ').replace('/', ' / ')
       </select>
     </div>
 
-    <ul v-if="rows.length" class="divide-y divide-slate-200 rounded-lg border border-slate-200">
+    <ul v-if="rows.length" class="divide-y divide-stone-200 rounded-lg border border-stone-200">
       <li v-for="row in rows" :key="row.zone" class="flex items-center gap-3 p-3">
         <span class="min-w-0 flex-1">
-          <span class="block truncate text-sm font-medium text-slate-900">
+          <span class="block truncate text-sm font-medium text-stone-900">
             {{ zoneLabel(row.zone) }}
           </span>
-          <span class="block text-xs text-slate-500">{{ row.offset }}</span>
+          <span class="block text-xs text-stone-500">{{ row.offset }}</span>
         </span>
-        <span class="shrink-0 tabular-nums text-slate-900">{{ row.text }}</span>
+        <span class="shrink-0 tabular-nums text-stone-900">{{ row.text }}</span>
         <button
           type="button"
-          class="shrink-0 rounded border border-slate-200 px-2 py-1 text-xs text-slate-600 hover:bg-red-50 hover:text-red-700"
+          class="shrink-0 rounded border border-stone-200 px-2 py-1 text-xs text-stone-600 hover:bg-red-50 hover:text-red-700"
           :aria-label="t('timezone.remove', { zone: zoneLabel(row.zone) })"
           @click="removeTarget(row.zone)"
         >

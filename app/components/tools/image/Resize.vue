@@ -107,7 +107,7 @@ function applyPreset(percent: number) {
     />
     <ShellFileList v-else :files="store.files" :reorderable="false" @remove="store.remove($event)" />
 
-    <p v-if="dimensions" class="text-sm text-slate-500">
+    <p v-if="dimensions" class="text-sm text-stone-500">
       {{ t('image.original') }}: {{ dimensions.width }} × {{ dimensions.height }} ·
       {{ formatBytes(file!.size) }}
     </p>
@@ -115,7 +115,7 @@ function applyPreset(percent: number) {
     <div v-if="file && dimensions" class="space-y-3">
       <div class="grid gap-3 sm:grid-cols-2">
         <div>
-          <label for="rs-w" class="block text-sm font-medium text-slate-900">
+          <label for="rs-w" class="block text-sm font-medium text-stone-900">
             {{ t('image.resize.width') }}
           </label>
           <input
@@ -123,12 +123,12 @@ function applyPreset(percent: number) {
             :value="width"
             type="number"
             min="1"
-            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+            class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
             @input="onWidth(Number(($event.target as HTMLInputElement).value))"
           />
         </div>
         <div>
-          <label for="rs-h" class="block text-sm font-medium text-slate-900">
+          <label for="rs-h" class="block text-sm font-medium text-stone-900">
             {{ t('image.resize.height') }}
           </label>
           <input
@@ -136,14 +136,14 @@ function applyPreset(percent: number) {
             :value="height"
             type="number"
             min="1"
-            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+            class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
             @input="onHeight(Number(($event.target as HTMLInputElement).value))"
           />
         </div>
       </div>
 
-      <label class="flex items-center gap-2 text-sm text-slate-700">
-        <input v-model="keepRatio" type="checkbox" class="size-4 accent-sky-700" />
+      <label class="flex items-center gap-2 text-sm text-stone-700">
+        <input v-model="keepRatio" type="checkbox" class="size-4 accent-ember-700" />
         {{ t('image.resize.keepRatio') }}
       </label>
 
@@ -152,7 +152,7 @@ function applyPreset(percent: number) {
           v-for="preset in presets"
           :key="preset"
           type="button"
-          class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+          class="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm text-stone-700 hover:bg-stone-50"
           @click="applyPreset(preset)"
         >
           {{ preset }}%
@@ -164,14 +164,14 @@ function applyPreset(percent: number) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('image.working') : t('image.resize.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

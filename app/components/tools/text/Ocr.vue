@@ -97,7 +97,7 @@ const LOW_CONFIDENCE = 70
     <ShellFileList v-else :files="store.files" :reorderable="false" @remove="store.remove($event)" />
 
     <fieldset>
-      <legend class="mb-2 text-sm font-medium text-slate-700">{{ t('ocr.languages') }}</legend>
+      <legend class="mb-2 text-sm font-medium text-stone-700">{{ t('ocr.languages') }}</legend>
       <div class="flex flex-wrap gap-2">
         <button
           v-for="code in OCR_LANGUAGES"
@@ -107,15 +107,15 @@ const LOW_CONFIDENCE = 70
           class="rounded-lg border px-3 py-1.5 text-sm font-medium transition"
           :class="
             languages.includes(code)
-              ? 'border-sky-600 bg-sky-50 text-sky-900'
-              : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+              ? 'border-ember-600 bg-ember-50 text-ember-900'
+              : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
           "
           @click="toggle(code)"
         >
           {{ t(`ocr.language.${code}`) }}
         </button>
       </div>
-      <p class="mt-2 text-xs text-slate-500">
+      <p class="mt-2 text-xs text-stone-500">
         {{ languages.length ? t('ocr.downloadNote', { size: downloadSize }) : t('ocr.pickOne') }}
       </p>
     </fieldset>
@@ -124,14 +124,14 @@ const LOW_CONFIDENCE = 70
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('ocr.working') : t('ocr.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}
@@ -139,21 +139,21 @@ const LOW_CONFIDENCE = 70
     </div>
 
     <div v-if="store.busy" class="space-y-1">
-      <div class="h-2 w-full overflow-hidden rounded-full bg-slate-200">
-        <div class="h-full rounded-full bg-sky-600 transition-all" :style="{ width: `${progress}%` }" />
+      <div class="h-2 w-full overflow-hidden rounded-full bg-stone-200">
+        <div class="h-full rounded-full bg-ember-600 transition-all" :style="{ width: `${progress}%` }" />
       </div>
-      <p class="text-xs text-slate-500">{{ stage }} — {{ progress }}%</p>
+      <p class="text-xs text-stone-500">{{ stage }} — {{ progress }}%</p>
     </div>
 
     <p v-if="store.error" class="text-sm text-red-700" role="alert">{{ store.error }}</p>
 
     <div v-if="text" class="space-y-2">
       <div class="flex flex-wrap items-center justify-between gap-2">
-        <label for="ocr-out" class="text-sm font-medium text-slate-700">{{ t('ocr.result') }}</label>
+        <label for="ocr-out" class="text-sm font-medium text-stone-700">{{ t('ocr.result') }}</label>
         <span
           v-if="confidence !== null"
           class="text-xs"
-          :class="confidence < LOW_CONFIDENCE ? 'text-amber-700' : 'text-slate-500'"
+          :class="confidence < LOW_CONFIDENCE ? 'text-amber-700' : 'text-stone-500'"
         >
           {{ t('ocr.confidence', { value: confidence }) }}
         </span>
@@ -171,20 +171,20 @@ const LOW_CONFIDENCE = 70
         v-model="text"
         rows="12"
         spellcheck="false"
-        class="w-full resize-y rounded-lg border border-slate-300 bg-white p-3 text-sm text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+        class="w-full resize-y rounded-lg border border-stone-300 bg-white p-3 text-sm text-stone-900 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
       />
 
       <div class="flex flex-wrap gap-2">
         <button
           type="button"
-          class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-medium text-white hover:bg-sky-800"
+          class="rounded-lg bg-ember-700 px-4 py-2 text-sm font-medium text-white hover:bg-ember-800"
           @click="copyText"
         >
           {{ copied ? t('ocr.copied') : t('ocr.copy') }}
         </button>
         <button
           type="button"
-          class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
           @click="download"
         >
           {{ t('ocr.download') }}

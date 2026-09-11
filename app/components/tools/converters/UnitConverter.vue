@@ -52,8 +52,8 @@ const quickRows = computed(() => {
         class="cursor-pointer rounded-lg border px-3 py-2 text-sm font-medium"
         :class="
           category === option
-            ? 'border-sky-500 bg-sky-50 text-sky-900'
-            : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+            ? 'border-ember-500 bg-ember-50 text-ember-900'
+            : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
         "
       >
         <input v-model="category" type="radio" :value="option" class="sr-only" />
@@ -63,7 +63,7 @@ const quickRows = computed(() => {
 
     <div class="grid items-end gap-3 sm:grid-cols-[1fr_auto_1fr]">
       <div>
-        <label for="uc-value" class="block text-sm font-medium text-slate-900">
+        <label for="uc-value" class="block text-sm font-medium text-stone-900">
           {{ t('units.from') }}
         </label>
         <div class="mt-1 flex gap-2">
@@ -72,12 +72,12 @@ const quickRows = computed(() => {
             v-model.number="value"
             type="number"
             step="any"
-            class="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+            class="min-w-0 flex-1 rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
           />
           <select
             v-model="from"
             :aria-label="t('units.from')"
-            class="rounded-lg border border-slate-300 px-2 py-2 outline-none focus:border-sky-500"
+            class="rounded-lg border border-stone-300 px-2 py-2 outline-none focus:border-ember-500"
           >
             <option v-for="unit in unitsFor" :key="unit" :value="unit">
               {{ t(`units.names.${unit}`) }}
@@ -88,7 +88,7 @@ const quickRows = computed(() => {
 
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
         :aria-label="t('units.swap')"
         @click="swap"
       >
@@ -96,20 +96,20 @@ const quickRows = computed(() => {
       </button>
 
       <div>
-        <label for="uc-out" class="block text-sm font-medium text-slate-900">
+        <label for="uc-out" class="block text-sm font-medium text-stone-900">
           {{ t('units.to') }}
         </label>
         <div class="mt-1 flex gap-2">
           <output
             id="uc-out"
-            class="min-w-0 flex-1 truncate rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 font-semibold tabular-nums text-sky-900"
+            class="min-w-0 flex-1 truncate rounded-lg border border-ember-200 bg-ember-50 px-3 py-2 font-semibold tabular-nums text-ember-900"
           >
             {{ result === null ? '—' : tidyNumber(result) }}
           </output>
           <select
             v-model="to"
             :aria-label="t('units.to')"
-            class="rounded-lg border border-slate-300 px-2 py-2 outline-none focus:border-sky-500"
+            class="rounded-lg border border-stone-300 px-2 py-2 outline-none focus:border-ember-500"
           >
             <option v-for="unit in unitsFor" :key="unit" :value="unit">
               {{ t(`units.names.${unit}`) }}
@@ -120,15 +120,15 @@ const quickRows = computed(() => {
     </div>
 
     <div v-if="quickRows.length">
-      <h3 class="mb-2 text-sm font-medium text-slate-900">{{ t('units.allUnits') }}</h3>
+      <h3 class="mb-2 text-sm font-medium text-stone-900">{{ t('units.allUnits') }}</h3>
       <dl class="grid gap-2 sm:grid-cols-3">
         <div
           v-for="row in quickRows"
           :key="row.unit"
-          class="rounded-lg border border-slate-200 bg-white px-3 py-2"
+          class="rounded-lg border border-stone-200 bg-white px-3 py-2"
         >
-          <dt class="text-xs text-slate-500">{{ t(`units.names.${row.unit}`) }}</dt>
-          <dd class="mt-0.5 tabular-nums text-slate-900">{{ tidyNumber(row.value!) }}</dd>
+          <dt class="text-xs text-stone-500">{{ t(`units.names.${row.unit}`) }}</dt>
+          <dd class="mt-0.5 tabular-nums text-stone-900">{{ tidyNumber(row.value!) }}</dd>
         </div>
       </dl>
     </div>

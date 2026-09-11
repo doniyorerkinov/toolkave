@@ -88,7 +88,7 @@ function onFiles(files: File[]) {
 
     <div v-else-if="file" class="grid gap-3 sm:grid-cols-2">
       <div>
-        <label for="pr-pw" class="block text-sm font-medium text-slate-900">
+        <label for="pr-pw" class="block text-sm font-medium text-stone-900">
           {{ t('pdf.protect.password') }}
         </label>
         <input
@@ -96,13 +96,13 @@ function onFiles(files: File[]) {
           v-model="password"
           type="password"
           autocomplete="new-password"
-          class="mt-1 w-full rounded-lg border px-3 py-2 outline-none focus:ring-2 focus:ring-sky-200"
-          :class="tooShort ? 'border-red-400' : 'border-slate-300 focus:border-sky-500'"
+          class="mt-1 w-full rounded-lg border px-3 py-2 outline-none focus:ring-2 focus:ring-ember-200"
+          :class="tooShort ? 'border-red-400' : 'border-stone-300 focus:border-ember-500'"
         />
         <p v-if="tooShort" class="mt-1 text-sm text-red-700">{{ t('pdf.protect.tooShort') }}</p>
       </div>
       <div>
-        <label for="pr-confirm" class="block text-sm font-medium text-slate-900">
+        <label for="pr-confirm" class="block text-sm font-medium text-stone-900">
           {{ t('pdf.protect.confirm') }}
         </label>
         <input
@@ -110,8 +110,8 @@ function onFiles(files: File[]) {
           v-model="confirm"
           type="password"
           autocomplete="new-password"
-          class="mt-1 w-full rounded-lg border px-3 py-2 outline-none focus:ring-2 focus:ring-sky-200"
-          :class="mismatch ? 'border-red-400' : 'border-slate-300 focus:border-sky-500'"
+          class="mt-1 w-full rounded-lg border px-3 py-2 outline-none focus:ring-2 focus:ring-ember-200"
+          :class="mismatch ? 'border-red-400' : 'border-stone-300 focus:border-ember-500'"
         />
         <p v-if="mismatch" class="mt-1 text-sm text-red-700">{{ t('pdf.protect.mismatch') }}</p>
       </div>
@@ -125,14 +125,14 @@ function onFiles(files: File[]) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.protect.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

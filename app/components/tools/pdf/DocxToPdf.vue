@@ -88,24 +88,24 @@ function onFiles(files: File[]) {
     </p>
 
     <div v-if="file && !legacy && !unreadable" class="flex flex-wrap gap-4">
-      <label class="flex items-center gap-2 text-sm text-slate-700">
+      <label class="flex items-center gap-2 text-sm text-stone-700">
         {{ t('docs.pageSize') }}
-        <select v-model="pageSize" class="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-sm">
+        <select v-model="pageSize" class="rounded-lg border border-stone-300 bg-white px-2 py-1.5 text-sm">
           <option value="A4">A4</option>
           <option value="LETTER">Letter</option>
           <option value="A3">A3</option>
         </select>
       </label>
-      <label class="flex items-center gap-2 text-sm text-slate-700">
+      <label class="flex items-center gap-2 text-sm text-stone-700">
         {{ t('docs.orientation') }}
-        <select v-model="orientation" class="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-sm">
+        <select v-model="orientation" class="rounded-lg border border-stone-300 bg-white px-2 py-1.5 text-sm">
           <option value="portrait">{{ t('docs.portrait') }}</option>
           <option value="landscape">{{ t('docs.landscape') }}</option>
         </select>
       </label>
     </div>
 
-    <p class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
+    <p class="rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-700">
       {{ t('docs.layoutNotice') }}
     </p>
 
@@ -113,14 +113,14 @@ function onFiles(files: File[]) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('docs.working') : t('docs.action.pdf') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}
@@ -129,7 +129,7 @@ function onFiles(files: File[]) {
 
     <p v-if="store.error" class="text-sm text-red-700" role="alert">{{ store.error }}</p>
 
-    <ul v-if="notes.length" class="rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600">
+    <ul v-if="notes.length" class="rounded-lg border border-stone-200 bg-stone-50 p-3 text-xs text-stone-600">
       <li v-for="note in notes" :key="note">{{ note }}</li>
     </ul>
 

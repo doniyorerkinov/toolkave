@@ -84,13 +84,13 @@ function onFiles(files: File[]) {
     />
     <ShellFileList v-else :files="store.files" :reorderable="false" @remove="store.remove($event)" />
 
-    <p v-if="dimensions" class="text-sm text-slate-500">
+    <p v-if="dimensions" class="text-sm text-stone-500">
       {{ t('image.dimensions', { w: dimensions.width, h: dimensions.height }) }} ·
       {{ formatBytes(file!.size) }}
     </p>
 
     <div v-if="file && dimensions && lossy">
-      <label for="cv-quality" class="block text-sm font-medium text-slate-900">
+      <label for="cv-quality" class="block text-sm font-medium text-stone-900">
         {{ t('image.quality', { n: quality }) }}
       </label>
       <input
@@ -99,7 +99,7 @@ function onFiles(files: File[]) {
         type="range"
         min="10"
         max="100"
-        class="mt-2 w-full accent-sky-700"
+        class="mt-2 w-full accent-ember-700"
       />
     </div>
 
@@ -107,14 +107,14 @@ function onFiles(files: File[]) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('image.working') : t('image.convert.action', { format: to.toUpperCase() }) }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

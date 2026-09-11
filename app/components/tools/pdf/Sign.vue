@@ -168,21 +168,21 @@ function onFiles(files: File[]) {
 
     <template v-else-if="file && pageCount">
       <div>
-        <p class="mb-1 text-sm font-medium text-slate-900">{{ t('pdf.sign.drawLabel') }}</p>
+        <p class="mb-1 text-sm font-medium text-stone-900">{{ t('pdf.sign.drawLabel') }}</p>
         <canvas
           ref="canvas"
-          class="h-40 w-full touch-none rounded-lg border-2 border-dashed border-slate-300 bg-white"
+          class="h-40 w-full touch-none rounded-lg border-2 border-dashed border-stone-300 bg-white"
           @pointerdown="start"
           @pointermove="move"
           @pointerup="end"
           @pointercancel="end"
         />
         <div class="mt-2 flex items-center justify-between gap-2">
-          <p class="text-sm text-slate-500">{{ t('pdf.sign.drawHint') }}</p>
+          <p class="text-sm text-stone-500">{{ t('pdf.sign.drawHint') }}</p>
           <button
             type="button"
             :disabled="!hasInk"
-            class="rounded border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-40"
+            class="rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
             @click="clearInk"
           >
             {{ t('pdf.sign.clear') }}
@@ -192,7 +192,7 @@ function onFiles(files: File[]) {
 
       <div class="grid gap-3 sm:grid-cols-2">
         <div>
-          <label for="sg-page" class="block text-sm font-medium text-slate-900">
+          <label for="sg-page" class="block text-sm font-medium text-stone-900">
             {{ t('pdf.sign.page', { count: pageCount }) }}
           </label>
           <input
@@ -201,11 +201,11 @@ function onFiles(files: File[]) {
             type="number"
             min="1"
             :max="pageCount"
-            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+            class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
           />
         </div>
         <div>
-          <label for="sg-w" class="block text-sm font-medium text-slate-900">
+          <label for="sg-w" class="block text-sm font-medium text-stone-900">
             {{ t('pdf.sign.width', { n: widthPercent }) }}
           </label>
           <input
@@ -214,11 +214,11 @@ function onFiles(files: File[]) {
             type="range"
             min="10"
             max="60"
-            class="mt-3 w-full accent-sky-700"
+            class="mt-3 w-full accent-ember-700"
           />
         </div>
         <div>
-          <label for="sg-x" class="block text-sm font-medium text-slate-900">
+          <label for="sg-x" class="block text-sm font-medium text-stone-900">
             {{ t('pdf.sign.fromLeft', { n: xPercent }) }}
           </label>
           <input
@@ -227,11 +227,11 @@ function onFiles(files: File[]) {
             type="range"
             min="0"
             max="90"
-            class="mt-3 w-full accent-sky-700"
+            class="mt-3 w-full accent-ember-700"
           />
         </div>
         <div>
-          <label for="sg-y" class="block text-sm font-medium text-slate-900">
+          <label for="sg-y" class="block text-sm font-medium text-stone-900">
             {{ t('pdf.sign.fromTop', { n: yPercent }) }}
           </label>
           <input
@@ -240,7 +240,7 @@ function onFiles(files: File[]) {
             type="range"
             min="0"
             max="95"
-            class="mt-3 w-full accent-sky-700"
+            class="mt-3 w-full accent-ember-700"
           />
         </div>
       </div>
@@ -252,14 +252,14 @@ function onFiles(files: File[]) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.sign.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

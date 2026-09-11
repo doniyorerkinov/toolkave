@@ -57,7 +57,7 @@ function download() {
 <template>
   <div class="space-y-4">
     <div>
-      <label for="qr-text" class="mb-1 block text-sm font-medium text-slate-900">
+      <label for="qr-text" class="mb-1 block text-sm font-medium text-stone-900">
         {{ t('qr.inputLabel') }}
       </label>
       <textarea
@@ -65,13 +65,13 @@ function download() {
         v-model="text"
         rows="3"
         :placeholder="t('qr.placeholder')"
-        class="w-full resize-y rounded-lg border border-slate-300 p-3 text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+        class="w-full resize-y rounded-lg border border-stone-300 p-3 text-stone-900 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
       />
     </div>
 
     <div class="grid gap-3 sm:grid-cols-3">
       <div>
-        <label for="qr-size" class="block text-sm font-medium text-slate-900">
+        <label for="qr-size" class="block text-sm font-medium text-stone-900">
           {{ t('qr.size', { n: size }) }}
         </label>
         <input
@@ -81,11 +81,11 @@ function download() {
           min="128"
           max="1024"
           step="64"
-          class="mt-2 w-full accent-sky-700"
+          class="mt-2 w-full accent-ember-700"
         />
       </div>
       <div>
-        <label for="qr-margin" class="block text-sm font-medium text-slate-900">
+        <label for="qr-margin" class="block text-sm font-medium text-stone-900">
           {{ t('qr.margin', { n: margin }) }}
         </label>
         <input
@@ -94,17 +94,17 @@ function download() {
           type="range"
           min="0"
           max="8"
-          class="mt-2 w-full accent-sky-700"
+          class="mt-2 w-full accent-ember-700"
         />
       </div>
       <div>
-        <label for="qr-level" class="block text-sm font-medium text-slate-900">
+        <label for="qr-level" class="block text-sm font-medium text-stone-900">
           {{ t('qr.level') }}
         </label>
         <select
           id="qr-level"
           v-model="level"
-          class="mt-2 w-full rounded-lg border border-slate-300 px-2 py-2 text-sm outline-none focus:border-sky-500"
+          class="mt-2 w-full rounded-lg border border-stone-300 px-2 py-2 text-sm outline-none focus:border-ember-500"
         >
           <option value="L">{{ t('qr.levels.L') }}</option>
           <option value="M">{{ t('qr.levels.M') }}</option>
@@ -120,19 +120,19 @@ function download() {
       <img
         :src="dataUrl"
         :alt="t('qr.alt')"
-        class="max-w-full rounded-lg border border-slate-200 bg-white"
+        class="max-w-full rounded-lg border border-stone-200 bg-white"
         width="256"
         height="256"
       />
       <button
         type="button"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800"
         @click="download"
       >
         {{ t('qr.download') }}
       </button>
     </div>
 
-    <p v-else-if="!text.trim()" class="text-sm text-slate-500">{{ t('qr.empty') }}</p>
+    <p v-else-if="!text.trim()" class="text-sm text-stone-500">{{ t('qr.empty') }}</p>
   </div>
 </template>

@@ -64,7 +64,7 @@ function onFiles(files: File[]) {
     <p v-if="infoError" class="text-sm text-red-700" role="alert">{{ t('pdf.errorRead') }}</p>
     <p
       v-else-if="pageCount"
-      class="rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 text-sm text-sky-900"
+      class="rounded-lg border border-ember-200 bg-ember-50 px-3 py-2 text-sm text-ember-900"
     >
       {{ t('pdf.grayscale.pages', { n: pageCount }) }}
     </p>
@@ -74,7 +74,7 @@ function onFiles(files: File[]) {
       file. Anyone reaching for this to strip colour permanently needs to know
       that before they send the result somewhere.
     -->
-    <p class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
+    <p class="rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-700">
       {{ t('pdf.grayscale.notice') }}
     </p>
 
@@ -82,14 +82,14 @@ function onFiles(files: File[]) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.grayscale.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

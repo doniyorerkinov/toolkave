@@ -108,7 +108,7 @@ async function copyText() {
   <div>
     <div v-if="props.documents" class="mb-3 space-y-2">
       <label
-        class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
       >
         <input
           type="file"
@@ -118,7 +118,7 @@ async function copyText() {
         />
         {{ loading ? t('wordCounter.loading') : t('wordCounter.chooseFile') }}
       </label>
-      <p v-if="loadedName" class="text-xs text-slate-500">
+      <p v-if="loadedName" class="text-xs text-stone-500">
         {{ t('wordCounter.loadedFrom', { name: loadedName }) }}
       </p>
       <p v-if="loadError" class="text-sm text-red-700" role="alert">{{ loadError }}</p>
@@ -131,20 +131,20 @@ async function copyText() {
       :placeholder="t('wordCounter.placeholder')"
       rows="10"
       spellcheck="false"
-      class="w-full resize-y rounded-lg border border-slate-300 bg-white p-3 text-base leading-relaxed text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+      class="w-full resize-y rounded-lg border border-stone-300 bg-white p-3 text-base leading-relaxed text-stone-900 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
     />
 
     <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
       <div
         v-for="metric in metrics"
         :key="metric.key"
-        class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2"
-        :class="metric.primary ? 'border-sky-200 bg-sky-50' : ''"
+        class="rounded-lg border border-stone-200 bg-stone-50 px-3 py-2"
+        :class="metric.primary ? 'border-ember-200 bg-ember-50' : ''"
       >
-        <dt class="text-xs tracking-wide text-slate-500 uppercase">{{ metric.label }}</dt>
+        <dt class="text-xs tracking-wide text-stone-500 uppercase">{{ metric.label }}</dt>
         <dd
           class="mt-0.5 text-xl font-semibold tabular-nums"
-          :class="metric.primary ? 'text-sky-900' : 'text-slate-900'"
+          :class="metric.primary ? 'text-ember-900' : 'text-stone-900'"
         >
           {{ metric.value }}
         </dd>
@@ -155,7 +155,7 @@ async function copyText() {
       <button
         type="button"
         :disabled="!text"
-        class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-4 py-2 text-sm font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="copyText"
       >
         {{ copied ? t('wordCounter.copied') : t('wordCounter.copy') }}
@@ -163,7 +163,7 @@ async function copyText() {
       <button
         type="button"
         :disabled="!text"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-400"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:cursor-not-allowed disabled:text-stone-400"
         @click="text = ''"
       >
         {{ t('wordCounter.clear') }}

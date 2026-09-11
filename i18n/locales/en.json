@@ -21,7 +21,8 @@
     "heroTitle": "Free tools that run in your browser",
     "heroSubtitle": "Your files never leave your device. No uploads, no sign-up, no limits.",
     "popular": "Popular tools",
-    "browseByCategory": "Browse by category"
+    "browseByCategory": "Browse by category",
+    "allCount": "All {n} tools"
   },
   "categories": {
     "pdf": {

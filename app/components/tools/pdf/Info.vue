@@ -78,16 +78,16 @@ function onFiles(files: File[]) {
         {{ t('pdf.info.encrypted') }}
       </p>
 
-      <dl class="divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white">
+      <dl class="divide-y divide-stone-200 rounded-lg border border-stone-200 bg-white">
         <div v-for="row in rows" :key="row.key" class="flex gap-4 px-3 py-2">
-          <dt class="w-40 shrink-0 text-sm text-slate-500">{{ row.label }}</dt>
-          <dd class="min-w-0 flex-1 text-sm break-words text-slate-900">
+          <dt class="w-40 shrink-0 text-sm text-stone-500">{{ row.label }}</dt>
+          <dd class="min-w-0 flex-1 text-sm break-words text-stone-900">
             {{ row.value || t('pdf.info.notSet') }}
           </dd>
         </div>
         <div class="flex gap-4 px-3 py-2">
-          <dt class="w-40 shrink-0 text-sm text-slate-500">{{ t('pdf.info.pageSizes') }}</dt>
-          <dd class="min-w-0 flex-1 text-sm text-slate-900">
+          <dt class="w-40 shrink-0 text-sm text-stone-500">{{ t('pdf.info.pageSizes') }}</dt>
+          <dd class="min-w-0 flex-1 text-sm text-stone-900">
             <span v-for="size in sizeSummary" :key="size.label" class="block">
               {{ size.label }}<span v-if="size.count > 1"> × {{ size.count }}</span>
             </span>
@@ -97,7 +97,7 @@ function onFiles(files: File[]) {
 
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

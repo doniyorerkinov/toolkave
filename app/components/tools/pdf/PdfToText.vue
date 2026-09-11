@@ -80,14 +80,14 @@ async function copyOutput() {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.toText.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}
@@ -95,35 +95,35 @@ async function copyOutput() {
     </div>
 
     <div v-if="store.busy && total" class="space-y-1">
-      <div class="h-2 w-full overflow-hidden rounded-full bg-slate-200">
-        <div class="h-full rounded-full bg-sky-600 transition-all" :style="{ width: `${(progress / total) * 100}%` }" />
+      <div class="h-2 w-full overflow-hidden rounded-full bg-stone-200">
+        <div class="h-full rounded-full bg-ember-600 transition-all" :style="{ width: `${(progress / total) * 100}%` }" />
       </div>
-      <p class="text-xs text-slate-500">{{ t('pdf.toText.progress', { done: progress, total }) }}</p>
+      <p class="text-xs text-stone-500">{{ t('pdf.toText.progress', { done: progress, total }) }}</p>
     </div>
 
     <p v-if="store.error" class="text-sm text-red-700" role="alert">{{ store.error }}</p>
 
     <div v-if="output" class="space-y-2">
-      <label for="pdf-to-text-out" class="block text-sm font-medium text-slate-700">{{ t('pdf.toText.result') }}</label>
+      <label for="pdf-to-text-out" class="block text-sm font-medium text-stone-700">{{ t('pdf.toText.result') }}</label>
       <textarea
         id="pdf-to-text-out"
         :value="output"
         rows="14"
         readonly
         spellcheck="false"
-        class="w-full resize-y rounded-lg border border-slate-300 bg-white p-3 font-mono text-xs text-slate-900"
+        class="w-full resize-y rounded-lg border border-stone-300 bg-white p-3 font-mono text-xs text-stone-900"
       />
       <div class="flex flex-wrap gap-2">
         <button
           type="button"
-          class="rounded-lg bg-sky-700 px-4 py-2 text-sm font-medium text-white hover:bg-sky-800"
+          class="rounded-lg bg-ember-700 px-4 py-2 text-sm font-medium text-white hover:bg-ember-800"
           @click="copyOutput"
         >
           {{ copied ? t('docs.copied') : t('docs.copy') }}
         </button>
         <button
           type="button"
-          class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
           @click="save"
         >
           {{ t('docs.saveFile') }}

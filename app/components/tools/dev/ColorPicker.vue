@@ -105,20 +105,20 @@ async function copy(key: string, value: string) {
   <div class="space-y-4">
     <div class="flex flex-wrap items-end gap-4">
       <div>
-        <label for="cp-native" class="mb-1 block text-sm font-medium text-slate-900">
+        <label for="cp-native" class="mb-1 block text-sm font-medium text-stone-900">
           {{ t('color.pick') }}
         </label>
         <input
           id="cp-native"
           :value="normalisedHex || '#000000'"
           type="color"
-          class="h-14 w-24 cursor-pointer rounded-lg border border-slate-300 bg-white p-1"
+          class="h-14 w-24 cursor-pointer rounded-lg border border-stone-300 bg-white p-1"
           @input="hex = ($event.target as HTMLInputElement).value"
         />
       </div>
 
       <div class="min-w-40 flex-1">
-        <label for="cp-hex" class="mb-1 block text-sm font-medium text-slate-900">
+        <label for="cp-hex" class="mb-1 block text-sm font-medium text-stone-900">
           {{ t('color.hexLabel') }}
         </label>
         <input
@@ -127,8 +127,8 @@ async function copy(key: string, value: string) {
           type="text"
           spellcheck="false"
           placeholder="#0369a1"
-          class="w-full rounded-lg border px-3 py-2 font-mono text-slate-900 outline-none focus:ring-2 focus:ring-sky-200"
-          :class="invalid ? 'border-red-400' : 'border-slate-300 focus:border-sky-500'"
+          class="w-full rounded-lg border px-3 py-2 font-mono text-stone-900 outline-none focus:ring-2 focus:ring-ember-200"
+          :class="invalid ? 'border-red-400' : 'border-stone-300 focus:border-ember-500'"
         />
       </div>
     </div>
@@ -137,10 +137,10 @@ async function copy(key: string, value: string) {
 
     <template v-else>
       <div
-        class="flex h-24 items-end rounded-lg border border-slate-200 p-3"
+        class="flex h-24 items-end rounded-lg border border-stone-200 p-3"
         :style="{ backgroundColor: normalisedHex }"
       >
-        <span class="rounded bg-white/85 px-2 py-1 font-mono text-sm text-slate-900">
+        <span class="rounded bg-white/85 px-2 py-1 font-mono text-sm text-stone-900">
           {{ normalisedHex }}
         </span>
       </div>
@@ -149,14 +149,14 @@ async function copy(key: string, value: string) {
         <div
           v-for="item in values"
           :key="item.key"
-          class="rounded-lg border border-slate-200 bg-white p-3"
+          class="rounded-lg border border-stone-200 bg-white p-3"
         >
-          <dt class="text-xs tracking-wide text-slate-500 uppercase">{{ item.label }}</dt>
+          <dt class="text-xs tracking-wide text-stone-500 uppercase">{{ item.label }}</dt>
           <dd class="mt-1 flex items-center justify-between gap-2">
-            <span class="truncate font-mono text-sm text-slate-900">{{ item.value }}</span>
+            <span class="truncate font-mono text-sm text-stone-900">{{ item.value }}</span>
             <button
               type="button"
-              class="shrink-0 rounded border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50"
+              class="shrink-0 rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50"
               @click="copy(item.key, item.value)"
             >
               {{ copiedKey === item.key ? t('wordCounter.copied') : t('wordCounter.copy') }}
@@ -165,13 +165,13 @@ async function copy(key: string, value: string) {
         </div>
       </dl>
 
-      <div v-if="contrasts" class="rounded-lg border border-slate-200 bg-white p-3">
-        <h3 class="text-sm font-medium text-slate-900">{{ t('color.contrast') }}</h3>
-        <p class="mt-1 text-sm text-slate-600">
+      <div v-if="contrasts" class="rounded-lg border border-stone-200 bg-white p-3">
+        <h3 class="text-sm font-medium text-stone-900">{{ t('color.contrast') }}</h3>
+        <p class="mt-1 text-sm text-stone-600">
           {{ t('color.onWhite', { ratio: contrasts.white }) }} ·
           {{ t('color.onBlack', { ratio: contrasts.black }) }}
         </p>
-        <p class="mt-1 text-xs text-slate-500">{{ t('color.wcagNote') }}</p>
+        <p class="mt-1 text-xs text-stone-500">{{ t('color.wcagNote') }}</p>
       </div>
     </template>
   </div>

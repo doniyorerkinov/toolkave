@@ -516,3 +516,18 @@ returns C1 controls for 0x80–0x9F where browsers follow the Encoding Standard 
 around in `utils/encoding.ts`, which now decodes that label itself), and `@cantoo/pdf-lib`
 drops the document Info dictionary — title, author — on encrypted save, so Protect
 loses metadata; a `todo` test turns green when the fork fixes it.
+
+---
+
+## Design
+
+The look is the name: a cave. Near-black header and footer (`stone-950`), warm paper
+body (`stone-50`), and one accent — **ember** (`--color-ember-*` in `main.css`) — for
+the logo, actions and focus. Type is **Manrope**, self-hosted from `public/fonts/`
+(OFL; the Latin subset includes the Uzbek apostrophes U+02BB–02BC). Each category has a
+hue for its icon tile (`app/utils/tone.ts`); tool icons are lucide, mapped from the
+registry's `icon` names in `ShellIcon`. Neutrals are `stone`, never `slate`; the accent is
+`ember`, never `sky` — a new component that uses either is wrong.
+
+The home page shows at most six tools per category with a counted "All N tools" link;
+the category page is the full list; every tool page lists its siblings in the sidebar.

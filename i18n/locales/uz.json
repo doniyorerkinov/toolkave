@@ -21,7 +21,8 @@
     "heroTitle": "Brauzerda ishlaydigan bepul vositalar",
     "heroSubtitle": "Fayllaringiz qurilmangizdan chiqmaydi. Yuklashsiz, ro'yxatdan o'tishsiz, cheklovsiz.",
     "popular": "Ommabop vositalar",
-    "browseByCategory": "Turkumlar bo'yicha"
+    "browseByCategory": "Turkumlar bo'yicha",
+    "allCount": "Barcha vositalar ({n})"
   },
   "categories": {
     "pdf": {

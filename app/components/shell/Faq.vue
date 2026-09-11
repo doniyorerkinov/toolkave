@@ -28,11 +28,11 @@ useHead({
 
 <template>
   <section>
-    <h2 class="text-xl font-semibold tracking-tight text-slate-900">{{ t('shell.faq') }}</h2>
-    <dl class="mt-4 divide-y divide-slate-200 border-t border-slate-200">
+    <h2 class="text-xl font-semibold tracking-tight text-stone-900">{{ t('shell.faq') }}</h2>
+    <dl class="mt-4 divide-y divide-stone-200 border-t border-stone-200">
       <div v-for="(item, index) in items" :key="index" class="py-4">
-        <dt class="font-medium text-slate-900">{{ item.q }}</dt>
-        <dd class="mt-1.5 max-w-prose leading-relaxed text-slate-600">{{ item.a }}</dd>
+        <dt class="font-medium text-stone-900">{{ item.q }}</dt>
+        <dd class="mt-1.5 max-w-prose leading-relaxed text-stone-600">{{ item.a }}</dd>
       </div>
     </dl>
   </section>

@@ -108,44 +108,44 @@ function onFiles(files: File[]) {
         range-placeholder="1-3, 5, 8-10"
       />
 
-      <div class="flex flex-wrap items-center gap-4 rounded-lg border border-slate-200 p-3">
-        <label class="flex items-center gap-2 text-sm text-slate-700">
+      <div class="flex flex-wrap items-center gap-4 rounded-lg border border-stone-200 p-3">
+        <label class="flex items-center gap-2 text-sm text-stone-700">
           {{ t('pdf.toJpg.size') }}
-          <select v-model.number="maxDimension" class="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-sm">
+          <select v-model.number="maxDimension" class="rounded-lg border border-stone-300 bg-white px-2 py-1.5 text-sm">
             <option :value="800">{{ t('pdf.toJpg.sizeSmall') }}</option>
             <option :value="1600">{{ t('pdf.toJpg.sizeMedium') }}</option>
             <option :value="2500">{{ t('pdf.toJpg.sizeLarge') }}</option>
           </select>
         </label>
-        <label class="flex items-center gap-2 text-sm text-slate-700">
+        <label class="flex items-center gap-2 text-sm text-stone-700">
           {{ t('pdf.toJpg.quality') }}
           <input v-model.number="quality" type="range" min="0.5" max="0.95" step="0.05" class="w-28" />
-          <span class="tabular-nums text-slate-500">{{ Math.round(quality * 100) }}%</span>
+          <span class="tabular-nums text-stone-500">{{ Math.round(quality * 100) }}%</span>
         </label>
       </div>
 
-      <p v-if="selected.length > 1" class="text-xs text-slate-500">{{ t('pdf.toJpg.zipNote') }}</p>
+      <p v-if="selected.length > 1" class="text-xs text-stone-500">{{ t('pdf.toJpg.zipNote') }}</p>
     </div>
 
     <div v-if="store.busy && total" class="space-y-1">
-      <div class="h-2 w-full overflow-hidden rounded-full bg-slate-200">
-        <div class="h-full rounded-full bg-sky-600 transition-all" :style="{ width: `${(progress / total) * 100}%` }" />
+      <div class="h-2 w-full overflow-hidden rounded-full bg-stone-200">
+        <div class="h-full rounded-full bg-ember-600 transition-all" :style="{ width: `${(progress / total) * 100}%` }" />
       </div>
-      <p class="text-xs text-slate-500">{{ t('pdf.toJpg.progress', { done: progress, total }) }}</p>
+      <p class="text-xs text-stone-500">{{ t('pdf.toJpg.progress', { done: progress, total }) }}</p>
     </div>
 
     <div v-if="file" class="flex flex-wrap gap-2">
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.toJpg.action', { n: selected.length }) }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

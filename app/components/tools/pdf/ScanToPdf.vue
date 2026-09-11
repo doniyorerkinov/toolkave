@@ -75,7 +75,7 @@ function onFiles(files: File[]) {
     />
 
     <fieldset v-if="store.files.length">
-      <legend class="mb-2 text-sm font-medium text-slate-700">{{ t('scan.mode') }}</legend>
+      <legend class="mb-2 text-sm font-medium text-stone-700">{{ t('scan.mode') }}</legend>
       <div class="flex flex-wrap gap-2">
         <button
           v-for="option in (['enhance', 'grayscale', 'colour'] as ScanMode[])"
@@ -85,22 +85,22 @@ function onFiles(files: File[]) {
           class="rounded-lg border px-3 py-1.5 text-sm font-medium transition"
           :class="
             mode === option
-              ? 'border-sky-600 bg-sky-50 text-sky-900'
-              : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+              ? 'border-ember-600 bg-ember-50 text-ember-900'
+              : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
           "
           @click="mode = option"
         >
           {{ t(`scan.modes.${option}`) }}
         </button>
       </div>
-      <p class="mt-2 text-xs text-slate-500">{{ t(`scan.modeHint.${mode}`) }}</p>
+      <p class="mt-2 text-xs text-stone-500">{{ t(`scan.modeHint.${mode}`) }}</p>
     </fieldset>
 
     <div v-if="store.busy && progress" class="space-y-1">
-      <div class="h-2 w-full overflow-hidden rounded-full bg-slate-200">
-        <div class="h-full rounded-full bg-sky-600 transition-all" :style="{ width: `${progress}%` }" />
+      <div class="h-2 w-full overflow-hidden rounded-full bg-stone-200">
+        <div class="h-full rounded-full bg-ember-600 transition-all" :style="{ width: `${progress}%` }" />
       </div>
-      <p class="text-xs text-slate-500">{{ t('scan.progress', { percent: progress }) }}</p>
+      <p class="text-xs text-stone-500">{{ t('scan.progress', { percent: progress }) }}</p>
     </div>
 
     <p v-if="store.error" class="text-sm text-red-700" role="alert">{{ store.error }}</p>
@@ -109,14 +109,14 @@ function onFiles(files: File[]) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('scan.action', { n: store.files.length }) }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

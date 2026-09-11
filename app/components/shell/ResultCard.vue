@@ -53,7 +53,7 @@ function download() {
         </button>
         <button
           type="button"
-          class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
           @click="emit('reset')"
         >
           {{ t('result.startOver') }}

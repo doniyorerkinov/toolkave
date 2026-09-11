@@ -7,11 +7,13 @@ import {
   getCategory,
   toolBySlug,
   toolPath,
+  toolsInCategory,
   tools as allTools,
   type Locale,
   type ToolDef
 } from '~/data/tools'
 import { useFilesStore } from '~/stores/files'
+import { TONES } from '~/utils/tone'
 
 const props = defineProps<{ tool: ToolDef }>()
 
@@ -86,6 +88,14 @@ const heldFileCount = computed(() => store.files.length || (store.result ? 1 : 0
 const category = computed(() => getCategory(props.tool.category)!)
 const categoryName = computed(() => t(`categories.${props.tool.category}.name`))
 const categoryHref = computed(() => categoryPath(category.value, currentLocale.value))
+const tone = TONES[props.tool.category]
+
+/** The rest of this category, for the sidebar — every tool page links its siblings. */
+const siblings = computed(() =>
+  toolsInCategory(props.tool.category, currentLocale.value, import.meta.dev)
+    .filter(candidate => candidate.id !== props.tool.id)
+    .slice(0, 8)
+)
 
 const howToSteps = computed(() => [
   t(`tools.${props.tool.id}.howTo.step1`),
@@ -119,46 +129,56 @@ const relatedTools = computed(() =>
 <template>
   <div class="mx-auto w-full max-w-6xl px-4 py-6 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-10">
     <div class="min-w-0">
-      <nav aria-label="Breadcrumb" class="mb-4 text-sm text-slate-500">
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm text-stone-500">
         <ol class="flex flex-wrap items-center gap-1.5">
           <li>
-            <NuxtLink :to="localePath('/')" class="hover:text-slate-900 hover:underline">
+            <NuxtLink :to="localePath('/')" class="hover:text-stone-900 hover:underline">
               {{ t('shell.breadcrumbHome') }}
             </NuxtLink>
           </li>
           <li aria-hidden="true">›</li>
           <li>
-            <NuxtLink :to="categoryHref" class="hover:text-slate-900 hover:underline">
+            <NuxtLink :to="categoryHref" class="hover:text-stone-900 hover:underline">
               {{ categoryName }}
             </NuxtLink>
           </li>
           <li aria-hidden="true">›</li>
-          <li class="font-medium text-slate-700">{{ t(`tools.${tool.id}.name`) }}</li>
+          <li class="font-medium text-stone-700">{{ t(`tools.${tool.id}.name`) }}</li>
         </ol>
       </nav>
 
       <header class="mb-6">
-        <p
-          v-if="!tool.published"
-          class="mb-2 inline-block rounded bg-amber-100 px-2 py-1 text-xs font-semibold tracking-wide text-amber-900 uppercase"
-        >
-          {{ t('draft.badge') }}
-        </p>
-        <h1 class="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+        <div class="mb-3 flex flex-wrap items-center gap-2">
+          <NuxtLink
+            :to="categoryHref"
+            class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold"
+            :class="tone.tile"
+          >
+            <ShellIcon :name="category.icon" :size="14" />
+            {{ categoryName }}
+          </NuxtLink>
+          <span
+            v-if="!tool.published"
+            class="inline-block rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold tracking-wide text-amber-900 uppercase"
+          >
+            {{ t('draft.badge') }}
+          </span>
+        </div>
+        <h1 class="text-3xl font-extrabold tracking-tight text-stone-950 sm:text-4xl">
           {{ t(`tools.${tool.id}.name`) }}
         </h1>
-        <p class="mt-2 text-base text-slate-600">{{ t(`tools.${tool.id}.short`) }}</p>
+        <p class="mt-2 text-base text-stone-600">{{ t(`tools.${tool.id}.short`) }}</p>
       </header>
 
       <!-- Tool area: above the fold, before any ad. -->
-      <section class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+      <section class="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm sm:p-6">
         <slot />
       </section>
 
       <!-- Ads never appear between input and result. -->
       <AdsAdSlot placement="below-result" class="my-8" />
 
-      <p class="mt-8 max-w-prose text-base leading-relaxed text-slate-700">
+      <p class="mt-8 max-w-prose text-base leading-relaxed text-stone-700">
         {{ t(`tools.${tool.id}.intro`) }}
       </p>
 
@@ -180,12 +200,29 @@ const relatedTools = computed(() =>
 
     <aside class="mt-10 hidden lg:mt-0 lg:block">
       <AdsAdSlot placement="sidebar" class="mb-6" />
-      <div class="rounded-xl border border-slate-200 bg-white p-4">
-        <h2 class="mb-3 text-sm font-semibold text-slate-900">
+      <div class="rounded-2xl border border-stone-200 bg-white p-4">
+        <h2 class="mb-2 text-sm font-bold text-stone-950">
           {{ t('shell.allInCategory', { category: categoryName }) }}
         </h2>
-        <NuxtLink :to="categoryHref" class="text-sm text-sky-700 hover:text-sky-900 hover:underline">
-          {{ categoryName }} →
+        <ul class="divide-y divide-stone-100">
+          <li v-for="sibling in siblings" :key="sibling.id">
+            <NuxtLink
+              :to="toolPath(sibling, currentLocale) ?? categoryHref"
+              class="group flex items-center gap-2.5 py-2 text-sm text-stone-700 hover:text-stone-950"
+            >
+              <span class="flex size-7 shrink-0 items-center justify-center rounded-md" :class="tone.tile">
+                <ShellIcon :name="sibling.icon" :size="14" />
+              </span>
+              <span class="truncate group-hover:underline">{{ t(`tools.${sibling.id}.name`) }}</span>
+            </NuxtLink>
+          </li>
+        </ul>
+        <NuxtLink
+          :to="categoryHref"
+          class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-ember-700 hover:underline"
+        >
+          {{ categoryName }}
+          <ShellIcon name="arrow-right" :size="14" />
         </NuxtLink>
       </div>
     </aside>

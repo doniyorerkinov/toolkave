@@ -53,7 +53,7 @@ const sizes = computed(() => {
 <template>
   <div class="space-y-4">
     <div>
-      <label for="yt-url" class="mb-1 block text-sm font-medium text-slate-900">
+      <label for="yt-url" class="mb-1 block text-sm font-medium text-stone-900">
         {{ t('youtube.inputLabel') }}
       </label>
       <input
@@ -62,13 +62,13 @@ const sizes = computed(() => {
         type="url"
         inputmode="url"
         :placeholder="t('youtube.placeholder')"
-        class="w-full rounded-lg border px-3 py-2 text-slate-900 outline-none focus:ring-2 focus:ring-sky-200"
-        :class="invalid ? 'border-red-400' : 'border-slate-300 focus:border-sky-500'"
+        class="w-full rounded-lg border px-3 py-2 text-stone-900 outline-none focus:ring-2 focus:ring-ember-200"
+        :class="invalid ? 'border-red-400' : 'border-stone-300 focus:border-ember-500'"
       />
       <p v-if="invalid" class="mt-1 text-sm text-red-700" role="alert">
         {{ t('youtube.invalid') }}
       </p>
-      <p v-else-if="videoId" class="mt-1 font-mono text-sm text-slate-500">
+      <p v-else-if="videoId" class="mt-1 font-mono text-sm text-stone-500">
         {{ t('youtube.videoId') }}: {{ videoId }}
       </p>
     </div>
@@ -77,23 +77,23 @@ const sizes = computed(() => {
       <div
         v-for="size in sizes"
         :key="size.key"
-        class="rounded-lg border border-slate-200 bg-white p-3"
+        class="rounded-lg border border-stone-200 bg-white p-3"
       >
         <img
           :src="size.url"
           :alt="t('youtube.thumbAlt', { size: size.label })"
           loading="lazy"
-          class="w-full rounded bg-slate-100"
+          class="w-full rounded bg-stone-100"
           width="480"
           height="360"
         />
         <div class="mt-2 flex items-center justify-between gap-2">
-          <span class="text-sm font-medium text-slate-700">{{ size.label }}</span>
+          <span class="text-sm font-medium text-stone-700">{{ size.label }}</span>
           <a
             :href="size.url"
             target="_blank"
             rel="noopener noreferrer"
-            class="rounded border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50"
+            class="rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50"
           >
             {{ t('youtube.open') }}
           </a>
@@ -101,6 +101,6 @@ const sizes = computed(() => {
       </div>
     </div>
 
-    <p v-if="videoId" class="text-sm text-slate-500">{{ t('youtube.maxresNote') }}</p>
+    <p v-if="videoId" class="text-sm text-stone-500">{{ t('youtube.maxresNote') }}</p>
   </div>
 </template>

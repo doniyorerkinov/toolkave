@@ -173,7 +173,7 @@ onBeforeUnmount(closeAllBitmaps)
 <template>
   <div class="space-y-3">
     <div>
-      <label v-if="rangeLabel" for="page-picker-range" class="mb-1 block text-sm font-medium text-slate-900">
+      <label v-if="rangeLabel" for="page-picker-range" class="mb-1 block text-sm font-medium text-stone-900">
         {{ rangeLabel }}
       </label>
       <input
@@ -182,7 +182,7 @@ onBeforeUnmount(closeAllBitmaps)
         type="text"
         inputmode="numeric"
         :placeholder="rangePlaceholder"
-        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+        class="w-full rounded-lg border border-stone-300 px-3 py-2 text-stone-900 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         @input="onRangeInput"
       />
     </div>
@@ -192,26 +192,26 @@ onBeforeUnmount(closeAllBitmaps)
         <div class="flex gap-2">
           <button
             type="button"
-            class="text-xs font-medium text-sky-700 hover:underline"
+            class="text-xs font-medium text-ember-700 hover:underline"
             @click="selectAll"
           >
             {{ t('pagePicker.selectAll') }}
           </button>
           <button
             type="button"
-            class="text-xs font-medium text-sky-700 hover:underline"
+            class="text-xs font-medium text-ember-700 hover:underline"
             @click="selectNone"
           >
             {{ t('pagePicker.selectNone') }}
           </button>
         </div>
-        <span v-if="loaded < total" class="text-xs text-slate-500">
+        <span v-if="loaded < total" class="text-xs text-stone-500">
           {{ t('pagePicker.loading', { done: loaded, total }) }}
         </span>
       </div>
 
       <div
-        class="grid max-h-96 grid-cols-3 gap-2 overflow-y-auto rounded-lg border border-slate-200 p-2 sm:grid-cols-4 md:grid-cols-5"
+        class="grid max-h-96 grid-cols-3 gap-2 overflow-y-auto rounded-lg border border-stone-200 p-2 sm:grid-cols-4 md:grid-cols-5"
       >
         <button
           v-for="index in pageCount"
@@ -220,24 +220,24 @@ onBeforeUnmount(closeAllBitmaps)
           role="checkbox"
           :aria-checked="selected.has(index - 1)"
           :aria-label="t('pagePicker.page', { n: index })"
-          class="group relative flex aspect-3/4 items-center justify-center overflow-hidden rounded-md border-2 bg-slate-50 transition"
+          class="group relative flex aspect-3/4 items-center justify-center overflow-hidden rounded-md border-2 bg-stone-50 transition"
           :class="
             selected.has(index - 1)
-              ? 'border-sky-600 ring-2 ring-sky-200'
-              : 'border-slate-200 hover:border-slate-300'
+              ? 'border-ember-600 ring-2 ring-ember-200'
+              : 'border-stone-200 hover:border-stone-300'
           "
           @click="toggle(index - 1, $event)"
         >
           <canvas :ref="el => registerCanvas(index - 1, el)" class="max-h-full max-w-full object-contain" />
           <span
-            class="absolute right-1 top-1 rounded bg-white/90 px-1 text-[10px] font-medium text-slate-600"
+            class="absolute right-1 top-1 rounded bg-white/90 px-1 text-[10px] font-medium text-stone-600"
           >{{ index }}</span>
           <span
             v-if="selected.has(index - 1)"
-            class="absolute inset-0 flex items-center justify-center bg-sky-600/20"
+            class="absolute inset-0 flex items-center justify-center bg-ember-600/20"
             aria-hidden="true"
           >
-            <span class="rounded-full bg-sky-600 p-1 text-white">
+            <span class="rounded-full bg-ember-600 p-1 text-white">
               <svg viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
                 <path
                   fill-rule="evenodd"
@@ -251,7 +251,7 @@ onBeforeUnmount(closeAllBitmaps)
       </div>
     </div>
 
-    <p v-else-if="pageCount > maxThumbnails" class="text-xs text-slate-500">
+    <p v-else-if="pageCount > maxThumbnails" class="text-xs text-stone-500">
       {{ t('pagePicker.tooManyPages', { max: maxThumbnails }) }}
     </p>
     <p v-if="loadError" class="text-xs text-amber-700">{{ t('pagePicker.loadError') }}</p>

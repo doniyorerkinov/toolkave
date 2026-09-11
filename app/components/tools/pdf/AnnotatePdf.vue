@@ -291,16 +291,16 @@ function nextPage() {
         <div class="flex items-center gap-2">
           <button
             type="button"
-            class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-40"
+            class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
             :disabled="currentPage === 0"
             @click="prevPage"
           >
             ‹
           </button>
-          <span class="text-sm text-slate-600">{{ t('pdf.annotate.page', { n: currentPage + 1, count: pageCount }) }}</span>
+          <span class="text-sm text-stone-600">{{ t('pdf.annotate.page', { n: currentPage + 1, count: pageCount }) }}</span>
           <button
             type="button"
-            class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-40"
+            class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
             :disabled="currentPage === pageCount - 1"
             @click="nextPage"
           >
@@ -308,13 +308,13 @@ function nextPage() {
           </button>
         </div>
 
-        <div class="flex gap-1 rounded-lg bg-slate-100 p-1">
+        <div class="flex gap-1 rounded-lg bg-stone-100 p-1">
           <button
             v-for="option in (['highlight', 'note'] as const)"
             :key="option"
             type="button"
             class="rounded-md px-3 py-1.5 text-sm font-medium transition"
-            :class="mode === option ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'"
+            :class="mode === option ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-600 hover:text-stone-900'"
             @click="mode = option"
           >
             {{ t(`pdf.annotate.mode.${option}`) }}
@@ -322,7 +322,7 @@ function nextPage() {
         </div>
       </div>
 
-      <div class="relative overflow-hidden rounded-lg border border-slate-300 bg-slate-100">
+      <div class="relative overflow-hidden rounded-lg border border-stone-300 bg-stone-100">
         <canvas
           ref="canvasEl"
           class="block w-full touch-none"
@@ -332,7 +332,7 @@ function nextPage() {
           @pointerup="onPointerUp"
           @pointercancel="onPointerUp"
         />
-        <p v-if="loadingPage" class="absolute inset-0 flex items-center justify-center text-sm text-slate-500">
+        <p v-if="loadingPage" class="absolute inset-0 flex items-center justify-center text-sm text-stone-500">
           {{ t('pdf.annotate.loadingPreview') }}
         </p>
       </div>
@@ -354,14 +354,14 @@ function nextPage() {
           <button
             type="button"
             :disabled="!noteText.trim() || noteInvalidChars || noteTooLong"
-            class="rounded-lg bg-amber-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-amber-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+            class="rounded-lg bg-amber-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-amber-700 disabled:cursor-not-allowed disabled:bg-stone-300"
             @click="confirmNote"
           >
             {{ t('pdf.annotate.addNote') }}
           </button>
           <button
             type="button"
-            class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            class="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
             @click="cancelNote"
           >
             {{ t('pdf.annotate.cancelNote') }}
@@ -370,9 +370,9 @@ function nextPage() {
       </div>
 
       <div v-if="onThisPage.length" class="space-y-2">
-        <div class="flex flex-wrap items-center justify-between gap-2 text-sm text-slate-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 text-sm text-stone-600">
           <span>{{ t('pdf.annotate.onThisPage', { n: onThisPage.length }) }}</span>
-          <button type="button" class="text-xs font-medium text-sky-700 hover:underline" @click="clearPage">
+          <button type="button" class="text-xs font-medium text-ember-700 hover:underline" @click="clearPage">
             {{ t('pdf.annotate.clearPage') }}
           </button>
         </div>
@@ -380,7 +380,7 @@ function nextPage() {
           <li
             v-for="(annotation, index) in onThisPage"
             :key="index"
-            class="flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs text-slate-600"
+            class="flex items-center justify-between gap-2 rounded-lg border border-stone-200 bg-white px-2.5 py-1.5 text-xs text-stone-600"
           >
             <span class="truncate">
               {{ annotation.kind === 'highlight' ? t('pdf.annotate.mode.highlight') : `${t('pdf.annotate.mode.note')}: ${annotation.text}` }}
@@ -397,14 +397,14 @@ function nextPage() {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.annotate.action', { n: annotations.length }) }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

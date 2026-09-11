@@ -106,8 +106,8 @@ onBeforeUnmount(() => {
       class="flex w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-6 py-10 text-center transition"
       :class="
         dragging
-          ? 'border-sky-500 bg-sky-50'
-          : 'border-slate-300 bg-slate-50 hover:border-sky-400 hover:bg-sky-50/50'
+          ? 'border-ember-500 bg-ember-50'
+          : 'border-stone-300 bg-stone-50 hover:border-ember-400 hover:bg-ember-50/50'
       "
       @click="input?.click()"
       @dragover.prevent="dragging = true"
@@ -115,9 +115,9 @@ onBeforeUnmount(() => {
       @dragleave.prevent="dragging = false"
       @drop.prevent="onDrop"
     >
-      <span class="text-base font-medium text-slate-900">{{ t('dropzone.title') }}</span>
-      <span class="text-sm text-slate-500">{{ t('dropzone.hint') }}</span>
-      <span class="text-xs text-slate-400">
+      <span class="text-base font-medium text-stone-900">{{ t('dropzone.title') }}</span>
+      <span class="text-sm text-stone-500">{{ t('dropzone.hint') }}</span>
+      <span class="text-xs text-stone-400">
         {{ acceptedLabel }} · {{ t('dropzone.maxSize', { size: formatBytes(maxSize) }) }}
       </span>
     </button>

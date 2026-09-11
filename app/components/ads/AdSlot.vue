@@ -20,7 +20,7 @@ const isDev = import.meta.dev
 <template>
   <div
     v-if="isDev"
-    class="flex items-center justify-center rounded-lg border border-dashed border-slate-300 p-4 text-xs tracking-wide text-slate-400 uppercase"
+    class="flex items-center justify-center rounded-lg border border-dashed border-stone-300 p-4 text-xs tracking-wide text-stone-400 uppercase"
     :data-placement="placement"
   >
     ad · {{ placement }}

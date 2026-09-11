@@ -25,7 +25,7 @@ const interestShare = computed(() => {
   <div class="space-y-4">
     <div class="grid gap-3 sm:grid-cols-3">
       <div>
-        <label for="ln-p" class="block text-sm font-medium text-slate-900">
+        <label for="ln-p" class="block text-sm font-medium text-stone-900">
           {{ t('loan.amount') }}
         </label>
         <input
@@ -34,11 +34,11 @@ const interestShare = computed(() => {
           type="number"
           min="0"
           step="any"
-          class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         />
       </div>
       <div>
-        <label for="ln-r" class="block text-sm font-medium text-slate-900">
+        <label for="ln-r" class="block text-sm font-medium text-stone-900">
           {{ t('loan.rate') }}
         </label>
         <input
@@ -47,11 +47,11 @@ const interestShare = computed(() => {
           type="number"
           min="0"
           step="any"
-          class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         />
       </div>
       <div>
-        <label for="ln-y" class="block text-sm font-medium text-slate-900">
+        <label for="ln-y" class="block text-sm font-medium text-stone-900">
           {{ t('loan.years') }}
         </label>
         <input
@@ -60,32 +60,32 @@ const interestShare = computed(() => {
           type="number"
           min="0"
           step="any"
-          class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
         />
       </div>
     </div>
 
     <template v-if="result">
-      <div class="rounded-lg border border-sky-200 bg-sky-50 p-4">
-        <p class="text-sm text-sky-800">{{ t('loan.monthly') }}</p>
-        <p class="mt-1 text-3xl font-semibold tabular-nums text-sky-900">
+      <div class="rounded-lg border border-ember-200 bg-ember-50 p-4">
+        <p class="text-sm text-ember-800">{{ t('loan.monthly') }}</p>
+        <p class="mt-1 text-3xl font-semibold tabular-nums text-ember-900">
           {{ tidyNumber(result.monthly) }}
         </p>
-        <p class="mt-1 text-sm text-sky-800">{{ t('loan.overMonths', { n: months }) }}</p>
+        <p class="mt-1 text-sm text-ember-800">{{ t('loan.overMonths', { n: months }) }}</p>
       </div>
 
       <dl class="grid gap-2 sm:grid-cols-2">
-        <div class="rounded-lg border border-slate-200 bg-white p-3">
-          <dt class="text-xs tracking-wide text-slate-500 uppercase">{{ t('loan.totalPaid') }}</dt>
-          <dd class="mt-1 text-xl font-semibold tabular-nums text-slate-900">
+        <div class="rounded-lg border border-stone-200 bg-white p-3">
+          <dt class="text-xs tracking-wide text-stone-500 uppercase">{{ t('loan.totalPaid') }}</dt>
+          <dd class="mt-1 text-xl font-semibold tabular-nums text-stone-900">
             {{ tidyNumber(result.totalPaid) }}
           </dd>
         </div>
-        <div class="rounded-lg border border-slate-200 bg-white p-3">
-          <dt class="text-xs tracking-wide text-slate-500 uppercase">
+        <div class="rounded-lg border border-stone-200 bg-white p-3">
+          <dt class="text-xs tracking-wide text-stone-500 uppercase">
             {{ t('loan.totalInterest') }}
           </dt>
-          <dd class="mt-1 text-xl font-semibold tabular-nums text-slate-900">
+          <dd class="mt-1 text-xl font-semibold tabular-nums text-stone-900">
             {{ tidyNumber(result.totalInterest) }}
           </dd>
         </div>
@@ -95,11 +95,11 @@ const interestShare = computed(() => {
         <div class="flex h-3 overflow-hidden rounded-full bg-emerald-400">
           <div class="bg-amber-400" :style="{ width: `${interestShare}%` }" />
         </div>
-        <p class="mt-1 text-sm text-slate-600">
+        <p class="mt-1 text-sm text-stone-600">
           {{ t('loan.interestShare', { n: interestShare }) }}
         </p>
       </div>
     </template>
-    <p v-else class="text-sm text-slate-500">{{ t('loan.enterValues') }}</p>
+    <p v-else class="text-sm text-stone-500">{{ t('loan.enterValues') }}</p>
   </div>
 </template>

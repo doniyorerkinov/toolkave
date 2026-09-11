@@ -73,7 +73,7 @@ function onFiles(files: File[]) {
 
     <div v-else-if="file && pageCount" class="space-y-4">
       <fieldset>
-        <legend class="mb-2 block text-sm font-medium text-slate-900">
+        <legend class="mb-2 block text-sm font-medium text-stone-900">
           {{ t('pdf.rotate.angleLabel') }}
         </legend>
         <div class="flex flex-wrap gap-2">
@@ -83,8 +83,8 @@ function onFiles(files: File[]) {
             class="cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium"
             :class="
               turn === option
-                ? 'border-sky-500 bg-sky-50 text-sky-900'
-                : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+                ? 'border-ember-500 bg-ember-50 text-ember-900'
+                : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
             "
           >
             <input v-model="turn" type="radio" :value="option" class="sr-only" />
@@ -100,21 +100,21 @@ function onFiles(files: File[]) {
         :range-label="t('pdf.rotate.pagesLabel', { count: pageCount })"
         :range-placeholder="t('pdf.rotate.pagesPlaceholder')"
       />
-      <p class="text-sm text-slate-500">{{ t('pdf.rotate.selected', { n: selected.length }) }}</p>
+      <p class="text-sm text-stone-500">{{ t('pdf.rotate.selected', { n: selected.length }) }}</p>
     </div>
 
     <div v-if="file" class="flex flex-wrap gap-2">
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.rotate.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

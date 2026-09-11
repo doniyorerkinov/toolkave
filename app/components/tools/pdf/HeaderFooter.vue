@@ -87,7 +87,7 @@ function onFiles(files: File[]) {
     <div v-else-if="file && pageCount" class="space-y-4">
       <div class="grid gap-3 sm:grid-cols-2">
         <div>
-          <label for="hf-head" class="block text-sm font-medium text-slate-900">
+          <label for="hf-head" class="block text-sm font-medium text-stone-900">
             {{ t('pdf.headerFooter.headerLabel') }}
           </label>
           <input
@@ -95,11 +95,11 @@ function onFiles(files: File[]) {
             v-model="header"
             type="text"
             maxlength="80"
-            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+            class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
           />
         </div>
         <div>
-          <label for="hf-foot" class="block text-sm font-medium text-slate-900">
+          <label for="hf-foot" class="block text-sm font-medium text-stone-900">
             {{ t('pdf.headerFooter.footerLabel') }}
           </label>
           <input
@@ -107,7 +107,7 @@ function onFiles(files: File[]) {
             v-model="footer"
             type="text"
             maxlength="80"
-            class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-200"
+            class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
           />
         </div>
       </div>
@@ -118,7 +118,7 @@ function onFiles(files: File[]) {
 
       <div class="grid gap-3 sm:grid-cols-2">
         <fieldset>
-          <legend class="mb-2 block text-sm font-medium text-slate-900">
+          <legend class="mb-2 block text-sm font-medium text-stone-900">
             {{ t('pdf.headerFooter.alignLabel') }}
           </legend>
           <div class="flex flex-wrap gap-2">
@@ -128,8 +128,8 @@ function onFiles(files: File[]) {
               class="cursor-pointer rounded-lg border px-3 py-2 text-sm font-medium"
               :class="
                 align === option
-                  ? 'border-sky-500 bg-sky-50 text-sky-900'
-                  : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+                  ? 'border-ember-500 bg-ember-50 text-ember-900'
+                  : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
               "
             >
               <input v-model="align" type="radio" :value="option" class="sr-only" />
@@ -138,7 +138,7 @@ function onFiles(files: File[]) {
           </div>
         </fieldset>
         <div>
-          <label for="hf-size" class="block text-sm font-medium text-slate-900">
+          <label for="hf-size" class="block text-sm font-medium text-stone-900">
             {{ t('pdf.headerFooter.fontSize', { n: fontSize }) }}
           </label>
           <input
@@ -147,7 +147,7 @@ function onFiles(files: File[]) {
             type="range"
             min="7"
             max="20"
-            class="mt-3 w-full accent-sky-700"
+            class="mt-3 w-full accent-ember-700"
           />
         </div>
       </div>
@@ -157,14 +157,14 @@ function onFiles(files: File[]) {
       <button
         type="button"
         :disabled="!canRun"
-        class="rounded-lg bg-sky-700 px-5 py-2.5 font-medium text-white hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
         {{ store.busy ? t('pdf.working') : t('pdf.headerFooter.action') }}
       </button>
       <button
         type="button"
-        class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}
