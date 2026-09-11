@@ -2,6 +2,7 @@ import type { HeldFile } from '~/stores/files'
 // Type-only: erased at build time, so this does not force an eager load of
 // the library the way a value import would.
 import type {
+  PDFForm,
   PDFDict as PDFDictType,
   PDFPage as PDFPageType,
   PDFRawStream as PDFRawStreamType,
@@ -824,8 +825,24 @@ export async function fillForm(
     }
   }
 
+  if (flatten) await refreshStaleAppearances(form)
   if (flatten) form.flatten()
   return await doc.save()
+}
+
+/**
+ * A form saved with NeedAppearances is one whose appearance streams are stale
+ * or missing: the file says "draw each field from its value", and every viewer
+ * does, so the person sees their filled-in text. Flattening copies the streams
+ * as they are — the old, usually empty, look — and the text they could see is
+ * gone while the fields' boxes stay. Marking every field dirty makes pdf-lib
+ * rebuild the streams from the values before they are baked in.
+ */
+async function refreshStaleAppearances(form: PDFForm): Promise<void> {
+  const { PDFName, PDFBool } = await loadPdfLib()
+  const flag = form.acroForm.dict.lookup(PDFName.of('NeedAppearances'))
+  if (!(flag instanceof PDFBool) || !flag.asBoolean()) return
+  for (const field of form.getFields()) form.markFieldAsDirty(field.ref)
 }
 
 /**
@@ -838,7 +855,9 @@ export async function flattenPdf(file: HeldFile): Promise<Uint8Array> {
   const doc = await loadEditable(file)
 
   try {
-    doc.getForm().flatten()
+    const form = doc.getForm()
+    await refreshStaleAppearances(form)
+    form.flatten()
   } catch {
     // No form, or a form pdf-lib cannot flatten. The save below still strips
     // nothing and returns a valid document.

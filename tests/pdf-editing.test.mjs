@@ -4,7 +4,7 @@
  */
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { pdf, lib, held, render, inkFraction, inkOutside } from './helpers/pdf.mjs'
+import { pdf, lib, held, render, pageTexts, inkFraction, inkOutside } from './helpers/pdf.mjs'
 
 const { PDFDocument, rgb } = lib
 
@@ -109,4 +109,27 @@ test('resizePdfPages changes the page size, keeps orientation and centres the co
     assert.ok(inkFraction(canvas, middle) > 0, `${name}: the mark is in the middle of the page`)
     assert.equal(inkOutside(canvas, [middle]), 0, `${name}: nothing drifted to the edges`)
   }
+})
+
+test('flattening a NeedAppearances form bakes the values, not the stale streams', async () => {
+  // What many fillers write: /V holds the text, the widget keeps the empty
+  // appearance it was created with, and NeedAppearances tells viewers to
+  // redraw. The person sees "John Smith"; the flattened page must too.
+  const doc = await PDFDocument.create()
+  const page = doc.addPage([400, 300])
+  const form = doc.getForm()
+  const field = form.createTextField('name')
+  field.addToPage(page, { x: 32, y: 122, width: 296, height: 36 })
+  field.setText('John Smith')
+  form.acroForm.dict.set(lib.PDFName.of('NeedAppearances'), lib.PDFBool.True)
+  const stale = await doc.save({ updateFieldAppearances: false })
+  assert.deepEqual(await pageTexts(stale), [''], 'the stale stream really is empty')
+
+  const flat = await pdf.flattenPdf(held(stale, 'form.pdf'))
+  assert.deepEqual(await pageTexts(flat), ['John Smith'])
+  assert.equal((await PDFDocument.load(flat)).getForm().getFields().length, 0)
+
+  // The same file through Fill with flatten on: an untouched field keeps its value.
+  const filled = await pdf.fillForm(held(stale, 'form.pdf'), {}, true)
+  assert.deepEqual(await pageTexts(filled), ['John Smith'])
 })
