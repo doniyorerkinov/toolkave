@@ -33,12 +33,18 @@ const root = ref<HTMLElement | null>(null)
 const input = ref<HTMLInputElement | null>(null)
 const rejected = ref<string | null>(null)
 
-const acceptedLabel = computed(() =>
-  props.accept
-    .split(',')
-    .map(type => type.trim().split('/')[1]?.toUpperCase() ?? type)
-    .join(', ')
-)
+/**
+ * "JPG, PNG, WEBP, HEIC" from an accept string that may list the same format as
+ * a MIME type and as an extension: both spellings collapse to one name.
+ */
+const acceptedLabel = computed(() => {
+  const names = props.accept.split(',').map(pattern => {
+    const trimmed = pattern.trim()
+    const name = trimmed.startsWith('.') ? trimmed.slice(1) : (trimmed.split('/')[1] ?? trimmed)
+    return name.toUpperCase().replace(/^JPEG$/, 'JPG').replace(/^HEIF$/, 'HEIC')
+  })
+  return [...new Set(names)].join(', ')
+})
 
 function matchesAccept(file: File): boolean {
   const patterns = props.accept.split(',').map(a => a.trim())

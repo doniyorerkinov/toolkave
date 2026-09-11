@@ -1143,6 +1143,30 @@
         "a4": "There is one re-encode, from HEIC to JPEG at high quality, because PDF cannot store HEIC. For documents and receipts the difference is invisible."
       }
     },
+    "image-to-pdf": {
+      "name": "Image to PDF",
+      "short": "Turn any images — JPG, PNG, WebP, HEIC, GIF — into one PDF.",
+      "title": "Image to PDF — convert any images to PDF online, free",
+      "description": "Free image to PDF converter: mix JPG, PNG, WebP, HEIC and GIF in one PDF, set the order, pick A4 or original size. Runs in your browser — nothing is uploaded.",
+      "intro": "Add images in whatever format your phone or computer produces — JPG, PNG, WebP, HEIC from an iPhone, even GIF — drag them into order, and create one PDF. Formats can be mixed freely; each image becomes one page.",
+      "howTo": {
+        "step1": "Add your images by dropping, choosing or pasting them — any format, mixed is fine.",
+        "step2": "Drag them into the right order and pick A4 or original size.",
+        "step3": "Press Create PDF and download the file."
+      },
+      "faq": {
+        "q1": "Which image formats are accepted?",
+        "a1": "JPG, PNG, WebP, GIF and Apple's HEIC/HEIF, in any mix. The format is read from each file's actual contents, so a renamed file is handled correctly. JPG and PNG are embedded as they are; WebP, GIF and HEIC are converted to JPEG first, because the PDF format cannot hold them directly.",
+        "q2": "Are my images uploaded anywhere?",
+        "a2": "No. Everything happens inside your browser and nothing is sent over the network — which is what makes this safe for passports, contracts and medical papers.",
+        "q3": "Should I choose A4 or original size?",
+        "a3": "Choose A4 if the PDF will be printed or sent somewhere official — every page comes out the same standard size with the image centred. Choose original size to keep the exact pixel dimensions, which suits screenshots and images meant only for screens.",
+        "q4": "Does it reduce quality?",
+        "a4": "JPG and PNG are embedded without re-encoding, so no. HEIC, WebP and GIF are converted to JPEG at high quality — a small, usually invisible loss that cannot be avoided, since a PDF cannot contain those formats.",
+        "q5": "Can I mix photos and screenshots?",
+        "a5": "Yes. Each image becomes one page. With A4 selected every page is the same size with the image centred; with original size each page takes the dimensions of its own image."
+      }
+    },
     "image-compress": {
       "name": "Compress image",
       "short": "Make images smaller by adjusting quality and format.",

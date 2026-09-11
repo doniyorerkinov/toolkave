@@ -1143,6 +1143,30 @@
         "a4": "Bir marta HEIC dan JPEG ga yuqori sifatda qayta kodlash bo'ladi, chunki PDF HEIC ni saqlay olmaydi. Hujjat va cheklar uchun farq ko'rinmaydi."
       }
     },
+    "image-to-pdf": {
+      "name": "Rasmdan PDF",
+      "short": "Istalgan rasmlarni — JPG, PNG, WebP, HEIC, GIF — bitta PDF ga yig'ing.",
+      "title": "Rasmdan PDF — istalgan rasmni onlayn PDF ga o'girish, bepul",
+      "description": "JPG, PNG, WebP, HEIC va GIF ni bepul bitta PDF ga yig'ing: tartibini belgilang, A4 yoki asl o'lchamni tanlang. Brauzerda ishlaydi — hech narsa yuklanmaydi.",
+      "intro": "Telefon yoki kompyuter beradigan istalgan formatdagi rasmlarni qo'shing — JPG, PNG, WebP, iPhone dagi HEIC, hatto GIF — tartibga keltiring va bitta PDF yarating. Formatlarni aralashtirish mumkin; har bir rasm bitta sahifa bo'ladi.",
+      "howTo": {
+        "step1": "Rasmlarni tashlang, tanlang yoki qo'ying — istalgan format, aralash ham bo'ladi.",
+        "step2": "Kerakli tartibga keltiring va A4 yoki asl o'lchamni tanlang.",
+        "step3": "«PDF yaratish» tugmasini bosing va faylni yuklab oling."
+      },
+      "faq": {
+        "q1": "Qaysi formatlar qabul qilinadi?",
+        "a1": "JPG, PNG, WebP, GIF va Apple qurilmalaridagi HEIC/HEIF, istalgan aralashmada. Format fayl nomiga emas, mazmuniga qarab aniqlanadi, shuning uchun qayta nomlangan fayllar ham to'g'ri ishlanadi. JPG va PNG o'z holicha joylashtiriladi; WebP, GIF va HEIC avval JPEG ga o'giriladi, chunki PDF formati ularni bevosita saqlay olmaydi.",
+        "q2": "Rasmlarim biror joyga yuklanadimi?",
+        "a2": "Yo'q. Hammasi brauzerda bajariladi, tarmoq orqali hech narsa uzatilmaydi — shuning uchun pasport, shartnoma va tibbiy hujjatlar uchun xavfsiz.",
+        "q3": "A4 mi yoki asl o'lcham mi?",
+        "a3": "PDF chop etilsa yoki rasmiy joyga yuborilsa, A4 ni tanlang: barcha sahifalar bir xil standart o'lchamda, rasm markazda bo'ladi. Asl o'lcham aniq piksel o'lchamini saqlaydi va skrinshotlar hamda ekran uchun mo'ljallangan rasmlarga mos.",
+        "q4": "Sifat pasayadimi?",
+        "a4": "JPG va PNG qayta kodlanmasdan joylashtiriladi, shuning uchun yo'q. HEIC, WebP va GIF yuqori sifatda JPEG ga o'giriladi — kichik, odatda sezilmaydigan yo'qotish, undan qochib bo'lmaydi: PDF bu formatlarni saqlay olmaydi.",
+        "q5": "Suratlar va skrinshotlarni aralashtirsa bo'ladimi?",
+        "a5": "Ha. Har bir rasm alohida sahifa bo'ladi. A4 tanlansa, barcha sahifalar bir xil o'lchamda, rasm markazda; asl o'lchamda esa har bir sahifa o'z rasmining o'lchamini oladi."
+      }
+    },
     "image-compress": {
       "name": "Rasmni siqish",
       "short": "Sifat va formatni o'zgartirib rasmlarni kichraytiring.",

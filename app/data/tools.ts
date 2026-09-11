@@ -158,7 +158,7 @@ export const tools: ToolDef[] = [
     published: false,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'jpg-to-pdf', ru: 'jpg-v-pdf', uz: 'jpg-dan-pdf' },
-    related: ['png-to-pdf', 'pdf-merge'],
+    related: ['png-to-pdf', 'image-to-pdf', 'pdf-merge'],
     config: { accept: 'image/jpeg' },
     acceptedTypes: ['image/jpeg'],
     maxFiles: 100
@@ -172,7 +172,7 @@ export const tools: ToolDef[] = [
     published: false,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'png-to-pdf', ru: 'png-v-pdf', uz: 'png-dan-pdf' },
-    related: ['jpg-to-pdf', 'pdf-merge'],
+    related: ['jpg-to-pdf', 'image-to-pdf', 'pdf-merge'],
     config: { accept: 'image/png' },
     acceptedTypes: ['image/png'],
     maxFiles: 100
@@ -411,6 +411,22 @@ export const tools: ToolDef[] = [
     config: { accept: 'image/heic,image/heif,.heic,.heif' },
     acceptedTypes: ['image/heic'],
     maxFiles: 50
+  },
+  // The catch-all page: any format, mixed freely. Same component; the wide
+  // `accept` is the only difference, and "image to pdf" is its own query.
+  {
+    id: 'image-to-pdf',
+    category: 'pdf',
+    group: 'convert-to',
+    component: 'pdf/ImagesToPdf',
+    icon: 'image',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'image-to-pdf', ru: 'izobrazhenie-v-pdf', uz: 'rasmdan-pdf' },
+    related: ['jpg-to-pdf', 'png-to-pdf', 'scan-to-pdf'],
+    config: { accept: 'image/jpeg,image/png,image/webp,image/gif,image/heic,image/heif,.heic,.heif' },
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/heic'],
+    maxFiles: 100
   },
   {
     id: 'image-compress',
