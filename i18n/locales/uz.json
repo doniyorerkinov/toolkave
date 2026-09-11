@@ -2,7 +2,8 @@
   "site": {
     "name": "Toolkave",
     "tagline": "Brauzeringizda ishlaydigan bepul vositalar. Fayllaringiz qurilmangizdan chiqmaydi.",
-    "description": "PDF, rasm, matn va kundalik hisob-kitoblar uchun bepul onlayn vositalar. Hammasi brauzerda ishlaydi — hech narsa serverga yuklanmaydi."
+    "description": "PDF, rasm, matn va kundalik hisob-kitoblar uchun bepul onlayn vositalar. Hammasi brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+    "title": "Toolkave — bepul PDF, rasm va matn vositalari, brauzerda"
   },
   "nav": {
     "home": "Bosh sahifa",
@@ -27,31 +28,45 @@
   "categories": {
     "pdf": {
       "name": "PDF",
-      "description": "PDF fayllarni serverga yuklamasdan birlashtiring, ajrating, buring, siqing va o'girib oling."
+      "description": "PDF fayllarni serverga yuklamasdan birlashtiring, ajrating, buring, siqing va o'girib oling.",
+      "title": "Bepul onlayn PDF vositalari — birlashtirish, ajratish, burish",
+      "heading": "PDF vositalari"
     },
     "image": {
       "name": "Rasm",
-      "description": "Rasmlarni to'g'ridan-to'g'ri brauzerda siqing, o'lchamini o'zgartiring va formatini almashtiring."
+      "description": "Rasmlarni to'g'ridan-to'g'ri brauzerda siqing, o'lchamini o'zgartiring va formatini almashtiring.",
+      "title": "Bepul onlayn rasm vositalari — siqish, o'lcham, format",
+      "heading": "Rasm vositalari"
     },
     "converters": {
       "name": "Konvertorlar",
-      "description": "O'lchov birliklari, valyuta va vaqt mintaqalarini o'girish."
+      "description": "O'lchov birliklari, valyuta va vaqt mintaqalarini o'girish.",
+      "title": "Onlayn konvertorlar — birliklar, valyuta, vaqt mintaqalari",
+      "heading": "Konvertorlar"
     },
     "calculators": {
       "name": "Kalkulyatorlar",
-      "description": "Foiz, kredit, sana, TVI va boshqa kundalik hisob-kitoblar."
+      "description": "Foiz, kredit, sana, TVI va boshqa kundalik hisob-kitoblar.",
+      "title": "Onlayn kalkulyatorlar — foiz, kredit, sana, TVI",
+      "heading": "Kalkulyatorlar"
     },
     "generators": {
       "name": "Generatorlar",
-      "description": "QR kod, parol va boshqalarni yaratish."
+      "description": "QR kod, parol va boshqalarni yaratish.",
+      "title": "Onlayn generatorlar — QR kod, parol va boshqalar",
+      "heading": "Generatorlar"
     },
     "text": {
       "name": "Matn",
-      "description": "So'zlarni sanash, matnni tahlil qilish va tozalash — brauzerda, bir zumda."
+      "description": "So'zlarni sanash, matnni tahlil qilish va tozalash — brauzerda, bir zumda.",
+      "title": "Bepul onlayn matn vositalari — so'z hisoblagich, tahlil",
+      "heading": "Matn vositalari"
     },
     "dev": {
       "name": "Dasturchiga",
-      "description": "JSON formatlash, Base64 kodlash, rang tanlash va boshqa vositalar."
+      "description": "JSON formatlash, Base64 kodlash, rang tanlash va boshqa vositalar.",
+      "title": "Dasturchi vositalari onlayn — JSON, Base64, ranglar",
+      "heading": "Dasturchi vositalari"
     }
   },
   "shell": {
@@ -720,7 +735,7 @@
       "name": "JPG dan PDF",
       "short": "JPG suratlarni istalgan tartibda bitta PDF ga yig'ing.",
       "title": "JPG dan PDF — JPG rasmlarni onlayn PDF ga o'girish, bepul",
-      "description": "Bepul onlayn JPG dan PDF ga o'girish. Suratlarni bitta PDF ga yig'ing, tartibini o'zgartiring va A4 yoki asl o'lchamni tanlang. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "description": "Bepul onlayn JPG dan PDF ga o'girish. Suratlarni bitta PDF ga yig'ing, tartiblang va A4 yoki asl o'lchamni tanlang. Brauzerda ishlaydi, yuklanmaydi.",
       "intro": "JPG fayllarni qo'shing, kerakli tartibga sudrab keltiring va PDF yarating. Hujjat suratini — pasport, shartnoma, chek — pochta orqali yuborsa yoki chop etsa bo'ladigan bitta faylga aylantirishning eng tez yo'li.",
       "howTo": {
         "step1": "JPG rasmlarni tashlang, tanlang yoki qo'ying.",
@@ -744,7 +759,7 @@
       "name": "PNG dan PDF",
       "short": "PNG rasmlarni istalgan tartibda bitta PDF ga yig'ing.",
       "title": "PNG dan PDF — PNG rasmlarni onlayn PDF ga o'girish, bepul",
-      "description": "Bepul onlayn PNG dan PDF ga o'girish. Rasmlarni bitta PDF ga yig'ing, tartibini o'zgartiring va A4 yoki asl o'lchamni tanlang. Brauzerda ishlaydi — hech narsa serverga yuklanmaydi.",
+      "description": "Bepul onlayn PNG dan PDF ga o'girish. Rasmlarni bitta PDF ga yig'ing, tartiblang va A4 yoki asl o'lchamni tanlang. Brauzerda ishlaydi, hech narsa yuklanmaydi.",
       "intro": "PNG fayllarni qo'shing, tartibga keltiring va PDF yarating. Shaffoflik oq fonga tekislanadi — chop etiladigan yoki hujjat sifatida yuboriladigan narsalar uchun aynan shu kerak.",
       "howTo": {
         "step1": "PNG rasmlarni tashlang, tanlang yoki qo'ying.",
@@ -788,7 +803,7 @@
       "name": "PDF sahifalari o'lchamini o'zgartirish",
       "short": "A4, Letter yoki Legal ga o'giring, yoki foizda masshtablang.",
       "title": "PDF formatini o'zgartirish — A4 yoki Letter ga onlayn, bepul",
-      "description": "PDF sahifa o'lchamini bepul onlayn o'zgartirish. Sahifalarni A4, Letter yoki Legal ga o'giring yoki foizda masshtablang — mazmun markazga joylashadi va cho'zilmaydi.",
+      "description": "PDF sahifa o'lchamini bepul onlayn o'zgartirish. Sahifalarni A4, Letter yoki Legal ga o'giring yoki foizda masshtablang — mazmun markazda, cho'zilmaydi.",
       "intro": "PDF qo'shing va kerakli sahifa o'lchamini tanlang. Mazmun mutanosib masshtablanadi va markazga joylashadi, shuning uchun hech narsa buzilmaydi va kesilmaydi. Hujjat Letter da kelib, printer A4 kutganda qulay.",
       "howTo": {
         "step1": "O'lchamini o'zgartirmoqchi bo'lgan PDF ni qo'shing.",
@@ -942,7 +957,7 @@
       "name": "PDF ga suv belgisi",
       "short": "PDF ning har bir sahifasiga matn bosing.",
       "title": "PDF ga suv belgisi — matn qo'shish onlayn, bepul",
-      "description": "Bepul onlayn PDF suv belgisi vositasi. DRAFT, CONFIDENTIAL yoki o'z matningizni har bir sahifaga o'lcham, burchak va shaffoflik sozlamalari bilan bosing. Brauzerda ishlaydi.",
+      "description": "Bepul onlayn PDF suv belgisi. DRAFT, CONFIDENTIAL yoki o'z matningizni har sahifaga bosing — o'lcham, burchak va shaffoflik sozlanadi. Brauzerda ishlaydi.",
       "intro": "PDF qo'shing, bosmoqchi bo'lgan matnni yozing va o'lcham, burchak hamda shaffoflikni belgi aniq o'qiladigan, lekin ostidagi mazmunni yopmaydigan qilib sozlang.",
       "howTo": {
         "step1": "Suv belgisi qo'yiladigan PDF ni qo'shing.",
@@ -963,8 +978,8 @@
     "pdf-info": {
       "name": "PDF ma'lumotlari",
       "short": "Sahifalar soni, hajmi, muallifi va boshqa PDF ma'lumotlarini ko'ring.",
-      "title": "PDF ma'lumotlari — metama'lumot va sahifa o'lchamlari onlayn, bepul",
-      "description": "Bepul onlayn PDF tekshiruvchi. Sahifalar soni, fayl hajmi, sahifa o'lchamlari, sarlavha, muallif va sanalarni muharrirda ochmasdan ko'ring. Brauzerda ishlaydi.",
+      "title": "PDF ma'lumotlari — metama'lumot va sahifa o'lchamlari onlayn",
+      "description": "Bepul onlayn PDF tekshiruvchi. Sahifalar soni, fayl hajmi, sahifa o'lchamlari, sarlavha, muallif va sanalarni muharrirsiz ko'ring. Brauzerda ishlaydi.",
       "intro": "PDF qo'shing va uning ichida nima borligini ko'ring: necha sahifa, ular qanday o'lchamda, qaysi dastur yaratgan va qanday metama'lumot biriktirilgan. Hech narsa yuklanmaydi, shuning uchun maxfiy hujjatlarni ham tekshirsa bo'ladi.",
       "howTo": {
         "step1": "Tekshirmoqchi bo'lgan PDF ni qo'shing.",

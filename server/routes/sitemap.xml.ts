@@ -63,6 +63,11 @@ export default defineEventHandler(event => {
 
   const absolute = (path: string) => (path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`)
 
+  // The sitemap is prerendered, so this is the build date: the last time any
+  // page could have changed. Google reads lastmod to decide what to recrawl
+  // and ignores changefreq and priority, so those are not written.
+  const lastmod = new Date().toISOString().slice(0, 10)
+
   const urls = entries
     .map(entry => {
       const links = entry.alternates
@@ -71,7 +76,7 @@ export default defineEventHandler(event => {
             `    <xhtml:link rel="alternate" hreflang="${alt.locale}" href="${absolute(alt.path)}"/>`
         )
         .join('\n')
-      return `  <url>\n    <loc>${absolute(entry.path)}</loc>\n${links}\n  </url>`
+      return `  <url>\n    <loc>${absolute(entry.path)}</loc>\n    <lastmod>${lastmod}</lastmod>\n${links}\n  </url>`
     })
     .join('\n')
 

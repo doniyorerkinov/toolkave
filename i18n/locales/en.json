@@ -2,7 +2,8 @@
   "site": {
     "name": "Toolkave",
     "tagline": "Free tools that run in your browser. Your files never leave your device.",
-    "description": "Free online tools for PDF, images, text and everyday calculations. Everything runs in your browser — nothing is uploaded."
+    "description": "Free online tools for PDF, images, text and everyday calculations. Everything runs in your browser — nothing is uploaded.",
+    "title": "Toolkave — free PDF, image and text tools in your browser"
   },
   "nav": {
     "home": "Home",
@@ -27,31 +28,45 @@
   "categories": {
     "pdf": {
       "name": "PDF",
-      "description": "Merge, split, rotate, compress and convert PDF files without uploading them anywhere."
+      "description": "Merge, split, rotate, compress and convert PDF files without uploading them anywhere.",
+      "title": "Free PDF tools online — merge, split, rotate, resize",
+      "heading": "PDF tools"
     },
     "image": {
       "name": "Image",
-      "description": "Compress, resize and convert images directly in your browser."
+      "description": "Compress, resize and convert images directly in your browser.",
+      "title": "Free image tools online — compress, resize, convert",
+      "heading": "Image tools"
     },
     "converters": {
       "name": "Converters",
-      "description": "Convert units, currencies and time zones."
+      "description": "Convert units, currencies and time zones.",
+      "title": "Free online converters — units, currencies, time zones",
+      "heading": "Converters"
     },
     "calculators": {
       "name": "Calculators",
-      "description": "Percentages, loans, dates, BMI and other everyday calculations."
+      "description": "Percentages, loans, dates, BMI and other everyday calculations.",
+      "title": "Free online calculators — percentages, loans, dates, BMI",
+      "heading": "Calculators"
     },
     "generators": {
       "name": "Generators",
-      "description": "Generate QR codes, passwords and more."
+      "description": "Generate QR codes, passwords and more.",
+      "title": "Free online generators — QR codes, passwords and more",
+      "heading": "Generators"
     },
     "text": {
       "name": "Text",
-      "description": "Count words, analyse and clean up text — instantly, in your browser."
+      "description": "Count words, analyse and clean up text — instantly, in your browser.",
+      "title": "Free text tools online — word counter, clean-up, analysis",
+      "heading": "Text tools"
     },
     "dev": {
       "name": "Developer",
-      "description": "Format JSON, encode Base64, pick colours and other developer utilities."
+      "description": "Format JSON, encode Base64, pick colours and other developer utilities.",
+      "title": "Free developer tools online — JSON, Base64, colours",
+      "heading": "Developer tools"
     }
   },
   "shell": {
@@ -720,7 +735,7 @@
       "name": "JPG to PDF",
       "short": "Turn JPG photos into a single PDF, in any order.",
       "title": "JPG to PDF — convert JPG images to PDF online, free",
-      "description": "Free online JPG to PDF converter. Combine JPG photos into one PDF, reorder them first, and choose A4 or original size. Runs in your browser — nothing is uploaded.",
+      "description": "Free online JPG to PDF converter. Combine JPG photos into one PDF, reorder them and choose A4 or original size. Runs in your browser — nothing is uploaded.",
       "intro": "Add your JPG files, drag them into the order you want, and create a PDF. This is the quickest way to turn photos of a document — a passport, a contract, a receipt — into something you can email or print as one file.",
       "howTo": {
         "step1": "Add your JPG images by dropping, choosing or pasting them.",
@@ -744,7 +759,7 @@
       "name": "PNG to PDF",
       "short": "Turn PNG images into a single PDF, in any order.",
       "title": "PNG to PDF — convert PNG images to PDF online, free",
-      "description": "Free online PNG to PDF converter. Combine PNG images into one PDF, reorder them first, and choose A4 or original size. Runs in your browser — nothing is uploaded.",
+      "description": "Free online PNG to PDF converter. Combine PNG images into one PDF, reorder them and choose A4 or original size. Runs in your browser — nothing is uploaded.",
       "intro": "Add your PNG files, put them in order, and create a PDF. Transparency is flattened onto a white background, which is what you want for anything that will be printed or shared as a document.",
       "howTo": {
         "step1": "Add your PNG images by dropping, choosing or pasting them.",
@@ -964,7 +979,7 @@
       "name": "PDF info",
       "short": "See page count, size, author and other PDF details.",
       "title": "PDF Info — view PDF metadata and page sizes online, free",
-      "description": "Free online PDF inspector. See page count, file size, page dimensions, title, author and creation dates without opening the file in an editor. Runs in your browser.",
+      "description": "Free online PDF inspector. See page count, file size, page dimensions, title, author and dates without opening an editor. Runs in your browser.",
       "intro": "Add a PDF to see what is actually inside it: how many pages, what size they are, which software produced it, and what metadata is attached. Nothing is uploaded, so it is safe to inspect confidential files.",
       "howTo": {
         "step1": "Add the PDF you want to inspect.",
@@ -1480,7 +1495,7 @@
       "name": "Word counter",
       "short": "Count words, characters, sentences and reading time.",
       "title": "Word Counter — count words and characters online",
-      "description": "Free online word counter. Count words, characters, sentences, paragraphs and reading time as you type. Works offline in your browser — your text is never uploaded.",
+      "description": "Free online word counter. Count words, characters, sentences, paragraphs and reading time as you type. Works in your browser — your text is never uploaded.",
       "intro": "Paste or type your text below and the counts update as you write. Nothing is sent anywhere — the counting happens inside your browser, so you can safely paste private or unpublished work.",
       "howTo": {
         "step1": "Paste or type your text into the box.",

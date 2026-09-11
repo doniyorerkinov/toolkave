@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { SITE_URL } from '~/composables/useSeo'
 import {
   LOCALES,
   categoriesWithTools,
@@ -57,10 +58,28 @@ for (const candidate of LOCALES) {
 }
 
 usePageSeo({
-  title: `${t('site.name')} | ${t('site.tagline')}`,
+  // Under 60 characters. The tagline made an 84-character title that every
+  // search result clipped mid-sentence.
+  title: t('site.title'),
   description: t('site.description'),
   path: currentLocale.value === 'en' ? '/' : `/${currentLocale.value}`,
-  alternates
+  alternates,
+  jsonLd: [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: t('site.name'),
+      url: `${SITE_URL}/`,
+      inLanguage: currentLocale.value
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: t('site.name'),
+      url: `${SITE_URL}/`,
+      logo: `${SITE_URL}/icon-512.png`
+    }
+  ]
 })
 </script>
 

@@ -3,15 +3,35 @@ import {
   DEFAULT_LOCALE,
   toolPath,
   categoryPath,
+  getCategory,
   type CategoryDef,
   type Locale,
   type ToolDef
 } from '~/data/tools'
 
-const SITE_URL = 'https://toolkave.com'
+export const SITE_URL = 'https://toolkave.com'
 
 function absolute(path: string): string {
   return path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`
+}
+
+/** Open Graph wants a territory, not just a language. */
+const OG_LOCALE: Record<Locale, string> = { en: 'en_US', ru: 'ru_RU', uz: 'uz_UZ' }
+
+const homePath = (locale: Locale) => (locale === DEFAULT_LOCALE ? '/' : `/${locale}`)
+
+/** The visible breadcrumb as data, so a result can show "Toolkave › PDF › Merge PDF". */
+function breadcrumbs(items: { name: string; path: string }[]): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: absolute(item.path)
+    }))
+  }
 }
 
 interface SeoInput {
@@ -21,8 +41,8 @@ interface SeoInput {
   path: string
   /** Path per locale, used for hreflang. Only existing pages belong here. */
   alternates: Partial<Record<Locale, string>>
-  /** Optional JSON-LD to attach. */
-  jsonLd?: Record<string, unknown>
+  /** Optional JSON-LD to attach: one block or several. */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[]
 }
 
 /**
@@ -58,13 +78,20 @@ export function usePageSeo(input: SeoInput) {
     // verified against the deployed pages.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     link: links as any,
-    script: input.jsonLd
-      ? [{ type: 'application/ld+json', innerHTML: JSON.stringify(input.jsonLd) }]
-      : []
+    script: (Array.isArray(input.jsonLd) ? input.jsonLd : input.jsonLd ? [input.jsonLd] : []).map(block => ({
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(block)
+    }))
   })
+
+  const { locale, t } = useI18n()
+  const current = locale.value as Locale
 
   useSeoMeta({
     description: input.description,
+    ogSiteName: t('site.name'),
+    ogLocale: OG_LOCALE[current],
+    ogLocaleAlternate: alternateLocales.filter(other => other !== current).map(other => OG_LOCALE[other]),
     ogTitle: input.title,
     ogDescription: input.description,
     ogUrl: canonical,
@@ -94,23 +121,36 @@ export function useToolSeo(tool: ToolDef, locale: Locale) {
 
   const title = t(`tools.${tool.id}.title`)
   const description = t(`tools.${tool.id}.description`)
+  const name = t(`tools.${tool.id}.name`)
+  const category = getCategory(tool.category)
 
   usePageSeo({
     title,
     description,
     path,
     alternates,
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: t(`tools.${tool.id}.name`),
-      description,
-      url: absolute(path),
-      applicationCategory: 'UtilitiesApplication',
-      operatingSystem: 'Any',
-      browserRequirements: 'Requires JavaScript',
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
-    }
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebApplication',
+        name,
+        description,
+        url: absolute(path),
+        image: `${SITE_URL}/og.png`,
+        inLanguage: locale,
+        applicationCategory: 'UtilitiesApplication',
+        operatingSystem: 'Any',
+        browserRequirements: 'Requires JavaScript',
+        isAccessibleForFree: true,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        publisher: { '@type': 'Organization', name: t('site.name'), url: `${SITE_URL}/` }
+      },
+      breadcrumbs([
+        { name: t('shell.breadcrumbHome'), path: homePath(locale) },
+        ...(category ? [{ name: t(`categories.${category.id}.name`), path: categoryPath(category, locale) }] : []),
+        { name, path }
+      ])
+    ]
   })
 }
 
@@ -125,11 +165,15 @@ export function useCategorySeo(category: CategoryDef, locale: Locale) {
 
   const name = t(`categories.${category.id}.name`)
   const description = t(`categories.${category.id}.description`)
+  const path = categoryPath(category, locale)
 
   usePageSeo({
-    title: `${name} | ${t('site.name')}`,
+    // "PDF | Toolkave" says nothing in a result list; the title key carries
+    // the query people actually type.
+    title: t(`categories.${category.id}.title`),
     description,
-    path: categoryPath(category, locale),
-    alternates
+    path,
+    alternates,
+    jsonLd: breadcrumbs([{ name: t('shell.breadcrumbHome'), path: homePath(locale) }, { name, path }])
   })
 }

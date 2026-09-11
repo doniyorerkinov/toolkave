@@ -31,7 +31,7 @@ const categoryTools = computed(() =>
       </span>
       <div>
         <h1 class="text-3xl font-extrabold tracking-tight text-stone-950 sm:text-4xl">
-          {{ t(`categories.${category.id}.name`) }}
+          {{ t(`categories.${category.id}.heading`) }}
         </h1>
         <p class="mt-2 max-w-prose text-base leading-relaxed text-stone-600">
           {{ t(`categories.${category.id}.description`) }}
