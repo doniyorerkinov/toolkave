@@ -250,12 +250,15 @@
       "drawLabel": "Draw your signature",
       "drawHint": "Use a finger, stylus or mouse.",
       "clear": "Clear",
-      "page": "Page (of {count})",
       "width": "Signature width: {n}% of the page",
-      "fromLeft": "From left: {n}%",
-      "fromTop": "From top: {n}%",
       "legalNote": "This places a picture of your signature on the page. It is not a cryptographic digital signature, so it does not prove who signed or detect later changes.",
-      "action": "Sign PDF"
+      "action": "Sign PDF",
+      "placeLabel": "Place it on the page",
+      "placeHint": "Drag on the page to draw the signature area, or drag the signature itself to move it. Pull the orange corner to resize.",
+      "drawFirst": "Draw your signature above first.",
+      "pageOf": "Page {n} of {count}",
+      "loadingPreview": "Loading page…",
+      "placedOn": "Signed on page {n}"
     },
     "protect": {
       "password": "Password",

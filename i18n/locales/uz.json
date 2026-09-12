@@ -250,12 +250,15 @@
       "drawLabel": "Imzoingizni chizing",
       "drawHint": "Barmoq, stilus yoki sichqoncha bilan.",
       "clear": "Tozalash",
-      "page": "Sahifa (jami {count})",
-      "width": "Imzo kengligi: sahifaning {n}% i",
-      "fromLeft": "Chapdan: {n}%",
-      "fromTop": "Yuqoridan: {n}%",
+      "width": "Imzo kengligi: sahifaning {n}%",
       "legalNote": "Bu sahifaga imzoingizning rasmini joylashtiradi. Bu kriptografik raqamli imzo emas: u kim imzolaganini tasdiqlamaydi va keyingi o'zgarishlarni aniqlamaydi.",
-      "action": "PDF ni imzolash"
+      "action": "PDF ni imzolash",
+      "placeLabel": "Uni sahifaga joylashtiring",
+      "placeHint": "Imzo joyini belgilash uchun sahifa bo'ylab torting yoki imzoning o'zini surib qo'ying. To'q sariq burchak o'lchamini o'zgartiradi.",
+      "drawFirst": "Avval yuqorida imzo chizing.",
+      "pageOf": "{count} sahifadan {n}-si",
+      "loadingPreview": "Sahifa yuklanmoqda…",
+      "placedOn": "{n}-sahifaga imzo qoʻyildi"
     },
     "protect": {
       "password": "Parol",

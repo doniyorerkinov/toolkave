@@ -1,46 +1,39 @@
 <script setup lang="ts">
+import { usePdfWorker } from '~/composables/usePdfWorker'
 import { withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
+/**
+ * Draw a signature, then put it where it belongs.
+ *
+ * Placement happens on the page itself rather than through percentage
+ * sliders: signing is the one job where seeing the result before committing
+ * matters more than precision in the numbers. The signature is trimmed to its
+ * ink first, so the box drawn on the page is exactly what the finished PDF
+ * gets - not a pad with transparent margins around it.
+ */
 const { t } = useI18n()
 const store = useFilesStore()
+const { getThumbnails } = usePdfWorker()
 
-const canvas = ref<HTMLCanvasElement | null>(null)
-const hasInk = ref(false)
-const pageNumber = ref(1)
-const xPercent = ref(60)
-const yPercent = ref(80)
-const widthPercent = ref(25)
 const pageCount = ref(0)
+const currentPage = ref(0)
 const infoError = ref(false)
 
 const file = computed(() => store.files[0] ?? null)
 
-watch(
-  file,
-  async current => {
-    pageCount.value = 0
-    infoError.value = false
-    if (!current) return
-    try {
-      pageCount.value = (await readPdfInfo(current)).pageCount
-      pageNumber.value = 1
-    } catch {
-      infoError.value = true
-    }
-  },
-  { immediate: true }
-)
+/* ---- the signature itself ---- */
 
-/**
- * Drawing uses Pointer Events so it works with a finger, a stylus and a mouse
- * through one code path. A signature drawn on a phone is the common case here.
- */
+const padEl = ref<HTMLCanvasElement | null>(null)
+const hasInk = ref(false)
+/** Bumped on every stroke, so the trimmed copy and the preview follow the ink. */
+const inkVersion = ref(0)
+
 let drawing = false
-let context: CanvasRenderingContext2D | null = null
+let padContext: CanvasRenderingContext2D | null = null
 
-function setupCanvas() {
-  const element = canvas.value
+function setupPad() {
+  const element = padEl.value
   if (!element) return
 
   // Resizing the backing store wipes it, and on a phone a resize fires when
@@ -54,92 +47,382 @@ function setupCanvas() {
     previous.getContext('2d')?.drawImage(element, 0, 0)
   }
 
-  // Back the canvas at device resolution so the signature is not blurry.
   const ratio = window.devicePixelRatio || 1
   const rect = element.getBoundingClientRect()
   element.width = Math.round(rect.width * ratio)
   element.height = Math.round(rect.height * ratio)
 
-  context = element.getContext('2d')
-  if (!context) return
-  context.scale(ratio, ratio)
-  if (previous) context.drawImage(previous, 0, 0, rect.width, rect.height)
-  context.lineWidth = 2.5
-  context.lineCap = 'round'
-  context.lineJoin = 'round'
-  context.strokeStyle = '#0f172a'
+  padContext = element.getContext('2d')
+  if (!padContext) return
+  padContext.scale(ratio, ratio)
+  if (previous) padContext.drawImage(previous, 0, 0, rect.width, rect.height)
+  padContext.lineWidth = 2.5
+  padContext.lineCap = 'round'
+  padContext.lineJoin = 'round'
+  padContext.strokeStyle = '#0f172a'
 }
 
 onMounted(() => {
-  setupCanvas()
-  window.addEventListener('resize', setupCanvas)
+  setupPad()
+  window.addEventListener('resize', setupPad)
 })
-onBeforeUnmount(() => window.removeEventListener('resize', setupCanvas))
+onBeforeUnmount(() => window.removeEventListener('resize', setupPad))
 
-function pointFrom(event: PointerEvent) {
-  const rect = canvas.value!.getBoundingClientRect()
+function padPoint(event: PointerEvent) {
+  const rect = padEl.value!.getBoundingClientRect()
   return { x: event.clientX - rect.left, y: event.clientY - rect.top }
 }
 
-function start(event: PointerEvent) {
-  if (!context) setupCanvas()
-  if (!context) return
+function padDown(event: PointerEvent) {
+  if (!padContext) setupPad()
+  if (!padContext) return
   drawing = true
   ;(event.currentTarget as HTMLElement).setPointerCapture(event.pointerId)
-  const { x, y } = pointFrom(event)
-  context.beginPath()
-  context.moveTo(x, y)
+  const { x, y } = padPoint(event)
+  padContext.beginPath()
+  padContext.moveTo(x, y)
   event.preventDefault()
 }
 
-function move(event: PointerEvent) {
-  if (!drawing || !context) return
-  const { x, y } = pointFrom(event)
-  context.lineTo(x, y)
-  context.stroke()
+function padMove(event: PointerEvent) {
+  if (!drawing || !padContext) return
+  const { x, y } = padPoint(event)
+  padContext.lineTo(x, y)
+  padContext.stroke()
   hasInk.value = true
 }
 
-function end(event: PointerEvent) {
+function padUp(event: PointerEvent) {
   if (!drawing) return
   drawing = false
+  inkVersion.value++
   const element = event.currentTarget as HTMLElement
   if (element.hasPointerCapture(event.pointerId)) element.releasePointerCapture(event.pointerId)
 }
 
 function clearInk() {
-  const element = canvas.value
-  if (!element || !context) return
-  context.clearRect(0, 0, element.width, element.height)
+  const element = padEl.value
+  if (!element || !padContext) return
+  padContext.clearRect(0, 0, element.width, element.height)
   hasInk.value = false
+  inkVersion.value++
 }
 
-const canRun = computed(() => !!file.value && !!pageCount.value && hasInk.value && !store.busy)
+/**
+ * The pad cropped to its ink. Everything downstream - the box on the page and
+ * the image embedded in the PDF - uses this, so the two cannot disagree.
+ */
+const trimmed = shallowRef<HTMLCanvasElement | null>(null)
+
+function trimSignature(): HTMLCanvasElement | null {
+  const source = padEl.value
+  if (!source || !hasInk.value || !source.width || !source.height) return null
+  const context = source.getContext('2d')
+  if (!context) return null
+
+  const { data } = context.getImageData(0, 0, source.width, source.height)
+  let top = source.height
+  let left = source.width
+  let right = -1
+  let bottom = -1
+  for (let y = 0; y < source.height; y++) {
+    for (let x = 0; x < source.width; x++) {
+      if (data[(y * source.width + x) * 4 + 3]! < 8) continue
+      if (x < left) left = x
+      if (x > right) right = x
+      if (y < top) top = y
+      if (y > bottom) bottom = y
+    }
+  }
+  if (right < 0) return null
+
+  // A few pixels of air, so the strokes are not clipped at the edge.
+  const pad = 4
+  left = Math.max(0, left - pad)
+  top = Math.max(0, top - pad)
+  right = Math.min(source.width - 1, right + pad)
+  bottom = Math.min(source.height - 1, bottom + pad)
+
+  const out = document.createElement('canvas')
+  out.width = right - left + 1
+  out.height = bottom - top + 1
+  out.getContext('2d')?.drawImage(source, left, top, out.width, out.height, 0, 0, out.width, out.height)
+  return out
+}
+
+/* ---- the page underneath ---- */
+
+const bitmaps = new Map<number, { bitmap: ImageBitmap; width: number; height: number }>()
+const loadingPage = ref(false)
+
+function closeAllBitmaps() {
+  for (const entry of bitmaps.values()) entry.bitmap.close()
+  bitmaps.clear()
+}
+onBeforeUnmount(closeAllBitmaps)
+
+async function ensurePageImage(page: number) {
+  if (bitmaps.has(page) || !file.value) return
+  loadingPage.value = true
+  try {
+    await getThumbnails(file.value.data, [page + 1], 900, thumb => {
+      bitmaps.set(page, { bitmap: thumb.bitmap, width: thumb.width, height: thumb.height })
+    })
+  } catch {
+    // Without the picture there is nothing to aim at; the error line covers it.
+  } finally {
+    loadingPage.value = false
+    redraw()
+  }
+}
+
+/* ---- placement: top-left corner and width, as fractions of the page ---- */
+
+interface Placement { x: number; y: number; width: number }
+const placement = ref<Placement | null>(null)
+const pageEl = ref<HTMLCanvasElement | null>(null)
+
+/** Height of the placed signature as a fraction of the page, from its aspect. */
+const heightRatio = computed(() => {
+  const signature = trimmed.value
+  const entry = bitmaps.get(currentPage.value)
+  if (!signature || !entry || !placement.value) return 0
+  const widthPx = placement.value.width * entry.width
+  return (widthPx * (signature.height / signature.width)) / entry.height
+})
+
+/** The committed placement in canvas pixels. */
+function placedBox() {
+  const entry = bitmaps.get(currentPage.value)
+  const current = placement.value
+  if (!entry || !current) return null
+  return {
+    x: current.x * entry.width,
+    y: current.y * entry.height,
+    width: current.width * entry.width,
+    height: heightRatio.value * entry.height
+  }
+}
+
+type Mode = 'draw' | 'move' | 'resize'
+let mode: Mode | null = null
+let anchor: { x: number; y: number } | null = null
+let cursor: { x: number; y: number } | null = null
+
+/** The rubber band while a new area is being drawn, in canvas pixels. */
+function dragBox() {
+  const entry = bitmaps.get(currentPage.value)
+  if (mode !== 'draw' || !anchor || !cursor || !entry) return null
+  const signature = trimmed.value
+  const width = Math.abs(cursor.x - anchor.x) * entry.width
+  return {
+    x: Math.min(anchor.x, cursor.x) * entry.width,
+    y: Math.min(anchor.y, cursor.y) * entry.height,
+    width,
+    height: signature ? width * (signature.height / signature.width) : Math.abs(cursor.y - anchor.y) * entry.height
+  }
+}
+
+function redraw() {
+  const canvas = pageEl.value
+  if (!canvas) return
+  const entry = bitmaps.get(currentPage.value)
+  if (entry) {
+    canvas.width = entry.width
+    canvas.height = entry.height
+  }
+  const context = canvas.getContext('2d')
+  if (!context) return
+  context.clearRect(0, 0, canvas.width, canvas.height)
+  if (entry) context.drawImage(entry.bitmap, 0, 0)
+
+  const box = dragBox() ?? placedBox()
+  if (!box) return
+
+  const signature = trimmed.value
+  if (signature) context.drawImage(signature, box.x, box.y, box.width, box.height)
+
+  // The frame stays visible while positioning, so the exact area is obvious
+  // even where the ink is thin.
+  context.strokeStyle = '#f27d14'
+  context.lineWidth = Math.max(2, canvas.width / 400)
+  context.setLineDash([canvas.width / 90, canvas.width / 90])
+  context.strokeRect(box.x, box.y, box.width, box.height)
+  context.setLineDash([])
+
+  // Corner grip, drawn last so it sits on top of the frame.
+  const grip = Math.max(10, canvas.width / 55)
+  context.fillStyle = '#f27d14'
+  context.fillRect(box.x + box.width - grip, box.y + box.height - grip, grip, grip)
+}
+
+watch(inkVersion, () => {
+  trimmed.value = trimSignature()
+  redraw()
+})
+
+watch(
+  file,
+  async current => {
+    pageCount.value = 0
+    currentPage.value = 0
+    placement.value = null
+    infoError.value = false
+    closeAllBitmaps()
+    if (!current) return
+    try {
+      pageCount.value = (await readPdfInfo(current)).pageCount
+      // The placement canvas only exists once pageCount is set, and drawing
+      // into it before Vue has patched the DOM paints into nothing.
+      await nextTick()
+      await ensurePageImage(0)
+    } catch {
+      infoError.value = true
+    }
+  },
+  { immediate: true }
+)
+
+watch(currentPage, page => {
+  ensurePageImage(page)
+  redraw()
+})
+
+function pagePoint(event: PointerEvent) {
+  const rect = pageEl.value!.getBoundingClientRect()
+  return {
+    x: Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width)),
+    y: Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height))
+  }
+}
+
+const MIN_WIDTH = 0.04
+
+function pageDown(event: PointerEvent) {
+  if (!hasInk.value || !bitmaps.has(currentPage.value)) return
+  const point = pagePoint(event)
+  const current = placement.value
+  ;(event.currentTarget as HTMLElement).setPointerCapture(event.pointerId)
+  event.preventDefault()
+
+  if (current) {
+    const right = current.x + current.width
+    const bottom = current.y + heightRatio.value
+    const grip = 0.035
+    if (point.x > right - grip && point.x < right + grip && point.y > bottom - grip && point.y < bottom + grip) {
+      mode = 'resize'
+      return
+    }
+    if (point.x >= current.x && point.x <= right && point.y >= current.y && point.y <= bottom) {
+      mode = 'move'
+      anchor = { x: point.x - current.x, y: point.y - current.y }
+      return
+    }
+  }
+  mode = 'draw'
+  anchor = point
+  cursor = point
+}
+
+function pageMove(event: PointerEvent) {
+  if (!mode) return
+  const point = pagePoint(event)
+  const current = placement.value
+
+  if (mode === 'draw') {
+    cursor = point
+  } else if (mode === 'move' && current && anchor) {
+    placement.value = {
+      ...current,
+      x: Math.min(1 - current.width, Math.max(0, point.x - anchor.x)),
+      y: Math.min(1 - heightRatio.value, Math.max(0, point.y - anchor.y))
+    }
+  } else if (mode === 'resize' && current) {
+    placement.value = { ...current, width: Math.min(1 - current.x, Math.max(MIN_WIDTH, point.x - current.x)) }
+  }
+  redraw()
+}
+
+function pageUp(event: PointerEvent) {
+  if (mode === 'draw' && anchor && cursor) {
+    const width = Math.abs(cursor.x - anchor.x)
+    const x = Math.min(anchor.x, cursor.x)
+    const y = Math.min(anchor.y, cursor.y)
+    // A tap rather than a drag: keep the size already chosen and just move it.
+    if (width < MIN_WIDTH) {
+      const kept = placement.value?.width ?? 0.28
+      placement.value = { x: Math.min(1 - kept, x), y, width: kept }
+    } else {
+      placement.value = { x, y, width: Math.min(width, 1 - x) }
+    }
+  }
+  mode = null
+  anchor = null
+  cursor = null
+  const element = event.currentTarget as HTMLElement
+  if (element.hasPointerCapture(event.pointerId)) element.releasePointerCapture(event.pointerId)
+  redraw()
+}
+
+/** Once there is ink and a page, offer a spot over the usual signature line. */
+watch(
+  [hasInk, pageCount, trimmed],
+  () => {
+    if (hasInk.value && pageCount.value && !placement.value) {
+      placement.value = { x: 0.58, y: 0.76, width: 0.28 }
+    }
+    redraw()
+  },
+  // After the DOM is patched, so the canvas is there to draw on.
+  { flush: 'post' }
+)
+
+const widthPercent = computed({
+  get: () => Math.round((placement.value?.width ?? 0.28) * 100),
+  set: value => {
+    const current = placement.value
+    if (!current) return
+    placement.value = { ...current, width: Math.max(MIN_WIDTH, Math.min(1 - current.x, value / 100)) }
+    redraw()
+  }
+})
+
+function prevPage() {
+  if (currentPage.value > 0) currentPage.value--
+}
+function nextPage() {
+  if (currentPage.value < pageCount.value - 1) currentPage.value++
+}
+
+const canRun = computed(
+  () => !!file.value && !!pageCount.value && hasInk.value && !!placement.value && !store.busy
+)
 
 async function run() {
-  if (!canRun.value || !file.value || !canvas.value) return
+  if (!canRun.value || !file.value || !placement.value) return
+  const signature = trimmed.value ?? trimSignature()
+  if (!signature) return
   store.busy = true
   store.error = null
   try {
     // Transparent PNG, so the signature sits over the page rather than in a box.
-    const blob = await new Promise<Blob | null>(resolve =>
-      canvas.value!.toBlob(resolve, 'image/png')
-    )
+    const blob = await new Promise<Blob | null>(resolve => signature.toBlob(resolve, 'image/png'))
     if (!blob) throw new Error('canvas')
 
     const data = await signPdf(file.value, {
       image: new Uint8Array(await blob.arrayBuffer()),
-      pageIndex: pageNumber.value - 1,
-      xRatio: xPercent.value / 100,
-      yRatio: yPercent.value / 100,
-      widthRatio: widthPercent.value / 100
+      pageIndex: currentPage.value,
+      xRatio: placement.value.x,
+      yRatio: placement.value.y,
+      widthRatio: placement.value.width
     })
 
     store.setResult({
       name: withSuffix(file.value.name, '-signed'),
       type: 'application/pdf',
       data,
-      sourceSize: file.value.size
+      sourceSize: file.value.size,
+      note: t('pdf.sign.placedOn', { n: currentPage.value + 1 })
     })
   } catch (error) {
     store.error = t(pdfErrorKey(error))
@@ -168,14 +451,17 @@ function onFiles(files: File[]) {
 
     <template v-else-if="file && pageCount">
       <div>
-        <p class="mb-1 text-sm font-medium text-stone-900">{{ t('pdf.sign.drawLabel') }}</p>
+        <p class="mb-1 text-sm font-medium text-stone-900">
+          <span class="mr-1.5 inline-flex size-5 items-center justify-center rounded-full bg-stone-900 text-xs font-semibold text-white">1</span>
+          {{ t('pdf.sign.drawLabel') }}
+        </p>
         <canvas
-          ref="canvas"
+          ref="padEl"
           class="h-40 w-full touch-none rounded-lg border-2 border-dashed border-stone-300 bg-white"
-          @pointerdown="start"
-          @pointermove="move"
-          @pointerup="end"
-          @pointercancel="end"
+          @pointerdown="padDown"
+          @pointermove="padMove"
+          @pointerup="padUp"
+          @pointercancel="padUp"
         />
         <div class="mt-2 flex items-center justify-between gap-2">
           <p class="text-sm text-stone-500">{{ t('pdf.sign.drawHint') }}</p>
@@ -190,21 +476,58 @@ function onFiles(files: File[]) {
         </div>
       </div>
 
-      <div class="grid gap-3 sm:grid-cols-2">
-        <div>
-          <label for="sg-page" class="block text-sm font-medium text-stone-900">
-            {{ t('pdf.sign.page', { count: pageCount }) }}
-          </label>
-          <input
-            id="sg-page"
-            v-model.number="pageNumber"
-            type="number"
-            min="1"
-            :max="pageCount"
-            class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
-          />
+      <div>
+        <p class="mb-1 text-sm font-medium text-stone-900">
+          <span
+            class="mr-1.5 inline-flex size-5 items-center justify-center rounded-full text-xs font-semibold text-white"
+            :class="hasInk ? 'bg-stone-900' : 'bg-stone-300'"
+          >2</span>
+          {{ t('pdf.sign.placeLabel') }}
+        </p>
+        <p class="mb-2 text-sm text-stone-500">
+          {{ hasInk ? t('pdf.sign.placeHint') : t('pdf.sign.drawFirst') }}
+        </p>
+
+        <div v-if="pageCount > 1" class="mb-2 flex items-center gap-2">
+          <button
+            type="button"
+            class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
+            :disabled="currentPage === 0"
+            :aria-label="t('result.prevPage')"
+            @click="prevPage"
+          >
+            ‹
+          </button>
+          <span class="text-sm text-stone-600">
+            {{ t('pdf.sign.pageOf', { n: currentPage + 1, count: pageCount }) }}
+          </span>
+          <button
+            type="button"
+            class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
+            :disabled="currentPage === pageCount - 1"
+            :aria-label="t('result.nextPage')"
+            @click="nextPage"
+          >
+            ›
+          </button>
         </div>
-        <div>
+
+        <div class="relative overflow-hidden rounded-lg border border-stone-300 bg-stone-100">
+          <canvas
+            ref="pageEl"
+            class="block w-full touch-none"
+            :class="hasInk ? 'cursor-crosshair' : 'cursor-not-allowed'"
+            @pointerdown="pageDown"
+            @pointermove="pageMove"
+            @pointerup="pageUp"
+            @pointercancel="pageUp"
+          />
+          <p v-if="loadingPage" class="absolute inset-0 flex items-center justify-center text-sm text-stone-500">
+            {{ t('pdf.sign.loadingPreview') }}
+          </p>
+        </div>
+
+        <div v-if="placement" class="mt-3">
           <label for="sg-w" class="block text-sm font-medium text-stone-900">
             {{ t('pdf.sign.width', { n: widthPercent }) }}
           </label>
@@ -212,35 +535,9 @@ function onFiles(files: File[]) {
             id="sg-w"
             v-model.number="widthPercent"
             type="range"
-            min="10"
-            max="60"
-            class="mt-3 w-full accent-ember-700"
-          />
-        </div>
-        <div>
-          <label for="sg-x" class="block text-sm font-medium text-stone-900">
-            {{ t('pdf.sign.fromLeft', { n: xPercent }) }}
-          </label>
-          <input
-            id="sg-x"
-            v-model.number="xPercent"
-            type="range"
-            min="0"
-            max="90"
-            class="mt-3 w-full accent-ember-700"
-          />
-        </div>
-        <div>
-          <label for="sg-y" class="block text-sm font-medium text-stone-900">
-            {{ t('pdf.sign.fromTop', { n: yPercent }) }}
-          </label>
-          <input
-            id="sg-y"
-            v-model.number="yPercent"
-            type="range"
-            min="0"
-            max="95"
-            class="mt-3 w-full accent-ember-700"
+            min="5"
+            max="80"
+            class="mt-2 w-full accent-ember-700"
           />
         </div>
       </div>
