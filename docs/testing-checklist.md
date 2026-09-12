@@ -35,7 +35,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **64 tools, 23 published, 41 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, Sign, Protect, Unlock, JPG/PNG/WebP/HEIC/Image to PDF, Word/CSV/Excel to PDF, Word counter).
+Registry snapshot: **64 tools, 24 published, 40 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, Sign, Protect, Unlock, Grayscale, JPG/PNG/WebP/HEIC/Image to PDF, Word/CSV/Excel to PDF, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -445,7 +445,7 @@ Grayscale is niche and display-level; last.
   Expect: multi-sheet workbook — a sheet picker should appear and only the
   chosen sheet converts. Header row repeats on every page of a long table.
 
-- [ ] **Grayscale PDF** — converts a PDF to black-and-white for printing.
+- [x] **Grayscale PDF** — converts a PDF to black-and-white for printing.
   Expect: **file size barely changes** and text stays selectable/searchable
   in the output (open it and try selecting a word) — this tool deliberately
   does *not* rasterize pages. Read the on-page notice: it should say the

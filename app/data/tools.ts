@@ -860,7 +860,7 @@ export const tools: ToolDef[] = [
     group: 'edit',
     component: 'pdf/Grayscale',
     icon: 'contrast',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'grayscale-pdf', ru: 'pdf-v-chernobelyj', uz: 'pdf-oq-qora' },
     related: ['pdf-watermark', 'pdf-info'],
