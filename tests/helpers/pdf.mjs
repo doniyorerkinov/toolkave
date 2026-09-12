@@ -25,6 +25,18 @@ export const image = await app('composables/useImage.ts')
 export const lib = await import('@cantoo/pdf-lib')
 export const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs')
 
+/**
+ * What the browser worker passes too: the glyph programs for the 14 standard
+ * fonts and the CJK character maps. Without them pdf.js draws nothing where a
+ * PDF names Helvetica without embedding it, and every pixel assertion below
+ * would be checking a blank page.
+ */
+const pdfjsData = {
+  standardFontDataUrl: pathToFileURL(path.join(ROOT, 'node_modules/pdfjs-dist/standard_fonts/')).href,
+  cMapUrl: pathToFileURL(path.join(ROOT, 'node_modules/pdfjs-dist/cmaps/')).href,
+  cMapPacked: true
+}
+
 /** What the file store hands to every PDF function. */
 export const held = (data, name = 'file.pdf') => ({ id: name, name, size: data.byteLength, type: 'application/pdf', data })
 
@@ -66,7 +78,7 @@ export function solidPng(width = 240, height = 90, color = '#c00') {
 
 /** Render every page the way a viewer shows it (so /Rotate is applied). */
 export async function render(bytes, scale = 1) {
-  const task = pdfjs.getDocument({ data: bytes.slice() })
+  const task = pdfjs.getDocument({ data: bytes.slice(), ...pdfjsData })
   const doc = await task.promise
   const pages = []
   for (let i = 1; i <= doc.numPages; i++) {
@@ -82,7 +94,7 @@ export async function render(bytes, scale = 1) {
 
 /** Text of every page, joined — for "the text layer survived" assertions. */
 export async function pageTexts(bytes) {
-  const task = pdfjs.getDocument({ data: bytes.slice() })
+  const task = pdfjs.getDocument({ data: bytes.slice(), ...pdfjsData })
   const doc = await task.promise
   const out = []
   for (let i = 1; i <= doc.numPages; i++) {

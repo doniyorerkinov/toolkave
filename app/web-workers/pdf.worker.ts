@@ -51,7 +51,22 @@ async function loadDocument(
   // pdf.js detaches and takes ownership of the buffer it is handed. Copying
   // first means the caller's own Uint8Array is still valid afterwards — it is
   // not consumed by handing it to the worker.
-  const task = getDocument({ data: pdfBytes.slice(), ownerDocument: documentShim })
+  const task = getDocument({
+    data: pdfBytes.slice(),
+    ownerDocument: documentShim,
+    // Installing a font as a `FontFace` needs `document.fonts`, which no shim
+    // can fake inside a worker: an embedded subset (every Cyrillic or Uzbek
+    // document carries one) then silently drew every glyph as an empty box.
+    // Drawing glyphs as paths instead needs no document at all.
+    disableFontFace: true,
+    useSystemFonts: false,
+    // Where the replacement glyphs for the 14 standard fonts live, for the
+    // many PDFs that name Helvetica or Times without embedding them, and the
+    // character maps for CJK documents. Both are served from `/pdfjs/`.
+    standardFontDataUrl: `${self.location.origin}/pdfjs/standard_fonts/`,
+    cMapUrl: `${self.location.origin}/pdfjs/cmaps/`,
+    cMapPacked: true
+  })
   const doc = await task.promise
   return { doc, task }
 }

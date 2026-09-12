@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 import { LOCALES, DEFAULT_LOCALE, prerenderRoutes } from './app/data/tools'
 
@@ -27,6 +28,22 @@ export default defineNuxtConfig({
 
   nitro: {
     preset: 'cloudflare_module',
+    // pdf.js needs these two data directories at runtime and they are not
+    // bundled: the standard-font glyph programs and the CJK character maps.
+    // Serving them from node_modules keeps them in step with the installed
+    // version instead of drifting as a copy in `public/`.
+    publicAssets: [
+      {
+        baseURL: 'pdfjs/standard_fonts',
+        dir: fileURLToPath(new URL('node_modules/pdfjs-dist/standard_fonts', import.meta.url)),
+        maxAge: 60 * 60 * 24 * 365
+      },
+      {
+        baseURL: 'pdfjs/cmaps',
+        dir: fileURLToPath(new URL('node_modules/pdfjs-dist/cmaps', import.meta.url)),
+        maxAge: 60 * 60 * 24 * 365
+      }
+    ],
     prerender: {
       // Routes come from the registry, so every published tool/locale pair is
       // emitted as a static asset. Static assets on Workers are free and
