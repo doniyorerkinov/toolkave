@@ -35,7 +35,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **64 tools, 26 published, 38 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, Sign, Protect, Unlock, Grayscale, Compress, Compare, JPG/PNG/WebP/HEIC/Image to PDF, Word/CSV/Excel to PDF, Word counter).
+Registry snapshot: **64 tools, 31 published, 33 drafts** — every PDF tool in the registry is live, plus Word counter. What is left is the image, text, converter, calculator, generator and developer categories.
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -179,7 +179,7 @@ test JPG fully, spot-check the wording and one file on each of the other three.
   the network tab stays quiet on page load. Conversion can be slow on a large
   batch; the page shouldn't look frozen while it works.
 
-- [ ] **PDF to JPG** — export PDF pages as images.
+- [x] **PDF to JPG** — export PDF pages as images.
   Expect: select exactly **one** page → downloads a single `.jpg`. Select
   **more than one** → downloads a `.zip` of numbered JPGs (and the "Use as
   input" button should *not* appear for a zip result — chaining a zip into
@@ -241,7 +241,7 @@ the pages to lead the ru/uz positioning with.
   shown — a blurry image should show a low-confidence warning, not just a
   silently bad result.
 
-- [ ] **Photos to scanned PDF** — phone photos of a document → clean PDF.
+- [x] **Photos to scanned PDF** — phone photos of a document → clean PDF.
   Expect: try the three clean-up modes (Enhance / Grayscale / Keep colour) on
   the same photo — "Enhance" should visibly whiten the paper and darken the
   text compared to the original, more than "Grayscale" alone does. Multiple
@@ -344,7 +344,7 @@ header/footer are Latin-only by design — confirm the ru/uz pages say so before
   Test a landscape-oriented source — it should stay landscape at the new
   size, not get forced upright.
 
-- [ ] **PDF to text** — extracts the text layer.
+- [x] **PDF to text** — extracts the text layer.
   Expect: run it on a **scanned** PDF (no real text layer) — result should be
   empty with a message suggesting the OCR tool instead, not a silent blank
   result.
@@ -364,7 +364,7 @@ header/footer are Latin-only by design — confirm the ru/uz pages say so before
   signature, not a legally-binding cryptographic one. Try dragging the
   signature near a page edge — it should clamp inside the page, not hang off it.
 
-- [ ] **Annotate PDF** — highlight areas and add short text notes on a page.
+- [x] **Annotate PDF** — highlight areas and add short text notes on a page.
   Expect: drag to highlight — the box should appear in the **exact area** you
   dragged over, in the downloaded file, not offset or resized. Add a note,
   confirm it's placed where you clicked. **Type Cyrillic into a note** and
@@ -393,7 +393,7 @@ document. Publish these only after that, and after the FAQ says what each one ca
   or a generic error). Correct password produces an unlocked file that opens
   with no password in a real viewer.
 
-- [ ] **Redact PDF** — permanently removes content under a drawn box, safely.
+- [x] **Redact PDF** — permanently removes content under a drawn box, safely.
   **This is the one that matters most to get right.** Before testing, read the
   safety notice at the top of the page — it should say plainly that a
   redacted page becomes an image and its text is no longer selectable.
