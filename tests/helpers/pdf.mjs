@@ -11,6 +11,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createCanvas, loadImage } from '@napi-rs/canvas'
+import { register } from 'node:module'
+
+// Before the first app module is imported: its aliases resolve through this.
+register('./alias-loader.mjs', import.meta.url)
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), '../../..')
 const app = relative => import(pathToFileURL(path.join(ROOT, 'app', relative)).href)

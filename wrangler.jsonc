@@ -13,6 +13,16 @@
     // sends the slash form back to it instead.
     "html_handling": "drop-trailing-slash"
   },
+  // The Telegram bot's pending-files table. Only file identifiers and counts:
+  // the photos themselves are fetched from Telegram at conversion time and
+  // never written anywhere.
+  "d1_databases": [
+    {
+      "binding": "BOT_DB",
+      "database_name": "toolkave-bot",
+      "database_id": "ea9d5cf4-8839-4bc7-9ad5-785020c9f163"
+    }
+  ],
   "routes": [
     { "pattern": "toolkave.com", "custom_domain": true },
     { "pattern": "www.toolkave.com", "custom_domain": true }

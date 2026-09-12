@@ -137,24 +137,54 @@ Both advertise each other; a user should recognize one from the other.
 
 **Positioning:** free, no limit (the competing bot caps at 10 images — that cap is their paywall). Put "no limit, free" in the bot description and first message. First real user: a family member who hit the 10-image cap.
 
-**Stack:** Python (aiogram) + `img2pdf` / Pillow, hosted on Railway (~$5/month) or a small VPS.
+**Stack (built 12 Sept 2026):** TypeScript in this repo, running inside the site's own
+Cloudflare Worker — `server/telegram/` plus the webhook at `server/routes/api/telegram.post.ts`.
+
+Python on Railway was the original plan; it was dropped before a line was written. The bot's
+work *is* `shared/pdf-core.ts`: the same `imagesToPdf` and `mergePdfs` the site runs, with the
+same tests behind them. A second implementation in another language would have to re-learn
+every fix the site has had (the stale appearance streams, the HEIC decoder, the Unicode font)
+and would drift the first time one side was patched alone. Same $5/month, one codebase.
+
+What this costs: pdf-lib is no longer excluded from the Worker bundle (rule 11 now applies only
+to code that touches the DOM), which took the Worker from 615 KB to 901 KB gzipped. Everything
+needing a canvas — HEIC and WebP input, compression, PDF → images — stays browser-only until a
+WASM encoder replaces the canvas calls. That swap is the gate on the bot's next set of tools.
+
+**State:** D1 (`toolkave-bot`), two tables, file identifiers and counts only. KV was wrong here
+— eventual consistency would miscount a burst of forty photos — and a Nitro Worker cannot export
+the Durable Object class the other obvious answer needs.
 
 **Flow**
 1. `/start` (with optional `start` payload from the site) → greeting in the user's Telegram language, one line of instructions.
 2. User sends photos. Albums arrive as separate messages sharing a `media_group_id` — collect them and wait ~1–2 s for the group to finish. Also accept photos sent one by one and documents (images sent "as file").
 3. Show a running count: "7 photos received. Send more or press Done."
-4. **Done** button (or `/done`) → build PDF, page order = order received. To fix order, user re-sends; no reorder UI in chat.
+4. **Done** buttons (or `/done`) → build PDF, page order = order received. Photos offer A4 or
+   photo size; a batch of PDFs offers Merge instead. To fix order, user re-sends; no reorder UI in chat.
+   Mixing photos and PDFs in one batch is refused rather than guessed at.
 5. Send result as a document named `scan_YYYY-MM-DD.pdf`, followed by the "More free tools" line.
 
 **Options (inline buttons, optional):** page size A4 / fit-to-image; orientation auto; JPEG quality normal / high.
 
 **Quality note in help text:** Telegram compresses photos; "send as file" keeps full quality — recommended for passports and documents.
 
-**Limits:** ~100 images, ~50 MB total per PDF (still 10x the competitor). Reject politely above that.
+**Limits:** 100 files and 45 MB per batch, and Telegram's own 20 MB ceiling on anything a bot
+may download — that last one is the Bot API's, not ours, and the earlier "~50 MB total" missed it.
+Telegram's compressed photos run 100–300 KB, so a hundred of them is comfortable; files sent at
+full quality hit the weight cap first. All three are refused in words, not by failing.
 
-**Privacy:** the site never uploads files, but the bot necessarily does. Delete files immediately after sending the PDF, and say so in the bot description: "Files are deleted immediately after processing."
+**Privacy:** the site never uploads files; the bot necessarily does. On a Worker the claim can be
+stronger than "deleted after processing", which implies they were stored: photos are fetched from
+Telegram at conversion time, held in memory for the seconds it takes, and never written to disk,
+R2 or KV at all. There is nothing to delete. Say exactly that, and do not blur the two promises.
 
-**Later additions to the bot:** compress PDF, merge PDFs, PDF → images, image compress — the same tier-1 set as the site, once the web versions exist.
+**Later additions to the bot:** compress PDF, PDF → images, image compress, HEIC input — all of
+them blocked on the same thing, a WASM JPEG encoder to replace the canvas calls. Merge is already in.
+
+**What must never move to the bot:** sign, redact, annotate, remove/reorder pages, compare, page
+numbers, watermark. Every one of those needs to *see* the page — that is why they have visual
+editors on the site — and a chat window has no preview and no pointing. The bot's right answer
+there is a link to the page, which is also the funnel the section above asks for.
 
 ---
 

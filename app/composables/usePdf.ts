@@ -1,4 +1,28 @@
 import type { HeldFile } from '~/stores/files'
+import {
+  ENCRYPTED_INPUT,
+  isPasswordError,
+  loadEditable,
+  loadPdfLib,
+  loadReadable,
+  toArrayBuffer,
+  type PageFit
+} from '~~/shared/pdf-core'
+
+/**
+ * The browser half of the PDF toolkit: everything here needs a canvas, a
+ * decoder or a worker. The operations that need none of those live in
+ * `shared/pdf-core.ts` so the Telegram bot can run them inside the Worker,
+ * and are re-exported here so a tool page has one import to think about.
+ */
+export {
+  ENCRYPTED_INPUT,
+  imagesToPdf,
+  loadEditable,
+  loadReadable,
+  mergePdfs,
+  type PageFit
+} from '~~/shared/pdf-core'
 // Type-only: erased at build time, so this does not force an eager load of
 // the library the way a value import would.
 import type {
@@ -19,88 +43,6 @@ import type {
  * Merge and split are fast enough to stay on the main thread. The heavy
  * operations (compress, rasterise, OCR) move to a web worker in Phase 3.
  */
-
-/**
- * `@cantoo/pdf-lib` is a maintained fork of `pdf-lib` with the same API plus
- * encryption support, which upstream does not have. Using the fork everywhere
- * avoids shipping two copies of the same 400 KB library.
- *
- * The alternative for encryption was `pdfcpu-wasm`: also free (MIT), but 30 MB
- * unpacked, one commit, and untouched since July 2025.
- */
-async function loadPdfLib() {
-  // Browser only. `import.meta.server` is a build-time constant, so in the server
-  // build this throws before the import and Rollup drops the import as dead code:
-  // the Worker bundle never carries the library, and never has to parse it.
-  if (import.meta.server) throw new Error('browser only')
-  return await import('@cantoo/pdf-lib')
-}
-
-/** Thrown when an editing tool is handed a PDF that needs a password to open. */
-export const ENCRYPTED_INPUT = 'toolkave/encrypted-input'
-
-function isPasswordError(error: unknown): boolean {
-  return error instanceof Error && /password/i.test(error.message)
-}
-
-/**
- * Load a document that is about to be modified or have pages copied out of it.
- *
- * `ignoreEncryption: true` is fine for reading metadata, but it leaves every
- * stream encrypted, and copying those into a fresh document produces a file
- * full of garbage. Passing an empty password instead decrypts the common
- * "owner password only" case transparently (printing restrictions and the
- * like), and a file that genuinely needs a password fails here with a code
- * the tools can turn into "unlock it first" rather than a broken download.
- */
-async function loadEditable(file: HeldFile) {
-  const { PDFDocument, PDFDict, PDFName } = await loadPdfLib()
-  let doc
-  try {
-    doc = await PDFDocument.load(toArrayBuffer(file.data), { password: '' })
-  } catch (error) {
-    if (isPasswordError(error)) throw new Error(ENCRYPTED_INPUT)
-    throw error
-  }
-
-  // A decrypted parse leaves two objects behind that the writer must not see
-  // again: the file's old cross-reference dictionary, which pdf-lib registers
-  // as a plain dict once its stream is consumed, and the /Encrypt dictionary
-  // it points at. Written back, the next reader takes that dictionary for a
-  // trailer and the plaintext output reads as encrypted — "needs a password"
-  // on a file that has none, which breaks chaining one tool into the next.
-  for (const [ref, object] of doc.context.enumerateIndirectObjects()) {
-    if (!(object instanceof PDFDict)) continue
-    const staleTrailer = object.has(PDFName.of('Root')) && object.has(PDFName.of('Size'))
-    const encryptDict = object.get(PDFName.of('Filter')) === PDFName.of('Standard') && object.has(PDFName.of('O'))
-    if (staleTrailer || encryptDict) doc.context.delete(ref)
-  }
-
-  return doc
-}
-
-/**
- * Load a document for reading only (page count, metadata, sizes).
- *
- * Decrypting first matters even here: a PDF that is merely *restricted* —
- * owner password, no password to open — usually keeps its page tree inside
- * object streams, and `ignoreEncryption` leaves those encrypted, so the
- * page count is unreachable and the tool wrongly reports the file unreadable.
- * Only a file that genuinely needs a password falls back to the encrypted
- * view, which is enough for the Info tool to say so.
- */
-async function loadReadable(file: HeldFile) {
-  const { PDFDocument } = await loadPdfLib()
-  // `updateMetadata` defaults to true and rewrites Producer and ModDate on
-  // load — the Info tool would then report pdf-lib and today's date instead
-  // of what the file actually says.
-  try {
-    return await PDFDocument.load(toArrayBuffer(file.data), { password: '', updateMetadata: false })
-  } catch (error) {
-    if (!isPasswordError(error)) throw error
-    return await PDFDocument.load(toArrayBuffer(file.data), { ignoreEncryption: true, updateMetadata: false })
-  }
-}
 
 /** i18n key for an error thrown by any function in this file. */
 export function pdfErrorKey(error: unknown): string {
@@ -307,19 +249,6 @@ export async function replacePagesWithImages(
   return await doc.save()
 }
 
-export async function mergePdfs(files: HeldFile[]): Promise<Uint8Array> {
-  const { PDFDocument } = await loadPdfLib()
-  const out = await PDFDocument.create()
-
-  for (const file of files) {
-    const source = await loadEditable(file)
-    const pages = await out.copyPages(source, source.getPageIndices())
-    for (const page of pages) out.addPage(page)
-  }
-
-  return await out.save()
-}
-
 export async function extractPages(file: HeldFile, pageIndices: number[]): Promise<Uint8Array> {
   const { PDFDocument } = await loadPdfLib()
   const source = await loadEditable(file)
@@ -376,54 +305,6 @@ export async function removePdfPages(
   const out = await PDFDocument.create()
   const pages = await out.copyPages(source, keep)
   for (const page of pages) out.addPage(page)
-
-  return await out.save()
-}
-
-export type PageFit = 'image' | 'a4'
-
-/** A4 at 72 dpi, the unit pdf-lib works in. */
-const A4 = { width: 595.28, height: 841.89 }
-
-/**
- * Build a PDF from images, one image per page.
- *
- * pdf-lib embeds JPEG and PNG directly, so the pixels are copied across without
- * re-encoding and nothing is lost. Format is detected from the file's magic
- * bytes rather than its extension, because a .jpg that is actually a PNG is
- * common enough to matter.
- */
-export async function imagesToPdf(files: HeldFile[], fit: PageFit = 'image'): Promise<Uint8Array> {
-  const { PDFDocument } = await loadPdfLib()
-  const out = await PDFDocument.create()
-
-  for (const file of files) {
-    const bytes = file.data
-    const png = bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47
-    const jpeg = bytes[0] === 0xff && bytes[1] === 0xd8
-
-    if (!png && !jpeg) throw new Error(`unsupported image: ${file.name}`)
-
-    const image = png
-      ? await out.embedPng(toArrayBuffer(bytes))
-      : await out.embedJpg(toArrayBuffer(bytes))
-
-    if (fit === 'a4') {
-      const page = out.addPage([A4.width, A4.height])
-      const scale = Math.min(A4.width / image.width, A4.height / image.height)
-      const width = image.width * scale
-      const height = image.height * scale
-      page.drawImage(image, {
-        x: (A4.width - width) / 2,
-        y: (A4.height - height) / 2,
-        width,
-        height
-      })
-    } else {
-      const page = out.addPage([image.width, image.height])
-      page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height })
-    }
-  }
 
   return await out.save()
 }
@@ -1278,10 +1159,3 @@ export async function compressPdf(
   }
 }
 
-/**
- * `pdf-lib` accepts an ArrayBuffer. A Uint8Array from the store may be a view
- * over a larger buffer, so slice to exactly its own bytes.
- */
-function toArrayBuffer(data: Uint8Array): ArrayBuffer {
-  return data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength) as ArrayBuffer
-}
