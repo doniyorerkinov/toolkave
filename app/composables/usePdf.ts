@@ -1073,9 +1073,30 @@ export async function compressPdf(
     // A soft mask or stencil mask is sized to the image it belongs to, so an
     // image that carries one keeps its dimensions and is only re-encoded.
     const hasMask = dict.has(PDFName.of('SMask')) || dict.has(PDFName.of('Mask'))
-    const scale = hasMask ? 1 : Math.min(1, maxDimension / Math.max(bitmap.width, bitmap.height))
+
+    const longSide = Math.max(bitmap.width, bitmap.height)
+    const shortSide = Math.min(bitmap.width, bitmap.height)
+    /**
+     * An image far from square is a strip, not a photograph: a scrolling
+     * comic page, a long receipt, a panorama. Its narrow side is the whole
+     * readable width, and fitting the long side into the budget would leave
+     * that width in the dozens of pixels — a 900x25000 page came back 58
+     * across, which is smaller and unreadable rather than smaller. Strips are
+     * re-encoded at their own size; only the quality drops.
+     */
+    const isStrip = longSide > shortSide * 3
+    const scale = hasMask || isStrip ? 1 : Math.min(1, maxDimension / longSide)
     const targetWidth = Math.max(1, Math.round(bitmap.width * scale))
     const targetHeight = Math.max(1, Math.round(bitmap.height * scale))
+
+    // Browsers refuse a canvas past a certain area — mobile Safari gives up
+    // around 16 megapixels — and a refusal can be a blank canvas rather than
+    // an error, which would write white pages into the document. Anything
+    // that large is left exactly as it was.
+    if (targetWidth * targetHeight > 40 * 1024 * 1024) {
+      bitmap.close()
+      return false
+    }
 
     const canvas = document.createElement('canvas')
     canvas.width = targetWidth

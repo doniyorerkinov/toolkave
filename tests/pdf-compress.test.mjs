@@ -117,3 +117,40 @@ test('a gray JPEG comes back declared as RGB, since that is what the canvas prod
   assert.equal(dict.get(PDFName.of('ColorSpace')).decodeText(), 'DeviceRGB')
   assert.equal(dict.get(PDFName.of('BitsPerComponent')).asNumber(), 8)
 })
+
+test('a long strip keeps its readable width instead of being squeezed to nothing', async () => {
+  // A scrolling comic page: 900 across, enormously tall. Capping the long
+  // side at 1600 once took the width down to 58 pixels - a 22 MB file came
+  // back 163 KB and unreadable, which is not compression.
+  const strip = noisyJpeg(900, 6000, 92)
+  const { data, imagesCompressed } = await compress(await photoPdf({ jpeg: strip }), {
+    quality: 0.65,
+    maxDimension: 1600
+  })
+
+  assert.equal(imagesCompressed, 1, 'it is still re-encoded')
+  const image = await firstImage(data)
+  assert.equal(Number(String(image.dict.get(PDFName.of('Width')))), 900, 'full width kept')
+  assert.equal(Number(String(image.dict.get(PDFName.of('Height')))), 6000, 'full height kept')
+
+  // An ordinary photograph in the same run is still downsampled as before.
+  const photo = await compress(await photoPdf({ jpeg: noisyJpeg(3000, 2000, 92) }), {
+    quality: 0.65,
+    maxDimension: 1600
+  })
+  const downsampled = await firstImage(photo.data)
+  assert.equal(Number(String(downsampled.dict.get(PDFName.of('Width')))), 1600)
+})
+
+test('an image too large for a canvas is left exactly as it was', async () => {
+  // Past the area a browser will allocate, a refused canvas can come back
+  // blank rather than throwing, which would write white pages into the file.
+  const huge = noisyJpeg(7000, 7000, 92)
+  const { imagesCompressed, imagesSkipped } = await compress(await photoPdf({ jpeg: huge }), {
+    quality: 0.65,
+    // No downsampling, so the canvas would have to hold all 49 megapixels.
+    maxDimension: 8000
+  })
+  assert.equal(imagesCompressed, 0)
+  assert.equal(imagesSkipped, 1)
+})
