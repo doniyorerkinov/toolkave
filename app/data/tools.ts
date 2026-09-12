@@ -274,7 +274,7 @@ export const tools: ToolDef[] = [
     group: 'edit',
     component: 'pdf/Sign',
     icon: 'pen-tool',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'sign-pdf', ru: 'podpisat-pdf', uz: 'pdf-imzolash' },
     related: ['pdf-fill-form', 'pdf-flatten'],

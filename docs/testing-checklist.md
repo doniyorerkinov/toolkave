@@ -35,7 +35,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **64 tools, 15 published, 49 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, JPG/PNG/Image to PDF, Word counter).
+Registry snapshot: **64 tools, 16 published, 48 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, Sign, JPG/PNG/Image to PDF, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -358,7 +358,7 @@ header/footer are Latin-only by design — confirm the ru/uz pages say so before
   Expect: run it on a PDF that has no form fields at all — should return an
   unchanged copy with a message saying so, not an error.
 
-- [ ] **Sign PDF** — draw a signature and place it on a page.
+- [x] **Sign PDF** — draw a signature and place it on a page.
   Expect: works with touch/pen, not just mouse (uses Pointer Events). Read the
   FAQ text on the page itself — it must say plainly this is a picture of a
   signature, not a legally-binding cryptographic one. Try dragging the
