@@ -35,7 +35,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **64 tools, 24 published, 40 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, Sign, Protect, Unlock, Grayscale, JPG/PNG/WebP/HEIC/Image to PDF, Word/CSV/Excel to PDF, Word counter).
+Registry snapshot: **64 tools, 26 published, 38 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, Sign, Protect, Unlock, Grayscale, Compress, Compare, JPG/PNG/WebP/HEIC/Image to PDF, Word/CSV/Excel to PDF, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -186,7 +186,7 @@ test JPG fully, spot-check the wording and one file on each of the other three.
   another tool makes no sense). Try a 100+ page PDF — thumbnails should still
   load progressively without freezing the tab.
 
-- [ ] **Compress PDF** — shrinks a PDF by recompressing its embedded images only.
+- [x] **Compress PDF** — shrinks a PDF by recompressing its embedded images only.
   Expect: on a **photo-heavy or scanned** PDF, the output should be
   noticeably smaller, and **text should still be selectable** in the result —
   select a word and copy it, confirm it pastes correctly. Try a **text-only**
@@ -408,7 +408,7 @@ document. Publish these only after that, and after the FAQ says what each one ca
   point of this tool is what's *underneath* it, which only shows up by
   actually trying to extract the text.
 
-- [ ] **Compare PDFs** — page-by-page diff between two versions of a document.
+- [x] **Compare PDFs** — page-by-page diff between two versions of a document.
   Expect: upload the *same* PDF as both Document A and B — every page should
   read "Identical," nothing should be marked changed. Then edit a copy (change
   a sentence on one page, leave others alone) and compare against the
