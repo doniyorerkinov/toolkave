@@ -35,7 +35,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **64 tools, 14 published, 50 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, JPG/PNG/Image to PDF, Word counter).
+Registry snapshot: **64 tools, 15 published, 49 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, JPG/PNG/Image to PDF, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -349,7 +349,7 @@ header/footer are Latin-only by design — confirm the ru/uz pages say so before
   empty with a message suggesting the OCR tool instead, not a silent blank
   result.
 
-- [ ] **Fill PDF form** — fill in a form PDF's fields in the browser.
+- [x] **Fill PDF form** — fill in a form PDF's fields in the browser.
   Expect: text, checkbox, dropdown and radio fields are all editable.
   Deliberately put a stale/invalid value in a dropdown-like field and confirm
   that one bad field doesn't stop the other fields from filling correctly.

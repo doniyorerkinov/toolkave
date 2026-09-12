@@ -261,7 +261,7 @@ export const tools: ToolDef[] = [
     group: 'edit',
     component: 'pdf/FillForm',
     icon: 'form-input',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'fill-pdf-form', ru: 'zapolnit-formu-pdf', uz: 'pdf-shaklni-toldirish' },
     related: ['pdf-flatten', 'pdf-sign'],
