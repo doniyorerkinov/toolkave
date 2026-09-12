@@ -35,7 +35,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **64 tools, 16 published, 48 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, Sign, JPG/PNG/Image to PDF, Word counter).
+Registry snapshot: **64 tools, 18 published, 46 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, Sign, Protect, Unlock, JPG/PNG/Image to PDF, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -382,13 +382,13 @@ must be checked in Adobe Reader, not only in the site. Redact must be checked by
 to copy the text under the box in a real viewer. Compare needs two genuine versions of a
 document. Publish these only after that, and after the FAQ says what each one cannot do.
 
-- [ ] **Protect PDF with a password** — adds an open password.
+- [x] **Protect PDF with a password** — adds an open password.
   Expect: the output actually requires the password to open in a real PDF
   viewer, not just inside this site.
   Known limitation (a `todo` test records it): the encryption library drops the
   document's title and author. Confirm the FAQ says so before publishing.
 
-- [ ] **Unlock PDF** — removes a password, given the correct one.
+- [x] **Unlock PDF** — removes a password, given the correct one.
   Expect: wrong password gives a clear "wrong password" message (not a crash
   or a generic error). Correct password produces an unlocked file that opens
   with no password in a real viewer.
