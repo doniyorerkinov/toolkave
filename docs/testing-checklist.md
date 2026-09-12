@@ -35,7 +35,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **64 tools, 18 published, 46 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, Sign, Protect, Unlock, JPG/PNG/Image to PDF, Word counter).
+Registry snapshot: **64 tools, 20 published, 44 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, Sign, Protect, Unlock, JPG/PNG/WebP/HEIC/Image to PDF, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -171,10 +171,10 @@ test JPG fully, spot-check the wording and one file on each of the other three.
   Expect: same behavior; PNG transparency should not turn black in the output
   (page background should be white, not the alpha channel rendered as black).
 
-- [ ] **WebP to PDF** — same shared component, WebP input.
+- [x] **WebP to PDF** — same shared component, WebP input.
   Expect: same behavior as JPG/PNG to PDF.
 
-- [ ] **HEIC to PDF** — for iPhone photos.
+- [x] **HEIC to PDF** — for iPhone photos.
   Expect: `heic2any` only downloads when a HEIC file is actually added — check
   the network tab stays quiet on page load. Conversion can be slow on a large
   batch; the page shouldn't look frozen while it works.
