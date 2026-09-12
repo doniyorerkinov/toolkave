@@ -35,7 +35,7 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
-Registry snapshot: **64 tools, 20 published, 44 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, Sign, Protect, Unlock, JPG/PNG/WebP/HEIC/Image to PDF, Word counter).
+Registry snapshot: **64 tools, 23 published, 41 drafts** (Merge, Split, Rotate, Remove pages, Page numbers, Header/footer, Watermark, PDF info, Resize pages, Flatten, Fill form, Sign, Protect, Unlock, JPG/PNG/WebP/HEIC/Image to PDF, Word/CSV/Excel to PDF, Word counter).
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -428,20 +428,20 @@ notices. Test with real Uzbek and Russian documents that have tables and picture
 decide honestly whether the output earns the page. CSV/Excel to PDF are the same engine.
 Grayscale is niche and display-level; last.
 
-- [ ] **Word to PDF** — .docx converted to PDF in the browser.
+- [x] **Word to PDF** — .docx converted to PDF in the browser.
   Expect: headings, bold/italic, lists, tables and images all come through.
   Read the on-page notice about page breaks landing differently than in Word
   — that's expected, not a bug. Test with a document containing Cyrillic and
   Uzbek (oʻzbek) text specifically. Try dropping an old `.doc` (not `.docx`)
   — should give a clear "old format" message, not a crash.
 
-- [ ] **CSV to PDF** — turns a CSV into a printable table.
+- [x] **CSV to PDF** — turns a CSV into a printable table.
   Expect: try a **semicolon-delimited** CSV (Excel-Russian-locale export) —
   should auto-detect the delimiter correctly. Try a windows-1251-encoded file
   — Cyrillic should come out right, not as question marks. Try a table with
   8+ columns — the tool should suggest switching to landscape.
 
-- [ ] **Excel to PDF** — one sheet of an .xlsx as a printable table.
+- [x] **Excel to PDF** — one sheet of an .xlsx as a printable table.
   Expect: multi-sheet workbook — a sheet picker should appear and only the
   chosen sheet converts. Header row repeats on every page of a long table.
 
