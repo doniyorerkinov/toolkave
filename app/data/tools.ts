@@ -248,7 +248,7 @@ export const tools: ToolDef[] = [
     group: 'edit',
     component: 'pdf/Flatten',
     icon: 'layers-2',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'flatten-pdf', ru: 'svesti-pdf', uz: 'pdf-tekislash' },
     related: ['pdf-fill-form', 'pdf-protect'],
