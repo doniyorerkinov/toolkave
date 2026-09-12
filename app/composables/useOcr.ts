@@ -41,7 +41,7 @@ export interface OcrResult {
 
 /**
  * Formats the browser can hand to a canvas. HEIC is excluded deliberately —
- * it would need the heic2any conversion first, and the OCR tools accept
+ * it would need the libheif conversion first, and the OCR tools accept
  * screenshots and scans rather than phone-camera originals.
  */
 export const OCR_ACCEPTED = ['image/png', 'image/jpeg', 'image/webp', 'image/bmp']

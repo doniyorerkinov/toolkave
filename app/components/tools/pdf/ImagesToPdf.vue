@@ -49,6 +49,17 @@ function switchToAnyFormat() {
 
 const canRun = computed(() => store.hasFiles && !store.busy)
 
+/** Files the decoder could not read, named so they can be found and removed. */
+const skipped = ref<string[]>([])
+/** How far through the batch, for the button while a camera roll is converting. */
+const done = ref(0)
+
+function dropSkipped() {
+  const names = new Set(skipped.value)
+  for (const file of store.files.filter(candidate => names.has(candidate.name))) store.remove(file.id)
+  skipped.value = []
+}
+
 /** The registry's `maxFiles`; the dropzone only caps a single drop, not the running total. */
 const MAX_FILES = 100
 
@@ -64,13 +75,28 @@ async function run() {
     const sourceSize = store.totalSize
     // pdf-lib embeds only JPEG and PNG, so WebP and HEIC are re-encoded first;
     // "smaller" also downscales photos. Files that need nothing pass through.
-    const ready = await normaliseForPdf(store.files, size.value === 'smaller' ? SMALLER : {})
+    done.value = 0
+    const { ready, failed } = await normaliseForPdf(
+      store.files,
+      size.value === 'smaller' ? SMALLER : {},
+      count => (done.value = count)
+    )
+    skipped.value = failed
+    // Every file unreadable is an error; some of them is a PDF plus a warning
+    // naming them, which beats making the reader bisect a camera roll by hand.
+    if (!ready.length) {
+      store.error = failed.length
+        ? t('pdf.imagesToPdf.errorFiles', { names: failed.join(', ') })
+        : t('pdf.imagesToPdf.errorUnsupported')
+      return
+    }
     const data = await imagesToPdf(ready, fit.value)
     store.setResult({
       name: 'toolkave.pdf',
       type: 'application/pdf',
       data,
-      sourceSize
+      sourceSize,
+      note: failed.length ? t('pdf.imagesToPdf.skippedNote', { n: failed.length, total: store.files.length }) : undefined
     })
   } catch {
     store.error = t('pdf.imagesToPdf.errorUnsupported')
@@ -141,7 +167,9 @@ async function run() {
         class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
-        {{ store.busy ? t('pdf.working') : t('pdf.imagesToPdf.action') }}
+        <template v-if="!store.busy">{{ t('pdf.imagesToPdf.action') }}</template>
+        <template v-else-if="done">{{ t('pdf.imagesToPdf.progress', { n: done, total: store.files.length }) }}</template>
+        <template v-else>{{ t('pdf.working') }}</template>
       </button>
       <button
         type="button"
@@ -153,6 +181,22 @@ async function run() {
     </div>
 
     <p v-if="store.error" class="text-sm text-red-700" role="alert">{{ store.error }}</p>
+
+    <div v-if="skipped.length" class="rounded-lg border border-amber-300 bg-amber-50 p-3" role="alert">
+      <p class="text-sm font-medium text-amber-900">
+        {{ t('pdf.imagesToPdf.skipped', { n: skipped.length }) }}
+      </p>
+      <ul class="mt-1 list-inside list-disc text-sm text-amber-800">
+        <li v-for="name in skipped" :key="name">{{ name }}</li>
+      </ul>
+      <button
+        type="button"
+        class="mt-2 text-sm font-semibold text-amber-900 underline hover:no-underline"
+        @click="dropSkipped"
+      >
+        {{ t('pdf.imagesToPdf.removeSkipped') }}
+      </button>
+    </div>
 
     <ShellResultCard
       v-if="store.result"

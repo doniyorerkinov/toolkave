@@ -307,7 +307,12 @@
         "smaller": "Suratlar 2000 px gacha kichraytirilib, yuqori sifatda qayta siqiladi — odatda besh barobar kichik, chop etish uchun hali ham aniq.",
         "original": "Barcha piksellar saqlanadi. Telefon suratlari bilan PDF katta chiqadi — har sahifa 3–5 MB."
       },
-      "anyFormat": "Boshqa formatlar ham bormi (WebP, HEIC, GIF)? Fayllaringiz o'zingiz bilan o'tadi:"
+      "anyFormat": "Boshqa formatlar ham bormi (WebP, HEIC, GIF)? Fayllaringiz o'zingiz bilan o'tadi:",
+      "errorFiles": "Bu fayllarning hech biri o'qilmadi: {names}",
+      "skipped": "{n} ta fayl o'qilmadi va PDF ga kirmadi:",
+      "removeSkipped": "Ularni ro'yxatdan olib tashlash",
+      "skippedNote": "{total} fayldan {n} tasi o'qilmadi va PDF ga kirmadi",
+      "progress": "{total} tadan {n} tasi…"
     },
     "grayscale": {
       "pages": "Sahifalar: {n}",

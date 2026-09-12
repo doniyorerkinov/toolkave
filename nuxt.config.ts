@@ -55,7 +55,14 @@ export default defineNuxtConfig({
   },
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    optimizeDeps: {
+      // libheif is imported only when a HEIC file turns up, so Vite discovers
+      // it mid-session, re-optimises, and the page that asked for it is left
+      // holding a stale URL that answers 504. Naming it here has it
+      // pre-bundled at startup instead.
+      include: ['libheif-js/libheif-wasm/libheif-bundle.mjs']
+    }
   },
 
   // Surfaced to the app so the registry's locale list stays the single source.

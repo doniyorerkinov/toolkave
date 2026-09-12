@@ -307,7 +307,12 @@
         "smaller": "Photos resized to 2000 px and re-encoded at high quality — usually a fifth of the size, still sharp to print.",
         "original": "Every pixel kept. Phone photos make a large PDF — 3–5 MB per page."
       },
-      "anyFormat": "Other formats too (WebP, HEIC, GIF)? Your files come along:"
+      "anyFormat": "Other formats too (WebP, HEIC, GIF)? Your files come along:",
+      "errorFiles": "None of these files could be read: {names}",
+      "skipped": "{n} file(s) could not be read and were left out of the PDF:",
+      "removeSkipped": "Remove them from the list",
+      "skippedNote": "{n} of {total} files could not be read and were left out",
+      "progress": "Converting {n} of {total}…"
     },
     "grayscale": {
       "pages": "{n} pages",

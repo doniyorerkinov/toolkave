@@ -12,7 +12,7 @@ const asImage = (data, name, type) => ({ id: name, name, size: data.byteLength, 
 async function prepared(files, options) {
   const uninstall = installBrowserShims()
   try {
-    return await image.normaliseForPdf(files, options)
+    return (await image.normaliseForPdf(files, options)).ready
   } finally {
     uninstall()
   }

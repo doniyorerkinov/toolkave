@@ -5,7 +5,8 @@ import type { HeldFile } from '~/stores/files'
  * so no decoding library is loaded until a file is actually processed.
  *
  * HEIC is the exception: no browser except Safari can decode it, so it goes
- * through `heic2any`, dynamically imported only when a HEIC file appears.
+ * through libheif compiled to WebAssembly, imported only when a HEIC file
+ * actually appears.
  */
 
 export type ImageFormat = 'jpeg' | 'png' | 'webp'
@@ -96,21 +97,46 @@ export function jpegOrientation(data: Uint8Array): number {
   return 1
 }
 
+/**
+ * HEIC decoded to raw pixels by libheif.
+ *
+ * The obvious library, heic2any, is a 2020 build of libheif that cannot read
+ * what current iPhones write: 10-bit (`heix`) images and the HDR gain maps
+ * (`tmap`) Apple has shipped since iOS 17. On a real camera roll that was a
+ * quarter of the photos, each failing with no way to tell which. This build
+ * reads all of them, and about five times faster.
+ */
+async function decodeHeic(data: Uint8Array): Promise<ImageBitmap> {
+  if (import.meta.server) throw new Error('browser only')
+  // The package's default entry is CommonJS wrapping a 2 MB emscripten bundle,
+  // which Vite's dependency optimiser refuses to pre-bundle (it answers 504
+  // and the import fails at runtime). This is the same build as an ES module.
+  const { default: createLibheif } = await import('libheif-js/libheif-wasm/libheif-bundle.mjs')
+  const libheif = await createLibheif()
+
+  const images = new libheif.HeifDecoder().decode(data)
+  const image = images[0]
+  if (!image) throw new Error('heic: no image inside')
+
+  // libheif applies the file's own rotation and mirror properties while
+  // decoding, so these dimensions are already the upright ones.
+  const width = image.get_width()
+  const height = image.get_height()
+  const pixels = new ImageData(width, height)
+  await new Promise<void>((resolve, reject) => {
+    image.display(pixels, result => (result ? resolve() : reject(new Error('heic: decode failed'))))
+  })
+  return await createImageBitmap(pixels)
+}
+
 /** Decode to a bitmap, converting HEIC first if needed. */
 async function decode(data: Uint8Array): Promise<ImageBitmap> {
   const kind = sniffImage(data)
-  let blob = new Blob([data as BlobPart])
-
-  if (kind === 'heic') {
-    if (import.meta.server) throw new Error('browser only')
-    const { default: heic2any } = await import('heic2any')
-    const converted = await heic2any({ blob, toType: 'image/jpeg', quality: 0.92 })
-    blob = Array.isArray(converted) ? converted[0]! : converted
-  }
+  if (kind === 'heic') return await decodeHeic(data)
 
   // Explicit rather than relying on the default, which older engines set to
   // "none": a photo must come out the way the camera was held.
-  return await createImageBitmap(blob, { imageOrientation: 'from-image' })
+  return await createImageBitmap(new Blob([data as BlobPart]), { imageOrientation: 'from-image' })
 }
 
 async function encode(
@@ -340,41 +366,81 @@ export interface NormaliseOptions {
   quality?: number
 }
 
-export async function normaliseForPdf(files: HeldFile[], options: NormaliseOptions = {}): Promise<HeldFile[]> {
+export interface NormaliseResult {
+  /** The files that could be read, ready to embed. */
+  ready: HeldFile[]
+  /** Names of the files that could not be, in the order they were given. */
+  failed: string[]
+}
+
+/**
+ * Prepare a batch for the PDF embedder.
+ *
+ * One unreadable file does not sink the batch. A phone camera roll is a mixed
+ * bag - a HEIC the decoder cannot handle, a download that finished half-way -
+ * and thirty photos are too many to bisect by hand. Everything readable is
+ * returned; what failed comes back by name, for the caller to say so plainly.
+ */
+export async function normaliseForPdf(
+  files: HeldFile[],
+  options: NormaliseOptions = {},
+  /** Called after each file, so a long batch can show where it has got to. */
+  onProgress?: (done: number, total: number) => void
+): Promise<NormaliseResult> {
   const { maxDimension, quality = 0.92 } = options
   const shrink = maxDimension !== undefined
   const out: HeldFile[] = []
+  const failed: string[] = []
 
-  for (const file of files) {
-    const kind = sniffImage(file.data)
-    if (!kind) throw new Error(`unsupported image: ${file.name}`)
-
-    let target: { width?: number; height?: number } | null = null
-    if (shrink) {
-      const { width, height } = await readImageSize(file)
-      if (Math.max(width, height) > maxDimension) target = width >= height ? { width: maxDimension } : { height: maxDimension }
+  for (const [index, file] of files.entries()) {
+    try {
+      out.push(await prepareForPdf(file, shrink ? maxDimension : undefined, quality))
+    } catch (error) {
+      // The name is all the page can usefully say; the reason is worth seeing
+      // while developing, where a decoder regression would otherwise look
+      // like "some photos just do not work".
+      if (import.meta.dev) console.warn('[toolkave] could not prepare', file.name, error)
+      failed.push(file.name)
     }
-
-    // Lossless stays lossless: a screenshot is only ever downscaled, never
-    // turned into a JPEG that would blur its text.
-    if (kind === 'png') {
-      out.push(target ? { ...file, data: (await resizeImage(file, target, 'png')).data } : file)
-      continue
-    }
-
-    // A JPEG is copied byte-for-byte unless it has to be re-encoded: a smaller
-    // file was asked for, or its EXIF says it was shot sideways (the embedder
-    // copies pixels as stored and PDF viewers ignore the tag).
-    if (kind === 'jpeg' && !shrink && jpegOrientation(file.data) === 1) {
-      out.push(file)
-      continue
-    }
-
-    const converted = target
-      ? await resizeImage(file, target, 'jpeg', quality)
-      : await compressImage(file, 'jpeg', quality)
-    out.push({ ...file, data: converted.data, type: MIME.jpeg })
+    onProgress?.(index + 1, files.length)
+    // One turn of the event loop between photos, so the progress line repaints
+    // instead of the whole page freezing until the last one is done.
+    await new Promise(resolve => setTimeout(resolve))
   }
 
-  return out
+  return { ready: out, failed }
+}
+
+async function prepareForPdf(
+  file: HeldFile,
+  maxDimension: number | undefined,
+  quality: number
+): Promise<HeldFile> {
+  const shrink = maxDimension !== undefined
+  const kind = sniffImage(file.data)
+  if (!kind) throw new Error(`unsupported image: ${file.name}`)
+
+  let target: { width?: number; height?: number } | null = null
+  if (shrink) {
+    const { width, height } = await readImageSize(file)
+    if (Math.max(width, height) > maxDimension) {
+      target = width >= height ? { width: maxDimension } : { height: maxDimension }
+    }
+  }
+
+  // Lossless stays lossless: a screenshot is only ever downscaled, never
+  // turned into a JPEG that would blur its text.
+  if (kind === 'png') {
+    return target ? { ...file, data: (await resizeImage(file, target, 'png')).data } : file
+  }
+
+  // A JPEG is copied byte-for-byte unless it has to be re-encoded: a smaller
+  // file was asked for, or its EXIF says it was shot sideways (the embedder
+  // copies pixels as stored and PDF viewers ignore the tag).
+  if (kind === 'jpeg' && !shrink && jpegOrientation(file.data) === 1) return file
+
+  const converted = target
+    ? await resizeImage(file, target, 'jpeg', quality)
+    : await compressImage(file, 'jpeg', quality)
+  return { ...file, data: converted.data, type: MIME.jpeg }
 }
