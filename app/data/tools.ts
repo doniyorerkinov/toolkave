@@ -434,7 +434,7 @@ export const tools: ToolDef[] = [
     group: 'optimise',
     component: 'image/Compress',
     icon: 'minimize',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'compress-image', ru: 'szhat-izobrazhenie', uz: 'rasmni-siqish' },
     related: ['image-resize', 'png-to-jpg'],

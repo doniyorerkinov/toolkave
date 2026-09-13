@@ -41,7 +41,7 @@ it by name. After every deploy, take that tool's en/ru/uz URLs to Search Console
 inspection → Request indexing, one at a time (~10/day), and put the rest through Yandex
 Webmaster → Indexing → Reindex pages (~20/day). Live but unindexed is not shipped.
 
-Registry snapshot: **63 tools, 31 published, 32 drafts** — every PDF tool in the registry is live, plus Word counter. What is left is the image, text, converter, calculator, generator and developer categories.
+Registry snapshot: **63 tools, 32 published, 31 drafts** — every PDF tool in the registry is live, plus Word counter. What is left is the image, text, converter, calculator, generator and developer categories.
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -210,7 +210,7 @@ fierce, and the whole set is one component — a handful of photos covers it. Do
 a phone (Safari matters here: HEIC decoding and the WebP-output message are Safari-specific)
 and one on Windows, where HEIC files arrive with no MIME type.
 
-- [ ] **Compress image** — re-encode at a lower quality to shrink file size.
+- [x] **Compress image** — re-encode at a lower quality to shrink file size.
   Expect: output is visibly smaller; a quality slider actually changes output
   size when moved.
 
