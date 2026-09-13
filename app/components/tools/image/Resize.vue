@@ -65,13 +65,79 @@ function redraw() {
   context.fillRect(0, box.y, box.x, box.height)
   context.fillRect(box.x + box.width, box.y, canvas.width - box.x - box.width, box.height)
 
+  // Thirds, the way every camera and crop tool draws them.
+  context.strokeStyle = 'rgba(255, 255, 255, 0.45)'
+  context.lineWidth = 1
+  for (let i = 1; i < 3; i++) {
+    const x = box.x + (box.width * i) / 3
+    const y = box.y + (box.height * i) / 3
+    context.beginPath()
+    context.moveTo(x, box.y)
+    context.lineTo(x, box.y + box.height)
+    context.moveTo(box.x, y)
+    context.lineTo(box.x + box.width, y)
+    context.stroke()
+  }
+
   context.strokeStyle = '#f27d14'
   context.lineWidth = 2
   context.strokeRect(box.x, box.y, box.width, box.height)
 
-  const grip = 12
-  context.fillStyle = '#f27d14'
-  context.fillRect(box.x + box.width - grip, box.y + box.height - grip, grip, grip)
+  // A grab point on every corner and every edge, so any border can be moved
+  // on its own rather than only the bottom-right one.
+  context.fillStyle = '#ffffff'
+  context.strokeStyle = '#f27d14'
+  context.lineWidth = 2
+  for (const [, point] of handlePoints(box)) {
+    context.beginPath()
+    context.rect(point.x - HANDLE / 2, point.y - HANDLE / 2, HANDLE, HANDLE)
+    context.fill()
+    context.stroke()
+  }
+}
+
+/** Corners first, then edge midpoints — the eight places a crop can be grabbed. */
+type Handle = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
+
+const HANDLE = 12
+
+function handlePoints(box: { x: number; y: number; width: number; height: number }) {
+  const midX = box.x + box.width / 2
+  const midY = box.y + box.height / 2
+  const right = box.x + box.width
+  const bottom = box.y + box.height
+  return [
+    ['nw', { x: box.x, y: box.y }],
+    ['n', { x: midX, y: box.y }],
+    ['ne', { x: right, y: box.y }],
+    ['e', { x: right, y: midY }],
+    ['se', { x: right, y: bottom }],
+    ['s', { x: midX, y: bottom }],
+    ['sw', { x: box.x, y: bottom }],
+    ['w', { x: box.x, y: midY }]
+  ] as [Handle, { x: number; y: number }][]
+}
+
+const CURSORS: Record<Handle, string> = {
+  nw: 'nwse-resize',
+  n: 'ns-resize',
+  ne: 'nesw-resize',
+  e: 'ew-resize',
+  se: 'nwse-resize',
+  s: 'ns-resize',
+  sw: 'nesw-resize',
+  w: 'ew-resize'
+}
+
+/** Which handle is under a point, in canvas pixels. */
+function handleAt(px: number, py: number): Handle | null {
+  const box = committedBox()
+  if (!box) return null
+  const reach = HANDLE
+  for (const [name, point] of handlePoints(box)) {
+    if (Math.abs(px - point.x) <= reach && Math.abs(py - point.y) <= reach) return name
+  }
+  return null
 }
 
 function committedBox() {
@@ -101,10 +167,13 @@ const cropPixels = computed<CropRect | null>(() => {
 
 /* ---- drawing the selection ---- */
 
-type Mode = 'draw' | 'move' | 'resize'
+type Mode = 'draw' | 'move' | { handle: Handle }
 let mode: Mode | null = null
 let anchor: { x: number; y: number } | null = null
 let cursor: { x: number; y: number } | null = null
+
+/** What the pointer is over, so the arrow says what a drag would do. */
+const hoverCursor = ref('crosshair')
 
 function dragBox() {
   const canvas = canvasEl.value
@@ -129,19 +198,27 @@ const MIN_SIDE = 0.02
 
 function onDown(event: PointerEvent) {
   if (!cropping.value || !bitmap) return
+  const canvas = canvasEl.value!
+  const rect = canvas.getBoundingClientRect()
   const point = pointFrom(event)
   const current = selection.value
   ;(event.currentTarget as HTMLElement).setPointerCapture(event.pointerId)
   event.preventDefault()
 
+  // Canvas pixels, because a handle is a fixed size on screen rather than a
+  // fraction of the picture.
+  const grabbed = handleAt(
+    ((event.clientX - rect.left) / rect.width) * canvas.width,
+    ((event.clientY - rect.top) / rect.height) * canvas.height
+  )
+  if (grabbed) {
+    mode = { handle: grabbed }
+    return
+  }
+
   if (current) {
     const right = current.x + current.width
     const bottom = current.y + current.height
-    const grip = 0.05
-    if (point.x > right - grip && point.y > bottom - grip) {
-      mode = 'resize'
-      return
-    }
     if (point.x >= current.x && point.x <= right && point.y >= current.y && point.y <= bottom) {
       mode = 'move'
       anchor = { x: point.x - current.x, y: point.y - current.y }
@@ -153,10 +230,54 @@ function onDown(event: PointerEvent) {
   cursor = point
 }
 
+/**
+ * Moving one edge, or two at a corner. Written as edges rather than
+ * width and height so dragging a border past the opposite one flips the
+ * selection instead of collapsing it, which is what every image editor does.
+ */
+function dragHandle(handle: Handle, point: { x: number; y: number }, current: Selection) {
+  let left = current.x
+  let top = current.y
+  let right = current.x + current.width
+  let bottom = current.y + current.height
+
+  if (handle.includes('w')) left = point.x
+  if (handle.includes('e')) right = point.x
+  if (handle.includes('n')) top = point.y
+  if (handle.includes('s')) bottom = point.y
+
+  const x = Math.max(0, Math.min(left, right))
+  const y = Math.max(0, Math.min(top, bottom))
+  return {
+    x,
+    y,
+    width: Math.max(MIN_SIDE, Math.min(1, Math.max(left, right)) - x),
+    height: Math.max(MIN_SIDE, Math.min(1, Math.max(top, bottom)) - y)
+  }
+}
+
 function onMove(event: PointerEvent) {
-  if (!mode) return
+  const canvas = canvasEl.value
+  if (!canvas) return
   const point = pointFrom(event)
   const current = selection.value
+
+  if (!mode) {
+    // Not dragging: just say what the pointer is over.
+    if (!cropping.value || !current) return
+    const rect = canvas.getBoundingClientRect()
+    const handle = handleAt(
+      ((event.clientX - rect.left) / rect.width) * canvas.width,
+      ((event.clientY - rect.top) / rect.height) * canvas.height
+    )
+    const inside =
+      point.x >= current.x &&
+      point.x <= current.x + current.width &&
+      point.y >= current.y &&
+      point.y <= current.y + current.height
+    hoverCursor.value = handle ? CURSORS[handle] : inside ? 'move' : 'crosshair'
+    return
+  }
 
   if (mode === 'draw') {
     cursor = point
@@ -166,12 +287,8 @@ function onMove(event: PointerEvent) {
       x: Math.min(1 - current.width, Math.max(0, point.x - anchor.x)),
       y: Math.min(1 - current.height, Math.max(0, point.y - anchor.y))
     }
-  } else if (mode === 'resize' && current) {
-    selection.value = {
-      ...current,
-      width: Math.min(1 - current.x, Math.max(MIN_SIDE, point.x - current.x)),
-      height: Math.min(1 - current.y, Math.max(MIN_SIDE, point.y - current.y))
-    }
+  } else if (typeof mode === 'object' && current) {
+    selection.value = dragHandle(mode.handle, point, current)
   }
   redraw()
 }
@@ -364,7 +481,7 @@ function applyPreset(percent: number) {
         <canvas
           ref="canvasEl"
           class="mx-auto block max-w-full touch-none"
-          :class="cropping ? 'cursor-crosshair' : ''"
+          :style="cropping ? { cursor: hoverCursor } : undefined"
           @pointerdown="onDown"
           @pointermove="onMove"
           @pointerup="onUp"
