@@ -660,6 +660,22 @@
       },
       "willBe": "{n} pieces, about {w} × {h} each.",
       "note": "{n} pieces, about {w} × {h} each, named by row and column"
+    },
+    "filters": {
+      "action": "Save adjusted",
+      "hint": "Pick a look or move the sliders. The preview is what gets saved.",
+      "custom": "Adjusted",
+      "preset": {
+        "none": "Original",
+        "mono": "Black and white",
+        "document": "Scanned document",
+        "sepia": "Sepia",
+        "vivid": "Vivid",
+        "faded": "Faded"
+      },
+      "brightness": "Brightness: {n}%",
+      "contrast": "Contrast: {n}%",
+      "saturation": "Colour: {n}%"
     }
   },
   "percent": {
@@ -2597,6 +2613,30 @@
         "a4": "A single zip containing every piece as a separate file, in the same format as the picture you added. Unzip it and the files sort themselves into reading order by name.",
         "q5": "Is my picture uploaded anywhere?",
         "a5": "No. It is cut inside your browser, on your own device, and the zip is assembled there too."
+      }
+    },
+    "image-filters": {
+      "name": "Black and white",
+      "short": "Turn a picture monochrome, or adjust brightness and contrast.",
+      "title": "Black and White Photo — convert and adjust online, free",
+      "description": "Free online tool to make a picture black and white or sepia, and to adjust brightness, contrast and colour. Runs in your browser — nothing is uploaded.",
+      "intro": "Pick a look — black and white, sepia, or the high-contrast setting that makes a photographed document readable — or move the three sliders yourself. The preview shows the real result, and the adjustment is applied to the pixels when you save, so it survives being sent anywhere.",
+      "howTo": {
+        "step1": "Add a picture.",
+        "step2": "Choose a look or set brightness, contrast and colour yourself.",
+        "step3": "Press Save adjusted and download it."
+      },
+      "faq": {
+        "q1": "Why would I make a photo black and white?",
+        "a1": "Documents, mostly. A photographed page in black and white with strong contrast reads far better than the yellowish original, and the file is smaller. For photographs it is a matter of taste — removing colour puts the attention on shape and light, which flatters some pictures and ruins others.",
+        "q2": "What is the Scanned document setting?",
+        "a2": "Black and white with the brightness lifted and the contrast pushed hard, which turns a grey photograph of a page into something closer to a scan: the paper goes white, the text goes black, and the shadow from your hand mostly disappears. Take the photo as square-on and evenly lit as you can first — this cleans up a decent photo, it does not rescue a bad one.",
+        "q3": "Can I undo it later?",
+        "a3": "Not from the saved file. The adjustment is applied to the pixels, which is what makes it show up everywhere rather than only in the app that made it — so keep your original. Nothing here changes the file you added; you get a new one.",
+        "q4": "Does it lose quality?",
+        "a4": "The picture is saved again in the same format at high quality, which costs a very small amount on a JPG as any re-save does, and nothing on PNG or WebP. Strong contrast can flatten detail in the darkest and lightest parts, so ease off if shadows start turning into solid black.",
+        "q5": "Is my picture uploaded anywhere?",
+        "a5": "No. The adjustment happens inside your browser, on your own device — which is worth knowing when the thing you are photographing is a document."
       }
     }
   },

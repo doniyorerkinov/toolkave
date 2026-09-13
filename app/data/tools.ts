@@ -601,6 +601,19 @@ export const tools: ToolDef[] = [
     acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
     maxFiles: 1
   },
+  {
+    id: 'image-filters',
+    category: 'image',
+    group: 'optimise',
+    component: 'image/Filters',
+    icon: 'contrast',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'black-and-white-photo', ru: 'cherno-beloe-foto', uz: 'oq-qora-surat' },
+    related: ['image-compress', 'image-to-pdf'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
+    maxFiles: 1
+  },
   // One component, one page per conversion pair - each is a separate query.
   {
     id: 'png-to-jpg',

@@ -660,6 +660,22 @@
       },
       "willBe": "{n} ta bo‘lak, har biri taxminan {w} × {h}.",
       "note": "{n} ta bo‘lak, har biri taxminan {w} × {h}, qator va ustun bo‘yicha nomlangan"
+    },
+    "filters": {
+      "action": "O‘zgarishlar bilan saqlash",
+      "hint": "Ko‘rinishni tanlang yoki slayderlarni suring. Ko‘rinayotgan narsa saqlanadi.",
+      "custom": "O‘zgartirilgan",
+      "preset": {
+        "none": "Asl holat",
+        "mono": "Oq-qora",
+        "document": "Hujjat skani",
+        "sepia": "Sepiya",
+        "vivid": "To‘yingan",
+        "faded": "So‘lg‘in"
+      },
+      "brightness": "Yorqinlik: {n}%",
+      "contrast": "Kontrast: {n}%",
+      "saturation": "Rang: {n}%"
     }
   },
   "percent": {
@@ -2597,6 +2613,30 @@
         "a4": "Bitta arxiv, ichida har bir bo‘lak siz qo‘shgan rasm bilan bir xil formatdagi alohida fayl. Uni chiqarsangiz, fayllar nomi bo‘yicha o‘zi o‘qish tartibida saflanadi.",
         "q5": "Rasmim biror joyga yuklanadimi?",
         "a5": "Yo‘q. U brauzeringiz ichida, o‘z qurilmangizda qirqiladi va arxiv ham o‘sha yerda yig‘iladi."
+      }
+    },
+    "image-filters": {
+      "name": "Oq-qora surat",
+      "short": "Rasmni oq-qora qilish yoki yorqinlik va kontrastni sozlash.",
+      "title": "Oq-qora surat — onlayn qilish va sozlash, bepul",
+      "description": "Rasmni oq-qora yoki sepiya qilish hamda yorqinlik, kontrast va rangni sozlash uchun bepul onlayn vosita. Brauzerda ishlaydi — hech narsa yuklanmaydi.",
+      "intro": "Ko‘rinishni tanlang — oq-qora, sepiya yoki suratga olingan hujjatni o‘qish mumkin qiladigan yuqori kontrastli rejim — yoki uchta slayderni o‘zingiz suring. Ko‘rinish haqiqiy natijani ko‘rsatadi, saqlashda esa o‘zgarish piksellarga qo‘llanadi, ya’ni faylni qayerga yubormang, o‘sha holicha qoladi.",
+      "howTo": {
+        "step1": "Rasm qo‘shing.",
+        "step2": "Ko‘rinishni tanlang yoki yorqinlik, kontrast va rangni o‘zingiz sozlang.",
+        "step3": "“O‘zgarishlar bilan saqlash”ni bosing va yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega suratni oq-qora qilish kerak?",
+        "a1": "Ko‘pincha hujjatlar uchun. Suratga olingan sahifa kuchli kontrastli oq-qora holda sarg‘ish aslidan ancha yaxshi o‘qiladi va fayl ham kichikroq chiqadi. Fotosuratlar uchun bu did masalasi: rang olib tashlanganda e’tibor shakl va yorug‘likka o‘tadi, bu ayrim suratlarga yarashadi, ayrimlarini esa buzadi.",
+        "q2": "“Hujjat skani” rejimi nima qiladi?",
+        "a2": "Yorqinligi ko‘tarilgan va kontrasti kuchli oshirilgan oq-qora: sahifaning kulrang surati skanga yaqin ko‘rinishga keladi — qog‘oz oqaradi, matn qorayadi, qo‘l soyasi deyarli yo‘qoladi. Avval imkon qadar tik va tekis yoritilgan holda suratga oling: bu rejim yaxshi suratni tartibga soladi, yomonini qutqarmaydi.",
+        "q3": "Keyin bekor qilsa bo‘ladimi?",
+        "a3": "Saqlangan fayldan — yo‘q. O‘zgarish piksellarga qo‘llanadi, aynan shuning uchun u faqat qilingan dasturda emas, hamma joyda ko‘rinadi. Shu bois asl nusxani saqlab qo‘ying. Siz qo‘shgan fayl o‘zgarmaydi — sizga yangisi beriladi.",
+        "q4": "Sifat yo‘qoladimi?",
+        "a4": "Rasm o‘sha formatda yuqori sifatda qayta saqlanadi: JPG uchun bu har qanday qayta saqlashdagidek juda oz turadi, PNG va WebP uchun umuman bepul. Kuchli kontrast eng to‘q va eng yorug‘ joylardagi tafsilotni yo‘qotishi mumkin, shuning uchun soyalar yaxlit qoraga aylana boshlasa, biroz kamaytiring.",
+        "q5": "Rasmim biror joyga yuklanadimi?",
+        "a5": "Yo‘q. O‘zgarish brauzeringiz ichida, o‘z qurilmangizda bajariladi — suratga olayotgan narsangiz hujjat bo‘lsa, buni bilib qo‘ygan ma’qul."
       }
     }
   },
