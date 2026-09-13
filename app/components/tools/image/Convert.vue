@@ -55,9 +55,16 @@ const canRun = computed(() => !!file.value && !!dimensions.value && !store.busy)
  */
 const photoToPng = computed(() => !lossy.value && props.accept.includes('jpeg'))
 
+/**
+ * PNG output only: exact keeps every colour, smaller reduces to a palette.
+ * A photograph typically goes from twenty-odd megabytes to four.
+ */
+const pngSize = ref<'exact' | 'smaller'>('exact')
+const PALETTE = 256
+
 const grew = computed(() => {
   const result = store.result
-  if (!result || lossy.value) return false
+  if (!result) return false
   return result.data.byteLength > result.sourceSize * 1.2
 })
 
@@ -66,7 +73,12 @@ async function run() {
   store.busy = true
   store.error = null
   try {
-    const out = await convertImage(file.value, props.to, quality.value / 100)
+    const out = await convertImage(
+      file.value,
+      props.to,
+      quality.value / 100,
+      !lossy.value && pngSize.value === 'smaller' ? PALETTE : undefined
+    )
     store.setResult({
       name: withSuffix(file.value.name, '', EXTENSION[props.to]),
       type: `image/${props.to}`,
@@ -104,7 +116,25 @@ function onFiles(files: File[]) {
       {{ formatBytes(file!.size) }}
     </p>
 
-    <p v-if="photoToPng" class="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
+    <fieldset v-if="file && !lossy">
+      <legend class="mb-2 block text-sm font-medium text-stone-900">
+        {{ t('image.convert.pngSizeLabel') }}
+      </legend>
+      <div class="flex flex-wrap gap-2">
+        <label
+          v-for="option in (['exact', 'smaller'] as const)"
+          :key="option"
+          class="cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium"
+          :class="pngSize === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'"
+        >
+          <input v-model="pngSize" type="radio" :value="option" class="sr-only" />
+          {{ t(`image.convert.pngSize.${option}`) }}
+        </label>
+      </div>
+      <p class="mt-2 text-xs text-stone-500">{{ t(`image.convert.pngSizeHint.${pngSize}`) }}</p>
+    </fieldset>
+
+    <p v-if="photoToPng && pngSize === 'exact'" class="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
       {{ t('image.convert.pngGrows') }}
     </p>
 
@@ -143,7 +173,7 @@ function onFiles(files: File[]) {
     <p v-if="store.error" class="text-sm text-red-700" role="alert">{{ store.error }}</p>
 
     <p v-if="grew" class="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
-      {{ t('image.convert.pngGrewNote') }}
+      {{ lossy ? t('image.convert.lossyGrewNote') : t('image.convert.pngGrewNote') }}
     </p>
 
     <ShellResultCard

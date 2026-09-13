@@ -424,7 +424,17 @@
     "convert": {
       "action": "Convert to {format}",
       "pngGrows": "PNG keeps every pixel exactly, so a photo usually comes out several times larger than the JPG — a 4 MB photo can become 20 MB or more. PNG is worth it for screenshots, logos, diagrams and anything needing transparency; for photographs, JPG is the better format.",
-      "pngGrewNote": "As expected, the PNG is larger than the original. That is PNG doing its job — nothing was lost. If you wanted a smaller file rather than a lossless one, keep the JPG."
+      "pngGrewNote": "As expected, the PNG is larger than the original. That is PNG doing its job — nothing was lost. If you wanted a smaller file rather than a lossless one, keep the JPG.",
+      "pngSizeLabel": "PNG size",
+      "pngSize": {
+        "exact": "Exact colours",
+        "smaller": "Smaller file"
+      },
+      "pngSizeHint": {
+        "exact": "Every pixel kept exactly as it is. A photo will come out several times larger than the JPG it came from.",
+        "smaller": "Reduced to 256 colours, the way pngquant does it — usually four to six times smaller. Photos look near-identical; sharp gradients can band slightly."
+      },
+      "lossyGrewNote": "The result is larger than the original. HEIC and WebP pack a picture into fewer bytes than JPEG can, so the same image as a JPG is usually bigger. Lower the quality slider if the file size matters more than the last few percent of detail."
     },
     "crop": {
       "action": "Crop image",

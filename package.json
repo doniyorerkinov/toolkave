@@ -16,6 +16,7 @@
   "dependencies": {
     "@cantoo/pdf-lib": "^2.9.2",
     "@nuxtjs/i18n": "^10.6.0",
+    "@pdf-lib/upng": "^1.0.1",
     "@pinia/nuxt": "^1.0.2",
     "@tailwindcss/vite": "^4.3.3",
     "diff": "^9.0.0",

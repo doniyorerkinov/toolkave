@@ -165,7 +165,9 @@ async function encode(
   quality: number,
   width = bitmap.width,
   height = bitmap.height,
-  crop?: CropRect
+  crop?: CropRect,
+  /** Palette size for PNG output. Undefined or 0 keeps every colour. */
+  colours?: number
 ): Promise<Uint8Array> {
   const canvas = document.createElement('canvas')
   canvas.width = Math.max(1, Math.round(width))
@@ -188,6 +190,24 @@ async function encode(
     context.drawImage(bitmap, crop.x, crop.y, crop.width, crop.height, 0, 0, canvas.width, canvas.height)
   } else {
     context.drawImage(bitmap, 0, 0, canvas.width, canvas.height)
+  }
+
+  /**
+   * PNG stores every pixel exactly, which makes a photograph several times
+   * larger than the JPEG it came from. Reducing it to a palette is the only
+   * way a PNG of a photo gets small — the same trick pngquant does — and it
+   * has to be asked for, because the whole point of choosing PNG is usually
+   * that nothing is thrown away.
+   */
+  if (format === 'png' && colours) {
+    if (import.meta.server) throw new Error('browser only')
+    // The package publishes its API as a default export from CommonJS, so the
+    // namespace is unwrapped rather than destructured.
+    const module = await import('@pdf-lib/upng')
+    const upng = (module as unknown as { default?: typeof module }).default ?? module
+    const pixels = context.getImageData(0, 0, canvas.width, canvas.height)
+    const out = upng.encode([pixels.data.buffer as ArrayBuffer], canvas.width, canvas.height, colours)
+    return new Uint8Array(out)
   }
 
   const blob = await new Promise<Blob | null>(resolve =>
@@ -223,10 +243,11 @@ export async function readImageSize(file: HeldFile): Promise<{ width: number; he
 export async function compressImage(
   file: HeldFile,
   format: ImageFormat,
-  quality: number
+  quality: number,
+  colours?: number
 ): Promise<ImageResult> {
   const bitmap = await decode(file.data)
-  const data = await encode(bitmap, format, quality)
+  const data = await encode(bitmap, format, quality, bitmap.width, bitmap.height, undefined, colours)
   const result = { data, width: bitmap.width, height: bitmap.height }
   bitmap.close()
   return result
@@ -266,13 +287,17 @@ export async function resizeImage(
   return result
 }
 
-/** Convert to another format at full size. */
+/**
+ * Convert to another format at full size. `colours` only means anything for
+ * PNG output, where it trades exactness for a file a fraction of the size.
+ */
 export async function convertImage(
   file: HeldFile,
   format: ImageFormat,
-  quality = 0.92
+  quality = 0.92,
+  colours?: number
 ): Promise<ImageResult> {
-  return await compressImage(file, format, quality)
+  return await compressImage(file, format, quality, colours)
 }
 
 /* ------------------------------------------------------------------ */

@@ -424,7 +424,17 @@
     "convert": {
       "action": "{format} ga o'girish",
       "pngGrows": "PNG har bir pikselni aniq saqlaydi, shuning uchun surat odatda JPG dan bir necha barobar katta chiqadi — 4 MB lik surat bemalol 20 MB va undan ko'p bo'lishi mumkin. PNG skrinshot, logotip, sxema va shaffoflik kerak bo'lgan hollarda o'zini oqlaydi; suratlar uchun JPG ma'qulroq.",
-      "pngGrewNote": "Kutilganidek, PNG asl fayldan katta. Bu PNG ning ishi — hech narsa yo'qolmadi. Kichikroq fayl kerak bo'lsa, yo'qotishsizi emas, JPG ni saqlab qoling."
+      "pngGrewNote": "Kutilganidek, PNG asl fayldan katta. Bu PNG ning ishi — hech narsa yo'qolmadi. Kichikroq fayl kerak bo'lsa, yo'qotishsizi emas, JPG ni saqlab qoling.",
+      "pngSizeLabel": "PNG hajmi",
+      "pngSize": {
+        "exact": "Aniq ranglar",
+        "smaller": "Kichikroq fayl"
+      },
+      "pngSizeHint": {
+        "exact": "Har bir piksel aynan saqlanadi. Surat o'zi kelgan JPG dan bir necha barobar katta chiqadi.",
+        "smaller": "256 rangga keltiriladi — pngquant qiladigan ish — odatda to'rt-olti barobar kichik. Suratlar deyarli bir xil ko'rinadi; silliq o'tishlarda yo'l-yo'l paydo bo'lishi mumkin."
+      },
+      "lossyGrewNote": "Natija asl fayldan katta. HEIC va WebP rasmni JPEG dan zichroq joylashtiradi, shuning uchun xuddi shu rasm JPG da odatda og'irroq. Hajm oxirgi foiz tafsilotdan muhimroq bo'lsa, sifat slayderini pasaytiring."
     },
     "crop": {
       "action": "Rasmni qirqish",
