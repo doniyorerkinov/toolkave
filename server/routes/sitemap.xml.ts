@@ -38,6 +38,18 @@ export default defineEventHandler(event => {
     })
   }
 
+  // The prose pages: about, privacy, terms, contact. Same path in every
+  // locale — they carry no search intent worth a translated slug, and a
+  // legal page people can find by guessing the URL is a feature.
+  for (const page of ['about', 'privacy', 'terms', 'contact']) {
+    for (const locale of LOCALES) {
+      entries.push({
+        path: locale === 'en' ? `/${page}` : `/${locale}/${page}`,
+        alternates: LOCALES.map(l => ({ locale: l, path: l === 'en' ? `/${page}` : `/${l}/${page}` }))
+      })
+    }
+  }
+
   // Categories
   for (const locale of LOCALES) {
     for (const category of categoriesWithTools(locale)) {

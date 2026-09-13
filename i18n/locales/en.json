@@ -2226,5 +2226,200 @@
     "page": "Page {n}",
     "tooManyPages": "This document has more than {max} pages, so previews are skipped — the field above still works.",
     "loadError": "Previews could not be generated. The field above still works."
+  },
+  "legal": {
+    "updated": "Last updated: 13 September 2026",
+    "privacy": {
+      "title": "Privacy policy",
+      "metaTitle": "Privacy policy — Toolkave",
+      "description": "What Toolkave does and does not collect. Your files are processed in your browser and never uploaded.",
+      "lead": "The short version: your files never leave your device. There is no account, no upload, and nothing for us to lose.",
+      "sections": [
+        {
+          "heading": "What happens to your files",
+          "body": [
+            "Every tool on this site runs inside your browser. When you choose a PDF or a photo, it is read into your browser's memory and processed there by JavaScript and WebAssembly that has already been downloaded to your device. The file is never sent to us, because there is no server to send it to — the site is a set of static files.",
+            "When you close the tab, the file is gone. We cannot recover it, produce it in response to a legal request, or lose it in a breach, because we never had it.",
+            "You can verify this yourself: open your browser's developer tools, go to the Network tab, and run any tool. You will see no upload."
+          ]
+        },
+        {
+          "heading": "The Telegram bot is the exception",
+          "body": [
+            "Our Telegram bot, {'@'}toolkavebot, cannot work the same way. A file you send it goes to Telegram's servers first, and our code then downloads it to convert it. That is how every Telegram bot works.",
+            "While converting, the file is held in memory only. It is never written to a disk, a database or a storage bucket, and it is discarded the moment the PDF is sent back. We keep only the Telegram identifiers needed to count the files in your current batch, and those are deleted when the batch finishes or after a day of inactivity.",
+            "Anything you send through Telegram is also covered by Telegram's own privacy policy."
+          ]
+        },
+        {
+          "heading": "What we measure",
+          "body": [
+            "We use Cloudflare Web Analytics to see which pages are visited. It sets no cookies, does not fingerprint your browser, and does not build a profile of you. It records aggregate figures: page views, country, referring site, and how quickly pages load.",
+            "Like every website, our host also keeps short-lived request logs — IP address, browser, and URL requested — which Cloudflare uses to serve the site and to block abuse."
+          ]
+        },
+        {
+          "heading": "Cookies and local storage",
+          "body": [
+            "We set no cookies.",
+            "One tool stores something on your device: the currency converter saves the day's exchange rates in your browser's local storage so it does not have to fetch them again. That data stays on your machine and contains nothing about you. Clearing your browser data removes it."
+          ]
+        },
+        {
+          "heading": "Other services",
+          "body": [
+            "The site is hosted by Cloudflare, which serves the pages and provides the analytics described above.",
+            "Fonts are served from this domain rather than a font network, so loading a page contacts nobody else.",
+            "Two tools reach outside on purpose: the currency converter fetches rates from the Central Bank of Uzbekistan (cbu.uz) and open.er-api.com, and the YouTube thumbnail tool loads images from YouTube. Those requests carry the video ID or currency you asked about, nothing more."
+          ]
+        },
+        {
+          "heading": "Advertising",
+          "body": [
+            "The site currently shows no ads and contains no advertising or tracking scripts. If that changes, this page will be updated before any ad code goes live, and it will say plainly what the ad network can see."
+          ]
+        },
+        {
+          "heading": "Your rights, and children",
+          "body": [
+            "We hold no personal data about you, so there is nothing to export, correct or delete. If you believe otherwise, write to us and we will look into it.",
+            "The site is not directed at children and collects nothing from anyone."
+          ]
+        },
+        {
+          "heading": "Changes and contact",
+          "body": [
+            "If this policy changes, the date at the top changes with it.",
+            "Questions about privacy: hello{'@'}toolkave.com"
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Terms of use",
+      "metaTitle": "Terms of use — Toolkave",
+      "description": "Plain terms for using Toolkave: free tools, provided as they are, with your files staying on your device.",
+      "lead": "Toolkave is free to use, for anything you like, with no account. These terms exist so both sides know where they stand.",
+      "sections": [
+        {
+          "heading": "What you are getting",
+          "body": [
+            "A set of tools that run in your browser, offered free of charge and as they are. There is no subscription, no usage limit, and no promise that any particular tool will still be here next year."
+          ]
+        },
+        {
+          "heading": "Your files stay yours",
+          "body": [
+            "We claim no rights over anything you process here. On the website we never receive your files at all, so the question mostly does not arise; through the Telegram bot we hold them only for the seconds it takes to convert them."
+          ]
+        },
+        {
+          "heading": "No warranty — check your work",
+          "body": [
+            "The tools are provided without warranty of any kind. We cannot promise a conversion will be perfect, that a compressed file will look right, or that a redaction is complete enough for your purposes.",
+            "Keep your originals, and check anything that matters before you rely on it. We are not liable for loss or damage arising from using the site, to the extent the law allows."
+          ]
+        },
+        {
+          "heading": "Use it lawfully",
+          "body": [
+            "Do not use these tools to break the law. That includes removing a password or restriction from a document you have no right to open, and processing material you are not entitled to hold.",
+            "Because everything runs on your own device, we have no way to police this and no wish to. The responsibility is yours."
+          ]
+        },
+        {
+          "heading": "Availability",
+          "body": [
+            "The site may change, break, or disappear without notice. Tools may be added, altered or removed. If something stops working, telling us is appreciated but not owed."
+          ]
+        },
+        {
+          "heading": "The Telegram bot",
+          "body": [
+            "The same terms cover {'@'}toolkavebot. Using it also means accepting Telegram's own terms, since your messages pass through their service."
+          ]
+        },
+        {
+          "heading": "Changes, law and contact",
+          "body": [
+            "If these terms change, the date at the top changes with them. They are governed by the law of the Republic of Uzbekistan.",
+            "Questions: hello{'@'}toolkave.com"
+          ]
+        }
+      ]
+    },
+    "about": {
+      "title": "About Toolkave",
+      "metaTitle": "About Toolkave — browser-only file tools",
+      "description": "Why Toolkave exists: everyday file tools that work without uploading your documents to anyone.",
+      "lead": "Toolkave is a set of everyday file tools that run entirely in your browser. It exists because handing a private document to a stranger's server for a ten-second job never made sense.",
+      "sections": [
+        {
+          "heading": "The problem",
+          "body": [
+            "Merging two PDFs, converting photos of a document, removing a password you already know — these take seconds of computing. Yet almost every site that offers them asks you to upload the file, wait while it is processed on someone else's machine, and trust that it is deleted afterwards.",
+            "Passports, contracts, medical results and bank statements go through those sites every day."
+          ]
+        },
+        {
+          "heading": "How this is different",
+          "body": [
+            "Browsers can do this work themselves now. Every tool here runs on your own device: the file is read into memory, processed, and handed straight back to you. Nothing is uploaded, so nothing can be kept, leaked or subpoenaed.",
+            "It also means the tools work on a slow connection and keep working once the page has loaded."
+          ]
+        },
+        {
+          "heading": "Three languages, on purpose",
+          "body": [
+            "Toolkave is built in Uzbek, Russian and English. Good tools in Uzbek are rare, and translating an interface is not the same as writing one — every page here is written in each language rather than run through a translator."
+          ]
+        },
+        {
+          "heading": "Open and independent",
+          "body": [
+            "The project is independent, built and maintained in Uzbekistan, and the source is public on GitHub. If you want to know exactly what a tool does with your file, you can read it."
+          ]
+        },
+        {
+          "heading": "What is next",
+          "body": [
+            "More tools — images, text, converters and calculators — and a Telegram bot for the jobs that are easier from a phone. If something you need is missing, say so; that is how most of this list was chosen."
+          ]
+        }
+      ]
+    },
+    "contact": {
+      "title": "Contact",
+      "metaTitle": "Contact — Toolkave",
+      "description": "How to reach Toolkave: bug reports, tool requests and everything else.",
+      "lead": "Something broken, something missing, or something you want to build on? Write.",
+      "sections": [
+        {
+          "heading": "Email",
+          "body": [
+            "hello{'@'}toolkave.com — the fastest way to reach a human. Bug reports, tool requests, partnerships, anything."
+          ]
+        },
+        {
+          "heading": "Telegram",
+          "body": [
+            "{'@'}toolkavebot turns photos into a PDF from your phone. Messages sent to it reach us too."
+          ]
+        },
+        {
+          "heading": "GitHub",
+          "body": [
+            "The source lives at github.com/doniyorerkinov/toolkave. Issues and pull requests are welcome."
+          ]
+        },
+        {
+          "heading": "Reporting a bug well",
+          "body": [
+            "If a tool gave you a wrong result, tell us which tool, which browser, and what the file was like — how many pages, roughly how large, whether it was scanned or made on a computer.",
+            "Please do not send the file itself unless we ask. It usually is not needed, and we would rather not have it."
+          ]
+        }
+      ]
+    }
   }
 }

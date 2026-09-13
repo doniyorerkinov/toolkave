@@ -1056,6 +1056,12 @@ export function prerenderRoutes(): string[] {
   for (const locale of LOCALES) {
     routes.add(prefix(locale) || '/')
 
+    // The prose pages are plain routes rather than registry entries, so they
+    // have to be named here or they would never be prerendered.
+    for (const page of ['about', 'privacy', 'terms', 'contact']) {
+      routes.add(`${prefix(locale)}/${page}`)
+    }
+
     for (const category of categoriesWithTools(locale)) {
       routes.add(categoryPath(category, locale))
     }

@@ -66,6 +66,16 @@ const navCategories = computed(() =>
             <ShellLogo />
           </NuxtLink>
           <p class="mt-3 max-w-sm text-sm leading-relaxed">{{ t('site.tagline') }}</p>
+          <nav class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+            <NuxtLink
+              v-for="page in ['about', 'privacy', 'terms', 'contact']"
+              :key="page"
+              :to="localePath(`/${page}`)"
+              class="hover:text-white hover:underline"
+            >
+              {{ t(`legal.${page}.title`) }}
+            </NuxtLink>
+          </nav>
           <p class="mt-4 text-xs text-stone-500">
             © {{ new Date().getFullYear() }} {{ t('site.name') }} — {{ t('footer.rights') }}
           </p>

@@ -2226,5 +2226,200 @@
     "page": "{n}-sahifa",
     "tooManyPages": "Hujjatda {max} tadan koʻp sahifa bor, shuning uchun koʻrinishlar oʻtkazib yuborildi — yuqoridagi maydon baribir ishlaydi.",
     "loadError": "Koʻrinishlarni yaratib boʻlmadi. Yuqoridagi maydon baribir ishlaydi."
+  },
+  "legal": {
+    "updated": "Yangilangan: 2026-yil 13-sentabr",
+    "privacy": {
+      "title": "Maxfiylik siyosati",
+      "metaTitle": "Maxfiylik siyosati — Toolkave",
+      "description": "Toolkave nimani yig'adi va nimani yo'q. Fayllar brauzeringizda ishlanadi va hech qayerga yuklanmaydi.",
+      "lead": "Qisqasi: fayllaringiz qurilmangizdan chiqmaydi. Bu yerda akkaunt yo'q, serverga yuklash yo'q va yo'qotadigan narsa ham yo'q.",
+      "sections": [
+        {
+          "heading": "Fayllaringizga nima boʻladi",
+          "body": [
+            "Saytdagi har bir vosita brauzeringiz ichida ishlaydi. PDF yoki suratni tanlaganingizda, fayl brauzer xotirasiga o'qiladi va o'sha yerda, qurilmangizga allaqachon yuklab olingan kod bilan ishlanadi. U bizga yuborilmaydi — yuboradigan joy yo'q: sayt statik fayllardan iborat.",
+            "Varaqni yopdingiz — fayl yo'q. Biz uni tiklay olmaymiz, so'rov bo'yicha bera olmaymiz va sizib chiqishda yo'qota olmaymiz, chunki u bizda hech qachon bo'lmagan.",
+            "Buni o'zingiz tekshirishingiz mumkin: brauzerning dasturchi vositalarini oching, «Network» bo'limiga o'ting va istalgan vositani ishlating. Hech qanday yuklash bo'lmaydi."
+          ]
+        },
+        {
+          "heading": "Istisno — telegram bot",
+          "body": [
+            "{'@'}toolkavebot boti bunday ishlay olmaydi. Unga yuborgan faylingiz avval Telegram serverlariga tushadi, kodimiz esa uni ishlash uchun o'sha yerdan yuklab oladi. Har qanday telegram bot shunday ishlaydi.",
+            "Ishlov davomida fayl faqat operativ xotirada bo'ladi. U diskka, ma'lumotlar bazasiga yoki omborga yozilmaydi va tayyor PDF yuborilishi bilan yo'qoladi. Biz faqat joriy to'plamdagi fayllarni sanash uchun kerak bo'lgan Telegram identifikatorlarini saqlaymiz va ularni to'plam tugagach yoki bir kun harakatsizlikdan so'ng o'chiramiz.",
+            "Telegram orqali o'tadigan hamma narsaga Telegramning o'z maxfiylik siyosati ham taalluqli."
+          ]
+        },
+        {
+          "heading": "Biz nimani oʻlchaymiz",
+          "body": [
+            "Qaysi sahifalar ochilayotganini ko'rish uchun Cloudflare Web Analytics ishlatamiz. U cookie qo'ymaydi, brauzer izini olmaydi va siz haqingizda profil yig'maydi. Faqat umumiy raqamlar yoziladi: ko'rishlar, mamlakat, qaysi saytdan kelgani va sahifa qanchalik tez ochilgani.",
+            "Har qanday sayt kabi, hostingda ham qisqa muddatli so'rov jurnallari bor — IP manzil, brauzer va sahifa manzili; Cloudflare ulardan saytni ishlatish va suiiste'molni to'sish uchun foydalanadi."
+          ]
+        },
+        {
+          "heading": "Cookie va mahalliy xotira",
+          "body": [
+            "Biz cookie qo'ymaymiz.",
+            "Bitta vosita qurilmangizda nimadir saqlaydi: valyuta konvertori kunlik kurslarni brauzerning mahalliy xotirasiga qo'yadi, toki ularni qayta so'ramasin. Bu ma'lumot sizda qoladi va siz haqingizda hech narsa tutmaydi. Brauzer ma'lumotlarini tozalash uni o'chiradi."
+          ]
+        },
+        {
+          "heading": "Uchinchi tomon xizmatlari",
+          "body": [
+            "Sayt Cloudflare'da joylashgan — u sahifalarni uzatadi va yuqorida aytilgan tahlilni beradi.",
+            "Shriftlar shrift tarmog'idan emas, shu domendan beriladi, shuning uchun sahifani ochish boshqa hech kimga murojaat qilmaydi.",
+            "Ikki vosita ataylab tashqariga chiqadi: valyuta konvertori kurslarni O'zbekiston Markaziy banki saytidan (cbu.uz) va open.er-api.com dan oladi, YouTube muqovasi vositasi esa rasmlarni YouTube'dan yuklaydi. Bu so'rovlarda faqat video identifikatori yoki tanlangan valyuta uzatiladi."
+          ]
+        },
+        {
+          "heading": "Reklama",
+          "body": [
+            "Hozir saytda reklama ham, reklama yoki kuzatuv skriptlari ham yo'q. Agar bu o'zgarsa, reklama kodi paydo bo'lishidan oldin bu sahifa yangilanadi va unda reklama tarmog'i nimani ko'rishi ochiq aytiladi."
+          ]
+        },
+        {
+          "heading": "Huquqlaringiz va bolalar",
+          "body": [
+            "Bizda sizning shaxsiy ma'lumotlaringiz yo'q, shuning uchun yuklab berish, tuzatish yoki o'chirish uchun narsa yo'q. Agar boshqacha deb hisoblasangiz — yozing, tekshiramiz.",
+            "Sayt bolalarga mo'ljallanmagan va hech kimdan hech narsa yig'maydi."
+          ]
+        },
+        {
+          "heading": "Oʻzgarishlar va aloqa",
+          "body": [
+            "Siyosat o'zgarsa, yuqoridagi sana ham o'zgaradi.",
+            "Maxfiylik boʻyicha savollar: hello{'@'}toolkave.com"
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Foydalanish shartlari",
+      "metaTitle": "Foydalanish shartlari — Toolkave",
+      "description": "Oddiy shartlar: bepul vositalar «qanday bo'lsa shunday», fayllar qurilmangizda qoladi.",
+      "lead": "Toolkave bepul va akkaunt talab qilmaydi. Bu shartlar ikkala tomon nimaga tayanayotganini bilishi uchun.",
+      "sections": [
+        {
+          "heading": "Siz nima olasiz",
+          "body": [
+            "Brauzerda ishlaydigan vositalar to'plami — bepul va «qanday bo'lsa shunday». Obuna yo'q, cheklov yo'q va biror vosita bir yildan keyin ham shu yerda bo'lishiga va'da yo'q."
+          ]
+        },
+        {
+          "heading": "Fayllaringiz sizniki boʻlib qoladi",
+          "body": [
+            "Bu yerda ishlagan narsangizga hech qanday huquq da'vo qilmaymiz. Saytda fayllaringizni umuman olmaymiz, shuning uchun savol deyarli tug'ilmaydi; telegram botda esa ular bizda faqat ishlov ketayotgan soniyalar davomida bo'ladi."
+          ]
+        },
+        {
+          "heading": "Kafolatsiz — natijani tekshiring",
+          "body": [
+            "Vositalar hech qanday kafolatsiz taqdim etiladi. O'girish mukammal bo'lishini, siqilgan fayl kerakli ko'rinishda chiqishini yoki ma'lumotni yashirish sizning maqsadingiz uchun yetarli darajada to'liqligini va'da qila olmaymiz.",
+            "Asl nusxalarni saqlang va muhim narsani ishonishdan oldin tekshiring. Qonun ruxsat etgan doirada saytdan foydalanishdan kelib chiqqan zarar uchun javobgar emasmiz."
+          ]
+        },
+        {
+          "heading": "Qonuniy foydalaning",
+          "body": [
+            "Bu vositalarni qonunni buzish uchun ishlatmang. Bunga ochishga haqqingiz bo'lmagan hujjatdan parol yoki cheklovni olib tashlash ham, egalik qilishga haqqingiz bo'lmagan materialni ishlash ham kiradi.",
+            "Hammasi o'z qurilmangizda bajarilgani uchun buni nazorat qila olmaymiz va xohlamaymiz ham. Javobgarlik sizda."
+          ]
+        },
+        {
+          "heading": "Mavjudlik",
+          "body": [
+            "Sayt ogohlantirishsiz o'zgarishi, ishlamay qolishi yoki yo'qolishi mumkin. Vositalar qo'shilishi, o'zgarishi va olib tashlanishi mumkin. Biror narsa ishlamay qolsa, xabar berganingiz — xushmuomalalik, majburiyat emas."
+          ]
+        },
+        {
+          "heading": "Telegram bot",
+          "body": [
+            "Xuddi shu shartlar {'@'}toolkavebot uchun ham amal qiladi. Undan foydalanish Telegramning o'z shartlariga rozilik ham bildiradi, chunki xabarlaringiz ularning xizmati orqali o'tadi."
+          ]
+        },
+        {
+          "heading": "Oʻzgarishlar, huquq va aloqa",
+          "body": [
+            "Shartlar o'zgarsa, yuqoridagi sana ham o'zgaradi. Ular O'zbekiston Respublikasi qonunchiligiga bo'ysunadi.",
+            "Savollar: hello{'@'}toolkave.com"
+          ]
+        }
+      ]
+    },
+    "about": {
+      "title": "Toolkave haqida",
+      "metaTitle": "Toolkave haqida — brauzerda ishlaydigan fayl vositalari",
+      "description": "Toolkave nega kerak: hujjatlaringizni hech kimga yuklamasdan ishlaydigan kundalik fayl vositalari.",
+      "lead": "Toolkave — butunlay brauzerda ishlaydigan kundalik fayl vositalari to'plami. U shuning uchun paydo bo'ldi: o'n soniyalik ish uchun shaxsiy hujjatni begona serverga berish hech qachon mantiqli bo'lmagan.",
+      "sections": [
+        {
+          "heading": "Muammo",
+          "body": [
+            "Ikkita PDF ni birlashtirish, hujjat suratlarini yig'ish, o'zingiz biladigan parolni olib tashlash — bular soniyalik hisob-kitob. Ammo bunday vositalarni taklif qiladigan deyarli har bir sayt faylni yuklashni, begona mashinada ishlanishini kutishni va keyin o'chiriladi deb ishonishni so'raydi.",
+            "Bunday saytlardan har kuni pasportlar, shartnomalar, tahlil natijalari va bank ko'chirmalari o'tadi."
+          ]
+        },
+        {
+          "heading": "Bu nimasi bilan farq qiladi",
+          "body": [
+            "Brauzerlar bu ishni allaqachon o'zi bajara oladi. Bu yerdagi har bir vosita sizning qurilmangizda ishlaydi: fayl xotiraga o'qiladi, ishlanadi va darhol sizga qaytariladi. Hech narsa yuklanmaydi — demak, saqlanadigan, sizib chiqadigan yoki so'rov bo'yicha beriladigan narsa ham yo'q.",
+            "Yon foydasi: vositalar sekin internetda ham ishlaydi va sahifa yuklangach ishlashda davom etadi."
+          ]
+        },
+        {
+          "heading": "Uch til — ataylab",
+          "body": [
+            "Toolkave o'zbek, rus va ingliz tillarida qilingan. O'zbekcha yaxshi vositalar deyarli yo'q, interfeysni tarjima qilish esa uni yozish bilan bir xil emas: bu yerdagi har bir sahifa tarjimondan o'tkazilmagan, o'z tilida yozilgan."
+          ]
+        },
+        {
+          "heading": "Ochiq va mustaqil",
+          "body": [
+            "Loyiha mustaqil, O'zbekistonda qilingan va qo'llab-quvvatlanadi, manba kodi GitHub'da ochiq. Vosita faylingiz bilan aniq nima qilishini bilmoqchi bo'lsangiz — o'qishingiz mumkin."
+          ]
+        },
+        {
+          "heading": "Keyin nima",
+          "body": [
+            "Ko'proq vosita — rasmlar, matn, konvertorlar va kalkulyatorlar — hamda telefondan qilish qulayroq ishlar uchun telegram bot. Sizga kerak narsa yo'q bo'lsa, yozing: bu ro'yxatning deyarli hammasi shunday tanlangan."
+          ]
+        }
+      ]
+    },
+    "contact": {
+      "title": "Bog'lanish",
+      "metaTitle": "Bog'lanish — Toolkave",
+      "description": "Toolkave bilan qanday bog'lanish: xatolar haqida xabar, yangi vosita so'rovlari va boshqasi.",
+      "lead": "Biror narsa ishlamayaptimi, yetishmayaptimi yoki hamkorlik taklifingiz bormi? Yozing.",
+      "sections": [
+        {
+          "heading": "Pochta",
+          "body": [
+            "hello{'@'}toolkave.com — tirik odamga yetib borishning eng tez yo'li. Xatolar, yangi vosita so'rovlari, hamkorlik — nimaiki bo'lsa."
+          ]
+        },
+        {
+          "heading": "Telegram",
+          "body": [
+            "{'@'}toolkavebot suratlarni to'g'ridan-to'g'ri telefondan PDF ga yig'adi. Unga yozilgan xabarlar bizga ham yetadi."
+          ]
+        },
+        {
+          "heading": "GitHub",
+          "body": [
+            "Manba kodi: github.com/doniyorerkinov/toolkave. Issue va pull request lar mamnuniyat bilan qabul qilinadi."
+          ]
+        },
+        {
+          "heading": "Xato haqida qanday xabar berish",
+          "body": [
+            "Vosita noto'g'ri natija bergan bo'lsa, qaysi vosita, qaysi brauzer va fayl qanday bo'lganini yozing: necha sahifa, taxminan qancha hajm, skanmi yoki kompyuterda yaratilganmi.",
+            "Iltimos, biz so'ramagunimizcha faylning o'zini yubormang. Odatda u kerak emas, bizga esa uni saqlamagan ma'qul."
+          ]
+        }
+      ]
+    }
   }
 }
