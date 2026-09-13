@@ -4,11 +4,10 @@ import {
   MIME,
   PRINT_DPI,
   buildPhotoSheet,
-  decodeImage,
   mmToPx,
-  resizeImage,
-  type CropRect
+  resizeImage
 } from '~/composables/useImage'
+import { useCropFrame } from '~/composables/useCropFrame'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
@@ -49,14 +48,6 @@ const output = ref<'single' | 'sheet'>('sheet')
 const paper = ref<keyof typeof PAPERS>('10x15')
 const guides = ref(true)
 
-const canvas = ref<HTMLCanvasElement | null>(null)
-const source = ref<{ width: number; height: number } | null>(null)
-const hoverCursor = ref('move')
-
-let bitmap: ImageBitmap | null = null
-/** Source pixels per displayed pixel. */
-let scale = 1
-
 const file = computed(() => store.files[0] ?? null)
 const size = computed(() => SIZES.find(entry => entry.id === sizeId.value) ?? SIZES[0]!)
 const ratio = computed(() => size.value.width / size.value.height)
@@ -65,27 +56,6 @@ const pixels = computed(() => ({
   height: mmToPx(size.value.height)
 }))
 
-/** The part of the source that becomes the photo, in source pixels. */
-const frame = ref<CropRect>({ x: 0, y: 0, width: 0, height: 0 })
-const canRun = computed(() => !!file.value && frame.value.width > 0 && !store.busy)
-
-/** The largest frame of the right shape that fits, centred on the picture. */
-function fitFrame() {
-  if (!bitmap) return
-  let width = bitmap.width
-  let height = width / ratio.value
-  if (height > bitmap.height) {
-    height = bitmap.height
-    width = height * ratio.value
-  }
-  frame.value = {
-    x: (bitmap.width - width) / 2,
-    y: (bitmap.height - height) / 2,
-    width,
-    height
-  }
-}
-
 /**
  * Where the head belongs inside the frame, as a fraction of its height.
  * Every standard says roughly the same thing in different words: the head
@@ -93,215 +63,71 @@ function fitFrame() {
  */
 const HEAD_TOP = 0.12
 const HEAD_BOTTOM = 0.86
-const HANDLE = 11
 
-function paint() {
-  const el = canvas.value
-  if (!el || !bitmap) return
-  const context = el.getContext('2d')
-  if (!context) return
+const { canvas, source, cursor, load, rect, handlers, paint } = useCropFrame({
+  ratio,
+  draw(context, box) {
+    const el = context.canvas
+    // Everything outside the frame is dimmed so the photo reads as the photo.
+    context.fillStyle = 'rgba(28, 25, 23, 0.55)'
+    context.beginPath()
+    context.rect(0, 0, el.width, el.height)
+    context.rect(box.x, box.y + box.height, box.width, -box.height)
+    context.fill('evenodd')
 
-  context.clearRect(0, 0, el.width, el.height)
-  context.drawImage(bitmap, 0, 0, el.width, el.height)
-
-  const box = {
-    x: frame.value.x / scale,
-    y: frame.value.y / scale,
-    width: frame.value.width / scale,
-    height: frame.value.height / scale
-  }
-
-  // Everything outside the frame is dimmed so the photo reads as the photo.
-  context.fillStyle = 'rgba(28, 25, 23, 0.55)'
-  context.beginPath()
-  context.rect(0, 0, el.width, el.height)
-  context.rect(box.x, box.y + box.height, box.width, -box.height)
-  context.fill('evenodd')
-
-  if (guides.value) {
-    context.strokeStyle = 'rgba(255, 255, 255, 0.85)'
-    context.lineWidth = 1
-    context.setLineDash([6, 4])
-    for (const fraction of [HEAD_TOP, HEAD_BOTTOM]) {
-      const y = box.y + box.height * fraction
+    if (guides.value) {
+      context.strokeStyle = 'rgba(255, 255, 255, 0.85)'
+      context.lineWidth = 1
+      context.setLineDash([6, 4])
+      for (const fraction of [HEAD_TOP, HEAD_BOTTOM]) {
+        const y = box.y + box.height * fraction
+        context.beginPath()
+        context.moveTo(box.x, y)
+        context.lineTo(box.x + box.width, y)
+        context.stroke()
+      }
+      const centre = box.x + box.width / 2
       context.beginPath()
-      context.moveTo(box.x, y)
-      context.lineTo(box.x + box.width, y)
+      context.moveTo(centre, box.y)
+      context.lineTo(centre, box.y + box.height)
+      context.stroke()
+      context.setLineDash([])
+    }
+
+    context.strokeStyle = '#ffffff'
+    context.lineWidth = 2
+    context.strokeRect(box.x, box.y, box.width, box.height)
+
+    context.fillStyle = '#ffffff'
+    context.strokeStyle = '#c2410c'
+    for (const [cx, cy] of [
+      [box.x, box.y],
+      [box.x + box.width, box.y],
+      [box.x, box.y + box.height],
+      [box.x + box.width, box.y + box.height]
+    ] as const) {
+      context.beginPath()
+      context.arc(cx, cy, 5.5, 0, Math.PI * 2)
+      context.fill()
       context.stroke()
     }
-    const centre = box.x + box.width / 2
-    context.beginPath()
-    context.moveTo(centre, box.y)
-    context.lineTo(centre, box.y + box.height)
-    context.stroke()
-    context.setLineDash([])
   }
+})
 
-  context.strokeStyle = '#ffffff'
-  context.lineWidth = 2
-  context.strokeRect(box.x, box.y, box.width, box.height)
-
-  // Corner grips, drawn inside the frame so they never leave the canvas.
-  context.fillStyle = '#ffffff'
-  context.strokeStyle = '#c2410c'
-  context.lineWidth = 2
-  for (const [cx, cy] of [
-    [box.x, box.y],
-    [box.x + box.width, box.y],
-    [box.x, box.y + box.height],
-    [box.x + box.width, box.y + box.height]
-  ] as const) {
-    context.beginPath()
-    context.arc(cx, cy, HANDLE / 2, 0, Math.PI * 2)
-    context.fill()
-    context.stroke()
-  }
-}
+const canRun = computed(() => !!file.value && !!source.value && !store.busy)
 
 watch(
   file,
   async current => {
-    bitmap?.close()
-    bitmap = null
-    source.value = null
-    if (!current) return
     try {
-      bitmap = await decodeImage(current.data)
-      source.value = { width: bitmap.width, height: bitmap.height }
-      const room = Math.max(240, Math.min(560, canvas.value?.parentElement?.clientWidth ?? 560))
-      scale = Math.max(bitmap.width / room, bitmap.height / 520, 1)
-      await nextTick()
-      if (canvas.value) {
-        canvas.value.width = Math.round(bitmap.width / scale)
-        canvas.value.height = Math.round(bitmap.height / scale)
-      }
-      fitFrame()
-      paint()
+      await load(current)
     } catch {
       store.error = t('image.errorRead')
     }
   },
   { immediate: true }
 )
-
-watch(sizeId, () => {
-  fitFrame()
-  paint()
-})
-watch([guides, frame], paint, { deep: true })
-
-type Grip = 'nw' | 'ne' | 'sw' | 'se'
-interface Drag {
-  grip: Grip | null
-  originX: number
-  originY: number
-  start: CropRect
-}
-let drag: Drag | null = null
-
-function at(event: PointerEvent): { x: number; y: number } | null {
-  const el = canvas.value
-  if (!el) return null
-  const rect = el.getBoundingClientRect()
-  if (!rect.width || !rect.height) return null
-  return {
-    x: ((event.clientX - rect.left) / rect.width) * el.width * scale,
-    y: ((event.clientY - rect.top) / rect.height) * el.height * scale
-  }
-}
-
-/** Which corner grip a point is on, if any. */
-function gripAt(x: number, y: number): Grip | null {
-  const reach = (HANDLE / 2 + 5) * scale
-  const box = frame.value
-  const near = (px: number, py: number) => Math.hypot(x - px, y - py) <= reach
-  if (near(box.x, box.y)) return 'nw'
-  if (near(box.x + box.width, box.y)) return 'ne'
-  if (near(box.x, box.y + box.height)) return 'sw'
-  if (near(box.x + box.width, box.y + box.height)) return 'se'
-  return null
-}
-
-const CURSOR: Record<Grip, string> = { nw: 'nwse-resize', ne: 'nesw-resize', sw: 'nesw-resize', se: 'nwse-resize' }
-
-function onPointerDown(event: PointerEvent) {
-  const point = at(event)
-  if (!point || !bitmap) return
-  canvas.value?.setPointerCapture(event.pointerId)
-  drag = { grip: gripAt(point.x, point.y), originX: point.x, originY: point.y, start: { ...frame.value } }
-}
-
-/**
- * Resize from a corner, keeping the standard's shape and staying inside the
- * picture. The corner opposite the one being dragged is the anchor, so the
- * frame grows towards the pointer the way a selection is expected to.
- */
-function resizeFrom(grip: Grip, point: { x: number; y: number }) {
-  if (!bitmap) return
-  const start = drag!.start
-  const anchorX = grip === 'nw' || grip === 'sw' ? start.x + start.width : start.x
-  const anchorY = grip === 'nw' || grip === 'ne' ? start.y + start.height : start.y
-
-  let width = Math.abs(point.x - anchorX)
-  let height = width / ratio.value
-  if (height > Math.abs(point.y - anchorY) * 1.0) {
-    // Follow whichever axis the pointer moved less on, so the frame never
-    // outruns the corner being dragged.
-    height = Math.abs(point.y - anchorY)
-    width = height * ratio.value
-  }
-
-  const left = grip === 'nw' || grip === 'sw' ? anchorX - width : anchorX
-  const top = grip === 'nw' || grip === 'ne' ? anchorY - height : anchorY
-
-  // Shrink to fit rather than clamping the edges, which would change the shape.
-  const overflow = Math.max(
-    1,
-    left < 0 ? width / (width + left) : 1,
-    top < 0 ? height / (height + top) : 1,
-    left + width > bitmap.width ? width / (bitmap.width - left) : 1,
-    top + height > bitmap.height ? height / (bitmap.height - top) : 1
-  )
-  width /= overflow
-  height /= overflow
-  const minimum = 40
-  if (width < minimum || height < minimum) return
-
-  frame.value = {
-    x: grip === 'nw' || grip === 'sw' ? anchorX - width : anchorX,
-    y: grip === 'nw' || grip === 'ne' ? anchorY - height : anchorY,
-    width,
-    height
-  }
-}
-
-function onPointerMove(event: PointerEvent) {
-  const point = at(event)
-  if (!point || !bitmap) return
-
-  if (!drag) {
-    const grip = gripAt(point.x, point.y)
-    hoverCursor.value = grip ? CURSOR[grip] : 'move'
-    return
-  }
-
-  if (drag.grip) {
-    resizeFrom(drag.grip, point)
-    return
-  }
-
-  const start = drag.start
-  frame.value = {
-    ...start,
-    x: Math.min(Math.max(0, start.x + point.x - drag.originX), bitmap.width - start.width),
-    y: Math.min(Math.max(0, start.y + point.y - drag.originY), bitmap.height - start.height)
-  }
-}
-
-function onPointerUp(event: PointerEvent) {
-  canvas.value?.releasePointerCapture(event.pointerId)
-  drag = null
-}
+watch(guides, paint)
 
 const sheetCount = computed(() => {
   const sheet = PAPERS[paper.value]
@@ -315,18 +141,7 @@ async function run() {
   store.busy = true
   store.error = null
   try {
-    const photo = await resizeImage(
-      file.value,
-      pixels.value,
-      'jpeg',
-      0.95,
-      {
-        x: Math.round(frame.value.x),
-        y: Math.round(frame.value.y),
-        width: Math.round(frame.value.width),
-        height: Math.round(frame.value.height)
-      }
-    )
+    const photo = await resizeImage(file.value, pixels.value, 'jpeg', 0.95, rect())
 
     if (output.value === 'single') {
       store.setResult({
@@ -372,8 +187,6 @@ function onFiles(files: File[]) {
   store.reset()
   store.add(files.slice(0, 1))
 }
-
-onBeforeUnmount(() => bitmap?.close())
 </script>
 
 <template>
@@ -417,11 +230,8 @@ onBeforeUnmount(() => bitmap?.close())
         <canvas
           ref="canvas"
           class="max-w-full touch-none rounded-sm bg-white shadow-sm select-none"
-          :style="{ cursor: hoverCursor }"
-          @pointerdown.prevent="onPointerDown"
-          @pointermove="onPointerMove"
-          @pointerup="onPointerUp"
-          @pointercancel="onPointerUp"
+          :style="{ cursor }"
+          v-bind="handlers"
         />
       </div>
 
