@@ -304,7 +304,7 @@ Verified the rebasing maths against CBU's own direct EUR quote. The two sources 
 
 ## Phase 6 — Wave 3: tier 3 differentiators (48 tools)
 
-- [x] **OCR uz/ru/en** and **broken text → UTF-8** — the two nobody else builds
+- [x] ~~**OCR uz/ru/en**~~ (removed 13 Sept 2026 — see below) and **broken text → UTF-8**
 - [x] DOCX→PDF · Excel/CSV→PDF · grayscale
 - [x] DOCX→text/HTML/MD · CSV⇄JSON⇄Excel · word count for DOCX · Markdown⇄HTML
 - [x] Scanned photos → PDF (web version of the bot)
@@ -375,7 +375,14 @@ Notes on the nineteen new tools:
   twice has a correct first step that scores *worse* than the input by every
   local measure, so requiring each step to improve walks straight past the
   answer.
-- **OCR** carries English, Russian and both Uzbek alphabets (Latin and
+- **OCR was removed on 13 September 2026.** It worked, and read a test image at 95%
+  confidence — but Tesseract's language models are 10 MB for English and 8 MB for
+  Russian, downloaded before the first character appears. On a Tashkent mobile
+  connection that is minutes of a motionless progress bar, and the tool reads as
+  broken however honestly the wait is labelled. A browser-only OCR tool is the
+  wrong shape for this audience unless the models get an order of magnitude
+  smaller. The old note follows, for whoever revisits it:
+- ~~**OCR** carries English, Russian and both Uzbek alphabets (Latin and
   Cyrillic) — the second nobody else builds. Small images are upscaled toward
   Tesseract's preferred ~30px glyph height before recognition, which matters
   more than any local thresholding. Confidence is averaged over words found by
@@ -428,7 +435,6 @@ Notes on the nineteen new tools:
 
 | Library | Licence | Role |
 | --- | --- | --- |
-| `tesseract.js` | Apache-2.0 | OCR engine |
 | `mammoth` | BSD-2-Clause | .docx → HTML/text |
 | `marked` | MIT | Markdown → HTML |
 | `turndown` | MIT | HTML → Markdown |
@@ -543,7 +549,7 @@ The home page shows at most six tools per category with a counted "All N tools" 
 the category page is the full list; every tool page lists its siblings in the sidebar.
 11. **Every browser-only library import sits behind `if (import.meta.server) throw`.** Nuxt
     replaces that with a constant at build time, so Rollup drops the `import()` from the
-    Worker bundle: the server never carries pdf-lib, pdfmake and its fonts, xlsx, tesseract
+    Worker bundle: the server never carries pdfmake and its fonts, xlsx
     or mammoth, and never has to parse them — Rollup rejects papaparse's worker shim outright,
     which is what blocked the first deploy after Wave 3. Under Node (the test suite) the
     flag is undefined and the import runs. A new lazy import without the guard is wrong.

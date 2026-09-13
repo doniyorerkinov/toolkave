@@ -28,7 +28,7 @@ useToolSeo(tool.value, currentLocale.value)
  * `resolveComponent` - it renders as an unknown element.
  *
  * Each entry here is a separate chunk, so a page only ever downloads the one
- * tool it shows. That is what keeps pdf.js and tesseract off the word counter.
+ * tool it shows. That is what keeps pdf.js off the word counter.
  */
 const toolModules = import.meta.glob('../../components/tools/**/*.vue')
 

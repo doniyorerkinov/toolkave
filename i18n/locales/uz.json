@@ -1545,28 +1545,6 @@
         "a4": "Natija ostidagi variantlardan birini tanlang. Vosita jonli tilga koʻproq oʻxshagan oʻqishni tanlaydi, lekin qisqa matnda bir nechta variant bir xil ishonarli koʻrinadi — koʻz bilan esa toʻgʻrisi darhol bilinadi."
       }
     },
-    "image-to-text": {
-      "name": "Rasmdan matn (OCR)",
-      "short": "Surat yoki skrinshotdagi matnni oʻqish, oʻzbekchasi ham.",
-      "title": "Rasmdan matn olish — bepul OCR: oʻzbek, rus, ingliz",
-      "description": "Rasmlardan oʻzbek (lotin va kirill), rus va ingliz tilidagi matnni ajratib oladigan bepul onlayn OCR. Rasm brauzerda qayta ishlanadi, hech qayerga yuklanmaydi.",
-      "intro": "Surat, skan yoki skrinshot qoʻshing va undagi matnni oling. Oʻzbek tili ikkala alifboda, rus va ingliz tillari qoʻllab-quvvatlanadi, aralash hujjat uchun bir nechtasini birga tanlash mumkin.",
-      "howTo": {
-        "step1": "Matn boʻlgan rasmni qoʻshing.",
-        "step2": "Unda qaysi tillar borligini belgilang.",
-        "step3": "«Matnni ajratib olish» tugmasini bosing, natijani nusxalang yoki .txt qilib yuklab oling."
-      },
-      "faq": {
-        "q1": "Rasmim biror joyga yuklanadimi?",
-        "a1": "Yoʻq. Tanish brauzerda bajariladi. Ommaviy CDN dan faqat til modellari, faqat tildan birinchi marta foydalanilganda yuklanadi — bu yagona tarmoq soʻrovi va unda rasmingizdan hech narsa yoʻq.",
-        "q2": "Nega birinchi ishga tushirish sekin?",
-        "a2": "Har bir til modeli taxminan 3 MB va bir marta yuklanadi. Keyin u brauzer keshida turadi, tanish darhol boshlanadi — ikkinchi rasm birinchisidan ancha tez ishlanadi.",
-        "q3": "Natijani qanday yaxshilash mumkin?",
-        "a3": "Eng muhimi — aniqlik. Toʻgʻri tushirilgan, yaxshi yoritilgan va matn butun kadrni egallagan surat uzoqdan olingan suratdan doim ustun. Faqat haqiqatan bor tillarni tanlash ham yordam beradi: variant kam boʻlsa, xato ham kam.",
-        "q4": "Qaysi oʻzbek tilini tanlash kerak?",
-        "a4": "Rasmdagi alifboni. oʻzbek uchun lotin, ўзбек uchun kirill. Hujjatda ikkalasi ham boʻlsa — ikkalasini belgilang, ustiga rus tilini ham qoʻshing: uning harflari oʻzbek kirillchasi bilan deyarli bir xil."
-      }
-    },
     "docx-word-count": {
       "name": "Word hujjatidagi soʻzlarni sanash",
       "short": "Word ochmasdan .docx dagi soʻzlarni sanash.",
@@ -2113,28 +2091,6 @@
     "preview": "Koʻrib chiqish",
     "saveUtf8": "UTF-8 da saqlash"
   },
-  "ocr": {
-    "languages": "Rasmdagi tillar",
-    "language": {
-      "eng": "Ingliz",
-      "rus": "Rus",
-      "uzb": "Oʻzbek (lotin)",
-      "uzb_cyrl": "Oʻzbek (kirill)"
-    },
-    "downloadNote": "Birinchi ishga tushirishda taxminan {size} MB til maʼlumoti yuklanadi, keyin keshdan olinadi.",
-    "pickOne": "Kamida bitta tilni tanlang.",
-    "action": "Matnni ajratib olish",
-    "working": "Oʻqilmoqda…",
-    "result": "Ajratilgan matn",
-    "confidence": "Ishonch {value}%",
-    "lowConfidence": "Ishonch past. Natijani rasm bilan solishtiring — odatda aniqroq yoki kattaroq surat eng koʻp yordam beradi.",
-    "noText": "Matn topilmadi. Aniqroq rasm sinab koʻring yoki toʻgʻri til tanlanganini tekshiring.",
-    "errorGeneric": "Rasmni oʻqib boʻlmadi. PNG yoki JPG sinab koʻring.",
-    "copy": "Nusxalash",
-    "copied": "Nusxalandi",
-    "download": ".txt yuklab olish",
-    "downloading": "Til ma'lumotlari yuklanmoqda (taxminan {size} MB). Bu bir marta bo'ladi — keyingi safar darhol boshlanadi."
-  },
   "docs": {
     "working": "Oʻgirilmoqda…",
     "errorRead": "Hujjatni oʻqib boʻlmadi.",
@@ -2271,8 +2227,7 @@
           "body": [
             "Sayt Cloudflare'da joylashgan — u sahifalarni uzatadi va yuqorida aytilgan tahlilni beradi.",
             "Shriftlar shrift tarmog'idan emas, shu domendan beriladi, shuning uchun sahifani ochish boshqa hech kimga murojaat qilmaydi.",
-            "Ikki vosita ataylab tashqariga chiqadi: valyuta konvertori kurslarni O'zbekiston Markaziy banki saytidan (cbu.uz) va open.er-api.com dan oladi, YouTube muqovasi vositasi esa rasmlarni YouTube'dan yuklaydi. Bu so'rovlarda faqat video identifikatori yoki tanlangan valyuta uzatiladi.",
-            "Matn tanish vositalari birinchi ishlatganda til modellarini Tesseract loyihasining ochiq fayl xostidan yuklab oladi, keyin brauzer ularni keshda saqlaydi. Bu so'rovda faqat tanlangan til uzatiladi — rasm haqida hech narsa, u hech qayerga ketmaydi."
+            "Ikki vosita ataylab tashqariga chiqadi: valyuta konvertori kurslarni O'zbekiston Markaziy banki saytidan (cbu.uz) va open.er-api.com dan oladi, YouTube muqovasi vositasi esa rasmlarni YouTube'dan yuklaydi. Bu so'rovlarda faqat video identifikatori yoki tanlangan valyuta uzatiladi."
           ]
         },
         {

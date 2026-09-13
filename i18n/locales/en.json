@@ -1545,28 +1545,6 @@
         "a4": "Use the alternatives below the result. The tool picks whichever reading looks most like real language, but on short text several readings can look equally plausible, and you can see which one is right at a glance."
       }
     },
-    "image-to-text": {
-      "name": "Image to text (OCR)",
-      "short": "Read text out of a photo or screenshot, including Uzbek.",
-      "title": "Image to text — free OCR in Russian, Uzbek and English",
-      "description": "Free online OCR that extracts text from images in Russian, Uzbek (Latin and Cyrillic) and English. The image is processed in your browser, not uploaded.",
-      "intro": "Add a photo, scan or screenshot and get the text out of it. Russian, Uzbek in both alphabets, and English are all supported, and several can be selected at once for a mixed document.",
-      "howTo": {
-        "step1": "Add the image containing the text.",
-        "step2": "Choose which languages appear in it.",
-        "step3": "Press Extract text, then copy the result or download it as a .txt file."
-      },
-      "faq": {
-        "q1": "Is my image uploaded anywhere?",
-        "a1": "No. Recognition runs in your browser. The language models are downloaded from a public CDN the first time you use a language — that is the only network request, and it carries no part of your image.",
-        "q2": "Why is the first run slow?",
-        "a2": "Each language model is about 3 MB and has to be downloaded once. Afterwards your browser has it cached and recognition starts immediately, so the second image is much faster than the first.",
-        "q3": "How do I get a better result?",
-        "a3": "Resolution matters more than anything else. A straight, well-lit photo where the text fills the frame beats a distant shot every time. Selecting only the languages actually present also helps, since fewer alternatives means fewer wrong guesses.",
-        "q4": "Which Uzbek should I pick?",
-        "a4": "Whichever alphabet is in the image. Latin for oʻzbek, Cyrillic for ўзбек. If a document mixes them, select both — and add Russian too, which shares most of its letters with Uzbek Cyrillic."
-      }
-    },
     "docx-word-count": {
       "name": "Word count for Word documents",
       "short": "Count the words in a .docx without opening Word.",
@@ -2113,28 +2091,6 @@
     "preview": "Preview",
     "saveUtf8": "Save as UTF-8"
   },
-  "ocr": {
-    "languages": "Languages in the image",
-    "language": {
-      "eng": "English",
-      "rus": "Russian",
-      "uzb": "Uzbek (Latin)",
-      "uzb_cyrl": "Uzbek (Cyrillic)"
-    },
-    "downloadNote": "About {size} MB of language data is downloaded the first time, then cached.",
-    "pickOne": "Choose at least one language.",
-    "action": "Extract text",
-    "working": "Reading…",
-    "result": "Extracted text",
-    "confidence": "Confidence {value}%",
-    "lowConfidence": "Confidence is low. Check the result against the image — a sharper or larger photo usually helps more than anything else.",
-    "noText": "No text was found. Try a sharper image, or check that the right language is selected.",
-    "errorGeneric": "The image could not be read. Try a PNG or JPG.",
-    "copy": "Copy",
-    "copied": "Copied",
-    "download": "Download .txt",
-    "downloading": "Downloading language data (about {size} MB). This happens once — next time it starts straight away."
-  },
   "docs": {
     "working": "Converting…",
     "errorRead": "This document could not be read.",
@@ -2271,8 +2227,7 @@
           "body": [
             "The site is hosted by Cloudflare, which serves the pages and provides the analytics described above.",
             "Fonts are served from this domain rather than a font network, so loading a page contacts nobody else.",
-            "Two tools reach outside on purpose: the currency converter fetches rates from the Central Bank of Uzbekistan (cbu.uz) and open.er-api.com, and the YouTube thumbnail tool loads images from YouTube. Those requests carry the video ID or currency you asked about, nothing more.",
-            "The text-recognition tools download their language models from the Tesseract project's public file host the first time you use them, and your browser caches them afterwards. That request says which language you picked and nothing about the image, which never leaves your device."
+            "Two tools reach outside on purpose: the currency converter fetches rates from the Central Bank of Uzbekistan (cbu.uz) and open.er-api.com, and the YouTube thumbnail tool loads images from YouTube. Those requests carry the video ID or currency you asked about, nothing more."
           ]
         },
         {

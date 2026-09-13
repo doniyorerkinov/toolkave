@@ -622,24 +622,6 @@ export const tools: ToolDef[] = [
     acceptedTypes: ['text/plain']
   },
   {
-    id: 'image-to-text',
-    category: 'text',
-    group: 'extract',
-    component: 'text/Ocr',
-    icon: 'scan-text',
-    published: false,
-    locales: ['en', 'ru', 'uz'],
-    slugs: {
-      en: 'image-to-text',
-      ru: 'raspoznat-tekst-s-kartinki',
-      uz: 'rasmdan-matn-olish'
-    },
-    related: ['scan-to-pdf', 'word-counter'],
-    heavy: true,
-    acceptedTypes: ['image/png', 'image/jpeg', 'image/webp'],
-    maxFiles: 1
-  },
-  {
     id: 'docx-word-count',
     category: 'text',
     group: 'analyze',
@@ -959,7 +941,7 @@ export const tools: ToolDef[] = [
     published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'scan-to-pdf', ru: 'foto-dokumenta-v-pdf', uz: 'hujjat-rasmini-pdf' },
-    related: ['jpg-to-pdf', 'image-to-text'],
+    related: ['jpg-to-pdf', 'scan-to-pdf'],
     heavy: true,
     acceptedTypes: ['image/jpeg', 'image/png', 'image/heic'],
     maxFiles: 50

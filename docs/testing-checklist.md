@@ -41,7 +41,7 @@ it by name. After every deploy, take that tool's en/ru/uz URLs to Search Console
 inspection → Request indexing, one at a time (~10/day), and put the rest through Yandex
 Webmaster → Indexing → Reindex pages (~20/day). Live but unindexed is not shipped.
 
-Registry snapshot: **64 tools, 31 published, 33 drafts** — every PDF tool in the registry is live, plus Word counter. What is left is the image, text, converter, calculator, generator and developer categories.
+Registry snapshot: **63 tools, 31 published, 32 drafts** — every PDF tool in the registry is live, plus Word counter. What is left is the image, text, converter, calculator, generator and developer categories.
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -236,16 +236,10 @@ and one on Windows, where HEIC files arrive with no MIME type.
 ## Wave 4 — the uz/ru moat (2)
 
 Two tools nobody else builds, and the pages most likely to rank first in ru/uz. They
-need real material: photos of Uzbek text in both alphabets and of Russian text for OCR,
+need real material: photos of Uzbek text in both alphabets,
 and phone photos of an actual document for Scan to PDF. Worth doing carefully — these are
 the pages to lead the ru/uz positioning with.
 
-- [ ] **Image to text (OCR)** — extract text from a photo/screenshot.
-  Expect: try each language toggle (English / Russian / Uzbek Latin / Uzbek
-  Cyrillic) — the first use of a language downloads its model (visible in the
-  network tab), reused instantly after that. Check the confidence score
-  shown — a blurry image should show a low-confidence warning, not just a
-  silently bad result.
 
 - [x] **Photos to scanned PDF** — phone photos of a document → clean PDF.
   Expect: try the three clean-up modes (Enhance / Grayscale / Keep colour) on
@@ -352,7 +346,7 @@ header/footer are Latin-only by design — confirm the ru/uz pages say so before
 
 - [x] **PDF to text** — extracts the text layer.
   Expect: run it on a **scanned** PDF (no real text layer) — result should be
-  empty with a message suggesting the OCR tool instead, not a silent blank
+  empty with a message saying the PDF has no text layer, not a silent blank
   result.
 
 - [x] **Fill PDF form** — fill in a form PDF's fields in the browser.
