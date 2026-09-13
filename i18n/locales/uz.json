@@ -2095,6 +2095,50 @@
         "q4": "Rasmim biror joyga yuklanadimi?",
         "a4": "Yo'q. Qirqish brauzeringizda, o'z qurilmangizda bajariladi. Serverga hech narsa yuborilmaydi — shuning uchun sahifa yuklangach internetsiz ham ishlayveradi."
       }
+    },
+    "jpg-to-webp": {
+      "name": "JPG dan WebP",
+      "short": "Suratlarni yengilroq WebP formatiga o'girish.",
+      "title": "JPG dan WebP — onlayn o'girish, bepul",
+      "description": "Bepul onlayn JPG dan WebP ga o'girish. Bir xil sifatda WebP odatda 25–35% kichikroq. Brauzerda ishlaydi — hech narsa yuklanmaydi.",
+      "intro": "JPG qo'shing va uni WebP ga o'giring. Bir xil ko'rinishdagi sifatda WebP hajmning chorak-uchdan birini tejaydi — shuning uchun saytlar uni tanlaydi.",
+      "howTo": {
+        "step1": "O'girmoqchi bo'lgan JPG ni qo'shing.",
+        "step2": "Sifatni tanlang — suratlar uchun 80–90 mos keladi.",
+        "step3": "«O'girish» ni bosing va WebP ni yuklab oling."
+      },
+      "faq": {
+        "q1": "WebP nega kerak?",
+        "a1": "U JPG dan yaxshiroq siqadi — bir xil ko'rinishda odatda 25–35% kichik — shuning uchun sahifalar tezroq ochiladi va kamroq trafik sarflaydi. Barcha zamonaviy brauzerlar uni tushunadi.",
+        "q2": "Sifat tushadimi?",
+        "a2": "Oqilona sozlamalarda — yo'q. WebP ham JPG kabi yo'qotishli siqadi, ya'ni yana bir siqish qo'shiladi; 85 va undan yuqorida suratdagi farq ko'rinmaydi.",
+        "q3": "WebP ni saytga qo'yish mumkinmi?",
+        "a3": "Ha. So'nggi yillardagi barcha brauzerlar WebP ni ko'rsatadi. Faqat juda eski dasturlarda muammo bo'ladi — shuning uchun ba'zi saytlar zaxira JPG qoldiradi.",
+        "q4": "Safari da ishlaydimi?",
+        "a4": "WebP ga saqlash uchun brauzerning o'zida kodlovchi bo'lishi kerak. Safari da u 14-versiyadan bor; eskiroq bo'lsa, vosita boshqa kengaytmali fayl bermasdan, buni ochiq aytadi."
+      }
+    },
+    "png-to-webp": {
+      "name": "PNG dan WebP",
+      "short": "PNG grafikani WebP bilan kichraytirish.",
+      "title": "PNG dan WebP — onlayn o'girish, bepul",
+      "description": "Bepul onlayn PNG dan WebP ga o'girish. Shaffoflik saqlanadi, fayl odatda ancha kichik. Brauzerda ishlaydi — hech narsa yuklanmaydi.",
+      "intro": "PNG qo'shing va uni WebP ga o'giring. Shaffoflik saqlanadi, skrinshot va grafika esa odatda asl PNG dan sezilarli kichik chiqadi.",
+      "howTo": {
+        "step1": "O'girmoqchi bo'lgan PNG ni qo'shing.",
+        "step2": "Sifat darajasini tanlang.",
+        "step3": "«O'girish» ni bosing va WebP ni yuklab oling."
+      },
+      "faq": {
+        "q1": "Shaffoflik saqlanadimi?",
+        "a1": "Ha. WebP ham PNG kabi alfa kanalni qo'llab-quvvatlaydi, shuning uchun shaffof fonli logotip shaffof qoladi.",
+        "q2": "Fayl qancha kichrayadi?",
+        "a2": "Skrinshot va grafika uchun ko'pincha bir necha barobar. Eng katta yutuq suratga o'xshash joylarda, eng kami PNG allaqachon yaxshi siqadigan tekis rangli ikonkalarda.",
+        "q3": "Biror narsa yo'qoladimi?",
+        "a3": "Bu yerda WebP yo'qotishli, mayda tafsilotlar taxminiy bo'ladi — grafikada yuqori sifatda bu bilinmaydi, lekin pikselma-piksel aniqlik kerak bo'lsa, PNG ni saqlang.",
+        "q4": "Safari da ishlaydimi?",
+        "a4": "Safari WebP ni 14-versiyadan saqlaydi. Eskiroqda vosita .webp nomli PNG bermasdan, rad etadi."
+      }
     }
   },
   "wordCounter": {

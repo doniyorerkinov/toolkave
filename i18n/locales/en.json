@@ -2095,6 +2095,50 @@
         "q4": "Is my picture uploaded anywhere?",
         "a4": "No. The crop happens inside your browser, on your own device. Nothing is sent to a server, which is also why it works with the tab offline once the page has loaded."
       }
+    },
+    "jpg-to-webp": {
+      "name": "JPG to WebP",
+      "short": "Convert photos to WebP, the smaller web format.",
+      "title": "JPG to WebP — convert images online, free",
+      "description": "Free online JPG to WebP converter. WebP files are typically 25–35% smaller than JPG at the same quality. Runs in your browser — nothing is uploaded.",
+      "intro": "Add a JPG and convert it to WebP. At the same visual quality WebP usually saves a quarter to a third of the bytes, which is why it is the format of choice for websites.",
+      "howTo": {
+        "step1": "Add the JPG you want to convert.",
+        "step2": "Set the quality — 80 to 90 suits photographs.",
+        "step3": "Press Convert and download the WebP."
+      },
+      "faq": {
+        "q1": "Why use WebP at all?",
+        "a1": "It compresses better than JPG — usually 25 to 35% smaller at the same visible quality — so pages load faster and use less of a visitor's data. Every current browser supports it.",
+        "q2": "Will it look worse?",
+        "a2": "Not at sensible quality settings. WebP is lossy like JPG, so converting means one more round of compression; at 85 or above the difference is invisible on a photograph.",
+        "q3": "Can I put WebP on a website?",
+        "a3": "Yes. Every browser released in the last several years displays WebP. Only very old software struggles, which is why some sites still keep a JPG fallback.",
+        "q4": "Does it work on Safari?",
+        "a4": "Converting to WebP needs the browser to have a WebP encoder. Safari has had one since version 14; if yours is older the tool will say so rather than hand you a mislabelled file."
+      }
+    },
+    "png-to-webp": {
+      "name": "PNG to WebP",
+      "short": "Shrink PNG graphics with WebP.",
+      "title": "PNG to WebP — convert images online, free",
+      "description": "Free online PNG to WebP converter. Keeps transparency and usually produces a much smaller file. Runs in your browser — nothing is uploaded.",
+      "intro": "Add a PNG and convert it to WebP. Transparency is kept, and screenshots and graphics usually come out far smaller than the PNG they started as.",
+      "howTo": {
+        "step1": "Add the PNG you want to convert.",
+        "step2": "Choose a quality level.",
+        "step3": "Press Convert and download the WebP."
+      },
+      "faq": {
+        "q1": "Is transparency kept?",
+        "a1": "Yes. WebP supports an alpha channel just as PNG does, so a logo with a transparent background stays transparent.",
+        "q2": "How much smaller will it be?",
+        "a2": "For screenshots and graphics, often several times smaller. The saving is largest on images with photographic areas and smallest on flat-colour icons, which PNG already handles well.",
+        "q3": "Is anything lost?",
+        "a3": "WebP here is lossy, so fine detail is approximated — invisible at high quality on most graphics, but if you need pixel-exact output keep the PNG.",
+        "q4": "Does it work on Safari?",
+        "a4": "Safari has encoded WebP since version 14. On anything older the tool refuses rather than quietly handing back a PNG with a .webp name."
+      }
     }
   },
   "wordCounter": {

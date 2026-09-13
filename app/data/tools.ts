@@ -501,6 +501,34 @@ export const tools: ToolDef[] = [
     maxFiles: 1
   },
   {
+    id: 'jpg-to-webp',
+    category: 'image',
+    group: 'convert',
+    component: 'image/Convert',
+    icon: 'repeat',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'jpg-to-webp', ru: 'jpg-v-webp', uz: 'jpg-dan-webp' },
+    config: { accept: 'image/jpeg', to: 'webp' },
+    related: ['png-to-webp', 'image-compress'],
+    acceptedTypes: ['image/jpeg'],
+    maxFiles: 1
+  },
+  {
+    id: 'png-to-webp',
+    category: 'image',
+    group: 'convert',
+    component: 'image/Convert',
+    icon: 'repeat',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'png-to-webp', ru: 'png-v-webp', uz: 'png-dan-webp' },
+    config: { accept: 'image/png', to: 'webp' },
+    related: ['jpg-to-webp', 'image-compress'],
+    acceptedTypes: ['image/png'],
+    maxFiles: 1
+  },
+  {
     id: 'webp-to-jpg',
     category: 'image',
     group: 'convert',
