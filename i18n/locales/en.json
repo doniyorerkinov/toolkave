@@ -2132,7 +2132,8 @@
     "errorGeneric": "The image could not be read. Try a PNG or JPG.",
     "copy": "Copy",
     "copied": "Copied",
-    "download": "Download .txt"
+    "download": "Download .txt",
+    "downloading": "Downloading language data (about {size} MB). This happens once — next time it starts straight away."
   },
   "docs": {
     "working": "Converting…",
@@ -2270,7 +2271,8 @@
           "body": [
             "The site is hosted by Cloudflare, which serves the pages and provides the analytics described above.",
             "Fonts are served from this domain rather than a font network, so loading a page contacts nobody else.",
-            "Two tools reach outside on purpose: the currency converter fetches rates from the Central Bank of Uzbekistan (cbu.uz) and open.er-api.com, and the YouTube thumbnail tool loads images from YouTube. Those requests carry the video ID or currency you asked about, nothing more."
+            "Two tools reach outside on purpose: the currency converter fetches rates from the Central Bank of Uzbekistan (cbu.uz) and open.er-api.com, and the YouTube thumbnail tool loads images from YouTube. Those requests carry the video ID or currency you asked about, nothing more.",
+            "The text-recognition tools download their language models from the Tesseract project's public file host the first time you use them, and your browser caches them afterwards. That request says which language you picked and nothing about the image, which never leaves your device."
           ]
         },
         {

@@ -2132,7 +2132,8 @@
     "errorGeneric": "Rasmni oʻqib boʻlmadi. PNG yoki JPG sinab koʻring.",
     "copy": "Nusxalash",
     "copied": "Nusxalandi",
-    "download": ".txt yuklab olish"
+    "download": ".txt yuklab olish",
+    "downloading": "Til ma'lumotlari yuklanmoqda (taxminan {size} MB). Bu bir marta bo'ladi — keyingi safar darhol boshlanadi."
   },
   "docs": {
     "working": "Oʻgirilmoqda…",
@@ -2270,7 +2271,8 @@
           "body": [
             "Sayt Cloudflare'da joylashgan — u sahifalarni uzatadi va yuqorida aytilgan tahlilni beradi.",
             "Shriftlar shrift tarmog'idan emas, shu domendan beriladi, shuning uchun sahifani ochish boshqa hech kimga murojaat qilmaydi.",
-            "Ikki vosita ataylab tashqariga chiqadi: valyuta konvertori kurslarni O'zbekiston Markaziy banki saytidan (cbu.uz) va open.er-api.com dan oladi, YouTube muqovasi vositasi esa rasmlarni YouTube'dan yuklaydi. Bu so'rovlarda faqat video identifikatori yoki tanlangan valyuta uzatiladi."
+            "Ikki vosita ataylab tashqariga chiqadi: valyuta konvertori kurslarni O'zbekiston Markaziy banki saytidan (cbu.uz) va open.er-api.com dan oladi, YouTube muqovasi vositasi esa rasmlarni YouTube'dan yuklaydi. Bu so'rovlarda faqat video identifikatori yoki tanlangan valyuta uzatiladi.",
+            "Matn tanish vositalari birinchi ishlatganda til modellarini Tesseract loyihasining ochiq fayl xostidan yuklab oladi, keyin brauzer ularni keshda saqlaydi. Bu so'rovda faqat tanlangan til uzatiladi — rasm haqida hech narsa, u hech qayerga ketmaydi."
           ]
         },
         {

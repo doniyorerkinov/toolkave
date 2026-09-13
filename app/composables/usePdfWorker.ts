@@ -113,7 +113,10 @@ export function usePdfWorker() {
   ): Promise<number> {
     const id = nextId++
     return send<Extract<PdfWorkerResponse, { kind: 'thumbnail' }>>(
-      { id, kind: 'thumbnails', pdfBytes, pages, maxDimension },
+      // `pages` is spread for the same reason everywhere in this file: a
+      // caller may hand over a reactive array, and postMessage cannot clone
+      // a Proxy.
+      { id, kind: 'thumbnails', pdfBytes, pages: [...pages], maxDimension },
       message => onPage({ page: message.page, bitmap: message.bitmap, width: message.width, height: message.height }),
       progress
     )
@@ -130,7 +133,7 @@ export function usePdfWorker() {
   ): Promise<number> {
     const id = nextId++
     return send<Extract<PdfWorkerResponse, { kind: 'raster' }>>(
-      { id, kind: 'rasterize', pdfBytes, pages, maxDimension, quality },
+      { id, kind: 'rasterize', pdfBytes, pages: [...pages], maxDimension, quality },
       message => onPage({ page: message.page, data: message.data, width: message.width, height: message.height }),
       progress
     )

@@ -17,13 +17,21 @@ import type { HeldFile } from '~/stores/files'
 export const OCR_LANGUAGES = ['eng', 'rus', 'uzb', 'uzb_cyrl'] as const
 export type OcrLanguage = (typeof OCR_LANGUAGES)[number]
 
-/** Roughly how much has to be downloaded per language, for the UI to warn with. */
+/**
+ * How much has to be downloaded per language, measured from the compressed
+ * files Tesseract actually fetches. These were once a third of the truth,
+ * which turned a nine-minute wait on a slow connection into a tool that
+ * looked broken.
+ */
 export const LANGUAGE_DOWNLOAD_MB: Record<OcrLanguage, number> = {
-  eng: 3,
-  rus: 2.7,
-  uzb: 3.1,
-  uzb_cyrl: 0.9
+  eng: 10,
+  rus: 8,
+  uzb: 4.5,
+  uzb_cyrl: 2
 }
+
+/** The stage Tesseract reports while fetching those files. */
+export const DOWNLOAD_STAGE = 'loading language traineddata'
 
 export interface OcrProgress {
   /** Tesseract's own stage name, e.g. "recognizing text". */
@@ -105,7 +113,15 @@ export async function recogniseImage(
   const { createWorker } = await import('tesseract.js')
   const image = await prepare(file.data, file.type || 'image/png')
 
-  const worker = await createWorker(languages, 1, {
+  /**
+   * Copied, not passed through. Tesseract posts this list to its own worker,
+   * and a Vue `ref` holding an array hands out a reactive Proxy - which
+   * structured clone refuses with a DataCloneError that names nothing useful.
+   * A spread produces a plain array of plain strings.
+   */
+  const requested = [...languages]
+
+  const worker = await createWorker(requested, 1, {
     logger: message => {
       if (!onProgress) return
       onProgress({ stage: message.status, progress: message.progress ?? 0 })

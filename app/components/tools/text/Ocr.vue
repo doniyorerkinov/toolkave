@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LANGUAGE_DOWNLOAD_MB, OCR_ACCEPTED, OCR_LANGUAGES, recogniseImage, type OcrLanguage } from '~/composables/useOcr'
+import { DOWNLOAD_STAGE, LANGUAGE_DOWNLOAD_MB, OCR_ACCEPTED, OCR_LANGUAGES, recogniseImage, type OcrLanguage } from '~/composables/useOcr'
 import { downloadBytes } from '~/utils/download'
 import { useFilesStore } from '~/stores/files'
 
@@ -16,6 +16,13 @@ const confidence = ref<number | null>(null)
 const stage = ref<string | null>(null)
 const progress = ref(0)
 const copied = ref(false)
+
+/**
+ * Tesseract reports the model download as one step at 0%, so the percentage
+ * sits still for minutes on a slow connection and the tool reads as frozen.
+ * While that step is running, say what is actually happening instead.
+ */
+const downloading = computed(() => stage.value === DOWNLOAD_STAGE)
 
 const file = computed(() => store.files[0] ?? null)
 const canRun = computed(() => !!file.value && languages.value.length > 0 && !store.busy)
@@ -142,7 +149,10 @@ const LOW_CONFIDENCE = 70
       <div class="h-2 w-full overflow-hidden rounded-full bg-stone-200">
         <div class="h-full rounded-full bg-ember-600 transition-all" :style="{ width: `${progress}%` }" />
       </div>
-      <p class="text-xs text-stone-500">{{ stage }} — {{ progress }}%</p>
+      <p v-if="downloading" class="text-xs text-stone-500">
+        {{ t('ocr.downloading', { size: downloadSize }) }}
+      </p>
+      <p v-else class="text-xs text-stone-500">{{ stage }} — {{ progress }}%</p>
     </div>
 
     <p v-if="store.error" class="text-sm text-red-700" role="alert">{{ store.error }}</p>
