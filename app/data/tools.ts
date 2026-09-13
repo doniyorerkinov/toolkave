@@ -523,6 +523,19 @@ export const tools: ToolDef[] = [
     acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
     maxFiles: 1
   },
+  {
+    id: 'image-social',
+    category: 'image',
+    group: 'optimise',
+    component: 'image/Social',
+    icon: 'smartphone',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'social-media-image-size', ru: 'razmer-kartinki-dlya-socsetey', uz: 'ijtimoiy-tarmoq-rasm-olchami' },
+    related: ['image-crop', 'image-resize', 'image-compress'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
+    maxFiles: 1
+  },
   // One component, one page per conversion pair - each is a separate query.
   {
     id: 'png-to-jpg',

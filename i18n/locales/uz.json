@@ -525,6 +525,47 @@
       "singleHint": "{w} × {h} piksel o‘lchamda saqlanadi — bu tanlangan o‘lchamda {dpi} DPI degani.",
       "noteSingle": "{size}, {dpi} DPI — {w} × {h} piksel",
       "noteSheet": "{paper} varaqda {size} o‘lchamli {n} ta surat"
+    },
+    "social": {
+      "action": "Rasmni tayyorlash",
+      "sizeLabel": "Qayerga ketadi",
+      "group": {
+        "youtube": "YouTube",
+        "instagram": "Instagram",
+        "telegram": "Telegram",
+        "facebook": "Facebook",
+        "x": "X",
+        "linkedin": "LinkedIn",
+        "web": "Sayt"
+      },
+      "preset": {
+        "youtube-thumbnail": "Muqova rasm",
+        "youtube-banner": "Kanal shapkasi",
+        "instagram-square": "Kvadrat post",
+        "instagram-portrait": "Tik post",
+        "instagram-story": "Storis yoki Reels",
+        "telegram-channel": "Kanal rasmi",
+        "facebook-cover": "Muqova",
+        "facebook-post": "Postga rasm",
+        "x-header": "Shapka",
+        "x-post": "Postga rasm",
+        "linkedin-banner": "Banner",
+        "og-image": "Havola ko‘rinishi"
+      },
+      "frameHint": "Kadrda nima qolishini tanlash uchun ramkani torting, yaqinlashtirish uchun burchagidan torting.",
+      "modeLabel": "Qanday joylansin",
+      "mode": {
+        "fill": "Kadrni to‘ldirish",
+        "fit": "Rasmni butun qoldirish"
+      },
+      "backdropLabel": "Chetlarida nima bo‘lsin",
+      "backdrop": {
+        "blur": "Xira nusxa",
+        "white": "Oq",
+        "black": "Qora"
+      },
+      "upscaling": "Rasmingiz {w} × {h} dan kichik, shuning uchun u kattalashtiriladi va biroz xiraroq ko‘rinishi mumkin.",
+      "note": "{name} — {w} × {h}"
     }
   },
   "percent": {
@@ -2318,6 +2359,30 @@
         "a4": "Yo‘q — hujjat uchun ishonsa bo‘ladigan darajada buni hech bir brauzer vositasi qila olmaydi. Suratni oddiy, tekis yoritilgan och devor fonida, bosh orqasida soya qolmaydigan qilib oling. Qoidalar ham aynan shuni talab qiladi va bu keyin odamni kesib oladigan har qanday usuldan ancha ishonchli.",
         "q5": "Varaqni qanday chop etaman?",
         "a5": "10 × 15 sm faylni istalgan foto do‘kon yoki kioskka oddiy foto bosma sifatida bering, yoki A4 variantini uyda foto qog‘ozga 100% masshtabda, sahifaga moslashtirmasdan chop eting. Ingichka kulrang chiziqlar bo‘ylab qirqing. Printer sozlamalarida “sahifaga moslashtirish” o‘chirilganiga ishonch hosil qiling, aks holda har bir surat bir oz noto‘g‘ri o‘lchamda chiqadi."
+      }
+    },
+    "image-social": {
+      "name": "Ijtimoiy tarmoq o‘lchamlari",
+      "short": "Rasmni YouTube, Instagram yoki Telegram so‘ragan aniq o‘lchamga qirqish.",
+      "title": "Ijtimoiy tarmoq uchun rasm o‘lchami — YouTube, Instagram, Telegram",
+      "description": "Ijtimoiy tarmoqlar uchun bepul onlayn o‘lcham o‘zgartirgich. YouTube muqova rasmi, Instagram posti yoki storisi, Telegram kanal rasmi, X shapkasi va boshqalar uchun aniq piksel o‘lchamida qirqing va saqlang. Brauzerda ishlaydi — hech narsa yuklanmaydi.",
+      "intro": "Rasm qayerga ketishini tanlang va ramka o‘sha shaklga qulflanadi. Kadrda nima qolishini hal qilish uchun uni torting, so‘ng platforma so‘ragan aniq pikselda saqlang. Agar rasm butunligicha sig‘ishi kerak bo‘lsa — logotip yoki keng shapkadagi tik surat — “butun qoldirish”ga o‘ting va chetlarini o‘zining xira nusxasi bilan to‘ldiring.",
+      "howTo": {
+        "step1": "Joylamoqchi bo‘lgan rasmni qo‘shing.",
+        "step2": "Platforma va o‘lchamni tanlang, so‘ng ramkani asosiy joyga to‘g‘rilang.",
+        "step3": "“Rasmni tayyorlash”ni bosing va yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega o‘lcham muhim?",
+        "a1": "Har bir platforma noto‘g‘ri shaklda kelgan hamma narsani o‘zi qayta qirqadi va markazdan qarab o‘tirmay kesadi — sarlavhalarning oxirgi so‘zi shunday yo‘qoladi, guruh suratlaridan esa chekkadagi odam. Rasmni allaqachon to‘g‘ri shaklda yuborish — kadrda nima qolishini o‘zingiz hal qilishning yagona yo‘li.",
+        "q2": "“To‘ldirish” bilan “butun qoldirish” nimasi bilan farq qiladi?",
+        "a2": "To‘ldirish rasmni kerakli shaklga qirqadi: bo‘sh joy qolmaydi, lekin chetlari yo‘qoladi. “Butun qoldirish” rasmni to‘liq saqlaydi va yon tomoniga biror narsa qo‘yadi — video ilovalar qiladigandek rasmning o‘zidan kattalashtirilgan xira nusxa (ataylab qilingandek ko‘rinadi), yoki oddiy oq va qora fon. Suratlar uchun to‘ldirish, cheti muhim bo‘lgan logotip va skrinshotlar uchun “butun qoldirish”.",
+        "q3": "Rasmim tanlangan o‘lchamdan kichik.",
+        "a3": "U kattalashtiriladi, kattalashtirish esa avval yozilmagan tafsilotni qo‘sha olmaydi, shuning uchun biroz xira ko‘rinadi. Muqova rasm uchun odatda o‘tadi, 2560 piksel kenglikdagi kanal shapkasi uchun esa yo‘q. Bor eng katta nusxadan boshlang: allaqachon biror joyga joylangan va qayta siqilgan emas, kameradagi asl fayldan.",
+        "q4": "Qaysi formatni tanlash kerak?",
+        "a4": "Suratlar uchun JPG — platformalar baribir shunga qayta o‘tkazadi. Logotip, skrinshot va tekis rang yoki o‘tkir matn bor hamma narsa uchun PNG: u yerda JPG halqa qoldiradi. WebP ikkalasidan ham kichik, lekin uni hamma yuklash shakli qabul qilavermaydi, shuning uchun u post uchun emas, o‘z saytingiz uchun ko‘proq to‘g‘ri keladi.",
+        "q5": "Rasmim biror joyga yuklanadimi?",
+        "a5": "Yo‘q. Qirqish ham, o‘lcham o‘zgartirish ham brauzeringiz ichida, o‘z qurilmangizda bajariladi — serverga hech narsa ketmaydi va rasm internetga faqat siz o‘zingiz joylaganingizda chiqadi."
       }
     }
   },

@@ -736,3 +736,53 @@ export async function buildPhotoSheet(
     count: rows * columns
   }
 }
+
+export type Backdrop = 'white' | 'black' | 'blur'
+
+/**
+ * Place the whole picture inside an exact size without cropping anything.
+ *
+ * A tall photo put into a wide banner has to have something either side.
+ * Bars are honest but ugly; a blown-up blurred copy of the picture itself is
+ * what every video app does, and it reads as deliberate.
+ */
+export async function fitToSize(
+  file: HeldFile,
+  target: { width: number; height: number },
+  backdrop: Backdrop,
+  format: ImageFormat,
+  quality = 0.92
+): Promise<ImageResult> {
+  const bitmap = await decode(file.data)
+  const canvas = document.createElement('canvas')
+  canvas.width = Math.round(target.width)
+  canvas.height = Math.round(target.height)
+  const context = canvas.getContext('2d')
+  if (!context) {
+    bitmap.close()
+    throw new Error('canvas unavailable')
+  }
+
+  if (backdrop === 'blur') {
+    const cover = Math.max(canvas.width / bitmap.width, canvas.height / bitmap.height)
+    const width = bitmap.width * cover
+    const height = bitmap.height * cover
+    context.filter = `blur(${Math.max(8, Math.round(Math.min(canvas.width, canvas.height) / 18))}px)`
+    context.drawImage(bitmap, (canvas.width - width) / 2, (canvas.height - height) / 2, width, height)
+    context.filter = 'none'
+  } else {
+    context.fillStyle = backdrop === 'black' ? '#000000' : '#ffffff'
+    context.fillRect(0, 0, canvas.width, canvas.height)
+  }
+
+  const fit = Math.min(canvas.width / bitmap.width, canvas.height / bitmap.height)
+  const width = bitmap.width * fit
+  const height = bitmap.height * fit
+  context.drawImage(bitmap, (canvas.width - width) / 2, (canvas.height - height) / 2, width, height)
+  bitmap.close()
+
+  const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, MIME[format], quality))
+  if (!blob) throw new Error('encode failed')
+  if (blob.type !== MIME[format]) throw new Error(UNSUPPORTED_OUTPUT)
+  return { data: new Uint8Array(await blob.arrayBuffer()), width: canvas.width, height: canvas.height }
+}

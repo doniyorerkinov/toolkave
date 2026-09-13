@@ -525,6 +525,47 @@
       "singleHint": "Saved at {w} × {h} pixels, which is {dpi} DPI at the size you picked.",
       "noteSingle": "{size} at {dpi} DPI — {w} × {h} pixels",
       "noteSheet": "{n} photos of {size} on {paper}"
+    },
+    "social": {
+      "action": "Make the image",
+      "sizeLabel": "Where it is going",
+      "group": {
+        "youtube": "YouTube",
+        "instagram": "Instagram",
+        "telegram": "Telegram",
+        "facebook": "Facebook",
+        "x": "X",
+        "linkedin": "LinkedIn",
+        "web": "Website"
+      },
+      "preset": {
+        "youtube-thumbnail": "Thumbnail",
+        "youtube-banner": "Channel art",
+        "instagram-square": "Square post",
+        "instagram-portrait": "Portrait post",
+        "instagram-story": "Story or Reel",
+        "telegram-channel": "Channel photo",
+        "facebook-cover": "Cover",
+        "facebook-post": "Shared image",
+        "x-header": "Header",
+        "x-post": "Post image",
+        "linkedin-banner": "Banner",
+        "og-image": "Link preview"
+      },
+      "frameHint": "Drag the frame to choose what stays in shot, drag a corner to zoom.",
+      "modeLabel": "How to fit it",
+      "mode": {
+        "fill": "Fill the frame",
+        "fit": "Keep the whole picture"
+      },
+      "backdropLabel": "What goes around it",
+      "backdrop": {
+        "blur": "Blurred copy",
+        "white": "White",
+        "black": "Black"
+      },
+      "upscaling": "Your picture is smaller than {w} × {h}, so it will be enlarged and may look a little soft.",
+      "note": "{name} — {w} × {h}"
     }
   },
   "percent": {
@@ -2318,6 +2359,30 @@
         "a4": "No — and no browser tool can do it well enough to trust for a document. Take the photo against a plain, evenly lit light wall, with no shadow behind the head. That is what the rules ask for anyway, and it is far more reliable than anything that cuts you out afterwards.",
         "q5": "How do I print the sheet?",
         "a5": "Send the 10 × 15 cm file to any print shop or photo kiosk as a normal photo print, or print the A4 version at home on photo paper at 100% scale, with no fitting or shrinking. Cut along the thin grey lines. Make sure the printer is not set to fit the page, or every photo will come out slightly the wrong size."
+      }
+    },
+    "image-social": {
+      "name": "Social media sizes",
+      "short": "Cut a picture to the exact size YouTube, Instagram or Telegram wants.",
+      "title": "Social Media Image Resizer — YouTube, Instagram, Telegram sizes",
+      "description": "Free online resizer for social media. Crop and export at the exact pixel size for a YouTube thumbnail, Instagram post or story, Telegram channel photo, X header and more. Runs in your browser — nothing is uploaded.",
+      "intro": "Pick where the picture is going and the frame locks to that shape. Drag it to choose what stays in shot, then save at the exact pixel size the platform asks for. If the whole picture has to fit — a logo, or a tall photo in a wide banner — switch to keeping it all and fill the sides with a blurred copy of itself.",
+      "howTo": {
+        "step1": "Add the picture you want to post.",
+        "step2": "Pick the platform and size, then drag the frame over the part that matters.",
+        "step3": "Press Make the image and download it."
+      },
+      "faq": {
+        "q1": "Why does the size matter?",
+        "a1": "Every platform re-crops anything that arrives at the wrong shape, and it crops from the centre without looking — which is how titles lose their last word and group photos lose the person on the end. Sending the picture already at the right shape is the only way to decide what stays in frame yourself.",
+        "q2": "What is the difference between filling and keeping the whole picture?",
+        "a2": "Filling cuts the picture down to the shape needed, so nothing is left over but something is lost off the edges. Keeping it all leaves the picture whole and puts something either side — a blurred blow-up of the picture itself, which is what video apps do and reads as deliberate, or plain white or black. Use filling for photos, keeping for logos and screenshots where an edge matters.",
+        "q3": "My picture is smaller than the size I picked.",
+        "a3": "It will be enlarged, and enlarging cannot add detail that was never captured, so it will look a little soft. For a thumbnail it usually still passes; for a 2560-pixel-wide channel banner it will not. Start from the largest copy you have — the original off the camera rather than one already posted and re-compressed somewhere.",
+        "q4": "Which format should I pick?",
+        "a4": "JPG for photographs — it is what every platform re-encodes to anyway. PNG for logos, screenshots and anything with flat colour or sharp text, where JPG leaves a halo. WebP is smaller than both but not every upload form accepts it, so use it for your own website rather than for a post.",
+        "q5": "Is my picture uploaded anywhere?",
+        "a5": "No. The crop and the resize happen inside your browser, on your own device — nothing is sent to a server, and the picture reaches the internet only when you post it yourself."
       }
     }
   },
