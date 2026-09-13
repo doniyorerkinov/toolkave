@@ -562,6 +562,19 @@ export const tools: ToolDef[] = [
     acceptedTypes: ['image/svg+xml'],
     maxFiles: 1
   },
+  {
+    id: 'image-watermark',
+    category: 'image',
+    group: 'optimise',
+    component: 'image/Watermark',
+    icon: 'stamp',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'add-watermark', ru: 'vodyanoy-znak', uz: 'suv-belgisi' },
+    related: ['image-metadata', 'image-compress'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
+    maxFiles: 1
+  },
   // One component, one page per conversion pair - each is a separate query.
   {
     id: 'png-to-jpg',

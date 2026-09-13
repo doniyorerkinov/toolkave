@@ -592,6 +592,41 @@
       "transparent": "Keep the background transparent",
       "jpegOpaque": "JPG has no transparency, so the background is filled with white.",
       "note": "{w} × {h} pixels"
+    },
+    "watermark": {
+      "action": "Save watermarked",
+      "sample": "© Your name",
+      "kindLabel": "What to put on it",
+      "kind": {
+        "text": "Text",
+        "image": "Logo"
+      },
+      "textLabel": "The text",
+      "colourLabel": "Colour",
+      "logoLabel": "The logo to lay over it",
+      "logoHint": "A PNG with a transparent background works best.",
+      "size": "Size: {n}%",
+      "opacity": "Opacity: {n}%",
+      "rotation": "Angle: {n}°",
+      "placeLabel": "Where it goes",
+      "place": {
+        "nw": "Top left",
+        "n": "Top",
+        "ne": "Top right",
+        "w": "Left",
+        "c": "Middle",
+        "e": "Right",
+        "sw": "Bottom left",
+        "s": "Bottom",
+        "se": "Bottom right",
+        "tile": "Repeat across the whole picture"
+      },
+      "margin": "Margin: {n}%",
+      "marginHint": "Distance from the edge, as a share of the picture — so it looks the same on any size.",
+      "note": {
+        "placed": "Watermark drawn into the picture",
+        "tiled": "Watermark repeated across the picture"
+      }
     }
   },
   "percent": {
@@ -2457,6 +2492,30 @@
         "a4": "Not meaningfully. A vector is a set of instructions and a PNG is a grid of pixels; turning the grid back into instructions is tracing, and it guesses. Keep the SVG as your original and export PNGs from it whenever you need one.",
         "q5": "Is my file uploaded anywhere?",
         "a5": "No. The SVG is read and drawn inside your browser, on your own device. It is also loaded in a way that runs no scripts and fetches nothing, so an SVG from an unknown source cannot do anything while it is being converted."
+      }
+    },
+    "image-watermark": {
+      "name": "Add watermark",
+      "short": "Put your name or logo on a picture before you share it.",
+      "title": "Add Watermark to Photo — free, online, no upload",
+      "description": "Free online watermark tool. Add text or a logo to a picture, anywhere on it or repeated across the whole thing, and save. Runs in your browser — the picture is never uploaded.",
+      "intro": "Type your name or add a logo, place it where you want, and set how strongly it shows. The preview is the real thing, so what you line up is what gets saved. For anything you expect to be lifted, repeat the mark across the whole picture — a corner mark is one crop away from gone.",
+      "howTo": {
+        "step1": "Add the picture you are about to share.",
+        "step2": "Type your text or add a logo, then place it and set the strength.",
+        "step3": "Press Save watermarked and download it."
+      },
+      "faq": {
+        "q1": "Where should I put the mark?",
+        "a1": "A mark in a corner is tidy and easy to crop off, which is fine if you only want people to know who made something. If you are protecting work that gets lifted — a photographer's proofs, a listing photo — repeat it across the whole picture at low opacity. Removing that means removing it from every part of the image, which is far more trouble than finding another photo.",
+        "q2": "How strong should it be?",
+        "a2": "Strong enough to be unmistakable, faint enough not to ruin the picture — around half opacity is usually the balance. White works on most photographs because it survives dark and light areas alike; black disappears into shadows. Turning it a little off horizontal makes it harder to paint out cleanly.",
+        "q3": "Can a watermark be removed?",
+        "a3": "A determined person with editing software can remove most of them, and tools that do it automatically exist. The point is not to be impossible — it is to be more work than it is worth, and to make an unmarked copy obviously stolen when one turns up. A repeated, semi-transparent mark over the subject achieves that; a small corner logo does not.",
+        "q4": "Is the quality affected?",
+        "a4": "The picture is saved again in the same format at high quality, which costs a very small amount on a JPG as any re-save does, and nothing at all on PNG or WebP. The mark itself is drawn into the pixels, so it survives being screenshotted, re-saved and re-posted.",
+        "q5": "Is my picture uploaded anywhere?",
+        "a5": "No. Both the picture and the logo stay in your browser, on your own device. Nothing is sent to a server — which matters here, because unwatermarked originals are exactly what you are trying not to hand out."
       }
     }
   },

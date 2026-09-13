@@ -592,6 +592,41 @@
       "transparent": "Fon shaffof qolsin",
       "jpegOpaque": "JPG da shaffoflik yo‘q, shuning uchun fon oq bilan to‘ldiriladi.",
       "note": "{w} × {h} piksel"
+    },
+    "watermark": {
+      "action": "Belgi bilan saqlash",
+      "sample": "© Ismingiz",
+      "kindLabel": "Nima qo‘yiladi",
+      "kind": {
+        "text": "Matn",
+        "image": "Logotip"
+      },
+      "textLabel": "Matn",
+      "colourLabel": "Rang",
+      "logoLabel": "Rasm ustiga qo‘yiladigan logotip",
+      "logoHint": "Shaffof fonli PNG eng yaxshi natija beradi.",
+      "size": "O‘lchami: {n}%",
+      "opacity": "Qorayligi: {n}%",
+      "rotation": "Burchagi: {n}°",
+      "placeLabel": "Qayerga qo‘yiladi",
+      "place": {
+        "nw": "Yuqori chapda",
+        "n": "Yuqorida",
+        "ne": "Yuqori o‘ngda",
+        "w": "Chapda",
+        "c": "O‘rtada",
+        "e": "O‘ngda",
+        "sw": "Pastki chapda",
+        "s": "Pastda",
+        "se": "Pastki o‘ngda",
+        "tile": "Butun rasm bo‘ylab takrorlash"
+      },
+      "margin": "Chekka bo‘shliq: {n}%",
+      "marginHint": "Chetdan masofa rasmning ulushi sifatida — shunda har qanday o‘lchamda bir xil ko‘rinadi.",
+      "note": {
+        "placed": "Belgi rasmning o‘ziga chizildi",
+        "tiled": "Belgi butun rasm bo‘ylab takrorlandi"
+      }
     }
   },
   "percent": {
@@ -2457,6 +2492,30 @@
         "a4": "Haqiqiy ma’noda — yo‘q. Vektor — ko‘rsatmalar to‘plami, PNG esa piksellar to‘ri; to‘rni qayta ko‘rsatmalarga aylantirish trassirovka deyiladi va u doim taxmin qiladi. SVG ni asl nusxa sifatida saqlang va kerak bo‘lganda undan PNG eksport qiling.",
         "q5": "Faylim biror joyga yuklanadimi?",
         "a5": "Yo‘q. SVG brauzeringiz ichida, o‘z qurilmangizda o‘qiladi va chiziladi. U shunday yuklanadiki, skriptlar bajarilmaydi va hech narsa tashqaridan olinmaydi, shuning uchun noma’lum manbadagi SVG o‘girish paytida hech narsa qila olmaydi."
+      }
+    },
+    "image-watermark": {
+      "name": "Suv belgisi qo‘yish",
+      "short": "Rasmni ulashishdan oldin unga ism yoki logotip qo‘yish.",
+      "title": "Suratga suv belgisi — bepul, onlayn, yuklamasdan",
+      "description": "Bepul onlayn suv belgisi vositasi. Rasmga matn yoki logotipni istalgan joyga qo‘ying yoki butun bo‘ylab takrorlang va saqlang. Brauzerda ishlaydi — rasm hech qayerga yuklanmaydi.",
+      "intro": "Ismingizni yozing yoki logotip qo‘shing, uni kerakli joyga joylang va qanchalik ko‘rinishini tanlang. Ko‘rinayotgan narsa haqiqiy natija, ya’ni nimani joylasangiz, o‘shani olasiz. O‘g‘irlanishi aniq narsalar uchun belgini butun rasm bo‘ylab takrorlang: burchakdagi belgi yo‘qolishiga bitta qirqish yetadi.",
+      "howTo": {
+        "step1": "Ulashmoqchi bo‘lgan rasmni qo‘shing.",
+        "step2": "Matn yozing yoki logotip qo‘shing, so‘ng joylang va kuchini sozlang.",
+        "step3": "“Belgi bilan saqlash”ni bosing va yuklab oling."
+      },
+      "faq": {
+        "q1": "Belgini qayerga qo‘ygan ma’qul?",
+        "a1": "Burchakdagi belgi ozoda ko‘rinadi va oson qirqiladi — agar shunchaki muallif kim ekanini bildirmoqchi bo‘lsangiz, shu yetarli. Agar o‘g‘irlanadigan ishni himoya qilayotgan bo‘lsangiz (fotografning namunalari, e’lon surati), belgini past qoraylikda butun rasm bo‘ylab takrorlang. Bunisini olib tashlash — tasvirning har bir qismidan olib tashlash demak, bu esa boshqa surat topishdan ancha mashaqqatli.",
+        "q2": "Qanchalik kuchli qilish kerak?",
+        "a2": "Adashtirmaydigan darajada sezilarli, rasmni buzmaydigan darajada yengil — taxminan yarim qoraylik odatda shu muvozanat. Oq rang ko‘p suratlarda ishlaydi, chunki u yorug‘ va to‘q joylarda ham ko‘rinadi; qora esa soyalarda yo‘qoladi. Biroz qiyshaytirish uni toza bo‘yab tashlashni qiyinlashtiradi.",
+        "q3": "Suv belgisini olib tashlash mumkinmi?",
+        "a3": "Tahrirlash dasturi bor qat’iyatli odam deyarli har qandayini olib tashlaydi, buni avtomatik qiladigan vositalar ham bor. Maqsad — buni imkonsiz qilish emas, arziganidan ko‘ra ko‘proq mehnat talab qiladigan qilish va belgisiz nusxa chiqib qolganda uning o‘g‘irlangani ko‘rinib turishi. Mavzu ustiga takrorlangan yarim shaffof belgi buni beradi, burchakdagi kichkina logotip esa yo‘q.",
+        "q4": "Sifatga ta’sir qiladimi?",
+        "a4": "Rasm o‘sha formatda yuqori sifatda qayta saqlanadi: JPG uchun bu har qanday qayta saqlashdagidek juda oz turadi, PNG va WebP uchun umuman bepul. Belgining o‘zi piksellarga chiziladi, shuning uchun skrinshot, qayta saqlash va qayta joylashdan keyin ham qoladi.",
+        "q5": "Rasmim biror joyga yuklanadimi?",
+        "a5": "Yo‘q. Rasm ham, logotip ham brauzeringizda, o‘z qurilmangizda qoladi. Serverga hech narsa yuborilmaydi — bu yerda bu ayniqsa muhim, chunki belgisiz asl nusxalar aynan siz hech kimga bermoqchi bo‘lmagan narsa."
       }
     }
   },
