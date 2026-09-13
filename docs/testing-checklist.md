@@ -35,6 +35,12 @@ Download work) apply to every tool and aren't repeated per entry.
 - Mobile width (or a narrow browser window): dropzone, buttons and any grid
   still work with a touch/tap, not just a mouse.
 
+**When a tool is flagged and deployed, its URLs go to Search Console.** A new page is
+unknown to Google and nothing links to it, so it waits undiscovered until someone asks for
+it by name. After every deploy, take that tool's en/ru/uz URLs to Search Console → URL
+inspection → Request indexing, one at a time (~10/day), and put the rest through Yandex
+Webmaster → Indexing → Reindex pages (~20/day). Live but unindexed is not shipped.
+
 Registry snapshot: **64 tools, 31 published, 33 drafts** — every PDF tool in the registry is live, plus Word counter. What is left is the image, text, converter, calculator, generator and developer categories.
 
 **The order below is the testing order, and therefore the publishing order.** It is
