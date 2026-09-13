@@ -471,6 +471,19 @@ export const tools: ToolDef[] = [
     acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
     maxFiles: 1
   },
+  {
+    id: 'image-rotate',
+    category: 'image',
+    group: 'optimise',
+    component: 'image/Rotate',
+    icon: 'rotate-cw',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'rotate-image', ru: 'povernut-izobrazhenie', uz: 'rasmni-burish' },
+    related: ['image-crop', 'image-resize'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
+    maxFiles: 1
+  },
   // One component, one page per conversion pair - each is a separate query.
   {
     id: 'png-to-jpg',

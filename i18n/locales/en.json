@@ -439,6 +439,16 @@
     "crop": {
       "action": "Crop image",
       "sizeHint": "The cropped picture is saved at this size. Leave it as it is to keep the original resolution."
+    },
+    "rotate": {
+      "action": "Save rotated image",
+      "left": "Rotate left",
+      "right": "Rotate right",
+      "flipHorizontal": "Flip across",
+      "flipVertical": "Flip down",
+      "reset": "Undo all",
+      "hint": "Use the buttons to turn or mirror the picture. The preview is exactly what will be saved.",
+      "note": "Saved at {w} × {h}"
     }
   },
   "percent": {
@@ -2138,6 +2148,28 @@
         "a3": "WebP here is lossy, so fine detail is approximated — invisible at high quality on most graphics, but if you need pixel-exact output keep the PNG.",
         "q4": "Does it work on Safari?",
         "a4": "Safari has encoded WebP since version 14. On anything older the tool refuses rather than quietly handing back a PNG with a .webp name."
+      }
+    },
+    "image-rotate": {
+      "name": "Rotate image",
+      "short": "Turn a picture the right way up, or mirror it.",
+      "title": "Rotate Image — turn or flip a photo online, free",
+      "description": "Free online image rotator. Turn a photo 90°, 180° or 270°, or mirror it across or down, and save it. Runs in your browser — the picture is never uploaded.",
+      "intro": "Add a picture and use the buttons to turn it a quarter turn at a time or mirror it. The preview updates as you go and is exactly what gets saved, so a sideways phone photo takes two clicks to fix.",
+      "howTo": {
+        "step1": "Add the picture that is facing the wrong way.",
+        "step2": "Turn it left or right until it looks right, and mirror it if you need to.",
+        "step3": "Press Save rotated image and download the result."
+      },
+      "faq": {
+        "q1": "Why is my photo sideways in the first place?",
+        "a1": "Phones store the picture as the sensor saw it and add a note saying which way the phone was held. Apps that ignore that note show it sideways. This tool reads the note, applies it, and then saves the picture actually turned the right way — so it looks correct everywhere afterwards.",
+        "q2": "Does rotating lose quality?",
+        "a2": "A quarter turn moves whole pixels, so nothing is blurred or resampled. A JPG is saved again at high quality, which costs a very small amount on any re-save; a PNG or WebP loses nothing at all.",
+        "q3": "What is the difference between rotating and flipping?",
+        "a3": "Rotating turns the picture. Flipping mirrors it, the way a mirror reverses left and right — useful for a selfie that came out backwards, or for scanned film that was fed in the wrong way round. Text in a flipped picture reads backwards, which is the quick way to tell them apart.",
+        "q4": "Is my picture uploaded anywhere?",
+        "a4": "No. The turn happens inside your browser, on your own device. Nothing is sent to a server, which is also why it keeps working with the tab offline once the page has loaded."
       }
     }
   },

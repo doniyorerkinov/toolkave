@@ -287,6 +287,58 @@ export async function resizeImage(
   return result
 }
 
+export interface Transform {
+  /** Clockwise, in degrees: 0, 90, 180 or 270. */
+  rotate: number
+  flipHorizontal: boolean
+  flipVertical: boolean
+}
+
+/**
+ * Turn or mirror a picture.
+ *
+ * Rotating by a quarter turn swaps the canvas dimensions, and the transform
+ * is applied about the centre so the picture lands where it should rather
+ * than off the edge.
+ */
+export async function transformImage(
+  file: HeldFile,
+  transform: Transform,
+  format: ImageFormat,
+  quality = 0.92
+): Promise<ImageResult> {
+  const bitmap = await decode(file.data)
+  const quarter = transform.rotate === 90 || transform.rotate === 270
+  const width = quarter ? bitmap.height : bitmap.width
+  const height = quarter ? bitmap.width : bitmap.height
+
+  const canvas = document.createElement('canvas')
+  canvas.width = width
+  canvas.height = height
+  const context = canvas.getContext('2d')
+  if (!context) {
+    bitmap.close()
+    throw new Error('canvas unavailable')
+  }
+
+  if (format === 'jpeg') {
+    context.fillStyle = '#ffffff'
+    context.fillRect(0, 0, width, height)
+  }
+
+  context.translate(width / 2, height / 2)
+  if (transform.rotate) context.rotate((transform.rotate * Math.PI) / 180)
+  context.scale(transform.flipHorizontal ? -1 : 1, transform.flipVertical ? -1 : 1)
+  context.drawImage(bitmap, -bitmap.width / 2, -bitmap.height / 2)
+  bitmap.close()
+
+  const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, MIME[format], quality))
+  if (!blob) throw new Error('encode failed')
+  if (blob.type !== MIME[format]) throw new Error(UNSUPPORTED_OUTPUT)
+
+  return { data: new Uint8Array(await blob.arrayBuffer()), width, height }
+}
+
 /**
  * Convert to another format at full size. `colours` only means anything for
  * PNG output, where it trades exactness for a file a fraction of the size.

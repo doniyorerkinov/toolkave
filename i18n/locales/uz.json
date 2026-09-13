@@ -439,6 +439,16 @@
     "crop": {
       "action": "Rasmni qirqish",
       "sizeHint": "Qirqilgan rasm shu o'lchamda saqlanadi. Asl o'lchamni saqlash uchun o'zgartirmang."
+    },
+    "rotate": {
+      "action": "Burilgan rasmni saqlash",
+      "left": "Chapga burish",
+      "right": "O‘ngga burish",
+      "flipHorizontal": "Ko‘ndalang aks ettirish",
+      "flipVertical": "Tik aks ettirish",
+      "reset": "Hammasini bekor qilish",
+      "hint": "Rasmni tugmalar bilan buring yoki aks ettiring. Ko‘rinayotgan narsa aynan saqlanadi.",
+      "note": "{w} × {h} o‘lchamda saqlandi"
     }
   },
   "percent": {
@@ -2138,6 +2148,28 @@
         "a3": "Bu yerda WebP yo'qotishli, mayda tafsilotlar taxminiy bo'ladi — grafikada yuqori sifatda bu bilinmaydi, lekin pikselma-piksel aniqlik kerak bo'lsa, PNG ni saqlang.",
         "q4": "Safari da ishlaydimi?",
         "a4": "Safari WebP ni 14-versiyadan saqlaydi. Eskiroqda vosita .webp nomli PNG bermasdan, rad etadi."
+      }
+    },
+    "image-rotate": {
+      "name": "Rasmni burish",
+      "short": "Rasmni to‘g‘ri tomonga burish yoki aks ettirish.",
+      "title": "Rasmni burish — fotoni onlayn burish va aks ettirish, bepul",
+      "description": "Bepul onlayn rasm burish vositasi. Fotoni 90°, 180° yoki 270° ga buring yoki aks ettiring va saqlang. Brauzerda ishlaydi — rasm hech qayerga yuklanmaydi.",
+      "intro": "Rasmni qo‘shing va tugmalar bilan chorak aylanaga buring yoki oyna kabi aks ettiring. Ko‘rinish darhol yangilanadi va aynan saqlanadigan natijani ko‘rsatadi, shuning uchun yonboshlab tushgan telefon surati ikki bosishda to‘g‘rilanadi.",
+      "howTo": {
+        "step1": "Noto‘g‘ri tomonga burilgan rasmni qo‘shing.",
+        "step2": "To‘g‘ri ko‘rinmaguncha chapga yoki o‘ngga buring, kerak bo‘lsa aks ettiring.",
+        "step3": "“Burilgan rasmni saqlash”ni bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega surat umuman yonboshlab qolgan?",
+        "a1": "Telefon suratni matritsa ko‘rgan holida yozadi va apparat qanday ushlanganini belgilab qo‘yadi. Bu belgini e’tiborsiz qoldiradigan dasturlar suratni yonboshlab ko‘rsatadi. Bu vosita belgini o‘qiydi, uni qo‘llaydi va rasmni haqiqatdan burilgan holda saqlaydi — shundan keyin u hamma joyda to‘g‘ri ko‘rinadi.",
+        "q2": "Burishda sifat yo‘qoladimi?",
+        "a2": "Chorak aylanaga burish butun piksellarni ko‘chiradi, shuning uchun hech narsa xiralashmaydi va qayta hisoblanmaydi. JPG yuqori sifatda qayta saqlanadi — har qanday qayta saqlashdagi kabi juda oz yo‘qotish bo‘ladi; PNG va WebP esa hech narsa yo‘qotmaydi.",
+        "q3": "Burish bilan aks ettirish orasida qanday farq bor?",
+        "a3": "Burish rasmni aylantiradi. Aks ettirish esa uni oynadagidek o‘ng va chapni almashtirib qo‘yadi — teskari chiqqan selfi yoki noto‘g‘ri tomondan skanerlangan plyonka uchun kerak bo‘ladi. Aks ettirilgan rasmda matn teskari o‘qiladi — ularni eng oson shu bilan farqlash mumkin.",
+        "q4": "Rasmim biror joyga yuklanadimi?",
+        "a4": "Yo‘q. Burish brauzeringiz ichida, o‘z qurilmangizda bajariladi. Serverga hech narsa yuborilmaydi — shuning uchun sahifa ochilgach, internetsiz ham ishlayveradi."
       }
     }
   },
