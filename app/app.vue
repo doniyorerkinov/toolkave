@@ -29,7 +29,16 @@ useHead({
       href: subset.href
     }))
   ]),
-  meta: [{ name: 'theme-color', content: '#0c0a09' }]
+  meta: [
+    { name: 'theme-color', content: '#0c0a09' },
+    /*
+     * Yandex Webmaster ownership. Their HTML-file method cannot work on this
+     * host: Cloudflare's asset handler answers `/file.html` with a 307 to
+     * `/file`, and the check wants a 200 at the exact URL. Google's is a DNS
+     * record and needs nothing here.
+     */
+    { name: 'yandex-verification', content: '14d8124bb4c21188' }
+  ]
 })
 </script>
 
