@@ -41,7 +41,7 @@ it by name. After every deploy, take that tool's en/ru/uz URLs to Search Console
 inspection → Request indexing, one at a time (~10/day), and put the rest through Yandex
 Webmaster → Indexing → Reindex pages (~20/day). Live but unindexed is not shipped.
 
-Registry snapshot: **64 tools, 37 published, 27 drafts** (Crop image added alongside Resize) — every PDF tool in the registry is live, plus Word counter. What is left is the image, text, converter, calculator, generator and developer categories.
+Registry snapshot: **64 tools, 38 published, 26 drafts** — every PDF and image tool is live, plus Word counter. What is left is text, converters, calculators, generators and developer tools.
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -222,7 +222,7 @@ and one on Windows, where HEIC files arrive with no MIME type.
   Expect: transparent PNG areas should become **white** in the JPG output,
   not black.
 
-- [ ] **JPG to PNG** — same shared component, other direction.
+- [x] **JPG to PNG** — same shared component, other direction.
   Expect: straightforward re-encode, no transparency concerns going this way.
 
 - [x] **WebP to JPG** — same shared component, WebP input.
