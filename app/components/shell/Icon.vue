@@ -4,7 +4,7 @@ import {
   Activity, ArrowRight, BadgeCheck, Banknote, Binary, Braces, Calculator, Calendar, ChevronRight, Clock, Code, Coins,
   Contrast, EyeOff, FileDown, FileText, FileType, FormInput, GitCompare, Hash, Highlighter, Image, Info, Key, Layers,
   Layers2, Lock, MapPinOff, Minimize, Palette, PanelTop, PenTool, Percent, QrCode, Repeat, RotateCw, Ruler, Scaling, Scan, ScanText,
-  Scissors, ShieldCheck, Smartphone, Sparkles, Stamp, Table, Trash, Type, Unlock, Wrench, Youtube, Zap
+  Scissors, ShieldCheck, Smartphone, Sparkles, Stamp, Table, Trash, Type, Unlock, UserRound, Wrench, Youtube, Zap
 } from 'lucide-vue-next'
 
 /**
@@ -20,7 +20,7 @@ const ICONS: Record<string, Component> = {
   key: Key, layers: Layers, 'layers-2': Layers2, lock: Lock, 'map-pin-off': MapPinOff, minimize: Minimize, palette: Palette, 'panel-top': PanelTop,
   'pen-tool': PenTool, percent: Percent, 'qr-code': QrCode, repeat: Repeat, 'rotate-cw': RotateCw, ruler: Ruler,
   scaling: Scaling, scan: Scan, 'scan-text': ScanText, scissors: Scissors, 'shield-check': ShieldCheck,
-  smartphone: Smartphone, sparkles: Sparkles, stamp: Stamp, table: Table, trash: Trash, type: Type, unlock: Unlock,
+  smartphone: Smartphone, sparkles: Sparkles, stamp: Stamp, table: Table, trash: Trash, type: Type, unlock: Unlock, 'user-round': UserRound,
   wrench: Wrench, youtube: Youtube, zap: Zap
 }
 

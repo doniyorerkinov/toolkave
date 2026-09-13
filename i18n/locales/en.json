@@ -489,6 +489,42 @@
       "undo": "Undo last",
       "clear": "Clear all",
       "note": "Covered areas: {n}"
+    },
+    "passport": {
+      "action": "Make the photo",
+      "sizeLabel": "Photo size",
+      "size": {
+        "35x45": "35 × 45 mm",
+        "30x40": "30 × 40 mm",
+        "35x40": "35 × 40 mm",
+        "33x48": "33 × 48 mm",
+        "2x2in": "2 × 2 in",
+        "50x70": "50 × 70 mm"
+      },
+      "use": {
+        "35x45": "Passports, Schengen, UK",
+        "30x40": "CIS documents",
+        "35x40": "Uzbekistan, some CIS forms",
+        "33x48": "China visa",
+        "2x2in": "USA, India",
+        "50x70": "Large CIS format"
+      },
+      "frameHint": "Drag the frame to move it, drag a corner to resize. The shape is locked to the size you picked.",
+      "showGuides": "Show head guides",
+      "outputLabel": "What to make",
+      "output": {
+        "sheet": "Sheet to print",
+        "single": "One photo"
+      },
+      "paperLabel": "Paper",
+      "paper": {
+        "10x15": "10 × 15 cm photo paper",
+        "a4": "A4"
+      },
+      "fits": "{n} photos fit on this sheet, with cutting guides.",
+      "singleHint": "Saved at {w} × {h} pixels, which is {dpi} DPI at the size you picked.",
+      "noteSingle": "{size} at {dpi} DPI — {w} × {h} pixels",
+      "noteSheet": "{n} photos of {size} on {paper}"
     }
   },
   "percent": {
@@ -2258,6 +2294,30 @@
         "a4": "Re-saving drops them as a side effect, so the file you download has no EXIF block. If you want to see what was in there before removing it — the coordinates are usually the surprise — use the Remove EXIF data tool, which shows you the list.",
         "q5": "Is my picture uploaded anywhere?",
         "a5": "No. Drawing and saving both happen inside your browser, on your own device. A picture you are covering something in is exactly the picture you would least want to upload to a stranger's server, and you are not being asked to."
+      }
+    },
+    "image-passport": {
+      "name": "Passport photo",
+      "short": "Cut a photo to 3×4, 3.5×4.5 or any document size, ready to print.",
+      "title": "Passport Photo Maker — 3×4, 35×45 mm online, free",
+      "description": "Free passport and ID photo maker. Crop to 30×40, 35×45 mm, 2×2 in and other document sizes at 300 DPI, and lay several out on one 10×15 cm sheet to print. Runs in your browser — nothing is uploaded.",
+      "intro": "Pick the size your form asks for, position the frame over the face using the head guides, and get either one photo at the exact millimetres or a sheet with several copies laid out for printing. A print shop charges the same for a 10×15 print whether it carries one photo or eight.",
+      "howTo": {
+        "step1": "Add a photo taken against a plain, light wall.",
+        "step2": "Pick the size your form asks for and line the head up between the dashed guides.",
+        "step3": "Choose a sheet to print or a single photo, then download it."
+      },
+      "faq": {
+        "q1": "Which size do I need?",
+        "a1": "35 × 45 mm is the international standard: passports, Schengen and UK visas, and most application forms outside the CIS. 30 × 40 mm is the usual size for documents across the CIS, and 35 × 40 mm turns up on some Uzbek forms. The USA and India want a 2 × 2 inch square. If the form names millimetres, match them exactly — this is one of the things that gets photos returned.",
+        "q2": "What are the dashed lines for?",
+        "a2": "They mark where the head goes. Nearly every standard says the same thing: the head fills about three quarters of the frame, sits slightly below the top edge, and is centred. Line the top of the hair up with the upper line and the chin with the lower one, and the proportions are right. Getting this wrong is the most common reason a photo is rejected — far more common than the size being off.",
+        "q3": "Why 300 DPI?",
+        "a3": "It is what print shops expect, and the number the photo is actually saved at: a 35 × 45 mm photo comes out as 413 × 531 pixels. Fewer pixels than that and the print looks soft; more is wasted on paper this small. If you are uploading to a visa portal instead of printing, the same file works, and the Compress image tool will bring it under a size limit if the portal sets one.",
+        "q4": "Can it make the background white?",
+        "a4": "No — and no browser tool can do it well enough to trust for a document. Take the photo against a plain, evenly lit light wall, with no shadow behind the head. That is what the rules ask for anyway, and it is far more reliable than anything that cuts you out afterwards.",
+        "q5": "How do I print the sheet?",
+        "a5": "Send the 10 × 15 cm file to any print shop or photo kiosk as a normal photo print, or print the A4 version at home on photo paper at 100% scale, with no fitting or shrinking. Cut along the thin grey lines. Make sure the printer is not set to fit the page, or every photo will come out slightly the wrong size."
       }
     }
   },

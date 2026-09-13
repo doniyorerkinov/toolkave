@@ -489,6 +489,42 @@
       "undo": "Oxirgisini bekor qilish",
       "clear": "Hammasini tozalash",
       "note": "Yopilgan sohalar: {n}"
+    },
+    "passport": {
+      "action": "Suratni tayyorlash",
+      "sizeLabel": "Surat o‘lchami",
+      "size": {
+        "35x45": "35 × 45 mm",
+        "30x40": "30 × 40 mm",
+        "35x40": "35 × 40 mm",
+        "33x48": "33 × 48 mm",
+        "2x2in": "2 × 2 dyuym",
+        "50x70": "50 × 70 mm"
+      },
+      "use": {
+        "35x45": "Xorijiy pasport, Shengen, Britaniya",
+        "30x40": "MDH hujjatlari",
+        "35x40": "O‘zbekiston, ayrim MDH anketalari",
+        "33x48": "Xitoy vizasi",
+        "2x2in": "AQSH, Hindiston",
+        "50x70": "MDH katta formati"
+      },
+      "frameHint": "Ramkani surish uchun torting, o‘lchamini o‘zgartirish uchun burchagidan torting. Nisbati tanlangan formatga qulflangan.",
+      "showGuides": "Bosh chiziqlarini ko‘rsatish",
+      "outputLabel": "Nima tayyorlansin",
+      "output": {
+        "sheet": "Bosmaga varaq",
+        "single": "Bitta surat"
+      },
+      "paperLabel": "Qog‘oz",
+      "paper": {
+        "10x15": "10 × 15 sm foto qog‘oz",
+        "a4": "A4"
+      },
+      "fits": "Bu varaqqa {n} ta surat sig‘adi, qirqish chiziqlari bilan.",
+      "singleHint": "{w} × {h} piksel o‘lchamda saqlanadi — bu tanlangan o‘lchamda {dpi} DPI degani.",
+      "noteSingle": "{size}, {dpi} DPI — {w} × {h} piksel",
+      "noteSheet": "{paper} varaqda {size} o‘lchamli {n} ta surat"
     }
   },
   "percent": {
@@ -2258,6 +2294,30 @@
         "a4": "Ha, qayta saqlash ularni qo‘shimcha ta’sir sifatida tashlab yuboradi — yuklab olingan faylda EXIF bloki qolmaydi. Avval u yerda nima borligini ko‘rmoqchi bo‘lsangiz (koordinatalar odatda hayratda qoldiradi), “EXIF ma’lumotini o‘chirish” vositasini oching — u ro‘yxatni ko‘rsatadi.",
         "q5": "Rasmim biror joyga yuklanadimi?",
         "a5": "Yo‘q. Chizish ham, saqlash ham brauzeringiz ichida, o‘z qurilmangizda bajariladi. Siz bir narsani yopayotgan rasm — aynan begona serverga yuborgingiz kelmaydigan rasm, va sizdan bu so‘ralmayapti ham."
+      }
+    },
+    "image-passport": {
+      "name": "Hujjatga surat",
+      "short": "Suratni 3×4, 3,5×4,5 yoki boshqa hujjat o‘lchamiga qirqish va bosmaga tayyorlash.",
+      "title": "Hujjatga surat — 3×4 va 35×45 mm onlayn, bepul",
+      "description": "Bepul onlayn hujjat surati. 30×40, 35×45 mm, 2×2 dyuym va boshqa o‘lchamlarga 300 DPI da qirqing va bir nechta nusxani 10×15 sm varaqqa joylab bosmaga tayyorlang. Brauzerda ishlaydi — hech narsa yuklanmaydi.",
+      "intro": "Anketa so‘ragan o‘lchamni tanlang, bosh chiziqlari yordamida ramkani yuzga to‘g‘rilang va yo aniq millimetrdagi bitta suratni, yo bir nechta nusxa joylangan bosma varaqni oling. Foto do‘konda 10 × 15 bosma bitta surat bilan ham, sakkiztasi bilan ham bir xil turadi.",
+      "howTo": {
+        "step1": "Oddiy, och rangli devor fonida olingan suratni qo‘shing.",
+        "step2": "Anketa so‘ragan o‘lchamni tanlang va boshni punktir chiziqlar orasiga joylang.",
+        "step3": "Bosma varaqni yoki bitta suratni tanlab, yuklab oling."
+      },
+      "faq": {
+        "q1": "Menga qaysi o‘lcham kerak?",
+        "a1": "35 × 45 mm — xalqaro standart: xorijiy pasportlar, Shengen va Britaniya vizalari hamda MDH tashqarisidagi ko‘pchilik anketalar. 30 × 40 mm — MDH bo‘ylab hujjatlarning odatiy o‘lchami, 35 × 40 mm esa ayrim o‘zbek anketalarida uchraydi. AQSH va Hindiston 2 × 2 dyuymli kvadrat so‘raydi. Anketada millimetr ko‘rsatilgan bo‘lsa, aniq shunday qiling — suratlar ko‘pincha aynan shu sababdan qaytariladi.",
+        "q2": "Punktir chiziqlar nima uchun?",
+        "a2": "Ular boshning qayerda bo‘lishini ko‘rsatadi. Deyarli barcha standartlar bir xil narsani aytadi: bosh kadrning uchdan ikki-uch qismini egallaydi, yuqori chekkadan sal pastroqda va markazda turadi. Soch uchini yuqori chiziqqa, iyakni pastki chiziqqa to‘g‘rilang — nisbatlar joyida bo‘ladi. Aynan shu yerdagi xato rad etishning eng ko‘p uchraydigan sababi, o‘lchamdagi xatodan ham ko‘proq.",
+        "q3": "Nega 300 DPI?",
+        "a3": "Foto do‘konlar shuni kutadi va surat haqiqatan shu aniqlikda saqlanadi: 35 × 45 mm surat 413 × 531 piksel bo‘lib chiqadi. Undan kamida bosma xira ko‘rinadi, ko‘pi esa bunday kichik qog‘ozga keraksiz. Agar bosmaga emas, viza portaliga yuklayotgan bo‘lsangiz, shu faylning o‘zi to‘g‘ri keladi, portal hajm cheklovi qo‘ysa esa “Rasmni siqish” vositasi uni shu chegaraga sig‘diradi.",
+        "q4": "Fonni oq qilib bera oladimi?",
+        "a4": "Yo‘q — hujjat uchun ishonsa bo‘ladigan darajada buni hech bir brauzer vositasi qila olmaydi. Suratni oddiy, tekis yoritilgan och devor fonida, bosh orqasida soya qolmaydigan qilib oling. Qoidalar ham aynan shuni talab qiladi va bu keyin odamni kesib oladigan har qanday usuldan ancha ishonchli.",
+        "q5": "Varaqni qanday chop etaman?",
+        "a5": "10 × 15 sm faylni istalgan foto do‘kon yoki kioskka oddiy foto bosma sifatida bering, yoki A4 variantini uyda foto qog‘ozga 100% masshtabda, sahifaga moslashtirmasdan chop eting. Ingichka kulrang chiziqlar bo‘ylab qirqing. Printer sozlamalarida “sahifaga moslashtirish” o‘chirilganiga ishonch hosil qiling, aks holda har bir surat bir oz noto‘g‘ri o‘lchamda chiqadi."
       }
     }
   },

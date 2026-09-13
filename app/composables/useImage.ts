@@ -656,3 +656,83 @@ export async function redactImage(
   if (blob.type !== MIME[format]) throw new Error(UNSUPPORTED_OUTPUT)
   return { data: new Uint8Array(await blob.arrayBuffer()), width: canvas.width, height: canvas.height }
 }
+
+/** Print resolution for document photos. Below this, print shops complain. */
+export const PRINT_DPI = 300
+
+export function mmToPx(mm: number, dpi = PRINT_DPI): number {
+  return Math.round((mm / 25.4) * dpi)
+}
+
+export interface SheetOptions {
+  /** Paper size in millimetres. */
+  paper: { width: number; height: number }
+  /** One photo's size in millimetres. */
+  photo: { width: number; height: number }
+  /** Gap between photos and margin from the paper edge, in millimetres. */
+  gap: number
+  margin: number
+}
+
+/**
+ * Lay copies of one photo out on a sheet of paper, with cutting guides.
+ *
+ * A print shop charges for one 10×15 print whether it carries one photo or
+ * eight, so the sheet is what makes six passport photos cost the price of
+ * one. The guides are hairlines just outside each photo rather than borders
+ * on it, so cutting along them leaves no line behind.
+ */
+export async function buildPhotoSheet(
+  photo: Uint8Array,
+  options: SheetOptions,
+  format: ImageFormat = 'jpeg',
+  quality = 0.95
+): Promise<ImageResult & { count: number }> {
+  const bitmap = await decode(photo)
+  const canvas = document.createElement('canvas')
+  canvas.width = mmToPx(options.paper.width)
+  canvas.height = mmToPx(options.paper.height)
+  const context = canvas.getContext('2d')
+  if (!context) {
+    bitmap.close()
+    throw new Error('canvas unavailable')
+  }
+  context.fillStyle = '#ffffff'
+  context.fillRect(0, 0, canvas.width, canvas.height)
+
+  const cellWidth = mmToPx(options.photo.width)
+  const cellHeight = mmToPx(options.photo.height)
+  const gap = mmToPx(options.gap)
+  const margin = mmToPx(options.margin)
+  const usableWidth = canvas.width - margin * 2
+  const usableHeight = canvas.height - margin * 2
+  const columns = Math.max(0, Math.floor((usableWidth + gap) / (cellWidth + gap)))
+  const rows = Math.max(0, Math.floor((usableHeight + gap) / (cellHeight + gap)))
+
+  // Centre the block of photos rather than crowding one edge.
+  const blockWidth = columns * cellWidth + Math.max(0, columns - 1) * gap
+  const blockHeight = rows * cellHeight + Math.max(0, rows - 1) * gap
+  const left = Math.round((canvas.width - blockWidth) / 2)
+  const top = Math.round((canvas.height - blockHeight) / 2)
+
+  context.strokeStyle = '#c8c8c8'
+  context.lineWidth = 1
+  for (let row = 0; row < rows; row++) {
+    for (let column = 0; column < columns; column++) {
+      const x = left + column * (cellWidth + gap)
+      const y = top + row * (cellHeight + gap)
+      context.drawImage(bitmap, x, y, cellWidth, cellHeight)
+      context.strokeRect(x - 0.5, y - 0.5, cellWidth + 1, cellHeight + 1)
+    }
+  }
+  bitmap.close()
+
+  const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, MIME[format], quality))
+  if (!blob) throw new Error('encode failed')
+  return {
+    data: new Uint8Array(await blob.arrayBuffer()),
+    width: canvas.width,
+    height: canvas.height,
+    count: rows * columns
+  }
+}

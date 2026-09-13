@@ -510,6 +510,19 @@ export const tools: ToolDef[] = [
     acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
     maxFiles: 1
   },
+  {
+    id: 'image-passport',
+    category: 'image',
+    group: 'optimise',
+    component: 'image/Passport',
+    icon: 'user-round',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'passport-photo', ru: 'foto-na-dokumenty', uz: 'hujjatga-surat' },
+    related: ['image-crop', 'image-compress'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
+    maxFiles: 1
+  },
   // One component, one page per conversion pair - each is a separate query.
   {
     id: 'png-to-jpg',
