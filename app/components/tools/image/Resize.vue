@@ -9,6 +9,15 @@ import {
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
+/**
+ * Two pages, one component: "Resize image" opens on the whole picture and
+ * offers a selection; "Crop image" opens in the selection and never mentions
+ * resizing the whole thing. The work is identical — one crop rectangle, one
+ * output size — but they are different jobs to the person doing them, and
+ * different searches.
+ */
+const props = withDefaults(defineProps<{ cropOnly?: boolean }>(), { cropOnly: false })
+
 const { t } = useI18n()
 const store = useFilesStore()
 
@@ -27,7 +36,7 @@ const file = computed(() => store.files[0] ?? null)
  */
 interface Selection { x: number; y: number; width: number; height: number }
 const selection = ref<Selection | null>(null)
-const cropping = ref(false)
+const cropping = ref(props.cropOnly)
 
 const canvasEl = ref<HTMLCanvasElement | null>(null)
 let bitmap: ImageBitmap | null = null
@@ -357,6 +366,11 @@ watch(
       dimensions.value = { width: bitmap.width, height: bitmap.height }
       width.value = bitmap.width
       height.value = bitmap.height
+      cropping.value = props.cropOnly
+      if (props.cropOnly) {
+        selection.value = { x: 0.1, y: 0.1, width: 0.8, height: 0.8 }
+        syncTargetToSelection()
+      }
       await nextTick()
       redraw()
     } catch {
@@ -460,7 +474,7 @@ function applyPreset(percent: number) {
     </p>
 
     <div v-if="file && dimensions" class="space-y-4">
-      <fieldset>
+      <fieldset v-if="!cropOnly">
         <legend class="mb-2 block text-sm font-medium text-stone-900">
           {{ t('image.resize.partLabel') }}
         </legend>
@@ -501,6 +515,8 @@ function applyPreset(percent: number) {
         </button>
       </div>
       <p v-if="cropping" class="text-sm text-stone-500">{{ t('image.resize.cropHint') }}</p>
+
+      <p v-if="cropOnly" class="text-sm text-stone-500">{{ t('image.crop.sizeHint') }}</p>
 
       <div class="grid gap-3 sm:grid-cols-2">
         <div>
@@ -556,7 +572,7 @@ function applyPreset(percent: number) {
         class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         @click="run"
       >
-        {{ store.busy ? t('image.working') : t('image.resize.action') }}
+        {{ store.busy ? t('image.working') : cropOnly ? t('image.crop.action') : t('image.resize.action') }}
       </button>
       <button
         type="button"

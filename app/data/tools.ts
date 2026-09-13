@@ -450,7 +450,24 @@ export const tools: ToolDef[] = [
     published: false,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'resize-image', ru: 'izmenit-razmer', uz: 'rasm-olchamini-ozgartirish' },
-    related: ['image-compress'],
+    related: ['image-crop', 'image-compress'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
+    maxFiles: 1
+  },
+  // Same component as Resize, opened straight into the selection. "Crop
+  // image" is its own query and deserves its own page, not a mode hidden
+  // behind a toggle on another tool.
+  {
+    id: 'image-crop',
+    category: 'image',
+    group: 'optimise',
+    component: 'image/Resize',
+    icon: 'scissors',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'crop-image', ru: 'obrezat-izobrazhenie', uz: 'rasmni-qirqish' },
+    config: { cropOnly: true },
+    related: ['image-resize', 'image-compress'],
     acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
     maxFiles: 1
   },

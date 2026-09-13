@@ -425,6 +425,10 @@
       "action": "Convert to {format}",
       "pngGrows": "PNG keeps every pixel exactly, so a photo usually comes out several times larger than the JPG — a 4 MB photo can become 20 MB or more. PNG is worth it for screenshots, logos, diagrams and anything needing transparency; for photographs, JPG is the better format.",
       "pngGrewNote": "As expected, the PNG is larger than the original. That is PNG doing its job — nothing was lost. If you wanted a smaller file rather than a lossless one, keep the JPG."
+    },
+    "crop": {
+      "action": "Crop image",
+      "sizeHint": "The cropped picture is saved at this size. Leave it as it is to keep the original resolution."
     }
   },
   "percent": {
@@ -2058,6 +2062,28 @@
         "a3": "Nothing at all. Only pages with at least one redaction box are touched; every other page keeps its real, original text.",
         "q4": "Can I undo a redaction after downloading?",
         "a4": "No — once applied and downloaded, it's permanent, by design. Double-check every box before pressing Redact, and keep your original file if you might need the removed content again."
+      }
+    },
+    "image-crop": {
+      "name": "Crop image",
+      "short": "Cut a picture down to the part you want.",
+      "title": "Crop Image — cut a photo online, free, no upload",
+      "description": "Free online image cropper. Drag the borders to choose exactly what to keep, then save it. Runs in your browser — the picture is never uploaded.",
+      "intro": "Add a picture and drag on it to choose what to keep. Pull any border or corner to adjust the frame, drag the middle to move it, and everything outside stays dimmed so you can see what you are keeping.",
+      "howTo": {
+        "step1": "Add the image you want to crop.",
+        "step2": "Drag on it to frame the part you want, then adjust the borders.",
+        "step3": "Press Crop image and download the result."
+      },
+      "faq": {
+        "q1": "Can I crop to an exact size?",
+        "a1": "Yes. Frame roughly what you want, then type the exact width and height below the picture — the crop is saved at that size. Leave the numbers alone to keep the selection at its original resolution.",
+        "q2": "Is the image re-encoded?",
+        "a2": "Yes, once: the selected area is drawn and saved again in the same format. A JPG stays a JPG and a PNG stays a PNG, and quality is kept high, but a JPG will lose a little on any re-save — that is unavoidable when cutting a picture.",
+        "q3": "Does it work on phone photos?",
+        "a3": "Yes, including HEIC from an iPhone, which most croppers refuse. Touch works the same as a mouse: drag to frame, drag a border to adjust.",
+        "q4": "Is my picture uploaded anywhere?",
+        "a4": "No. The crop happens inside your browser, on your own device. Nothing is sent to a server, which is also why it works with the tab offline once the page has loaded."
       }
     }
   },

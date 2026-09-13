@@ -425,6 +425,10 @@
       "action": "{format} ga o'girish",
       "pngGrows": "PNG har bir pikselni aniq saqlaydi, shuning uchun surat odatda JPG dan bir necha barobar katta chiqadi — 4 MB lik surat bemalol 20 MB va undan ko'p bo'lishi mumkin. PNG skrinshot, logotip, sxema va shaffoflik kerak bo'lgan hollarda o'zini oqlaydi; suratlar uchun JPG ma'qulroq.",
       "pngGrewNote": "Kutilganidek, PNG asl fayldan katta. Bu PNG ning ishi — hech narsa yo'qolmadi. Kichikroq fayl kerak bo'lsa, yo'qotishsizi emas, JPG ni saqlab qoling."
+    },
+    "crop": {
+      "action": "Rasmni qirqish",
+      "sizeHint": "Qirqilgan rasm shu o'lchamda saqlanadi. Asl o'lchamni saqlash uchun o'zgartirmang."
     }
   },
   "percent": {
@@ -2058,6 +2062,28 @@
         "a3": "Hech narsa. Faqat kamida bitta yashirish maydoni bor sahifalar tegiladi; qolgan barcha sahifalarda asl, haqiqiy matn saqlanib qoladi.",
         "q4": "Yuklab olgandan keyin yashirishni bekor qilish mumkinmi?",
         "a4": "Yoʻq — qoʻllanilib yuklab olingandan keyin bu qaytarib boʻlmaydi, va shunday moʻljallangan. «Yashirish» tugmasini bosishdan oldin har bir toʻrtburchakni ikki marta tekshiring va olib tashlangan mazmun yana kerak boʻlib qolishi mumkin boʻlsa, asl faylingizni saqlab qoʻying."
+      }
+    },
+    "image-crop": {
+      "name": "Rasmni qirqish",
+      "short": "Rasmdan faqat kerakli qismini qoldirish.",
+      "title": "Rasmni qirqish — onlayn, bepul, yuklamasdan",
+      "description": "Bepul onlayn rasm qirqish. Kerakli qismni tanlash uchun chegaralarni torting va saqlang. Brauzerda ishlaydi — rasm hech qayerga yuklanmaydi.",
+      "intro": "Rasm qo'shing va kerakli qismni tanlash uchun uning ustida torting. Istalgan chegara yoki burchakni torting, ramkani o'rtasidan surib ko'chiring — ortiqcha qismi xiralashadi, shuning uchun nima qolishi ko'rinib turadi.",
+      "howTo": {
+        "step1": "Qirqmoqchi bo'lgan rasmni qo'shing.",
+        "step2": "Kerakli qismni tanlang va chegaralarini toʻgʻrilang.",
+        "step3": "«Rasmni qirqish» ni bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Aniq o'lchamga qirqsa bo'ladimi?",
+        "a1": "Ha. Avval taxminan tanlang, so'ng rasm ostida aniq eni va bo'yini kiriting — natija shu o'lchamda saqlanadi. Raqamlarga tegmasangiz, tanlangan qism asl o'lchamida saqlanadi.",
+        "q2": "Rasm qayta siqiladimi?",
+        "a2": "Ha, bir marta: tanlangan hudud qayta chiziladi va o'sha formatda saqlanadi. JPG — JPG, PNG — PNG bo'lib qoladi, sifat yuqori olinadi, lekin JPG har qanday qayta saqlashda ozgina yo'qotadi — qirqishda bundan qochib bo'lmaydi.",
+        "q3": "Telefon suratlari bilan ishlaydimi?",
+        "a3": "Ha, aksariyat xizmatlar qabul qilmaydigan iPhone HEIC bilan ham. Barmoq bilan ham xuddi sichqoncha kabi: torting — tanlanadi, chegarani torting — to'g'rilanadi.",
+        "q4": "Rasmim biror joyga yuklanadimi?",
+        "a4": "Yo'q. Qirqish brauzeringizda, o'z qurilmangizda bajariladi. Serverga hech narsa yuborilmaydi — shuning uchun sahifa yuklangach internetsiz ham ishlayveradi."
       }
     }
   },
