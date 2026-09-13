@@ -41,7 +41,7 @@ it by name. After every deploy, take that tool's en/ru/uz URLs to Search Console
 inspection → Request indexing, one at a time (~10/day), and put the rest through Yandex
 Webmaster → Indexing → Reindex pages (~20/day). Live but unindexed is not shipped.
 
-Registry snapshot: **63 tools, 33 published, 30 drafts** — every PDF tool in the registry is live, plus Word counter. What is left is the image, text, converter, calculator, generator and developer categories.
+Registry snapshot: **64 tools, 37 published, 27 drafts** (Crop image added alongside Resize) — every PDF tool in the registry is live, plus Word counter. What is left is the image, text, converter, calculator, generator and developer categories.
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -214,7 +214,7 @@ and one on Windows, where HEIC files arrive with no MIME type.
   Expect: output is visibly smaller; a quality slider actually changes output
   size when moved.
 
-- [ ] **Resize image** — change width/height, keeping aspect ratio.
+- [x] **Resize image** — change width/height, keeping aspect ratio.
   Expect: enter only a width — height should auto-calculate to keep
   proportions (and vice versa).
 
@@ -225,10 +225,10 @@ and one on Windows, where HEIC files arrive with no MIME type.
 - [ ] **JPG to PNG** — same shared component, other direction.
   Expect: straightforward re-encode, no transparency concerns going this way.
 
-- [ ] **WebP to JPG** — same shared component, WebP input.
+- [x] **WebP to JPG** — same shared component, WebP input.
   Expect: same as PNG to JPG re: transparency → white background.
 
-- [ ] **HEIC to JPG** — for iPhone photos, same shared component.
+- [x] **HEIC to JPG** — for iPhone photos, same shared component.
   Expect: `heic2any` should only load when a HEIC is actually dropped in.
 
 ---
