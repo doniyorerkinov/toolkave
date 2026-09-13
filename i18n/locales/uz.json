@@ -473,6 +473,22 @@
         "artist": "Muallif",
         "copyright": "Mualliflik huquqi"
       }
+    },
+    "redact": {
+      "action": "Yopilgan holda saqlash",
+      "drawHint": "Yuz, avtoraqam yoki manzilni yopish uchun rasm ustida sudrang. Xohlagancha soha belgilash mumkin.",
+      "countHint": "Yopilgan sohalar: {n}. Yana qo‘shish uchun sudrang, ramkani surish uchun torting yoki olib tashlash uchun ✕ ni bosing.",
+      "modeLabel": "Nima bilan yopish",
+      "mode": {
+        "pixelate": "Pikselga aylantirish",
+        "blur": "Xiralashtirish"
+      },
+      "strength": "Kuchi",
+      "lighter": "Yengilroq",
+      "heavier": "O‘qib bo‘lmaydigan",
+      "undo": "Oxirgisini bekor qilish",
+      "clear": "Hammasini tozalash",
+      "note": "Yopilgan sohalar: {n}"
     }
   },
   "percent": {
@@ -2218,6 +2234,30 @@
         "a4": "Ko‘pchiligi olib tashlaydi, shuning uchun odamlar u umuman yo‘q deb o‘ylaydi. Xavf esa ulardan chetda ketadigan hamma narsada: pochta orqali yuborilgan, messenjerda fayl sifatida jo‘natilgan, o‘z saytingizga qo‘yilgan yoki e’longa biriktirilgan surat yozuvlarning to‘liq to‘plamini saqlab qoladi.",
         "q5": "Suratim biror joyga yuklanadimi?",
         "a5": "Yo‘q — va bu vositada bu har qachongidan muhimroq. Fayl brauzeringiz ichida, o‘z qurilmangizda o‘qiladi va qayta yoziladi. Suratdagi koordinatalarni o‘chirish uchun uni yuklashni so‘raydigan sayt o‘sha koordinatalarni allaqachon olib bo‘lgan bo‘lardi."
+      }
+    },
+    "image-redact": {
+      "name": "Xiralashtirish yoki pikselga aylantirish",
+      "short": "Rasmni ulashishdan oldin yuz, raqam yoki manzilni yopish.",
+      "title": "Rasmni xiralashtirish — yuz va avtoraqamni yashirish onlayn, bepul",
+      "description": "Rasmning bir qismini xiralashtirish yoki pikselga aylantirish uchun bepul onlayn vosita. Yuz, avtoraqam yoki manzil ustida sudrang va yopilgan holda saqlang. Brauzerda ishlaydi — rasm hech qayerga yuklanmaydi.",
+      "intro": "Ulashmoqchi bo‘lmagan hamma narsa ustida sudrang — yuz, avtoraqam, uy raqami, hujjatdagi ism — va u chizayotganingizdayoq yopiladi. Xohlagancha soha belgilang, so‘ng saqlang. Yopish rasmning o‘ziga qo‘llanadi, ya’ni ostida tiklanadigan hech narsa qolmaydi.",
+      "howTo": {
+        "step1": "Ulashmoqchi bo‘lgan rasmni qo‘shing.",
+        "step2": "Yashirmoqchi bo‘lgan har bir narsa ustida sudrang.",
+        "step3": "“Yopilgan holda saqlash”ni bosing va yuklab oling."
+      },
+      "faq": {
+        "q1": "Yopilgan joyni tiklab bo‘ladimi?",
+        "a1": "Saqlangan fayldan — yo‘q. Har bir ramka ostidagi piksellar rasm yozilishidan oldin tashlab yuboriladi va almashtiriladi, ya’ni ostida asl nusxa qolmaydi. Bu vositaning hujjatda surat ustiga chizilgan to‘rtburchakdan farqi shunda: u yerda rasm shakl ostida butun turadi va shaklni surish bilanoq hammasi ko‘rinadi.",
+        "q2": "Qaysi biri ishonchliroq — xiralashtirish yoki pikselga aylantirish?",
+        "a2": "Pikselga aylantirish, shuning uchun u asosiy tanlov. Yengil xiralikni qanday xiralik qo‘llanganini biladigan dastur ba’zan qisman qaytara oladi; sohani bir nechta tekis kvadratga aylantirish esa tafsilotni butunlay yo‘q qiladi. Qaysi birini tanlasangiz ham, kuchini oshiring: eng yuqori darajada yuz bir-ikkita kvadratga aylanadi.",
+        "q3": "Rasmning qolgan qismi o‘zgaradimi?",
+        "a3": "Faqat siz chizgan sohalarga tegiladi. Rasm o‘sha formatda yuqori sifatda qayta saqlanadi, shuning uchun JPG har qanday qayta saqlashdagidek hamma joyda juda oz yo‘qotadi; PNG va WebP hech narsa yo‘qotmaydi.",
+        "q4": "Joylashuv va kamera ma’lumotlari ham o‘chadimi?",
+        "a4": "Ha, qayta saqlash ularni qo‘shimcha ta’sir sifatida tashlab yuboradi — yuklab olingan faylda EXIF bloki qolmaydi. Avval u yerda nima borligini ko‘rmoqchi bo‘lsangiz (koordinatalar odatda hayratda qoldiradi), “EXIF ma’lumotini o‘chirish” vositasini oching — u ro‘yxatni ko‘rsatadi.",
+        "q5": "Rasmim biror joyga yuklanadimi?",
+        "a5": "Yo‘q. Chizish ham, saqlash ham brauzeringiz ichida, o‘z qurilmangizda bajariladi. Siz bir narsani yopayotgan rasm — aynan begona serverga yuborgingiz kelmaydigan rasm, va sizdan bu so‘ralmayapti ham."
       }
     }
   },

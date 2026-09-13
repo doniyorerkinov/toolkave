@@ -557,3 +557,102 @@ async function prepareForPdf(
     : await compressImage(file, 'jpeg', quality)
   return { ...file, data: converted.data, type: MIME.jpeg }
 }
+
+export type RedactMode = 'pixelate' | 'blur'
+
+/**
+ * How coarse the covering is, as the number of blocks across the shorter
+ * side of the area. Fewer blocks means less left to read; counting blocks
+ * rather than pixels means a small face and a large one are hidden equally.
+ */
+export const REDACT_BLOCKS = [20, 14, 10, 7, 5] as const
+
+/**
+ * Cover one area of a canvas so that what was there cannot be read back.
+ *
+ * The area is destroyed in place, not painted over: the pixels are thrown
+ * away and replaced with the average of each block. That is the difference
+ * between a redaction and a sticker, and it is why this has to happen to the
+ * image data rather than in the browser's display layer.
+ */
+export function redactArea(
+  context: CanvasRenderingContext2D,
+  rect: CropRect,
+  mode: RedactMode,
+  strength: number
+) {
+  const width = Math.max(1, Math.round(rect.width))
+  const height = Math.max(1, Math.round(rect.height))
+  const x = Math.round(rect.x)
+  const y = Math.round(rect.y)
+  const blocks = REDACT_BLOCKS[Math.min(REDACT_BLOCKS.length - 1, Math.max(0, strength - 1))]!
+
+  if (mode === 'blur') {
+    // A blur drawn from a cut-out pulls in the transparent pixels beyond its
+    // edges and leaves a dark rim, so the source is a margin wider than the
+    // area and only the middle is kept.
+    const radius = Math.max(2, Math.min(width, height) / blocks)
+    const margin = Math.ceil(radius * 3)
+    const scratch = document.createElement('canvas')
+    scratch.width = width + margin * 2
+    scratch.height = height + margin * 2
+    const scratchContext = scratch.getContext('2d')
+    if (!scratchContext) return
+    scratchContext.drawImage(
+      context.canvas,
+      x - margin, y - margin, scratch.width, scratch.height,
+      0, 0, scratch.width, scratch.height
+    )
+    scratchContext.filter = `blur(${radius}px)`
+    scratchContext.drawImage(scratch, 0, 0)
+    context.drawImage(scratch, margin, margin, width, height, x, y, width, height)
+    return
+  }
+
+  const columns = Math.max(1, Math.round(blocks * Math.max(1, width / Math.min(width, height))))
+  const rows = Math.max(1, Math.round(blocks * Math.max(1, height / Math.min(width, height))))
+  const scratch = document.createElement('canvas')
+  scratch.width = columns
+  scratch.height = rows
+  const scratchContext = scratch.getContext('2d')
+  if (!scratchContext) return
+  // Down to one pixel per block — the browser averages — and straight back up
+  // with smoothing off, so each block is a flat square.
+  scratchContext.drawImage(context.canvas, x, y, width, height, 0, 0, columns, rows)
+  context.imageSmoothingEnabled = false
+  context.drawImage(scratch, 0, 0, columns, rows, x, y, width, height)
+  context.imageSmoothingEnabled = true
+}
+
+/** Apply every covering to the picture at full size and encode the result. */
+export async function redactImage(
+  file: HeldFile,
+  regions: CropRect[],
+  mode: RedactMode,
+  strength: number,
+  format: ImageFormat,
+  quality = 0.92
+): Promise<ImageResult> {
+  const bitmap = await decode(file.data)
+  const canvas = document.createElement('canvas')
+  canvas.width = bitmap.width
+  canvas.height = bitmap.height
+  const context = canvas.getContext('2d')
+  if (!context) {
+    bitmap.close()
+    throw new Error('canvas unavailable')
+  }
+
+  if (format === 'jpeg') {
+    context.fillStyle = '#ffffff'
+    context.fillRect(0, 0, canvas.width, canvas.height)
+  }
+  context.drawImage(bitmap, 0, 0)
+  bitmap.close()
+  for (const region of regions) redactArea(context, region, mode, strength)
+
+  const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, MIME[format], quality))
+  if (!blob) throw new Error('encode failed')
+  if (blob.type !== MIME[format]) throw new Error(UNSUPPORTED_OUTPUT)
+  return { data: new Uint8Array(await blob.arrayBuffer()), width: canvas.width, height: canvas.height }
+}

@@ -497,6 +497,19 @@ export const tools: ToolDef[] = [
     acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
     maxFiles: 1
   },
+  {
+    id: 'image-redact',
+    category: 'image',
+    group: 'optimise',
+    component: 'image/Redact',
+    icon: 'eye-off',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'blur-image', ru: 'razmyt-izobrazhenie', uz: 'rasmni-xiralashtirish' },
+    related: ['image-metadata', 'image-crop'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
+    maxFiles: 1
+  },
   // One component, one page per conversion pair - each is a separate query.
   {
     id: 'png-to-jpg',

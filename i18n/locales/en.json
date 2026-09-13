@@ -473,6 +473,22 @@
         "artist": "Author",
         "copyright": "Copyright"
       }
+    },
+    "redact": {
+      "action": "Save hidden version",
+      "drawHint": "Drag on the picture to cover a face, a plate or an address. Cover as many areas as you need.",
+      "countHint": "Covered: {n}. Drag to add another, drag a box to move it, or click the ✕ to remove it.",
+      "modeLabel": "How to cover it",
+      "mode": {
+        "pixelate": "Pixelate",
+        "blur": "Blur"
+      },
+      "strength": "Strength",
+      "lighter": "Lighter",
+      "heavier": "Unreadable",
+      "undo": "Undo last",
+      "clear": "Clear all",
+      "note": "Covered areas: {n}"
     }
   },
   "percent": {
@@ -2218,6 +2234,30 @@
         "a4": "Most do, which is why people assume it is never there. The risk is everything that does not go through one: a photo emailed, sent as a file on a messenger, put on your own website, or attached to a marketplace listing keeps the full set of notes.",
         "q5": "Is my photo uploaded anywhere?",
         "a5": "No — and on this tool that matters more than most. The file is read and rewritten inside your browser, on your own device. A site that asked you to upload a photo to have its location removed would already have the location."
+      }
+    },
+    "image-redact": {
+      "name": "Blur or pixelate",
+      "short": "Cover a face, a plate or an address before you share a picture.",
+      "title": "Blur Image — hide faces and plates online, free, no upload",
+      "description": "Free online tool to blur or pixelate part of a picture. Drag over a face, a number plate or an address and save it covered. Runs in your browser — the picture is never uploaded.",
+      "intro": "Drag over anything you do not want shared — a face, a number plate, a house number, a name on a document — and it is covered as you draw. Cover as many areas as you like, then save. The covering is applied to the picture itself, so there is nothing underneath to recover.",
+      "howTo": {
+        "step1": "Add the picture you want to share.",
+        "step2": "Drag over each thing you want hidden.",
+        "step3": "Press Save hidden version and download it."
+      },
+      "faq": {
+        "q1": "Can the covered part be recovered?",
+        "a1": "Not from the saved file. The pixels under each box are thrown away and replaced before the picture is written, so there is no original hiding underneath. This is the difference between this and drawing a shape over a photo in a document — there the picture is still intact under the shape, and moving the shape reveals it.",
+        "q2": "Blur or pixelate — which is safer?",
+        "a2": "Pixelate, which is why it is the default. A light blur can sometimes be partly undone by software that knows what blur was applied; flattening an area into a handful of flat blocks throws the detail away outright. Whichever you choose, push the strength up: at the top setting a face is a few squares.",
+        "q3": "Does the rest of the picture change?",
+        "a3": "Only the areas you drew are touched. The picture is re-saved in the same format at high quality, so a JPG gives up a very small amount everywhere as any re-save does; a PNG or WebP gives up nothing.",
+        "q4": "Does it remove the location and camera details too?",
+        "a4": "Re-saving drops them as a side effect, so the file you download has no EXIF block. If you want to see what was in there before removing it — the coordinates are usually the surprise — use the Remove EXIF data tool, which shows you the list.",
+        "q5": "Is my picture uploaded anywhere?",
+        "a5": "No. Drawing and saving both happen inside your browser, on your own device. A picture you are covering something in is exactly the picture you would least want to upload to a stranger's server, and you are not being asked to."
       }
     }
   },
