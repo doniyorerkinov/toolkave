@@ -786,3 +786,85 @@ export async function fitToSize(
   if (blob.type !== MIME[format]) throw new Error(UNSUPPORTED_OUTPUT)
   return { data: new Uint8Array(await blob.arrayBuffer()), width: canvas.width, height: canvas.height }
 }
+
+/**
+ * The drawn size an SVG claims, from its own attributes.
+ *
+ * Many icons are exported with only a viewBox and no width or height, which
+ * makes their intrinsic size zero in some browsers; falling back to the
+ * viewBox keeps the shape right, and a square is the last resort.
+ */
+function svgSize(text: string): { width: number; height: number } {
+  const viewBox = /viewBox\s*=\s*["']\s*[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)/i.exec(text)
+  if (viewBox) return { width: Number(viewBox[1]), height: Number(viewBox[2]) }
+  const width = /<svg[^>]*\swidth\s*=\s*["']([\d.]+)/i.exec(text)
+  const height = /<svg[^>]*\sheight\s*=\s*["']([\d.]+)/i.exec(text)
+  if (width && height) return { width: Number(width[1]), height: Number(height[1]) }
+  return { width: 512, height: 512 }
+}
+
+export function isSvg(data: Uint8Array): boolean {
+  const head = new TextDecoder('utf-8').decode(data.subarray(0, 400)).trimStart()
+  return head.startsWith('<?xml') || head.startsWith('<svg') || head.startsWith('<!DOCTYPE svg')
+}
+
+/**
+ * Draw an SVG at a chosen pixel size.
+ *
+ * The size is written into the markup rather than applied when drawing,
+ * because a browser rasterises an SVG at its own declared size first and
+ * then scales that bitmap — which throws away the one advantage a vector
+ * had. Loaded through an `img`, the SVG runs no scripts and fetches nothing.
+ */
+export async function renderSvg(
+  data: Uint8Array,
+  target?: { width: number; height: number }
+): Promise<ImageBitmap> {
+  if (import.meta.server) throw new Error('browser only')
+  const text = new TextDecoder('utf-8').decode(data as BufferSource)
+  const natural = svgSize(text)
+  const size = target ?? natural
+  const sized = text.replace(
+    /<svg\b([^>]*)>/i,
+    (match, attributes: string) =>
+      `<svg${attributes.replace(/\s(width|height)\s*=\s*(["'])[^"']*\2/gi, '')} width="${size.width}" height="${size.height}">`
+  )
+
+  const url = URL.createObjectURL(new Blob([sized], { type: 'image/svg+xml' }))
+  try {
+    const image = new Image()
+    image.decoding = 'sync'
+    image.src = url
+    await image.decode()
+    const canvas = document.createElement('canvas')
+    canvas.width = Math.max(1, Math.round(size.width))
+    canvas.height = Math.max(1, Math.round(size.height))
+    const context = canvas.getContext('2d')
+    if (!context) throw new Error('canvas unavailable')
+    context.drawImage(image, 0, 0, canvas.width, canvas.height)
+    return await createImageBitmap(canvas)
+  } finally {
+    URL.revokeObjectURL(url)
+  }
+}
+
+/** An SVG rasterised to PNG bytes, so the rest of the pipeline can take it. */
+export async function svgToPng(
+  data: Uint8Array,
+  target?: { width: number; height: number }
+): Promise<ImageResult> {
+  const bitmap = await renderSvg(data, target)
+  const canvas = document.createElement('canvas')
+  canvas.width = bitmap.width
+  canvas.height = bitmap.height
+  const context = canvas.getContext('2d')
+  if (!context) {
+    bitmap.close()
+    throw new Error('canvas unavailable')
+  }
+  context.drawImage(bitmap, 0, 0)
+  bitmap.close()
+  const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, MIME.png))
+  if (!blob) throw new Error('encode failed')
+  return { data: new Uint8Array(await blob.arrayBuffer()), width: canvas.width, height: canvas.height }
+}

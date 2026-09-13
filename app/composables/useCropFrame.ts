@@ -1,6 +1,5 @@
 import type { CropRect } from '~/composables/useImage'
 import { decodeImage } from '~/composables/useImage'
-import type { HeldFile } from '~/stores/files'
 
 /**
  * A rectangle dragged over a picture.
@@ -87,7 +86,9 @@ export function useCropFrame(options: CropFrameOptions) {
     }
   }
 
-  async function load(file: HeldFile | null) {
+  /** Takes anything carrying image bytes, so a caller may hand over a
+   * rasterised copy of something the browser cannot decode directly. */
+  async function load(file: { data: Uint8Array } | null) {
     bitmap?.close()
     bitmap = null
     source.value = null

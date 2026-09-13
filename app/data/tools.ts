@@ -536,6 +536,19 @@ export const tools: ToolDef[] = [
     acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
     maxFiles: 1
   },
+  {
+    id: 'image-favicon',
+    category: 'image',
+    group: 'optimise',
+    component: 'image/Favicon',
+    icon: 'badge-check',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'favicon-generator', ru: 'generator-favikonok', uz: 'favikon-generatori' },
+    related: ['image-resize', 'image-social'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'],
+    maxFiles: 1
+  },
   // One component, one page per conversion pair - each is a separate query.
   {
     id: 'png-to-jpg',

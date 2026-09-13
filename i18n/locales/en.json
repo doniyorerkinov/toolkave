@@ -566,6 +566,21 @@
       },
       "upscaling": "Your picture is smaller than {w} × {h}, so it will be enlarged and may look a little soft.",
       "note": "{name} — {w} × {h}"
+    },
+    "favicon": {
+      "action": "Make the favicon set",
+      "frameHint": "Drag the square to choose what ends up in the icon. The previews show it at the sizes people actually see.",
+      "backgroundLabel": "Background",
+      "background": {
+        "transparent": "Transparent",
+        "white": "White",
+        "custom": "Colour"
+      },
+      "padding": "Padding: {n}%",
+      "paddingHint": "A logo drawn to the edge looks cramped in a tab. A few per cent helps.",
+      "snippetLabel": "The HTML to paste into your page's head",
+      "note": "{n} files: favicon.ico, PNGs for every size, and the manifest",
+      "readme": "Put every file in this zip in the root folder of your site, then paste these three lines inside the head section of your pages."
     }
   },
   "percent": {
@@ -2383,6 +2398,30 @@
         "a4": "JPG for photographs — it is what every platform re-encodes to anyway. PNG for logos, screenshots and anything with flat colour or sharp text, where JPG leaves a halo. WebP is smaller than both but not every upload form accepts it, so use it for your own website rather than for a post.",
         "q5": "Is my picture uploaded anywhere?",
         "a5": "No. The crop and the resize happen inside your browser, on your own device — nothing is sent to a server, and the picture reaches the internet only when you post it yourself."
+      }
+    },
+    "image-favicon": {
+      "name": "Favicon generator",
+      "short": "Turn a logo into favicon.ico and every icon a site needs.",
+      "title": "Favicon Generator — make favicon.ico from PNG or SVG, free",
+      "description": "Free favicon generator. Turn a PNG, JPG or SVG into favicon.ico plus the apple-touch-icon and manifest icons a site needs, in one zip. Runs in your browser — nothing is uploaded.",
+      "intro": "Add a logo, choose the square that matters, and get favicon.ico with 16, 32 and 48 pixel versions inside it, the PNGs modern browsers and phones look for, a ready site.webmanifest, and the three lines of HTML to paste. Every size is drawn from the original at that size, not shrunk from one big one.",
+      "howTo": {
+        "step1": "Add a logo — PNG, JPG or SVG.",
+        "step2": "Drag the square over the part that should be the icon and set the background.",
+        "step3": "Press Make the favicon set and unzip the files into your site's root folder."
+      },
+      "faq": {
+        "q1": "Why is favicon.ico not just one image?",
+        "a1": "Because it is a container. A browser reads the file and picks the size closest to what it needs — 16 px for the tab, 32 px on a bookmark bar, 48 px for a Windows shortcut. If only one large image is inside, the browser shrinks it itself, and browsers are bad at that: fine lines and small text turn to mush at 16 px. Each size here is drawn separately from your original.",
+        "q2": "Do I still need favicon.ico if I have PNGs?",
+        "a2": "Yes, and it costs nothing to include. Browsers still ask for /favicon.ico by name even when no tag points at it, and some older ones read nothing else. The PNGs cover modern browsers, the iPhone home screen and Android's install prompt — which is why all of them are in the zip.",
+        "q3": "Should the background be transparent?",
+        "a3": "For the tab icon, usually yes: it then sits properly on both light and dark browser themes. The exception is the iPhone home-screen icon, which Apple composites onto black — so that one is given a solid background automatically even when you pick transparent, because a dark logo on black is invisible.",
+        "q4": "Can I use an SVG?",
+        "a4": "Yes, and it gives the best result. The SVG is drawn fresh at each size rather than rasterised once and scaled, so the 16 px icon is a real 16 px rendering. Everything works in your browser, so the SVG never leaves your device.",
+        "q5": "Where do the files go?",
+        "a5": "All of them in the root folder of your site — the same level as index.html — so they are reachable at /favicon.ico and /apple-touch-icon.png. Then paste the three lines from the zip's how-to-use.txt into the head section of your pages. If the old icon sticks around, that is the browser's cache; a hard refresh usually clears it."
       }
     }
   },

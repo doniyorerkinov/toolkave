@@ -566,6 +566,21 @@
       },
       "upscaling": "Rasmingiz {w} × {h} dan kichik, shuning uchun u kattalashtiriladi va biroz xiraroq ko‘rinishi mumkin.",
       "note": "{name} — {w} × {h}"
+    },
+    "favicon": {
+      "action": "Favikon to‘plamini yig‘ish",
+      "frameHint": "Nishonchaga nima tushishini tanlash uchun kvadratni torting. Yonida — odamlar ko‘radigan o‘lchamlardagi ko‘rinish.",
+      "backgroundLabel": "Fon",
+      "background": {
+        "transparent": "Shaffof",
+        "white": "Oq",
+        "custom": "Rang"
+      },
+      "padding": "Chekka bo‘shliq: {n}%",
+      "paddingHint": "Chetiga tiralgan logotip varaqda siqilgandek ko‘rinadi. Bir-ikki foiz yetadi.",
+      "snippetLabel": "Sahifaning head qismiga qo‘yiladigan HTML",
+      "note": "{n} ta fayl: favicon.ico, har o‘lcham uchun PNG va manifest",
+      "readme": "Arxivdagi barcha fayllarni saytingizning ildiz papkasiga joylang, so‘ng bu uch qatorni sahifalaringizning head qismiga qo‘ying."
     }
   },
   "percent": {
@@ -2383,6 +2398,30 @@
         "a4": "Suratlar uchun JPG — platformalar baribir shunga qayta o‘tkazadi. Logotip, skrinshot va tekis rang yoki o‘tkir matn bor hamma narsa uchun PNG: u yerda JPG halqa qoldiradi. WebP ikkalasidan ham kichik, lekin uni hamma yuklash shakli qabul qilavermaydi, shuning uchun u post uchun emas, o‘z saytingiz uchun ko‘proq to‘g‘ri keladi.",
         "q5": "Rasmim biror joyga yuklanadimi?",
         "a5": "Yo‘q. Qirqish ham, o‘lcham o‘zgartirish ham brauzeringiz ichida, o‘z qurilmangizda bajariladi — serverga hech narsa ketmaydi va rasm internetga faqat siz o‘zingiz joylaganingizda chiqadi."
+      }
+    },
+    "image-favicon": {
+      "name": "Favikon generatori",
+      "short": "Logotipdan favicon.ico va saytga kerak bo‘lgan barcha nishonchalarni yasash.",
+      "title": "Favikon generatori — PNG yoki SVG dan favicon.ico yasash, bepul",
+      "description": "Bepul favikon generatori. PNG, JPG yoki SVG dan favicon.ico hamda saytga kerakli apple-touch-icon va manifest nishonchalarini bitta arxivda oling. Brauzerda ishlaydi — hech narsa yuklanmaydi.",
+      "intro": "Logotipni qo‘shing, kerakli kvadratni tanlang va ichida 16, 32 va 48 piksellik versiyalari bor favicon.ico ni, zamonaviy brauzerlar va telefonlar qidiradigan PNG larni, tayyor site.webmanifest ni hamda qo‘yish uchun uch qator HTML ni oling. Har bir o‘lcham bitta kattasidan kichraytirilmaydi, asl faylidan o‘sha o‘lchamda chiziladi.",
+      "howTo": {
+        "step1": "Logotipni qo‘shing — PNG, JPG yoki SVG.",
+        "step2": "Nishoncha bo‘ladigan joyga kvadratni to‘g‘rilang va fonni tanlang.",
+        "step3": "“Favikon to‘plamini yig‘ish”ni bosing va fayllarni sayt ildiziga chiqaring."
+      },
+      "faq": {
+        "q1": "Nega favicon.ico bitta rasm emas?",
+        "a1": "Chunki u konteyner. Brauzer faylni o‘qiydi va o‘ziga keragiga eng yaqin o‘lchamni oladi: varaq uchun 16 piksel, xatcho‘plar panelida 32, Windows yorlig‘i uchun 48. Ichida faqat bitta katta rasm bo‘lsa, brauzer uni o‘zi kichraytiradi, buni esa u yomon bajaradi: ingichka chiziqlar va mayda matn 16 pikselda bo‘tqaga aylanadi. Bu yerda har bir o‘lcham sizning asl faylingizdan alohida chiziladi.",
+        "q2": "PNG lar bo‘lsa ham favicon.ico kerakmi?",
+        "a2": "Ha, va u hech narsa turmaydi. Brauzerlar hech bir teg ko‘rsatmasa ham /favicon.ico ni nomi bilan so‘rayveradi, ayrim eskilari esa boshqa hech narsani o‘qimaydi. PNG lar zamonaviy brauzerlarni, iPhone bosh ekranini va Android o‘rnatishini qoplaydi — shuning uchun arxivda ikkisi ham bor.",
+        "q3": "Fon shaffof bo‘lsinmi?",
+        "a3": "Varaqdagi nishoncha uchun odatda ha: shunda u brauzerning yorug‘ va qorong‘i mavzusida ham joyida ko‘rinadi. Istisno — iPhone bosh ekrani nishonchasi: Apple uni qora fonga qo‘yadi, shuning uchun siz shaffofni tanlasangiz ham unga avtomatik ravishda to‘q fon beriladi, aks holda qora ustidagi to‘q logotip ko‘rinmay qoladi.",
+        "q4": "SVG ishlatsa bo‘ladimi?",
+        "a4": "Ha, va natija eng yaxshisi bo‘ladi. SVG bir marta rastrga aylantirilib masshtablanmaydi, har bir o‘lchamda qaytadan chiziladi, shuning uchun 16 piksellik nishoncha haqiqiy 16 piksellik chizma bo‘ladi. Hammasi brauzerda bajariladi, ya’ni SVG qurilmangizdan chiqmaydi.",
+        "q5": "Fayllar qayerga qo‘yiladi?",
+        "a5": "Hammasi saytning ildiz papkasiga — index.html bilan bir darajaga — shunda ular /favicon.ico va /apple-touch-icon.png manzillarida ochiladi. So‘ng arxivdagi how-to-use.txt dan uch qatorni sahifalaringizning head qismiga qo‘ying. Eski nishoncha o‘zgarmasa, bu brauzer keshi — odatda sahifani majburiy yangilash yordam beradi."
       }
     }
   },
