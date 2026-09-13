@@ -549,6 +549,19 @@ export const tools: ToolDef[] = [
     acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'],
     maxFiles: 1
   },
+  {
+    id: 'svg-to-png',
+    category: 'image',
+    group: 'convert',
+    component: 'image/SvgToPng',
+    icon: 'repeat',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'svg-to-png', ru: 'svg-v-png', uz: 'svg-dan-png' },
+    related: ['image-favicon', 'png-to-jpg'],
+    acceptedTypes: ['image/svg+xml'],
+    maxFiles: 1
+  },
   // One component, one page per conversion pair - each is a separate query.
   {
     id: 'png-to-jpg',

@@ -581,6 +581,17 @@
       "snippetLabel": "Sahifaning head qismiga qo‘yiladigan HTML",
       "note": "{n} ta fayl: favicon.ico, har o‘lcham uchun PNG va manifest",
       "readme": "Arxivdagi barcha fayllarni saytingizning ildiz papkasiga joylang, so‘ng bu uch qatorni sahifalaringizning head qismiga qo‘ying."
+    },
+    "svg": {
+      "action": "O‘girish",
+      "notSvg": "Bu SVG emas. Bu vosita faqat vektor fayllarni qabul qiladi.",
+      "naturalSize": "Standart holda {w} × {h} o‘lchamda chiziladi",
+      "sizeLabel": "Qanday kattalikda",
+      "customWidth": "yoki aniq",
+      "willBe": "{w} × {h} piksel o‘lchamda saqlanadi.",
+      "transparent": "Fon shaffof qolsin",
+      "jpegOpaque": "JPG da shaffoflik yo‘q, shuning uchun fon oq bilan to‘ldiriladi.",
+      "note": "{w} × {h} piksel"
     }
   },
   "percent": {
@@ -2422,6 +2433,30 @@
         "a4": "Ha, va natija eng yaxshisi bo‘ladi. SVG bir marta rastrga aylantirilib masshtablanmaydi, har bir o‘lchamda qaytadan chiziladi, shuning uchun 16 piksellik nishoncha haqiqiy 16 piksellik chizma bo‘ladi. Hammasi brauzerda bajariladi, ya’ni SVG qurilmangizdan chiqmaydi.",
         "q5": "Fayllar qayerga qo‘yiladi?",
         "a5": "Hammasi saytning ildiz papkasiga — index.html bilan bir darajaga — shunda ular /favicon.ico va /apple-touch-icon.png manzillarida ochiladi. So‘ng arxivdagi how-to-use.txt dan uch qatorni sahifalaringizning head qismiga qo‘ying. Eski nishoncha o‘zgarmasa, bu brauzer keshi — odatda sahifani majburiy yangilash yordam beradi."
+      }
+    },
+    "svg-to-png": {
+      "name": "SVG dan PNG ga",
+      "short": "Vektorni kerakli har qanday o‘lchamdagi rasmga aylantirish.",
+      "title": "SVG dan PNG ga — vektorni rasmga o‘girish onlayn, bepul",
+      "description": "Bepul SVG dan PNG ga o‘girgich. Vektorni istalgan o‘lchamda — 1×, 2×, 4× yoki aniq kenglikda — shaffofligini saqlab chizing. Brauzerda ishlaydi, shuning uchun veb-sahifadagidek aynan o‘sha ko‘rinishda chiqadi.",
+      "intro": "SVG ni qo‘shing va rasm qanday kattalikda bo‘lishini tanlang. Chizish sizning brauzeringizda bajarilgani uchun natija — bu SVG veb-sahifada qanday ko‘rinsa, aynan o‘sha, boshqa dvigatelning taxmini emas. JPG ni tanlamasangiz, shaffoflik saqlanadi — JPG da u yo‘q.",
+      "howTo": {
+        "step1": "SVG faylini qo‘shing.",
+        "step2": "Uning o‘z o‘lchamiga karrali kattalikni tanlang yoki aniq kenglikni yozing.",
+        "step3": "“O‘girish”ni bosing va rasmni yuklab oling."
+      },
+      "faq": {
+        "q1": "Qaysi o‘lchamni tanlagan ma’qul?",
+        "a1": "Rasm qanday kattalikda ko‘rsatilsa, o‘shani; ekranga ketayotgan bo‘lsa, ikki barobarini. 2× rasm bugun deyarli barcha telefon va noutbuklarda bo‘lgan yuqori zichlikdagi ekranlarda o‘tkir ko‘rinadi. Fayl hajmidan boshqa yuqori chegara yo‘q: vektorning o‘z aniqligi bo‘lmaydi, shuning uchun 4× ham 1× kabi o‘tkir.",
+        "q2": "Nega SVG noto‘g‘ri o‘lchamda chiqyapti?",
+        "a2": "Ko‘p SVG lar faqat viewBox bilan, width va height siz eksport qilinadi, ya’ni ularning o‘z o‘lchami bo‘lmaydi va bu yerdagi standart qiymat o‘sha viewBox dan olinadi. Aniq kenglikni yozing — nisbatlar ham o‘sha manbadan olinadi va odatda bu aynan kerak bo‘lgan natija.",
+        "q3": "Shriftlar va effektlar to‘g‘ri chiqadimi?",
+        "a3": "Uni brauzer chizadi, shuning uchun veb-sahifada ishlaydigan hamma narsa bu yerda ham ishlaydi: gradientlar, filtrlar, qirqish. Yagona istisno — qurilmangizda yo‘q shriftdagi matn: brauzer boshqasini qo‘yadi, xuddi sahifadagidek. Eksportdan oldin grafik dasturda matnni konturga aylantirish bu masalani butunlay yopadi.",
+        "q4": "PNG ni qaytadan SVG ga o‘girsa bo‘ladimi?",
+        "a4": "Haqiqiy ma’noda — yo‘q. Vektor — ko‘rsatmalar to‘plami, PNG esa piksellar to‘ri; to‘rni qayta ko‘rsatmalarga aylantirish trassirovka deyiladi va u doim taxmin qiladi. SVG ni asl nusxa sifatida saqlang va kerak bo‘lganda undan PNG eksport qiling.",
+        "q5": "Faylim biror joyga yuklanadimi?",
+        "a5": "Yo‘q. SVG brauzeringiz ichida, o‘z qurilmangizda o‘qiladi va chiziladi. U shunday yuklanadiki, skriptlar bajarilmaydi va hech narsa tashqaridan olinmaydi, shuning uchun noma’lum manbadagi SVG o‘girish paytida hech narsa qila olmaydi."
       }
     }
   },

@@ -581,6 +581,17 @@
       "snippetLabel": "The HTML to paste into your page's head",
       "note": "{n} files: favicon.ico, PNGs for every size, and the manifest",
       "readme": "Put every file in this zip in the root folder of your site, then paste these three lines inside the head section of your pages."
+    },
+    "svg": {
+      "action": "Convert",
+      "notSvg": "That is not an SVG. This tool takes vector files only.",
+      "naturalSize": "Drawn at {w} × {h} by default",
+      "sizeLabel": "How big",
+      "customWidth": "or exactly",
+      "willBe": "Saved at {w} × {h} pixels.",
+      "transparent": "Keep the background transparent",
+      "jpegOpaque": "JPG has no transparency, so the background is filled with white.",
+      "note": "{w} × {h} pixels"
     }
   },
   "percent": {
@@ -2422,6 +2433,30 @@
         "a4": "Yes, and it gives the best result. The SVG is drawn fresh at each size rather than rasterised once and scaled, so the 16 px icon is a real 16 px rendering. Everything works in your browser, so the SVG never leaves your device.",
         "q5": "Where do the files go?",
         "a5": "All of them in the root folder of your site — the same level as index.html — so they are reachable at /favicon.ico and /apple-touch-icon.png. Then paste the three lines from the zip's how-to-use.txt into the head section of your pages. If the old icon sticks around, that is the browser's cache; a hard refresh usually clears it."
+      }
+    },
+    "svg-to-png": {
+      "name": "SVG to PNG",
+      "short": "Turn a vector into a picture at any size you need.",
+      "title": "SVG to PNG — convert vector to image online, free, no upload",
+      "description": "Free SVG to PNG converter. Draw a vector at any size — 1×, 2×, 4× or an exact width — with transparency kept. Runs in your browser, so it renders exactly as a web page would.",
+      "intro": "Add an SVG and pick how big the picture should be. Because the drawing happens in your own browser, the result is exactly what that SVG looks like on a web page — not another engine's guess at it. Transparency is kept unless you ask for JPG, which has none.",
+      "howTo": {
+        "step1": "Add an SVG file.",
+        "step2": "Choose a multiple of its own size, or type an exact width.",
+        "step3": "Press Convert and download the picture."
+      },
+      "faq": {
+        "q1": "What size should I pick?",
+        "a1": "Whatever the picture will be shown at, then double it if it is going on a screen — a 2× image looks sharp on the high-resolution displays most phones and laptops now have. There is no upper limit worth respecting other than file size: a vector has no resolution of its own, so 4× is as sharp as 1×.",
+        "q2": "Why is my SVG coming out the wrong size?",
+        "a2": "Many SVGs are exported with only a viewBox and no width or height, so they have no size of their own and the default here is taken from that viewBox. Type an exact width instead and the proportions are kept from the same source, which is usually what you wanted.",
+        "q3": "Will fonts and effects look right?",
+        "a3": "The browser draws it, so anything that works on a web page works here — gradients, filters, clipping. The one exception is text set in a font your device does not have: the browser substitutes another, exactly as it would on a page. Converting text to outlines in your drawing program before exporting avoids that for good.",
+        "q4": "Can I go back from PNG to SVG?",
+        "a4": "Not meaningfully. A vector is a set of instructions and a PNG is a grid of pixels; turning the grid back into instructions is tracing, and it guesses. Keep the SVG as your original and export PNGs from it whenever you need one.",
+        "q5": "Is my file uploaded anywhere?",
+        "a5": "No. The SVG is read and drawn inside your browser, on your own device. It is also loaded in a way that runs no scripts and fetches nothing, so an SVG from an unknown source cannot do anything while it is being converted."
       }
     }
   },
