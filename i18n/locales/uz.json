@@ -627,6 +627,39 @@
         "placed": "Belgi rasmning o‘ziga chizildi",
         "tiled": "Belgi butun rasm bo‘ylab takrorlandi"
       }
+    },
+    "join": {
+      "action": "Birlashtirish",
+      "count": "{n} ta rasm, shu tartibda",
+      "needTwo": "Birlashtirish uchun yana kamida bitta rasm qo‘shing.",
+      "directionLabel": "Qanday joylashtirilsin",
+      "direction": {
+        "row": "Yonma-yon",
+        "column": "Ustma-ust",
+        "grid": "To‘r shaklida"
+      },
+      "columns": "ustun",
+      "hint": {
+        "row": "Barcha rasmlar bitta balandlikka — eng kichigiga — keltiriladi, shunda ulanish joyi tekis chiziq bo‘ladi.",
+        "column": "Barcha rasmlar bitta kenglikka — eng kichigiga — keltiriladi, shunda chetlari to‘g‘ri keladi.",
+        "grid": "Har bir rasmga bir xil katak beriladi va u butunligicha sig‘diriladi, ya’ni siz so‘ramasdan hech narsa qirqilmaydi."
+      },
+      "gap": "Oraliq: {n} px",
+      "backgroundLabel": "Oraliq rangi",
+      "note": "{n} ta rasm birlashtirildi — {w} × {h}"
+    },
+    "split": {
+      "action": "Qirqish",
+      "rows": "Qatorlar",
+      "columns": "Ustunlar",
+      "preset": {
+        "3x3": "3 × 3 to‘r",
+        "3x1": "3 ta yonma-yon",
+        "2x2": "2 × 2",
+        "1x2": "2 ta ustma-ust"
+      },
+      "willBe": "{n} ta bo‘lak, har biri taxminan {w} × {h}.",
+      "note": "{n} ta bo‘lak, har biri taxminan {w} × {h}, qator va ustun bo‘yicha nomlangan"
     }
   },
   "percent": {
@@ -2516,6 +2549,54 @@
         "a4": "Rasm o‘sha formatda yuqori sifatda qayta saqlanadi: JPG uchun bu har qanday qayta saqlashdagidek juda oz turadi, PNG va WebP uchun umuman bepul. Belgining o‘zi piksellarga chiziladi, shuning uchun skrinshot, qayta saqlash va qayta joylashdan keyin ham qoladi.",
         "q5": "Rasmim biror joyga yuklanadimi?",
         "a5": "Yo‘q. Rasm ham, logotip ham brauzeringizda, o‘z qurilmangizda qoladi. Serverga hech narsa yuborilmaydi — bu yerda bu ayniqsa muhim, chunki belgisiz asl nusxalar aynan siz hech kimga bermoqchi bo‘lmagan narsa."
+      }
+    },
+    "image-join": {
+      "name": "Rasmlarni birlashtirish",
+      "short": "Bir nechta rasmni bitta rasmga jamlash.",
+      "title": "Rasmlarni bitta rasmga birlashtirish — bepul, onlayn, yuklamasdan",
+      "description": "Rasmlarni bitta tasvirga jamlash uchun bepul onlayn vosita — yonma-yon, ustma-ust yoki to‘r shaklida, xohlasangiz oraliq bilan. Brauzerda ishlaydi, hech narsa yuklanmaydi.",
+      "intro": "Rasmlarni qo‘shing, kerakli tartibda sudrab joylang va ular yonma-yon, ustma-ust yoki to‘r shaklida turishini tanlang. Qatordagilar umumiy balandlikka, ustundagilar umumiy kenglikka keltiriladi, shuning uchun ulanish joyi zinapoya emas, tekis chiziq bo‘ladi.",
+      "howTo": {
+        "step1": "Ikki yoki undan ortiq rasm qo‘shing.",
+        "step2": "Ularni tartibga soling va joylashuvni tanlang.",
+        "step3": "“Birlashtirish”ni bosing va bitta rasmni yuklab oling."
+      },
+      "faq": {
+        "q1": "Rasmlar turli o‘lchamda bo‘lsa nima bo‘ladi?",
+        "a1": "Qatorda hammasi bitta balandlikka, ustunda bitta kenglikka keltiriladi. Umumiy o‘lcham eng kichigidan olinadi, chunki yuqoriga moslash rasmlarni ulardagi tafsilotdan ortiq cho‘zib, butun natijani xira qilardi. Hech narsa qirqilmaydi.",
+        "q2": "Nega to‘rda ayrim rasmlar atrofida bo‘sh joy qoladi?",
+        "a2": "Chunki har bir katak bir xil va har bir rasm unga butunligicha sig‘diriladi. Kollaj ilovasi buning o‘rniga katakka moslab qirqardi: ozodaroq ko‘rinadi, lekin chetlarni jimgina kesib tashlaydi, suratga olingan narsa esa ko‘pincha aynan chetda bo‘ladi. Oraliq rangini moslab qo‘ysangiz, bo‘shliqlar ataylab qilingandek ko‘rinadi.",
+        "q3": "Nechta rasmni birlashtirish mumkin?",
+        "a3": "Qurilmangiz bir vaqtning o‘zida xotirada ushlay oladigancha. Natija tez kattalashadi — yonma-yon sakkizta telefon surati juda keng tasvir beradi — shuning uchun uni biror joyga yubormoqchi bo‘lsangiz, keyin “Rasmni siqish”dan o‘tkazing.",
+        "q4": "Ular orasiga matn yoki ramka qo‘shsa bo‘ladimi?",
+        "a4": "Bu yerda yo‘q. Oddiy ramka uchun oraliq va uning rangini tanlang; undan ortig‘i uchun avval birlashtiring, matnni esa odatda ishlatadigan dasturingizda qo‘shing. Bitta vosita — bitta vazifa, shuning uchun u oldindan aytib bo‘ladigan natija beradi.",
+        "q5": "Rasmlarim biror joyga yuklanadimi?",
+        "a5": "Yo‘q. Ular brauzeringiz ichida, o‘z qurilmangizda o‘qiladi va birlashtiriladi. Serverga hech narsa yuborilmaydi."
+      }
+    },
+    "image-split": {
+      "name": "Rasmni bo‘lish",
+      "short": "Bitta rasmni to‘r shaklida bo‘laklarga qirqish.",
+      "title": "Rasmni to‘rga bo‘lish — Instagram uchun 3x3, bepul, onlayn",
+      "description": "Bepul onlayn rasm bo‘lgich. Rasmni to‘rga qirqing — Instagram joylashuvi uchun 3×3 yoki istalgan qator va ustun soni — va bo‘laklarni bitta arxivda yuklab oling. Brauzerda ishlaydi.",
+      "intro": "Nechta qator va ustun kerakligini tanlang, qirqish chiziqlarini rasmning o‘zida ko‘ring va barcha bo‘laklarni bitta arxivda oling. Bo‘laklar qator va ustun bo‘yicha nomlanadi, shuning uchun keyin ularni to‘g‘ri tartibda joylash taxmin qilishni talab qilmaydi.",
+      "howTo": {
+        "step1": "Qirqmoqchi bo‘lgan rasmni qo‘shing.",
+        "step2": "To‘rni tanlang — 3 × 3 bu Instagram joylashuvi — yoki qator va ustunni o‘zingiz belgilang.",
+        "step3": "“Qirqish”ni bosing va arxivni yuklab oling."
+      },
+      "faq": {
+        "q1": "Instagram ga 3 × 3 to‘rni qanday joylayman?",
+        "a1": "Bo‘laklarni o‘qish tartibiga teskari yuklang: avval o‘ng pastdagisini, oxirida chap yuqoridagisini, chunki eng yangi post profilning chap yuqori burchagiga tushadi. Fayllar aynan shuning uchun “qator-ustun” tarzida nomlangan: birinchi 3-3, keyin 3-2 va shu tariqa 1-1 gacha.",
+        "q2": "Har bir bo‘lak qanday o‘lchamda bo‘ladi?",
+        "a2": "Rasm o‘lchamining to‘rga bo‘lingani; ortib qolgan piksellar tashlab yuborilmay, oxirgi qator va ustunga beriladi, shuning uchun bo‘laklar asl nusxaga aniq to‘g‘ri keladi. Katta rasmdan boshlang: to‘qqizga bo‘lingan 1080 piksellik kvadrat har biri 360 piksellik bo‘lak beradi, bu esa telefon ekrani uchun xiraroq.",
+        "q3": "Avval kvadratga qirqish kerakmi?",
+        "a3": "Profil to‘ri uchun — ha: Instagram kvadrat ko‘rsatadi, to‘qqizga bo‘lingan to‘rtburchak esa yuklashda yana qirqiladigan to‘qqizta to‘rtburchak beradi. “Rasmni qirqish” vositasi uni avval kvadratga keltiradi, shunda to‘r mo‘ljallangandek chiqadi.",
+        "q4": "Menga nima qaytadi?",
+        "a4": "Bitta arxiv, ichida har bir bo‘lak siz qo‘shgan rasm bilan bir xil formatdagi alohida fayl. Uni chiqarsangiz, fayllar nomi bo‘yicha o‘zi o‘qish tartibida saflanadi.",
+        "q5": "Rasmim biror joyga yuklanadimi?",
+        "a5": "Yo‘q. U brauzeringiz ichida, o‘z qurilmangizda qirqiladi va arxiv ham o‘sha yerda yig‘iladi."
       }
     }
   },

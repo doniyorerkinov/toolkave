@@ -575,6 +575,32 @@ export const tools: ToolDef[] = [
     acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
     maxFiles: 1
   },
+  {
+    id: 'image-join',
+    category: 'image',
+    group: 'optimise',
+    component: 'image/Join',
+    icon: 'layers-2',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'combine-images', ru: 'obedinit-izobrazheniya', uz: 'rasmlarni-birlashtirish' },
+    related: ['image-split', 'image-to-pdf'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
+    maxFiles: 20
+  },
+  {
+    id: 'image-split',
+    category: 'image',
+    group: 'optimise',
+    component: 'image/Split',
+    icon: 'table',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'split-image', ru: 'razrezat-izobrazhenie', uz: 'rasmni-bolish' },
+    related: ['image-join', 'image-crop'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
+    maxFiles: 1
+  },
   // One component, one page per conversion pair - each is a separate query.
   {
     id: 'png-to-jpg',

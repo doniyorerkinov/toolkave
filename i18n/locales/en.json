@@ -627,6 +627,39 @@
         "placed": "Watermark drawn into the picture",
         "tiled": "Watermark repeated across the picture"
       }
+    },
+    "join": {
+      "action": "Join them",
+      "count": "{n} pictures, in this order",
+      "needTwo": "Add at least one more picture to join.",
+      "directionLabel": "How to arrange them",
+      "direction": {
+        "row": "Side by side",
+        "column": "One above another",
+        "grid": "Grid"
+      },
+      "columns": "columns",
+      "hint": {
+        "row": "Every picture is brought to the same height — the smallest one's — so the join is a straight line.",
+        "column": "Every picture is brought to the same width — the smallest one's — so the edges line up.",
+        "grid": "Every picture gets the same cell and is fitted inside whole, so nothing is cropped without you asking."
+      },
+      "gap": "Gap: {n} px",
+      "backgroundLabel": "Gap colour",
+      "note": "{n} pictures joined — {w} × {h}"
+    },
+    "split": {
+      "action": "Cut it up",
+      "rows": "Rows",
+      "columns": "Columns",
+      "preset": {
+        "3x3": "3 × 3 grid",
+        "3x1": "3 across",
+        "2x2": "2 × 2",
+        "1x2": "2 down"
+      },
+      "willBe": "{n} pieces, about {w} × {h} each.",
+      "note": "{n} pieces, about {w} × {h} each, named by row and column"
     }
   },
   "percent": {
@@ -2516,6 +2549,54 @@
         "a4": "The picture is saved again in the same format at high quality, which costs a very small amount on a JPG as any re-save does, and nothing at all on PNG or WebP. The mark itself is drawn into the pixels, so it survives being screenshotted, re-saved and re-posted.",
         "q5": "Is my picture uploaded anywhere?",
         "a5": "No. Both the picture and the logo stay in your browser, on your own device. Nothing is sent to a server — which matters here, because unwatermarked originals are exactly what you are trying not to hand out."
+      }
+    },
+    "image-join": {
+      "name": "Join images",
+      "short": "Put several pictures together into one.",
+      "title": "Combine Images Into One — free, online, no upload",
+      "description": "Free online tool to join pictures into one image — side by side, stacked, or in a grid, with an optional gap. Runs in your browser, so nothing is uploaded.",
+      "intro": "Add the pictures, drag them into the order you want, and choose whether they sit side by side, one above another, or in a grid. Pictures in a row are brought to a common height and pictures in a column to a common width, so the join is a straight line rather than a staircase.",
+      "howTo": {
+        "step1": "Add two or more pictures.",
+        "step2": "Drag them into order and pick an arrangement.",
+        "step3": "Press Join them and download the single image."
+      },
+      "faq": {
+        "q1": "What happens if the pictures are different sizes?",
+        "a1": "In a row they are all brought to the same height, in a column to the same width. The common size is the smallest of them, because matching upwards would enlarge pictures past the detail they hold and make the whole thing look soft. Nothing is cropped.",
+        "q2": "Why does the grid leave space around some pictures?",
+        "a2": "Because every cell is the same and each picture is fitted inside it whole. A collage app would crop to fill the cell instead, which looks tidier but silently cuts the edges off — and the edge is often where the thing you were photographing is. Set the gap colour to match and the spacing reads as deliberate.",
+        "q3": "How many pictures can I join?",
+        "a3": "As many as your device can hold in memory at once. The result gets large quickly — eight phone photos side by side is a very wide image — so if you plan to send it anywhere, run it through Compress image afterwards.",
+        "q4": "Can I put text or borders between them?",
+        "a4": "Not here. Set a gap and a gap colour for a plain border; for anything more, join them first and add the text in whatever you would normally use. Keeping this tool to one job is what makes it predictable.",
+        "q5": "Are my pictures uploaded anywhere?",
+        "a5": "No. They are read and drawn together inside your browser, on your own device. Nothing is sent to a server."
+      }
+    },
+    "image-split": {
+      "name": "Split image",
+      "short": "Cut one picture into a grid of pieces.",
+      "title": "Split Image Into Grid — 3x3 for Instagram, free, online",
+      "description": "Free online image splitter. Cut a picture into a grid — 3×3 for an Instagram layout, or any rows and columns — and download the pieces in one zip. Runs in your browser.",
+      "intro": "Choose how many rows and columns, see the cut lines on the picture, and get every piece in one zip. The pieces are named by row and column, so putting them back in the right order later is not a guessing game.",
+      "howTo": {
+        "step1": "Add the picture you want to cut up.",
+        "step2": "Pick a grid — 3 × 3 is the Instagram layout — or set rows and columns yourself.",
+        "step3": "Press Cut it up and download the zip."
+      },
+      "faq": {
+        "q1": "How do I post a 3 × 3 grid on Instagram?",
+        "a1": "Upload the pieces in reverse reading order — bottom right first, top left last — because the newest post sits at the top left of a profile. The files are named row-column for exactly this reason: 3-3 goes up first, then 3-2, and so on to 1-1.",
+        "q2": "What size is each piece?",
+        "a2": "The picture's size divided by the grid, with any leftover pixels given to the last row and column rather than thrown away, so the pieces still add up to the original exactly. Start from a large picture: a 1080-pixel square cut into nine is 360 pixels a piece, which is on the soft side for a phone screen.",
+        "q3": "Should I crop it square first?",
+        "a3": "For a profile grid, yes — Instagram shows squares, and a rectangle cut into nine gives nine rectangles that will be cropped again on the way in. Crop image will square it up first, and then the grid comes out as intended.",
+        "q4": "What do I get back?",
+        "a4": "A single zip containing every piece as a separate file, in the same format as the picture you added. Unzip it and the files sort themselves into reading order by name.",
+        "q5": "Is my picture uploaded anywhere?",
+        "a5": "No. It is cut inside your browser, on your own device, and the zip is assembled there too."
       }
     }
   },

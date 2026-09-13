@@ -868,3 +868,146 @@ export async function svgToPng(
   if (!blob) throw new Error('encode failed')
   return { data: new Uint8Array(await blob.arrayBuffer()), width: canvas.width, height: canvas.height }
 }
+
+export interface JoinOptions {
+  direction: 'row' | 'column' | 'grid'
+  /** Columns when the direction is a grid; ignored otherwise. */
+  columns: number
+  /** Space between pictures, in pixels of the output. */
+  gap: number
+  background: string
+}
+
+/**
+ * Put several pictures together into one.
+ *
+ * In a row every picture is brought to the same height and in a column to
+ * the same width, so the join is a straight line rather than a staircase.
+ * The common size is the smallest of them: matching upwards would enlarge
+ * pictures past what they hold and make the whole thing soft.
+ *
+ * A grid gives every picture the same cell and fits it inside whole — a
+ * collage app would crop to fill instead, but cropping someone's photo
+ * without being asked is how people lose the thing they were pointing at.
+ */
+export async function joinImages(
+  files: HeldFile[],
+  options: JoinOptions,
+  format: ImageFormat,
+  quality = 0.92
+): Promise<ImageResult> {
+  if (!files.length) throw new Error('nothing to join')
+  const bitmaps = await Promise.all(files.map(file => decode(file.data)))
+
+  try {
+    const canvas = document.createElement('canvas')
+    const gap = Math.max(0, Math.round(options.gap))
+    let places: { bitmap: ImageBitmap; x: number; y: number; width: number; height: number }[]
+
+    if (options.direction === 'grid') {
+      const columns = Math.max(1, Math.min(options.columns, bitmaps.length))
+      const rows = Math.ceil(bitmaps.length / columns)
+      const cellWidth = Math.min(...bitmaps.map(b => b.width))
+      const cellHeight = Math.min(...bitmaps.map(b => b.height))
+      canvas.width = columns * cellWidth + gap * (columns - 1)
+      canvas.height = rows * cellHeight + gap * (rows - 1)
+      places = bitmaps.map((bitmap, index) => {
+        const column = index % columns
+        const row = Math.floor(index / columns)
+        const fit = Math.min(cellWidth / bitmap.width, cellHeight / bitmap.height)
+        const width = bitmap.width * fit
+        const height = bitmap.height * fit
+        return {
+          bitmap,
+          x: column * (cellWidth + gap) + (cellWidth - width) / 2,
+          y: row * (cellHeight + gap) + (cellHeight - height) / 2,
+          width,
+          height
+        }
+      })
+    } else if (options.direction === 'row') {
+      const height = Math.min(...bitmaps.map(b => b.height))
+      const widths = bitmaps.map(b => (b.width * height) / b.height)
+      canvas.width = Math.round(widths.reduce((sum, w) => sum + w, 0) + gap * (bitmaps.length - 1))
+      canvas.height = height
+      let x = 0
+      places = bitmaps.map((bitmap, index) => {
+        const place = { bitmap, x, y: 0, width: widths[index]!, height }
+        x += widths[index]! + gap
+        return place
+      })
+    } else {
+      const width = Math.min(...bitmaps.map(b => b.width))
+      const heights = bitmaps.map(b => (b.height * width) / b.width)
+      canvas.width = width
+      canvas.height = Math.round(heights.reduce((sum, h) => sum + h, 0) + gap * (bitmaps.length - 1))
+      let y = 0
+      places = bitmaps.map((bitmap, index) => {
+        const place = { bitmap, x: 0, y, width, height: heights[index]! }
+        y += heights[index]! + gap
+        return place
+      })
+    }
+
+    const context = canvas.getContext('2d')
+    if (!context) throw new Error('canvas unavailable')
+    context.fillStyle = options.background
+    context.fillRect(0, 0, canvas.width, canvas.height)
+    for (const place of places) context.drawImage(place.bitmap, place.x, place.y, place.width, place.height)
+
+    const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, MIME[format], quality))
+    if (!blob) throw new Error('encode failed')
+    if (blob.type !== MIME[format]) throw new Error(UNSUPPORTED_OUTPUT)
+    return { data: new Uint8Array(await blob.arrayBuffer()), width: canvas.width, height: canvas.height }
+  } finally {
+    for (const bitmap of bitmaps) bitmap.close()
+  }
+}
+
+/**
+ * Cut one picture into a grid of pieces, numbered the way they go back
+ * together. Remainders go to the last row and column rather than being
+ * rounded away, so the pieces still add up to the original exactly.
+ */
+export async function splitImage(
+  file: HeldFile,
+  rows: number,
+  columns: number,
+  format: ImageFormat,
+  quality = 0.95
+): Promise<{ name: string; data: Uint8Array; width: number; height: number }[]> {
+  const bitmap = await decode(file.data)
+  try {
+    const pieceWidth = Math.floor(bitmap.width / columns)
+    const pieceHeight = Math.floor(bitmap.height / rows)
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')
+    if (!context) throw new Error('canvas unavailable')
+
+    const out: { name: string; data: Uint8Array; width: number; height: number }[] = []
+    for (let row = 0; row < rows; row++) {
+      for (let column = 0; column < columns; column++) {
+        const width = column === columns - 1 ? bitmap.width - pieceWidth * column : pieceWidth
+        const height = row === rows - 1 ? bitmap.height - pieceHeight * row : pieceHeight
+        canvas.width = width
+        canvas.height = height
+        if (format === 'jpeg') {
+          context.fillStyle = '#ffffff'
+          context.fillRect(0, 0, width, height)
+        }
+        context.drawImage(bitmap, column * pieceWidth, row * pieceHeight, width, height, 0, 0, width, height)
+        const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, MIME[format], quality))
+        if (!blob) throw new Error('encode failed')
+        out.push({
+          name: `${row + 1}-${column + 1}.${EXTENSION[format]}`,
+          data: new Uint8Array(await blob.arrayBuffer()),
+          width,
+          height
+        })
+      }
+    }
+    return out
+  } finally {
+    bitmap.close()
+  }
+}
