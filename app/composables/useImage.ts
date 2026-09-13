@@ -129,7 +129,17 @@ async function decodeHeic(data: Uint8Array): Promise<ImageBitmap> {
   return await createImageBitmap(pixels)
 }
 
-/** Decode to a bitmap, converting HEIC first if needed. */
+/**
+ * Decode to a bitmap, converting HEIC first if needed.
+ *
+ * Exported because a tool that lets someone choose part of a picture has to
+ * show them the picture, and an `<img>` cannot display the HEIC these tools
+ * accept.
+ */
+export async function decodeImage(data: Uint8Array): Promise<ImageBitmap> {
+  return await decode(data)
+}
+
 async function decode(data: Uint8Array): Promise<ImageBitmap> {
   const kind = sniffImage(data)
   if (kind === 'heic') return await decodeHeic(data)
@@ -139,12 +149,23 @@ async function decode(data: Uint8Array): Promise<ImageBitmap> {
   return await createImageBitmap(new Blob([data as BlobPart]), { imageOrientation: 'from-image' })
 }
 
+/**
+ * The part of the source to keep, in pixels. Absent means all of it.
+ */
+export interface CropRect {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
 async function encode(
   bitmap: ImageBitmap,
   format: ImageFormat,
   quality: number,
   width = bitmap.width,
-  height = bitmap.height
+  height = bitmap.height,
+  crop?: CropRect
 ): Promise<Uint8Array> {
   const canvas = document.createElement('canvas')
   canvas.width = Math.max(1, Math.round(width))
@@ -161,7 +182,13 @@ async function encode(
   }
 
   context.imageSmoothingQuality = 'high'
-  context.drawImage(bitmap, 0, 0, canvas.width, canvas.height)
+  if (crop) {
+    // Source rectangle first, destination second: the chosen part of the
+    // picture is stretched to fill the whole output.
+    context.drawImage(bitmap, crop.x, crop.y, crop.width, crop.height, 0, 0, canvas.width, canvas.height)
+  } else {
+    context.drawImage(bitmap, 0, 0, canvas.width, canvas.height)
+  }
 
   const blob = await new Promise<Blob | null>(resolve =>
     canvas.toBlob(resolve, MIME[format], quality)
@@ -205,26 +232,35 @@ export async function compressImage(
   return result
 }
 
-/** Resize to a target width, height, or both. Aspect ratio is kept unless both are given. */
+/**
+ * Resize to a target width, height, or both, optionally keeping only part of
+ * the source. Aspect ratio is kept unless both dimensions are given — and
+ * when a crop is supplied it is the crop's ratio that is followed, since that
+ * is the picture the person chose.
+ */
 export async function resizeImage(
   file: HeldFile,
   target: { width?: number; height?: number },
   format: ImageFormat,
-  quality = 0.92
+  quality = 0.92,
+  crop?: CropRect
 ): Promise<ImageResult> {
   const bitmap = await decode(file.data)
+
+  const sourceWidth = crop?.width ?? bitmap.width
+  const sourceHeight = crop?.height ?? bitmap.height
 
   let width = target.width ?? 0
   let height = target.height ?? 0
 
-  if (width && !height) height = (bitmap.height / bitmap.width) * width
-  else if (height && !width) width = (bitmap.width / bitmap.height) * height
+  if (width && !height) height = (sourceHeight / sourceWidth) * width
+  else if (height && !width) width = (sourceWidth / sourceHeight) * height
   else if (!width && !height) {
-    width = bitmap.width
-    height = bitmap.height
+    width = sourceWidth
+    height = sourceHeight
   }
 
-  const data = await encode(bitmap, format, quality, width, height)
+  const data = await encode(bitmap, format, quality, width, height, crop)
   const result = { data, width: Math.round(width), height: Math.round(height) }
   bitmap.close()
   return result

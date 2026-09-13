@@ -412,7 +412,14 @@
       "width": "Kenglik (px)",
       "height": "Balandlik (px)",
       "keepRatio": "Nisbatni saqlash",
-      "action": "O'lchamni o'zgartirish"
+      "action": "O'lchamni o'zgartirish",
+      "partLabel": "Nimani o'zgartirish",
+      "partWhole": "Butun rasm",
+      "partCrop": "Bir qismi",
+      "cropHint": "Hudud tanlash uchun rasm bo'ylab torting, siljitish uchun ichidan torting, to'q sariq burchak o'lchamini o'zgartiradi.",
+      "selected": "Tanlandi",
+      "selectAll": "Hammasini tanlash",
+      "cropNote": "Qirqildi {w} × {h} px → {ow} × {oh} px"
     },
     "convert": {
       "action": "{format} ga o'girish"

@@ -412,7 +412,14 @@
       "width": "Width (px)",
       "height": "Height (px)",
       "keepRatio": "Keep aspect ratio",
-      "action": "Resize image"
+      "action": "Resize image",
+      "partLabel": "What to resize",
+      "partWhole": "The whole image",
+      "partCrop": "Part of it",
+      "cropHint": "Drag on the image to choose an area, drag inside it to move, pull the orange corner to resize.",
+      "selected": "Selected",
+      "selectAll": "Select everything",
+      "cropNote": "Cropped {w} × {h} px → {ow} × {oh} px"
     },
     "convert": {
       "action": "Convert to {format}"
