@@ -46,6 +46,21 @@ watch(
 
 const canRun = computed(() => !!file.value && !!dimensions.value && !store.busy)
 
+/**
+ * PNG stores every pixel exactly, so a photograph that JPEG squeezed into
+ * 4 MB comes back as 20-something. That is the format working correctly, but
+ * arriving at a five-times-larger download with no warning reads as a
+ * failure — so say it before the button is pressed, and again afterwards if
+ * the file really did grow.
+ */
+const photoToPng = computed(() => !lossy.value && props.accept.includes('jpeg'))
+
+const grew = computed(() => {
+  const result = store.result
+  if (!result || lossy.value) return false
+  return result.data.byteLength > result.sourceSize * 1.2
+})
+
 async function run() {
   if (!canRun.value || !file.value) return
   store.busy = true
@@ -89,6 +104,10 @@ function onFiles(files: File[]) {
       {{ formatBytes(file!.size) }}
     </p>
 
+    <p v-if="photoToPng" class="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
+      {{ t('image.convert.pngGrows') }}
+    </p>
+
     <div v-if="file && dimensions && lossy">
       <label for="cv-quality" class="block text-sm font-medium text-stone-900">
         {{ t('image.quality', { n: quality }) }}
@@ -122,6 +141,10 @@ function onFiles(files: File[]) {
     </div>
 
     <p v-if="store.error" class="text-sm text-red-700" role="alert">{{ store.error }}</p>
+
+    <p v-if="grew" class="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
+      {{ t('image.convert.pngGrewNote') }}
+    </p>
 
     <ShellResultCard
       v-if="store.result"

@@ -422,7 +422,9 @@
       "cropNote": "Cropped {w} × {h} px → {ow} × {oh} px"
     },
     "convert": {
-      "action": "Convert to {format}"
+      "action": "Convert to {format}",
+      "pngGrows": "PNG keeps every pixel exactly, so a photo usually comes out several times larger than the JPG — a 4 MB photo can become 20 MB or more. PNG is worth it for screenshots, logos, diagrams and anything needing transparency; for photographs, JPG is the better format.",
+      "pngGrewNote": "As expected, the PNG is larger than the original. That is PNG doing its job — nothing was lost. If you wanted a smaller file rather than a lossless one, keep the JPG."
     }
   },
   "percent": {

@@ -422,7 +422,9 @@
       "cropNote": "Qirqildi {w} × {h} px → {ow} × {oh} px"
     },
     "convert": {
-      "action": "{format} ga o'girish"
+      "action": "{format} ga o'girish",
+      "pngGrows": "PNG har bir pikselni aniq saqlaydi, shuning uchun surat odatda JPG dan bir necha barobar katta chiqadi — 4 MB lik surat bemalol 20 MB va undan ko'p bo'lishi mumkin. PNG skrinshot, logotip, sxema va shaffoflik kerak bo'lgan hollarda o'zini oqlaydi; suratlar uchun JPG ma'qulroq.",
+      "pngGrewNote": "Kutilganidek, PNG asl fayldan katta. Bu PNG ning ishi — hech narsa yo'qolmadi. Kichikroq fayl kerak bo'lsa, yo'qotishsizi emas, JPG ni saqlab qoling."
     }
   },
   "percent": {

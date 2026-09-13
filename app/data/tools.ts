@@ -461,7 +461,7 @@ export const tools: ToolDef[] = [
     group: 'convert',
     component: 'image/Convert',
     icon: 'repeat',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'png-to-jpg', ru: 'png-v-jpg', uz: 'png-dan-jpg' },
     related: ['jpg-to-png', 'image-compress'],
