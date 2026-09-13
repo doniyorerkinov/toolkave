@@ -449,6 +449,30 @@
       "reset": "Hammasini bekor qilish",
       "hint": "Rasmni tugmalar bilan buring yoki aks ettiring. Ko‘rinayotgan narsa aynan saqlanadi.",
       "note": "{w} × {h} o‘lchamda saqlandi"
+    },
+    "metadata": {
+      "action": "Hammasini o‘chirish",
+      "another": "Boshqa rasmni tekshirish",
+      "summary": "Bu rasm {size} yashirin ma’lumot olib yuribdi:",
+      "withAltitude": "{degrees} · dengiz sathidan {m} m balandlikda",
+      "gpsWarning": "Bu koordinatalar — zatvor bosilgan paytda siz turgan joy, bir necha metr aniqlikda. Faylni olgan har kim ularni o‘qiy oladi.",
+      "othersWarning": "Bularning hech biri rasmning o‘zida ko‘rinmaydi, lekin siz faylni yuborganingizda hammasi u bilan birga ketadi.",
+      "cleanTitle": "Bunisida yashirin narsa yo‘q",
+      "cleanBody": "Na joylashuv, na kamera ma’lumotlari, na sanalar. Yo kamera ularni yozmagan, yo allaqachon biror narsa o‘chirib tashlagan — ijtimoiy tarmoqlar yuklashda metama’lumotni kesib tashlaydi, shuning uchun u yerdan saqlangan rasm toza keladi.",
+      "unsupported": "Bu formatdagi yozuvlarni rasmni qayta siqmasdan olib tashlab bo‘lmaydi, qayta siqish esa sifatga tushadi.",
+      "heicLink": "Uni JPG ga o‘girib oling — yo‘l-yo‘lakay hammasi tushib qoladi",
+      "note": "{size} yashirin ma’lumot o‘chirildi. Rasmning o‘ziga tegilmadi.",
+      "field": {
+        "gps": "Joylashuv",
+        "camera": "Kamera",
+        "lens": "Obyektiv",
+        "serial": "Kamera seriya raqami",
+        "lensSerial": "Obyektiv seriya raqami",
+        "taken": "Olingan sana",
+        "software": "Dastur",
+        "artist": "Muallif",
+        "copyright": "Mualliflik huquqi"
+      }
     }
   },
   "percent": {
@@ -2170,6 +2194,30 @@
         "a3": "Burish rasmni aylantiradi. Aks ettirish esa uni oynadagidek o‘ng va chapni almashtirib qo‘yadi — teskari chiqqan selfi yoki noto‘g‘ri tomondan skanerlangan plyonka uchun kerak bo‘ladi. Aks ettirilgan rasmda matn teskari o‘qiladi — ularni eng oson shu bilan farqlash mumkin.",
         "q4": "Rasmim biror joyga yuklanadimi?",
         "a4": "Yo‘q. Burish brauzeringiz ichida, o‘z qurilmangizda bajariladi. Serverga hech narsa yuborilmaydi — shuning uchun sahifa ochilgach, internetsiz ham ishlayveradi."
+      }
+    },
+    "image-metadata": {
+      "name": "EXIF ma’lumotini o‘chirish",
+      "short": "Surat siz haqingizda nima deyayotganini ko‘ring va uni o‘chiring.",
+      "title": "EXIF o‘chirish — suratdan joylashuvni olib tashlash onlayn, bepul",
+      "description": "Bepul onlayn EXIF o‘chirgich. Suratda yashiringan GPS koordinatalari, kamera va seriya raqamini ko‘ring va ularni qayta siqmasdan olib tashlang. Brauzerda ishlaydi — hech narsa yuklanmaydi.",
+      "intro": "Suratni qo‘shing va u nima olib yurganini aniq ko‘ring: qayerda olingani, qaysi kamera bilan, o‘sha kameraning seriya raqami va zatvor bosilgan soniya. So‘ng hammasini bitta bosishda o‘chiring. Piksellar o‘zgarishsiz ko‘chiriladi, ya’ni rasm qayta siqilmaydi.",
+      "howTo": {
+        "step1": "Kamera yoki telefondan olingan suratni to‘g‘ridan-to‘g‘ri qo‘shing.",
+        "step2": "Nima topilganini o‘qing — odatda eng kutilmagani joylashuv bo‘ladi.",
+        "step3": "“Hammasini o‘chirish”ni bosing va toza faylni yuklab oling."
+      },
+      "faq": {
+        "q1": "EXIF ma’lumoti nima?",
+        "a1": "Kamera rasm fayli ichiga yozib qo‘yadigan yozuvlar to‘plami. Odatda unda ishlab chiqaruvchi va model, suratga olish sozlamalari, soniyagacha aniq sana va vaqt, ko‘pincha kameraning seriya raqami hamda — joylashuv yoqilgan bo‘lsa — siz turgan joyning GPS koordinatalari bir necha metr aniqlikda bo‘ladi. Bularning hech biri rasmda ko‘rinmaydi, lekin hammasi fayl bilan birga yuradi.",
+        "q2": "O‘chirish rasmni o‘zgartiradimi?",
+        "a2": "Yo‘q. Siqilgan tasvir ma’lumoti bayt-baytga ko‘chiriladi va faqat yozuv bo‘laklari kesib tashlanadi, ya’ni ikkinchi marta JPEG siqish bo‘lmaydi va sifat umuman yo‘qolmaydi. Fayl shunchaki kichrayadi.",
+        "q3": "Nimalar saqlanib qoladi?",
+        "a3": "Rasmning ko‘rinishiga ta’sir qiladigan hamma narsa: rang profili, shaffoflik va animatsiya kadrlari. Rang profilini o‘chirish ranglarni siljitib yuborardi, shuning uchun u qoladi. Qolgan hammasi — joylashuv, kamera, seriya raqamlari, sanalar, tahrir tarixi, izohlar — o‘chiriladi.",
+        "q4": "Ijtimoiy tarmoqlar buni o‘zi olib tashlamaydimi?",
+        "a4": "Ko‘pchiligi olib tashlaydi, shuning uchun odamlar u umuman yo‘q deb o‘ylaydi. Xavf esa ulardan chetda ketadigan hamma narsada: pochta orqali yuborilgan, messenjerda fayl sifatida jo‘natilgan, o‘z saytingizga qo‘yilgan yoki e’longa biriktirilgan surat yozuvlarning to‘liq to‘plamini saqlab qoladi.",
+        "q5": "Suratim biror joyga yuklanadimi?",
+        "a5": "Yo‘q — va bu vositada bu har qachongidan muhimroq. Fayl brauzeringiz ichida, o‘z qurilmangizda o‘qiladi va qayta yoziladi. Suratdagi koordinatalarni o‘chirish uchun uni yuklashni so‘raydigan sayt o‘sha koordinatalarni allaqachon olib bo‘lgan bo‘lardi."
       }
     }
   },

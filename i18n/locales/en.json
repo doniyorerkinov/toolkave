@@ -449,6 +449,30 @@
       "reset": "Undo all",
       "hint": "Use the buttons to turn or mirror the picture. The preview is exactly what will be saved.",
       "note": "Saved at {w} × {h}"
+    },
+    "metadata": {
+      "action": "Remove all of it",
+      "another": "Check another picture",
+      "summary": "This picture is carrying {size} of hidden notes:",
+      "withAltitude": "{degrees} · {m} m above sea level",
+      "gpsWarning": "Those coordinates are your location when the shutter fired, accurate to a few metres. Anyone who receives the file can read them.",
+      "othersWarning": "None of this is visible in the picture, and all of it travels with the file when you send it.",
+      "cleanTitle": "Nothing hidden in this one",
+      "cleanBody": "No location, no camera details, no dates. Either the camera never wrote them or something has already removed them — social networks strip metadata when you upload, so a picture saved from one comes back clean.",
+      "unsupported": "This format's notes cannot be removed without re-encoding the picture, which would cost quality.",
+      "heicLink": "Convert it to JPG instead — that drops everything on the way",
+      "note": "Removed {size} of hidden data. The picture itself is untouched.",
+      "field": {
+        "gps": "Location",
+        "camera": "Camera",
+        "lens": "Lens",
+        "serial": "Camera serial number",
+        "lensSerial": "Lens serial number",
+        "taken": "Date taken",
+        "software": "Software",
+        "artist": "Author",
+        "copyright": "Copyright"
+      }
     }
   },
   "percent": {
@@ -2170,6 +2194,30 @@
         "a3": "Rotating turns the picture. Flipping mirrors it, the way a mirror reverses left and right — useful for a selfie that came out backwards, or for scanned film that was fed in the wrong way round. Text in a flipped picture reads backwards, which is the quick way to tell them apart.",
         "q4": "Is my picture uploaded anywhere?",
         "a4": "No. The turn happens inside your browser, on your own device. Nothing is sent to a server, which is also why it keeps working with the tab offline once the page has loaded."
+      }
+    },
+    "image-metadata": {
+      "name": "Remove EXIF data",
+      "short": "See what your photo says about you, then take it out.",
+      "title": "Remove EXIF Data — strip location from photos online, free",
+      "description": "Free online EXIF remover. See the GPS coordinates, camera and serial number hidden in a photo, then strip them without re-encoding. Runs in your browser — nothing is uploaded.",
+      "intro": "Add a photo and see exactly what it is carrying: where it was taken, which camera took it, that camera's serial number and the second the shutter fired. Then remove all of it in one click. The pixels are copied through untouched, so the picture is not re-compressed.",
+      "howTo": {
+        "step1": "Add a photo straight from a camera or phone.",
+        "step2": "Read what it found — the location is usually the surprising part.",
+        "step3": "Press Remove all of it and download the clean file."
+      },
+      "faq": {
+        "q1": "What is EXIF data?",
+        "a1": "A block of notes the camera writes inside the picture file. It normally holds the make and model, the exposure settings, the date and time to the second, often the camera's serial number, and — if location was on — the GPS position where you stood, accurate to a few metres. None of it shows in the picture; all of it travels with the file.",
+        "q2": "Does removing it change the picture?",
+        "a2": "No. The compressed image data is copied across byte for byte and only the note segments are cut out, so there is no second round of JPEG compression and no quality loss at all. The file just gets smaller.",
+        "q3": "What is kept?",
+        "a3": "Anything that affects how the picture looks: the colour profile, transparency, and animation frames. Removing a colour profile would shift the colours, so it stays. Everything else — location, camera, serial numbers, dates, editing history, comments — goes.",
+        "q4": "Do social networks not already strip this?",
+        "a4": "Most do, which is why people assume it is never there. The risk is everything that does not go through one: a photo emailed, sent as a file on a messenger, put on your own website, or attached to a marketplace listing keeps the full set of notes.",
+        "q5": "Is my photo uploaded anywhere?",
+        "a5": "No — and on this tool that matters more than most. The file is read and rewritten inside your browser, on your own device. A site that asked you to upload a photo to have its location removed would already have the location."
       }
     }
   },
