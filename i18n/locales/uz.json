@@ -129,7 +129,8 @@
     "nextPage": "Keyingi sahifa",
     "zoomIn": "Kattalashtirish",
     "zoomOut": "Ekranga moslash",
-    "pageOf": "{total} sahifadan {n}-si"
+    "pageOf": "{total} sahifadan {n}-si",
+    "undelivered": "Brauzer faylni qabul qilmadi. toolkave.com ni Safari yoki Chrome da oching va u yerda urinib koʻring."
   },
   "draft": {
     "badge": "Qoralama — chop etilmagan",

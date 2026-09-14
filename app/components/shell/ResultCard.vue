@@ -22,8 +22,17 @@ const delta = computed(() => {
   return Math.round(change)
 })
 
-function download() {
-  downloadBytes(props.result.data, props.result.name, props.result.type)
+/**
+ * Inside Telegram's webview an anchor download is ignored without complaining,
+ * so `downloadBytes` says what it managed. When there is no route left the
+ * button must admit it rather than look like it worked.
+ */
+const undelivered = ref(false)
+
+async function download() {
+  undelivered.value = false
+  const result = await downloadBytes(props.result.data, props.result.name, props.result.type)
+  undelivered.value = result === 'unavailable'
 }
 
 /**
@@ -82,6 +91,9 @@ function continueWith(tool: ToolDef) {
         >
           {{ t('result.download') }}
         </button>
+        <p v-if="undelivered" class="w-full text-sm font-medium text-red-700">
+          {{ t('result.undelivered') }}
+        </p>
         <button
           v-if="chainable"
           type="button"

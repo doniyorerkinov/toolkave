@@ -129,7 +129,8 @@
     "nextPage": "Next page",
     "zoomIn": "Enlarge",
     "zoomOut": "Fit to screen",
-    "pageOf": "Page {n} of {total}"
+    "pageOf": "Page {n} of {total}",
+    "undelivered": "Your browser would not take the file. Open toolkave.com in Safari or Chrome and try again there."
   },
   "draft": {
     "badge": "Draft — not published",

@@ -79,7 +79,7 @@ async function copyOutput() {
 function download() {
   const extension = props.from === 'markdown' ? 'html' : 'md'
   const type = props.from === 'markdown' ? 'text/html' : 'text/markdown'
-  downloadBytes(output.value, `converted.${extension}`, `${type};charset=utf-8`)
+  void downloadBytes(output.value, `converted.${extension}`, `${type};charset=utf-8`)
 }
 </script>
 

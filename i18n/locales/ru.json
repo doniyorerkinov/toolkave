@@ -129,7 +129,8 @@
     "nextPage": "Следующая страница",
     "zoomIn": "Увеличить",
     "zoomOut": "По размеру экрана",
-    "pageOf": "Страница {n} из {total}"
+    "pageOf": "Страница {n} из {total}",
+    "undelivered": "Браузер не принял файл. Откройте toolkave.com в Safari или Chrome и попробуйте там."
   },
   "draft": {
     "badge": "Черновик — не опубликовано",
