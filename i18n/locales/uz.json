@@ -3050,5 +3050,9 @@
         }
       ]
     }
+  },
+  "select": {
+    "search": "Qidirish…",
+    "noMatch": "Hech narsa topilmadi"
   }
 }

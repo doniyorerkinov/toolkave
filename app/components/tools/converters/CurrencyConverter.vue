@@ -2,7 +2,7 @@
 import { convertCurrency, useRates } from '~/composables/useRates'
 import { tidyNumber } from '~/utils/calc'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const { table, pending, failed, load } = useRates()
 
 const amount = ref<number | null>(100)
@@ -14,6 +14,28 @@ const to = ref('UZS')
 onMounted(() => load())
 
 const codes = computed(() => (table.value ? Object.keys(table.value.rates).sort() : []))
+
+/**
+ * "RON — Romanian leu" rather than "RON".
+ *
+ * Nobody knows a hundred currency codes, and the browser already has the
+ * names in every language we ship, so there is no table to keep. Where it
+ * has no name for a code the code stands on its own.
+ */
+const currencyNames = computed(() => {
+  try {
+    return new Intl.DisplayNames([locale.value], { type: 'currency' })
+  } catch {
+    return null
+  }
+})
+
+const options = computed(() =>
+  codes.value.map(code => {
+    const name = currencyNames.value?.of(code)
+    return { value: code, label: code, hint: name && name !== code ? name : undefined }
+  })
+)
 
 const result = computed(() => {
   if (!table.value || amount.value === null) return null
@@ -81,13 +103,12 @@ const popular = computed(() => {
               step="any"
               class="min-w-0 flex-1 rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
             />
-            <select
+            <ShellSelect
               v-model="from"
+              :options="options"
               :aria-label="t('currency.from')"
-              class="rounded-lg border border-stone-300 px-2 py-2 outline-none focus:border-ember-500"
-            >
-              <option v-for="code in codes" :key="code" :value="code">{{ code }}</option>
-            </select>
+              class="w-28 shrink-0"
+            />
           </div>
         </div>
 
@@ -111,13 +132,13 @@ const popular = computed(() => {
             >
               {{ result === null ? '—' : tidyNumber(result) }}
             </output>
-            <select
+            <ShellSelect
               v-model="to"
+              :options="options"
               :aria-label="t('currency.to')"
-              class="rounded-lg border border-stone-300 px-2 py-2 outline-none focus:border-ember-500"
-            >
-              <option v-for="code in codes" :key="code" :value="code">{{ code }}</option>
-            </select>
+              align="end"
+              class="w-28 shrink-0"
+            />
           </div>
         </div>
       </div>

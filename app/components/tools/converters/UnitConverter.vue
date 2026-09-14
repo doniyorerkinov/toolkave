@@ -7,6 +7,8 @@ const categories = Object.keys(UNITS) as UnitCategory[]
 const category = ref<UnitCategory>('length')
 
 const unitsFor = computed(() => Object.keys(UNITS[category.value]))
+/** The picker wants labels, and the names are translated. */
+const unitOptions = computed(() => unitsFor.value.map(unit => ({ value: unit, label: t(`units.names.${unit}`) })))
 
 const from = ref('m')
 const to = ref('ft')
@@ -74,15 +76,12 @@ const quickRows = computed(() => {
             step="any"
             class="min-w-0 flex-1 rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
           />
-          <select
+          <ShellSelect
             v-model="from"
+            :options="unitOptions"
             :aria-label="t('units.from')"
-            class="rounded-lg border border-stone-300 px-2 py-2 outline-none focus:border-ember-500"
-          >
-            <option v-for="unit in unitsFor" :key="unit" :value="unit">
-              {{ t(`units.names.${unit}`) }}
-            </option>
-          </select>
+            class="min-w-36 flex-1"
+          />
         </div>
       </div>
 
@@ -106,15 +105,13 @@ const quickRows = computed(() => {
           >
             {{ result === null ? '—' : tidyNumber(result) }}
           </output>
-          <select
+          <ShellSelect
             v-model="to"
+            :options="unitOptions"
             :aria-label="t('units.to')"
-            class="rounded-lg border border-stone-300 px-2 py-2 outline-none focus:border-ember-500"
-          >
-            <option v-for="unit in unitsFor" :key="unit" :value="unit">
-              {{ t(`units.names.${unit}`) }}
-            </option>
-          </select>
+            align="end"
+            class="min-w-36 flex-1"
+          />
         </div>
       </div>
     </div>

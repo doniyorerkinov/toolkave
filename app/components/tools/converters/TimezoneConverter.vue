@@ -120,6 +120,14 @@ function removeTarget(zone: string) {
 }
 
 const zoneLabel = (zone: string) => zone.replace(/_/g, ' ').replace('/', ' / ')
+
+/** Labelled for the picker, so a search matches the city as well as the code. */
+const zoneOptions = computed(() => ZONES.map(zone => ({ value: zone, label: zoneLabel(zone) })))
+/** The add-a-zone picker never holds a value; choosing one is the action. */
+const addOptions = computed(() => [
+  { value: '', label: t('timezone.choose') },
+  ...ZONES.map(zone => ({ value: zone, label: zoneLabel(zone) }))
+])
 </script>
 
 <template>
@@ -151,13 +159,12 @@ const zoneLabel = (zone: string) => zone.replace(/_/g, ' ').replace('/', ' / ')
         <label for="tz-source" class="block text-sm font-medium text-stone-900">
           {{ t('timezone.sourceZone') }}
         </label>
-        <select
-          id="tz-source"
+        <ShellSelect
           v-model="source"
-          class="mt-1 w-full rounded-lg border border-stone-300 px-2 py-2 outline-none focus:border-ember-500"
-        >
-          <option v-for="zone in ZONES" :key="zone" :value="zone">{{ zoneLabel(zone) }}</option>
-        </select>
+          :options="zoneOptions"
+          :aria-label="t('timezone.source')"
+          class="mt-1 w-full"
+        />
       </div>
     </div>
 
@@ -170,14 +177,13 @@ const zoneLabel = (zone: string) => zone.replace(/_/g, ' ').replace('/', ' / ')
       <label for="tz-add" class="block text-sm font-medium text-stone-900">
         {{ t('timezone.addZone') }}
       </label>
-      <select
-        id="tz-add"
-        class="mt-1 w-full rounded-lg border border-stone-300 px-2 py-2 outline-none focus:border-ember-500 sm:w-auto"
-        @change="addTarget(($event.target as HTMLSelectElement).value); ($event.target as HTMLSelectElement).value = ''"
-      >
-        <option value="">{{ t('timezone.choose') }}</option>
-        <option v-for="zone in ZONES" :key="zone" :value="zone">{{ zoneLabel(zone) }}</option>
-      </select>
+      <ShellSelect
+        :model-value="''"
+        :options="addOptions"
+        :aria-label="t('timezone.choose')"
+        class="mt-1 w-full sm:w-64"
+        @update:model-value="value => value && addTarget(value)"
+      />
     </div>
 
     <ul v-if="rows.length" class="divide-y divide-stone-200 rounded-lg border border-stone-200">

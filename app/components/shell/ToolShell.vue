@@ -92,6 +92,22 @@ const tone = TONES[props.tool.category]
 /** Dev only: green = published, red = draft. */
 const showStatus = import.meta.dev
 
+/**
+ * The second light in the sibling list: how much of a tool Google has been
+ * told about. Separate from the first because being live and being indexed
+ * are different states that people otherwise conflate.
+ */
+function indexState(candidate: ToolDef) {
+  const asked = candidate.indexed?.length ?? 0
+  if (!asked) return 'bg-stone-300'
+  return asked >= candidate.locales.length ? 'bg-emerald-500' : 'bg-amber-400'
+}
+
+function indexTitle(candidate: ToolDef) {
+  const asked = candidate.indexed ?? []
+  return asked.length ? `Indexed: ${asked.join(', ')}` : 'Not submitted to Search Console'
+}
+
 /** The rest of this category, for the sidebar — every tool page links its siblings. */
 const siblings = computed(() =>
   toolsInCategory(props.tool.category, currentLocale.value, import.meta.dev)
@@ -170,6 +186,7 @@ const relatedTools = computed(() =>
           {{ t(`tools.${tool.id}.name`) }}
         </h1>
         <p class="mt-2 text-base text-stone-600">{{ t(`tools.${tool.id}.short`) }}</p>
+        <ShellDevStatus v-if="showStatus" :tool="tool" />
       </header>
 
       <!-- Tool area: above the fold, before any ad. -->
@@ -216,12 +233,18 @@ const relatedTools = computed(() =>
                 <ShellIcon :name="sibling.icon" :size="14" />
               </span>
               <span class="truncate group-hover:underline">{{ t(`tools.${sibling.id}.name`) }}</span>
-              <span
-                v-if="showStatus"
-                class="ms-auto inline-block size-2 shrink-0 rounded-full"
-                :class="sibling.published ? 'bg-emerald-500' : 'bg-red-500'"
-                :title="sibling.published ? t('draft.live') : t('draft.badge')"
-              />
+              <span v-if="showStatus" class="ms-auto flex shrink-0 items-center gap-1">
+                <span
+                  class="inline-block size-2 rounded-full"
+                  :class="sibling.published ? 'bg-emerald-500' : 'bg-red-500'"
+                  :title="sibling.published ? t('draft.live') : t('draft.badge')"
+                />
+                <span
+                  class="inline-block size-2 rounded-full"
+                  :class="indexState(sibling)"
+                  :title="indexTitle(sibling)"
+                />
+              </span>
             </NuxtLink>
           </li>
         </ul>

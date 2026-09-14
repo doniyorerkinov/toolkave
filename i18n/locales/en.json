@@ -3050,5 +3050,9 @@
         }
       ]
     }
+  },
+  "select": {
+    "search": "Search…",
+    "noMatch": "Nothing matches"
   }
 }
