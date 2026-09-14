@@ -24,8 +24,10 @@ function fakeStore() {
   // A separate map on purpose: clear() must not touch it, just as clear()
   // does not touch the prefs table.
   const locales = new Map()
+  const tally = new Map()
   return {
     sent: files,
+    tally,
     async readLocale(chatId) {
       return locales.get(chatId) ?? null
     },
@@ -37,6 +39,9 @@ function fakeStore() {
     },
     async add(chatId, file) {
       files.set(chatId, [...(files.get(chatId) ?? []), file])
+    },
+    async count(event, by = 1) {
+      tally.set(event, (tally.get(event) ?? 0) + by)
     },
     async remove(chatId, fileId) {
       files.set(chatId, (files.get(chatId) ?? []).filter(file => file.fileId !== fileId))
@@ -507,4 +512,74 @@ test('a cover plus pages is labelled as one document, not as making a PDF', asyn
   await handleUpdate(press('a4'), context)
   const out = await PDFDocument.load(context.api.log.documents[0].bytes)
   assert.equal(out.getPageCount(), 3)
+})
+
+/**
+ * The contact page says messages reach a human. Until now they did not: text
+ * got a line about accepted file types and went nowhere. With the email
+ * address removed this is the only channel the bot's audience has.
+ */
+test('a text message is carried to the feedback group, and the sender is told', async () => {
+  const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF, feedbackChat: -1001 }
+  await handleUpdate(start('uz'), context)
+  await handleUpdate(press('lang:uz', 'uz'), context)
+
+  await handleUpdate({
+    message: {
+      message_id: 9, chat: { id: 7 },
+      from: { language_code: 'uz', first_name: 'Dilnoza', username: 'dilnoza' },
+      text: 'Rasmlar PDF ga aylanmadi'
+    }
+  }, context)
+
+  const toGroup = context.api.log.messages.find(m => m.chatId === -1001)
+  assert.ok(toGroup, 'the group received it')
+  assert.match(toGroup.text, /Dilnoza/)
+  assert.match(toGroup.text, /@dilnoza/)
+  assert.match(toGroup.text, /id 7/, 'the id is there, or there is no way to reply')
+  assert.match(toGroup.text, /Rasmlar PDF ga aylanmadi/)
+
+  assert.match(context.api.log.messages.at(-1).text, /tirik odam/, 'the sender is thanked, in Uzbek')
+  assert.equal(context.store.tally.get('feedback'), 1)
+})
+
+test('with no group configured the bot does not pretend the message arrived', async () => {
+  const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
+  await handleUpdate({ message: { message_id: 9, chat: { id: 7 }, from: { language_code: 'en' }, text: 'hello?' } }, context)
+
+  const reply = context.api.log.messages.at(-1)
+  assert.match(reply.text, /photos, JPG, PNG and PDF/)
+  assert.ok(!/Thank you/.test(reply.text), 'nobody is thanked for a message that went nowhere')
+})
+
+/**
+ * The bot forgets every file, which is the promise. Counting events is what
+ * is left: a date, an event name, a tally, and nothing that points at a person.
+ */
+test('what the bot produced is counted, and nothing about who asked', async () => {
+  const png = solidPng(50, 50)
+  const doc = await PDFDocument.create()
+  doc.addPage([200, 200])
+  const pdf = await doc.save()
+
+  const photos = { api: fakeApi({ a: png, b: png }), store: fakeStore(), settle: BRIEF }
+  await deliver([photo('a'), photo('b')], photos)
+  await handleUpdate(press('a4'), photos)
+  assert.equal(photos.store.tally.get('built:photos'), 1)
+  assert.equal(photos.store.tally.get('files'), 2, 'files is a sum, not a row per size')
+
+  const merge = { api: fakeApi({ p: pdf, q: pdf }), store: fakeStore(), settle: BRIEF }
+  await deliver([pdfDoc('p', pdf), pdfDoc('q', pdf)], merge)
+  await handleUpdate(press('merge'), merge)
+  assert.equal(merge.store.tally.get('built:merge'), 1)
+
+  const mixed = { api: fakeApi({ p: pdf, a: png }), store: fakeStore(), settle: BRIEF }
+  await deliver([pdfDoc('p', pdf), photo('a')], mixed)
+  await handleUpdate(press('a4'), mixed)
+  assert.equal(mixed.store.tally.get('built:mixed'), 1)
+
+  // Nothing in the tally can be traced back to a chat.
+  for (const key of mixed.store.tally.keys()) {
+    assert.ok(!/\d{4,}/.test(key), `tally key "${key}" looks like it carries an id`)
+  }
 })

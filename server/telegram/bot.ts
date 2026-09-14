@@ -47,6 +47,8 @@ interface Context {
   store: SessionStore
   /** Overridden in tests, where waiting a real second and a half is waste. */
   settle?: { album: number; single: number }
+  /** Where plain-text messages go. Unset means the bot has no human behind it. */
+  feedbackChat?: number
   /**
    * Keeps work running after Telegram has been answered.
    *
@@ -71,6 +73,29 @@ async function onMessage(message: NonNullable<TelegramUpdate['message']>, contex
   const locale = chosen ?? localeOf(message.from?.language_code)
   const text = message.text?.trim() ?? ''
 
+  /**
+   * `/stats` in the feedback group only.
+   *
+   * Access control by address rather than by a list of admin ids: the only
+   * people who can ask are the people already in the group that receives
+   * feedback, which is the same set of people who should see the numbers.
+   */
+  if (text.startsWith('/stats') && context.feedbackChat && chatId === context.feedbackChat) {
+    const rows = await context.store.stats(7)
+    if (!rows.length) {
+      await context.api.sendMessage(chatId, 'Nothing counted in the last 7 days.')
+      return
+    }
+    const byDay = new Map<string, string[]>()
+    for (const row of rows) {
+      if (!byDay.has(row.day)) byDay.set(row.day, [])
+      byDay.get(row.day)!.push(`  ${row.event}: ${row.n}`)
+    }
+    const report = [...byDay].map(([day, lines]) => `${day}\n${lines.join('\n')}`).join('\n\n')
+    await context.api.sendMessage(chatId, report)
+    return
+  }
+
   if (text.startsWith('/language') || text.startsWith('/til') || text.startsWith('/lang')) {
     return await askLanguage(chatId, context)
   }
@@ -88,7 +113,7 @@ async function onMessage(message: NonNullable<TelegramUpdate['message']>, contex
 
   const incoming = fileFrom(message)
   if (!incoming) {
-    if (text) await context.api.sendMessage(chatId, STRINGS[locale].unsupported)
+    if (text) await forwardFeedback(chatId, locale, message, text, context)
     return
   }
   if (incoming.bytes > MAX_DOWNLOAD_BYTES) {
@@ -202,6 +227,47 @@ async function askLanguage(chatId: number, context: Context): Promise<void> {
 }
 
 /**
+ * A text message is feedback, and it reaches a human.
+ *
+ * The contact page has always said "messages sent to it reach us too", and
+ * until now that was not true: text got a line about which file types are
+ * accepted and went nowhere. With the email address gone this is the only
+ * channel the bot's actual audience has, so it had better work.
+ *
+ * Forwarded to a group rather than to one account, so a reply is a
+ * conversation rather than a DM from a stranger. The sender's id goes with it
+ * because without it there is no way to answer.
+ */
+async function forwardFeedback(
+  chatId: number,
+  locale: BotLocale,
+  message: NonNullable<TelegramUpdate['message']>,
+  text: string,
+  context: Context
+): Promise<void> {
+  const s = STRINGS[locale]
+  if (!context.feedbackChat) {
+    await context.api.sendMessage(chatId, s.unsupported)
+    return
+  }
+
+  const who = [message.from?.first_name, message.from?.username && `@${message.from.username}`]
+    .filter(Boolean)
+    .join(' ')
+  const header = `💬 ${who || 'someone'} · ${locale} · id ${chatId}`
+
+  try {
+    await context.api.sendMessage(context.feedbackChat, `${header}\n\n${text}`)
+    await context.store.count('feedback')
+    await context.api.sendMessage(chatId, s.feedbackSent)
+  } catch {
+    // The group is gone, or the bot was removed from it. Say the honest
+    // thing rather than thanking someone for a message nobody received.
+    await context.api.sendMessage(chatId, s.unsupported)
+  }
+}
+
+/**
  * What the bot can do, said once, with a button for each.
  *
  * The buttons are a menu that teaches rather than a mode that traps: tapping
@@ -285,6 +351,7 @@ async function onCallback(query: NonNullable<TelegramUpdate['callback_query']>, 
     const picked = query.data.slice(5)
     if (picked === 'en' || picked === 'ru' || picked === 'uz') {
       await context.store.setLocale(chatId, picked)
+      await context.store.count(`language:${picked}`)
       await greet(chatId, picked, context)
     }
     return
@@ -405,6 +472,11 @@ async function build(chatId: number, locale: BotLocale, fit: Fit, context: Conte
     const caption = dropped ? `${s.failed}\n${s.caption(SITE)}` : s.caption(SITE)
 
     await context.api.sendDocument(chatId, name, bytes, caption)
+    // Counted here rather than at the button: this is the line that means a
+    // document actually reached somebody.
+    const sources = held.filter(file => file.type === 'application/pdf').length
+    await context.store.count(sources === 0 ? 'built:photos' : sources === held.length ? 'built:merge' : 'built:mixed')
+    await context.store.count('files', held.length)
     await context.api.editMessage(chatId, progress.message_id, dropped ? s.failed : s.working)
     await context.store.clear(chatId)
   } catch {

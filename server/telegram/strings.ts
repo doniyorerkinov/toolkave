@@ -56,6 +56,8 @@ interface Strings {
   working: string
   countMixed: (photos: number, pdfs: number) => string
   unsupported: string
+  /** Said back when a plain-text message has been passed to a human. */
+  feedbackSent: string
   tooMany: (max: number) => string
   tooHeavy: string
   tooBig: string
@@ -96,6 +98,7 @@ const en: Strings = {
   countMixed: (photos, pdfs) =>
     `${photos} photo${photos === 1 ? '' : 's'} and ${pdfs} PDF${pdfs === 1 ? '' : 's'} received. I will keep the order you sent them in. Send more, or:`,
   unsupported: 'I can take photos, JPG, PNG and PDF files.',
+  feedbackSent: 'Thank you — a person will read that.',
   tooMany: max => `That is the ${max}-file limit. Press the button to make the PDF, then send the rest.`,
   tooHeavy: 'That would make the PDF too heavy to send back. Make this one, then send the rest.',
   tooBig: 'Telegram only lets bots download files up to 20 MB. This one is bigger.',
@@ -136,6 +139,7 @@ const ru: Strings = {
   countMixed: (photos, pdfs) =>
     `Получено фото: ${photos}, PDF: ${pdfs}. Порядок сохраню тот, в котором вы прислали. Отправьте ещё или:`,
   unsupported: 'Принимаю фотографии, JPG, PNG и PDF.',
+  feedbackSent: 'Спасибо — это прочитает живой человек.',
   tooMany: max => `Это предел — ${max} файлов. Нажмите кнопку, соберите PDF, потом присылайте остальное.`,
   tooHeavy: 'PDF получится слишком тяжёлым для отправки. Соберите этот, потом присылайте остальное.',
   tooBig: 'Telegram разрешает ботам скачивать файлы только до 20 МБ. Этот больше.',
@@ -176,6 +180,7 @@ const uz: Strings = {
   countMixed: (photos, pdfs) =>
     `${photos} ta surat va ${pdfs} ta PDF qabul qilindi. Yuborgan tartibingizni saqlab qolaman. Yana yuboring yoki:`,
   unsupported: 'Surat, JPG, PNG va PDF fayllarni qabul qilaman.',
+  feedbackSent: "Rahmat — buni tirik odam o'qiydi.",
   tooMany: max => `Bu ${max} ta fayl chegarasi. Tugmani bosib PDF yasang, keyin qolganini yuboring.`,
   tooHeavy: "PDF yuborish uchun juda og'ir bo'lib qoladi. Shuni yasang, keyin qolganini yuboring.",
   tooBig: "Telegram botlarga faqat 20 MB gacha fayl yuklab olishga ruxsat beradi. Bu kattaroq.",

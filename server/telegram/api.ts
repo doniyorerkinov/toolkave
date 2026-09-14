@@ -107,6 +107,9 @@ export class TelegramApi {
 
 export interface TelegramUser {
   language_code?: string
+  /** Only used to put a name on forwarded feedback, never stored. */
+  first_name?: string
+  username?: string
 }
 
 export interface TelegramPhotoSize {

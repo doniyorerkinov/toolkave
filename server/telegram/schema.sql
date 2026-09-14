@@ -25,3 +25,13 @@ CREATE TABLE IF NOT EXISTS prefs (
   locale  TEXT    NOT NULL,
   set_at  INTEGER NOT NULL
 );
+
+-- How much the bot is used, and nothing about who used it. A day, an event
+-- name and a tally: enough to tell whether a mailing landed, impossible to
+-- trace to a person. Kept out of the sweep that clears the other tables.
+CREATE TABLE IF NOT EXISTS tally (
+  day   TEXT    NOT NULL,
+  event TEXT    NOT NULL,
+  n     INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (day, event)
+);

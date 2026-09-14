@@ -17,6 +17,8 @@ import { SessionStore } from '../../telegram/session'
 interface BotEnv {
   TELEGRAM_BOT_TOKEN?: string
   TELEGRAM_WEBHOOK_SECRET?: string
+  /** Group chat that receives plain-text messages. Unset: feedback is declined. */
+  TELEGRAM_FEEDBACK_CHAT?: string
   BOT_DB?: D1Database
 }
 
@@ -44,6 +46,7 @@ export default defineEventHandler(async event => {
   const context = {
     api: new TelegramApi(env.TELEGRAM_BOT_TOKEN),
     store: new SessionStore(env.BOT_DB),
+    feedbackChat: env.TELEGRAM_FEEDBACK_CHAT ? Number(env.TELEGRAM_FEEDBACK_CHAT) : undefined,
     defer: keepAlive ? (work: Promise<unknown>) => keepAlive(work) : undefined
   }
 

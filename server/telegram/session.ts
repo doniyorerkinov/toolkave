@@ -98,6 +98,41 @@ export class SessionStore {
       .run()
   }
 
+  /**
+   * Count one thing that happened, on one day.
+   *
+   * The bot deliberately forgets everything: files are converted in memory and
+   * the rows are gone the moment a PDF is sent. That honesty costs the ability
+   * to answer "did the mailing work" — so this counts events, and only events.
+   * A date and a tally. No chat id, no file name, no size, nothing that could
+   * be traced to a person, which is why it can sit beside the privacy promise
+   * without weakening it.
+   */
+  async count(event: string, by = 1): Promise<void> {
+    const day = new Date().toISOString().slice(0, 10)
+    try {
+      await this.db
+        .prepare(
+          'INSERT INTO tally (day, event, n) VALUES (?1, ?2, ?3) ' +
+            'ON CONFLICT(day, event) DO UPDATE SET n = n + ?3'
+        )
+        .bind(day, event, by)
+        .run()
+    } catch {
+      // A counter must never be the reason a PDF does not arrive.
+    }
+  }
+
+  /** The last `days` days of tallies, newest first. */
+  async stats(days = 7): Promise<{ day: string; event: string; n: number }[]> {
+    const from = new Date(Date.now() - days * 86_400_000).toISOString().slice(0, 10)
+    const rows = await this.db
+      .prepare('SELECT day, event, n FROM tally WHERE day >= ?1 ORDER BY day DESC, n DESC')
+      .bind(from)
+      .all<{ day: string; event: string; n: number }>()
+    return rows.results ?? []
+  }
+
   /** Put a file back: used when a burst of album photos overshoots the caps. */
   async remove(chatId: number, fileId: string): Promise<void> {
     await this.db
