@@ -452,7 +452,7 @@ function onFiles(files: File[]) {
     <template v-else-if="file && pageCount">
       <div>
         <p class="mb-1 text-sm font-medium text-stone-900">
-          <span class="mr-1.5 inline-flex size-5 items-center justify-center rounded-full bg-stone-900 text-xs font-semibold text-white">1</span>
+          <span class="mr-1.5 inline-flex size-5 items-center justify-center rounded-full bg-ink text-xs font-semibold text-on-ink">1</span>
           {{ t('pdf.sign.drawLabel') }}
         </p>
         <canvas

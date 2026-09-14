@@ -56,6 +56,18 @@
   --color-ember-700: #ad4b0b;
   --color-ember-800: #8c3d10;
   --color-ember-900: #72320f;
+
+  /*
+   * A surface that is dark in both modes, and the ink that sits on it.
+   *
+   * The header, the lightbox, the modal scrim and the code block are dark by
+   * design, not by accident of the palette. Everything else in the app is
+   * drawn against paper and turns over in dark mode; these four would turn
+   * over with it and become a white bar on a dark page, or white text on a
+   * white scrim. Naming them keeps them still.
+   */
+  --color-ink: oklch(14% 0.004 106);
+  --color-on-ink: oklch(97% 0.003 106);
 }
 
 @layer base {
@@ -115,25 +127,13 @@
 /*
  * Opened as a Telegram Mini App.
  *
- * Telegram draws its own header, back button and close button above the page,
- * so ours would be a second set of the same controls - and the footer's links
- * lead out of an app that has no address bar to come back from.
- *
- * What is deliberately NOT done here is adopting Telegram's colours. Its
- * theme follows the user's chat theme, which is dark for most people, and
- * this site has no dark mode: every text colour is chosen against white. A
- * dark background with those colours on top renders the subtitle invisible
- * and the section headings unreadable, which is exactly what happened. Until
- * the site itself has a dark palette, it stays light inside Telegram too -
- * light against a dark chat is jarring for a moment, unreadable is forever.
- *
- * `color-scheme: light` is the other half: without it a dark-themed webview
- * renders inputs, selects and scrollbars dark, inside our light cards.
+ * Only the frame differs. Telegram draws its own header, back button and close
+ * button above the page, so ours would be a second set of the same controls,
+ * and the footer's links lead out of an app with no address bar to come back
+ * from. The colours are not touched here any more: the site follows the
+ * device's own light or dark preference, which is the same preference
+ * Telegram's theme follows, so the two agree without being wired together.
  */
-.in-telegram {
-  color-scheme: light;
-}
-
 .in-telegram header,
 .in-telegram footer {
   display: none;
@@ -143,4 +143,93 @@
   /* The header is gone; without this every page starts flush against the
      top of Telegram's chrome. */
   padding-top: 0.75rem;
+}
+/*
+ * Dark mode, done in one place.
+ *
+ * Every colour utility Tailwind v4 emits resolves through a `--color-*`
+ * variable on :root — `.bg-white` is `background-color: var(--color-white)`.
+ * So the whole site turns over by redefining twenty variables, without
+ * touching any of the 88 components that use them. The alternative was a
+ * `dark:` class beside every one of the ~1,600 colour utilities in the app,
+ * which is the same decision made 1,600 times and forgotten in a dozen.
+ *
+ * The ramp is turned over rather than replaced: `stone-50` was the page and
+ * `white` the cards sitting a step above it, so in the dark the page is the
+ * darkest thing and the cards are a step lighter. Text runs the other way.
+ * Contrast was chosen against the new surfaces, not carried over — `stone-500`
+ * as muted text needs to be lighter on black than it was dark on white.
+ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --color-white: oklch(22.5% 0.004 106);
+    --color-stone-50: oklch(17.5% 0.004 106);
+    --color-stone-100: oklch(26% 0.005 106);
+    --color-stone-200: oklch(31% 0.006 56);
+    --color-stone-300: oklch(37% 0.008 56);
+    --color-stone-400: oklch(52% 0.011 56);
+    --color-stone-500: oklch(66% 0.013 58);
+    --color-stone-600: oklch(73% 0.012 58);
+    --color-stone-700: oklch(84% 0.008 56);
+    --color-stone-800: oklch(89% 0.006 56);
+    --color-stone-900: oklch(95% 0.004 48);
+    --color-stone-950: oklch(97.5% 0.003 106);
+
+    /* Ember stays the lantern. Lifted, because a mid-orange that reads as
+       warm on paper reads as muddy on black. */
+    --color-ember-50: oklch(27% 0.045 62);
+    --color-ember-100: oklch(31% 0.055 62);
+    --color-ember-200: oklch(38% 0.07 60);
+    --color-ember-300: oklch(46% 0.09 58);
+    --color-ember-400: oklch(70% 0.15 55);
+    --color-ember-500: oklch(74% 0.16 55);
+    --color-ember-600: oklch(79% 0.14 58);
+    --color-ember-700: oklch(84% 0.11 62);
+    --color-ember-800: oklch(88% 0.09 66);
+    --color-ember-900: oklch(92% 0.06 70);
+
+    /* Status tints: a pale wash becomes a deep one, dark ink becomes light. */
+    --color-amber-50: oklch(27% 0.05 80);
+    --color-amber-100: oklch(32% 0.06 80);
+    --color-amber-200: oklch(40% 0.07 80);
+    --color-amber-300: oklch(47% 0.08 80);
+    --color-amber-700: oklch(84% 0.11 85);
+    --color-amber-800: oklch(88% 0.09 85);
+    --color-amber-900: oklch(92% 0.07 85);
+
+    --color-emerald-50: oklch(26% 0.05 160);
+    --color-emerald-100: oklch(31% 0.06 160);
+    --color-emerald-200: oklch(39% 0.08 160);
+    --color-emerald-700: oklch(84% 0.13 162);
+    --color-emerald-800: oklch(88% 0.11 162);
+    --color-emerald-900: oklch(92% 0.08 162);
+
+    --color-red-50: oklch(26% 0.06 25);
+    --color-red-100: oklch(31% 0.07 25);
+    --color-red-200: oklch(38% 0.09 25);
+    --color-red-400: oklch(56% 0.14 25);
+    --color-red-700: oklch(80% 0.14 25);
+    --color-red-800: oklch(85% 0.12 25);
+    --color-red-900: oklch(90% 0.09 25);
+  }
+
+  /*
+   * `text-white` is ink on dark chrome, not a surface, so it must stay white
+   * while `--color-white` becomes a card.
+   */
+  .text-white {
+    color: #fff;
+  }
+
+  /*
+   * A canvas or page preview is a picture of paper. Turning it over would be
+   * a lie about the file the user is about to save — a scan would appear
+   * inverted on screen and come out white in the download.
+   */
+  canvas.bg-white,
+  svg.bg-white {
+    background-color: #fff;
+  }
 }

@@ -26,7 +26,7 @@ const navCategories = computed(() =>
     </a>
 
     <!-- The cave mouth: dark, with the ember mark as the one point of light. -->
-    <header class="sticky top-0 z-30 border-b border-white/5 bg-stone-950/95 text-stone-100 backdrop-blur">
+    <header class="sticky top-0 z-30 border-b border-white/5 bg-ink/95 text-on-ink backdrop-blur">
       <div class="mx-auto flex w-full max-w-6xl items-center gap-3 px-4 py-2.5 sm:gap-4">
         <NuxtLink :to="localePath('/')" class="shrink-0 text-white">
           <ShellLogo />

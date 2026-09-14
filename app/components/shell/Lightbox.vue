@@ -170,7 +170,7 @@ onBeforeUnmount(() => {
       role="dialog"
       aria-modal="true"
       :aria-label="t('result.preview')"
-      class="fixed inset-0 z-50 flex flex-col bg-stone-950/95 text-white"
+      class="fixed inset-0 z-50 flex flex-col bg-ink/95 text-on-ink"
       @touchstart.passive="onTouchStart"
       @touchend.passive="onTouchEnd"
     >

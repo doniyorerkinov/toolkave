@@ -356,7 +356,7 @@ onBeforeUnmount(() => {
       <summary class="cursor-pointer text-sm font-medium text-stone-900">
         {{ t('image.favicon.snippetLabel') }}
       </summary>
-      <pre class="scroll-thin mt-3 overflow-x-auto rounded-lg bg-stone-900 p-3 text-xs text-stone-100"><code>{{ SNIPPET }}</code></pre>
+      <pre class="scroll-thin mt-3 overflow-x-auto rounded-lg bg-ink p-3 text-xs text-on-ink"><code>{{ SNIPPET }}</code></pre>
     </details>
   </div>
 </template>
