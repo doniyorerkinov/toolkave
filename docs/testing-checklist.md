@@ -41,7 +41,7 @@ it by name. After every deploy, take that tool's en/ru/uz URLs to Search Console
 inspection → Request indexing, one at a time (~10/day), and put the rest through Yandex
 Webmaster → Indexing → Reindex pages (~20/day). Live but unindexed is not shipped.
 
-Registry snapshot: **64 tools, 38 published, 26 drafts** — every PDF and image tool is live, plus Word counter. What is left is text, converters, calculators, generators and developer tools.
+Registry snapshot: **78 tools, 52 published, 26 drafts** — every PDF and image tool is live, plus Word counter. What is left is text, converters, calculators, generators and developer tools.
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
@@ -230,6 +230,33 @@ and one on Windows, where HEIC files arrive with no MIME type.
 
 - [x] **HEIC to JPG** — for iPhone photos, same shared component.
   Expect: `heic2any` should only load when a HEIC is actually dropped in.
+
+### The second image wave (14) — tested and live 2026-09-14
+
+- [x] **JPG to WebP** / **PNG to WebP** — the directions the first wave missed.
+- [x] **Rotate image** — quarter turns and mirroring; the preview is the export.
+- [x] **Remove EXIF data** — shows GPS, camera and serial number, then strips
+  them without re-encoding. Colour profiles are kept on purpose.
+- [x] **Blur or pixelate** — draw over faces and plates; the pixels underneath
+  are destroyed, not covered.
+- [x] **Passport photo** — 3x4, 35x45 and four more at 300 DPI, plus a print
+  sheet. Named "Фото на документы" / "Hujjatga surat" outside English.
+- [x] **Social media sizes** — exact pixel sizes per platform, fill or fit.
+- [x] **Favicon generator** — .ico with 16/32/48 inside, plus the PNGs and a
+  manifest, in one zip. Every size drawn from the original at that size.
+- [x] **SVG to PNG** — drawn by the browser, so it matches a web page.
+- [x] **Add watermark** — text or logo, placed or tiled into the pixels.
+- [x] **Join images** — row, column, grid, or a collage layout with one
+  picture as the feature; tap two cells to swap them.
+- [x] **Split image** — a grid of pieces named by row and column, zipped.
+- [x] **Black and white** — presets and three sliders; "Scanned document" is
+  the one worth having.
+- [x] **Remove background** — u2netp through onnxruntime-web, ~7 MB once and
+  then cached, ~2s a photo, all on the device.
+  Watch for: the preview must stay responsive while the edge slider moves —
+  it composes at display size, and composing at full size once cost 500ms
+  and 15MB per move. Leaving the page mid-cut must not leave the next tool
+  with a stuck busy flag.
 
 ---
 
