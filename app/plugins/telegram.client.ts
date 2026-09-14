@@ -13,10 +13,7 @@
 interface TelegramWebApp {
   ready: () => void
   expand: () => void
-  colorScheme?: 'light' | 'dark'
-  themeParams?: Record<string, string>
   platform?: string
-  onEvent?: (event: string, handler: () => void) => void
 }
 
 const INSIDE_TELEGRAM = /(^|[#&?])tgWebApp(Platform|Data|Version)=/
@@ -38,22 +35,14 @@ export default defineNuxtPlugin(() => {
 
     // `ready` stops Telegram's loading placeholder; `expand` takes the full
     // height, without which every tool opens inside a half-screen sheet.
+    //
+    // Telegram's theme colours are deliberately not read. They follow the
+    // user's chat theme, which is usually dark, and this site is drawn
+    // entirely against white - borrowing the background turns the subtitle
+    // and every section heading into dark text on dark. See the note in
+    // main.css; this comes back when the site has a dark palette of its own.
     app.ready()
     app.expand()
-
-    const applyTheme = () => {
-      const params = app.themeParams ?? {}
-      const root = document.documentElement
-      if (app.colorScheme) root.dataset.telegramScheme = app.colorScheme
-      // Telegram's own background, so the page does not sit on a different
-      // colour from the chat it was opened out of.
-      if (params.bg_color) root.style.setProperty('--tg-bg', params.bg_color)
-      if (params.text_color) root.style.setProperty('--tg-text', params.text_color)
-      if (params.link_color) root.style.setProperty('--tg-link', params.link_color)
-    }
-
-    applyTheme()
-    app.onEvent?.('themeChanged', applyTheme)
   }
   document.head.appendChild(script)
 })
