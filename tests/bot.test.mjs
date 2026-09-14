@@ -76,6 +76,15 @@ const press = (data, language = 'en') => ({
   callback_query: { id: 'cb', data, from: { language_code: language }, message: { message_id: 5, chat: { id: 7 } } }
 })
 
+const pdfDoc = (fileId, bytes) => ({
+  message: {
+    message_id: 2,
+    chat: { id: 7 },
+    from: { language_code: 'en' },
+    document: { file_id: fileId, file_name: 'a.pdf', mime_type: 'application/pdf', file_size: bytes.byteLength }
+  }
+})
+
 test('photos are counted in one message that gets rewritten, not one message each', async () => {
   const context = { api: fakeApi(), store: fakeStore() }
   for (const id of ['a', 'b', 'c']) await handleUpdate(photo(id), context)
@@ -119,35 +128,79 @@ test('photo size is respected when asked for', async () => {
   )
 })
 
-test('PDFs are merged instead, and mixing the two is refused rather than guessed at', async () => {
+test('PDFs on their own are merged', async () => {
   const source = await PDFDocument.create()
   source.addPage([200, 200])
   const bytes = await source.save()
-  const pdfDoc = fileId => ({
-    message: {
-      message_id: 2,
-      chat: { id: 7 },
-      from: { language_code: 'en' },
-      document: { file_id: fileId, file_name: 'a.pdf', mime_type: 'application/pdf', file_size: bytes.byteLength }
-    }
-  })
 
   const context = { api: fakeApi({ p1: bytes, p2: bytes }), store: fakeStore() }
-  await handleUpdate(pdfDoc('p1'), context)
-  await handleUpdate(pdfDoc('p2'), context)
+  await handleUpdate(pdfDoc('p1', bytes), context)
+  await handleUpdate(pdfDoc('p2', bytes), context)
   assert.match(context.api.log.messages[0].text, /2 PDFs received|1 PDF received/)
 
   await handleUpdate(press('merge'), context)
   const merged = await PDFDocument.load(context.api.log.documents[0].bytes)
   assert.equal(merged.getPageCount(), 2)
+})
 
-  // Now one of each: the bot says so rather than producing something odd.
-  const mixed = { api: fakeApi({ p1: bytes, a: solidPng(10, 10) }), store: fakeStore() }
-  await handleUpdate(pdfDoc('p1'), mixed)
-  await handleUpdate(photo('a'), mixed)
-  await handleUpdate(press('a4'), mixed)
-  assert.equal(mixed.api.log.documents.length, 0)
-  assert.ok(mixed.api.log.messages.some(message => /cannot do yet/.test(message.text)))
+/**
+ * The attestation file: a cover written in Word, exported to PDF, then the
+ * scanned pages photographed on a phone. Nothing may reorder them — a cover
+ * that lands on page four is worse than no cover at all — so the assertion is
+ * on page sizes, which say plainly which page came from where: the cover keeps
+ * its own 200x200, every photo is placed on A4.
+ */
+test('a cover and scanned pages come back in the order they were sent', async () => {
+  const source = await PDFDocument.create()
+  source.addPage([200, 200])
+  const cover = await source.save()
+  const photo1 = solidPng(300, 400)
+  const photo2 = solidPng(300, 400, '#080')
+  const isCover = size => Math.round(size.width) === 200 && Math.round(size.height) === 200
+  const isA4 = size => Math.round(size.width) === 595 && Math.round(size.height) === 842
+
+  const run = async order => {
+    const files = { c: cover, a: photo1, b: photo2 }
+    const context = { api: fakeApi(files), store: fakeStore() }
+    for (const id of order) {
+      await handleUpdate(id === 'c' ? pdfDoc('c', cover) : photo(id), context)
+    }
+    await handleUpdate(press('a4'), context)
+    assert.equal(context.api.log.documents.length, 1, `${order} produced no document`)
+    const out = await PDFDocument.load(context.api.log.documents[0].bytes)
+    return out.getPages().map(page => page.getSize())
+  }
+
+  // Cover first, then the pages.
+  const front = await run(['c', 'a', 'b'])
+  assert.equal(front.length, 3)
+  assert.ok(isCover(front[0]), 'the cover should be page one')
+  assert.ok(front.slice(1).every(isA4), 'the photos should be on A4')
+
+  // Cover last, for someone who scans first and writes the cover afterwards.
+  const back = await run(['a', 'b', 'c'])
+  assert.equal(back.length, 3)
+  assert.ok(back.slice(0, 2).every(isA4))
+  assert.ok(isCover(back[2]), 'the cover should be the last page')
+
+  // And a PDF in the middle of a run of photos stays in the middle.
+  const middle = await run(['a', 'c', 'b'])
+  assert.deepEqual(middle.map(isCover), [false, true, false])
+})
+
+test('the counter names both kinds once a batch is mixed', async () => {
+  const source = await PDFDocument.create()
+  source.addPage([200, 200])
+  const cover = await source.save()
+
+  const context = { api: fakeApi({ c: cover, a: solidPng(60, 60) }), store: fakeStore() }
+  await handleUpdate(pdfDoc('c', cover), context)
+  await handleUpdate(photo('a'), context)
+
+  // The counter is one message rewritten in place, so the second file shows up
+  // as an edit rather than a new message.
+  const last = context.api.log.edits.at(-1) ?? context.api.log.messages.at(-1)
+  assert.match(last.text, /1 photo and 1 PDF received/)
 })
 
 test('a file that will not download is left out instead of losing the batch', async () => {

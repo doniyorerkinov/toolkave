@@ -2,7 +2,9 @@
  * What the bot does with an update.
  *
  * The whole interaction is one loop: files arrive and are counted, a button
- * turns them into a PDF. Photos become pages; PDFs get merged. The work
+ * turns them into a PDF. Photos become pages; PDFs get merged; a batch of
+ * both is assembled in the order it arrived, which is how a Word-made cover
+ * ends up in front of the scanned pages. The work
  * itself is `shared/pdf-core` - the same functions the site runs, so the bot
  * is a second front door to one implementation rather than a copy of it.
  */
@@ -99,7 +101,10 @@ function fileFrom(message: NonNullable<TelegramUpdate['message']>): PendingFile 
 
 async function greet(chatId: number, locale: BotLocale, context: Context): Promise<void> {
   const s = STRINGS[locale]
-  await context.api.sendMessage(chatId, `${s.greeting}\n\n${s.howTo}\n\n${s.sendAsFile}\n\n${s.privacy}`)
+  await context.api.sendMessage(
+    chatId,
+    `${s.greeting}\n\n${s.howTo}\n\n${s.limits}\n\n${s.sendAsFile}\n\n${s.privacy}`
+  )
 }
 
 /** The running count, rewritten in place, with the buttons that end the batch. */
@@ -111,15 +116,20 @@ async function showCount(
   context: Context
 ): Promise<void> {
   const s = STRINGS[locale]
-  const pdfs = files.every(file => file.kind === 'pdf')
-  const text = pdfs ? s.countPdfs(files.length) : s.countImages(files.length)
-  const buttons = pdfs
-    ? [[{ text: s.mergePdfs, callback_data: 'merge' }], [{ text: s.clear, callback_data: 'clear' }]]
-    : [
-        [{ text: s.makePdfA4, callback_data: 'a4' }],
-        [{ text: s.makePdfOriginal, callback_data: 'image' }],
-        [{ text: s.clear, callback_data: 'clear' }]
-      ]
+  const images = files.filter(file => file.kind === 'image').length
+  const pdfs = files.length - images
+
+  // The batch decides what to offer: all PDFs merge, anything with a photo in
+  // it needs a page size first, because that is the only choice the user has.
+  const text = images === 0 ? s.countPdfs(pdfs) : pdfs === 0 ? s.countImages(images) : s.countMixed(images, pdfs)
+  const buttons =
+    images === 0
+      ? [[{ text: s.mergePdfs, callback_data: 'merge' }], [{ text: s.clear, callback_data: 'clear' }]]
+      : [
+          [{ text: s.makePdfA4, callback_data: 'a4' }],
+          [{ text: s.makePdfOriginal, callback_data: 'image' }],
+          [{ text: s.clear, callback_data: 'clear' }]
+        ]
 
   if (counterMessageId) {
     await context.api.editMessage(chatId, counterMessageId, text, buttons)
@@ -141,11 +151,59 @@ async function onCallback(query: NonNullable<TelegramUpdate['callback_query']>, 
     return
   }
   if (query.data === 'a4' || query.data === 'image' || query.data === 'merge') {
-    await build(chatId, locale, query.data === 'merge' ? 'merge' : query.data, context)
+    await build(chatId, locale, query.data === 'image' ? 'image' : 'a4', context)
   }
 }
 
-type BuildMode = 'a4' | 'image' | 'merge'
+/**
+ * How photos are placed on a page. Irrelevant to a batch of PDFs, which is
+ * why the merge button maps onto it too rather than being a mode of its own.
+ */
+type Fit = 'a4' | 'image'
+
+/** A file after download: the shape `shared/pdf-core` reads structurally. */
+interface Held {
+  name: string
+  type: string
+  data: Uint8Array
+}
+
+/**
+ * Turn the batch into one PDF, keeping the order it was sent in.
+ *
+ * A run of consecutive photos becomes one image-built PDF; every PDF stays as
+ * it is; the pieces are then merged in place. That is what makes a cover work:
+ * send the Word-made cover as a PDF first and the scanned pages after it, and
+ * the cover comes out in front, because nothing reorders anything.
+ *
+ * Runs are grouped rather than each photo converted separately because thirty
+ * photos would otherwise mean thirty documents to merge, all of the work and
+ * none of the benefit.
+ */
+async function assemble(held: Held[], fit: Fit): Promise<Uint8Array> {
+  const parts: Held[] = []
+  let photos: Held[] = []
+
+  const flush = async () => {
+    if (!photos.length) return
+    parts.push({ name: 'photos.pdf', type: 'application/pdf', data: await imagesToPdf(photos, fit) })
+    photos = []
+  }
+
+  for (const file of held) {
+    if (file.type === 'application/pdf') {
+      await flush()
+      parts.push(file)
+    } else {
+      photos.push(file)
+    }
+  }
+  await flush()
+
+  // One part needs no merge, and skipping it keeps a plain batch of photos
+  // byte-for-byte what it was before mixing was possible.
+  return parts.length === 1 ? parts[0]!.data : await mergePdfs(parts)
+}
 
 /**
  * Download, convert, send, forget.
@@ -155,7 +213,7 @@ type BuildMode = 'a4' | 'image' | 'merge'
  * say so honestly. A file that fails to download is left out rather than
  * taking the batch down with it - the same rule the site follows.
  */
-async function build(chatId: number, locale: BotLocale, mode: BuildMode, context: Context): Promise<void> {
+async function build(chatId: number, locale: BotLocale, fit: Fit, context: Context): Promise<void> {
   const s = STRINGS[locale]
   const session = await context.store.read(chatId)
   if (!session.files.length) {
@@ -163,24 +221,16 @@ async function build(chatId: number, locale: BotLocale, mode: BuildMode, context
     return
   }
 
-  const kinds = new Set(session.files.map(file => file.kind))
-  if (kinds.size > 1) {
-    await context.api.sendMessage(chatId, s.mixed)
-    return
-  }
-
   const progress = await context.api.sendMessage(chatId, s.working)
 
   try {
-    const held: { id: string; name: string; size: number; type: string; data: Uint8Array }[] = []
+    const held: Held[] = []
     let dropped = 0
     for (const file of session.files) {
       try {
         const data = await context.api.download(file.fileId)
         held.push({
-          id: file.fileId,
           name: file.name,
-          size: data.byteLength,
           type: file.kind === 'pdf' ? 'application/pdf' : 'image/jpeg',
           data
         })
@@ -194,7 +244,7 @@ async function build(chatId: number, locale: BotLocale, mode: BuildMode, context
       return
     }
 
-    const bytes = mode === 'merge' ? await mergePdfs(held) : await imagesToPdf(held, mode === 'a4' ? 'a4' : 'image')
+    const bytes = await assemble(held, fit)
     const name = `toolkave-${new Date().toISOString().slice(0, 10)}.pdf`
     const caption = dropped ? `${s.failed}\n${s.caption(SITE)}` : s.caption(SITE)
 

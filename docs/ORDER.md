@@ -59,6 +59,68 @@ Companion: [STATUS.md](STATUS.md) for where things stand right now.
 
 ---
 
+## The bot — ordered
+
+Decided 14 September 2026, ahead of the teacher mailing. This runs before the
+site roadmap below; nothing in `## Next` should delay the ad.
+
+1. [x] **Mixed batch** — photos plus a PDF cover, assembled in the order sent.
+       Smallest fix, highest value, and it is the attestation file the ad shows.
+2. [ ] **Word → PDF** — `docxToHtml` + `htmlToPdf`, already pure JS in the repo.
+3. [ ] **Rotate · split/extract · page numbers** — wiring only, the functions exist.
+4. [ ] **The rest of Tier 1** as time allows: header/footer, watermark, protect,
+       resize to A4, flatten, PDF info, PDF → text, Excel/CSV → PDF, DOCX → text.
+
+### No mode system — the file picks the buttons
+
+Fifteen operations behind a menu is where bots get confusing. What arrives
+decides what is offered, so nobody chooses a mode; they send a file and tap
+what they want:
+
+| What arrives | Buttons |
+|---|---|
+| Photos | PDF (A4) · PDF (original) · Add a PDF cover |
+| A PDF | Merge · Split · Rotate · Page numbers · Protect |
+| A `.docx` | To PDF · Word count · Extract text |
+
+Less code than modes, and it matches how a teacher already thinks: *I have this
+file, what can I do with it.*
+
+### Move to Workers Paid before the mailing — $5/month
+
+The infrastructure decision sitting under all of the above. The free plan caps
+CPU at 10 ms per request and the bundle at 3 MB compressed; paid gives 30 s CPU,
+10 MB, and Queues. That one switch:
+
+- removes the pdfjs bundle worry for PDF → text,
+- makes Word → PDF safe on a long document rather than a short one,
+- and allows a Queue between the webhook and the work, so 1,500 `/start`s in an
+  hour after the mailing do not collide with Telegram's ~30 messages/second.
+
+Cheapest item on this page, and it deletes a whole category of "works on my
+file, fails on hers".
+
+### Compression without canvas — real, but next month
+
+The jSquash packages (MozJPEG, WebP, resize) are WASM codecs built for exactly
+this environment and need no canvas. Phone scans are JPEG, so *compress PDF* for
+a teacher becomes: pull the JPEG streams out with pdf-lib, re-encode smaller,
+rebuild. That is a week of work, not a port, and it sits after the mailing.
+
+Note the need is narrower than it looks: **Telegram already compresses photos
+sent as photos**, so Photos → PDF output is usually within limits on its own —
+measured at 10.9 MB for 30 pages. The compression need is for PDFs teachers
+*receive*, not ones the bot makes.
+
+### OCR stays out
+
+When it happens it is one of two things, decided separately: a small container
+on Railway running Tesseract with uz + ru + en data, called from the Worker over
+HTTP; or a paid vision API at roughly $1–2 per thousand pages, which would make
+a reasonable premium feature. Neither belongs in the Worker.
+
+---
+
 ## Next
 
 Ordered by what earns most per unit of work. The publishing gate applies to
