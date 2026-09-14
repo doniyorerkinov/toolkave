@@ -17,6 +17,8 @@ export function localeOf(languageCode: string | undefined): BotLocale {
 
 interface Strings {
   greeting: string
+  /** What the bot can do, one line each. Listed so nobody has to guess. */
+  can: string[]
   howTo: string
   privacy: string
   countImages: (n: number) => string
@@ -40,8 +42,13 @@ interface Strings {
 }
 
 const en: Strings = {
-  greeting: 'Send me photos and I will turn them into one PDF. Send PDFs and I will merge them. Send both and I will do it in the order you sent them.',
-  howTo: 'A cover made in Word, then the scanned pages: send the cover first, then the photos, and press the button.',
+  greeting: 'Send me a file and I will show you what I can do with it. Everything here is free.',
+  can: [
+    '📄  Photos into one PDF, A4 pages or photo size',
+    '📎  Several PDFs into one',
+    '📑  A cover plus scanned pages, in the order you send them'
+  ],
+  howTo: 'For the last one: send the cover first as a PDF, then photograph the pages. Nothing is reordered.',
   privacy: 'Your files are never saved: they are converted in memory and gone the moment the PDF is sent.',
   countImages: n => `${n} photo${n === 1 ? '' : 's'} received. Send more, or:`,
   countPdfs: n => `${n} PDF${n === 1 ? '' : 's'} received. Send more, or:`,
@@ -65,8 +72,13 @@ const en: Strings = {
 }
 
 const ru: Strings = {
-  greeting: 'Отправьте фотографии — соберу их в один PDF. Пришлёте PDF — объединю. Пришлёте и то и другое — соберу в том порядке, в каком вы отправили.',
-  howTo: 'Титульный лист из Word, потом отсканированные страницы: сначала пришлите титульный, затем фотографии, и нажмите кнопку.',
+  greeting: 'Пришлите файл — покажу, что я могу с ним сделать. Всё бесплатно.',
+  can: [
+    '📄  Фотографии в один PDF, страницы A4 или размер фото',
+    '📎  Несколько PDF в один',
+    '📑  Титульный лист и отсканированные страницы, в том порядке, в каком прислали'
+  ],
+  howTo: 'Для последнего: сначала пришлите титульный лист как PDF, потом сфотографируйте страницы. Порядок не меняется.',
   privacy: 'Ваши файлы нигде не сохраняются: они обрабатываются в памяти и исчезают сразу после отправки PDF.',
   countImages: n => `Получено фото: ${n}. Отправьте ещё или:`,
   countPdfs: n => `Получено PDF: ${n}. Отправьте ещё или:`,
@@ -90,8 +102,13 @@ const ru: Strings = {
 }
 
 const uz: Strings = {
-  greeting: "Suratlarni yuboring — ularni bitta PDF ga yig'aman. PDF yuborsangiz, birlashtiraman. Ikkalasini yuborsangiz, yuborgan tartibingizda yig'aman.",
-  howTo: "Word da yasalgan muqova, keyin skan qilingan sahifalar: avval muqovani, keyin suratlarni yuboring va tugmani bosing.",
+  greeting: "Fayl yuboring — u bilan nima qila olishimni ko'rsataman. Hammasi bepul.",
+  can: [
+    "📄  Suratlardan bitta PDF, A4 sahifa yoki surat o'lchami",
+    "📎  Bir nechta PDF dan bitta PDF",
+    "📑  Muqova va skan qilingan sahifalar, yuborgan tartibingizda"
+  ],
+  howTo: "Oxirgisi uchun: avval muqovani PDF sifatida yuboring, keyin sahifalarni suratga oling. Tartib o'zgarmaydi.",
   privacy: "Fayllaringiz hech qayerda saqlanmaydi: xotirada ishlanadi va PDF yuborilishi bilan yo'qoladi.",
   countImages: n => `${n} ta surat qabul qilindi. Yana yuboring yoki:`,
   countPdfs: n => `${n} ta PDF qabul qilindi. Yana yuboring yoki:`,

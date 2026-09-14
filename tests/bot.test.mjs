@@ -333,12 +333,32 @@ test('the caps stop a batch before the Worker runs out of memory', async () => {
   assert.equal((await many.store.read(7)).files.length, 2, 'the two that fit are kept')
 })
 
+const start = language => ({ message: { message_id: 1, chat: { id: 7 }, from: { language_code: language }, text: '/start' } })
+
 test('an Uzbek phone is answered in Uzbek without being asked', async () => {
   const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
-  await handleUpdate({ message: { message_id: 1, chat: { id: 7 }, from: { language_code: 'uz' }, text: '/start' } }, context)
-  assert.match(context.api.log.messages[0].text, /Suratlarni yuboring/)
+  await handleUpdate(start('uz'), context)
+  assert.match(context.api.log.messages[0].text, /Fayl yuboring/)
 
   const russian = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
-  await handleUpdate({ message: { message_id: 1, chat: { id: 7 }, from: { language_code: 'ru-RU' }, text: '/start' } }, russian)
-  assert.match(russian.api.log.messages[0].text, /Отправьте фотографии/)
+  await handleUpdate(start('ru-RU'), russian)
+  assert.match(russian.api.log.messages[0].text, /Пришлите файл/)
+})
+
+/**
+ * /start used to be a paragraph that only described photos, so nothing told
+ * anyone the bot could merge PDFs or put a cover in front of scanned pages.
+ * Whatever the bot can do has to be listed there, in every language.
+ */
+test('/start lists every capability, in all three languages', async () => {
+  for (const language of ['en', 'ru', 'uz']) {
+    const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
+    await handleUpdate(start(language), context)
+    const [reply] = context.api.log.messages
+
+    const listed = reply.text.split('\n').filter(line => /^\p{Emoji_Presentation}/u.test(line))
+    assert.equal(listed.length, 3, `${language}: three capabilities listed`)
+    assert.ok(/20 MB|20 МБ/.test(reply.text), `${language}: states the file cap`)
+    assert.equal(context.api.log.messages.length, 1, `${language}: one message, not a wall of them`)
+  }
 })

@@ -177,12 +177,18 @@ function fileFrom(message: NonNullable<TelegramUpdate['message']>): PendingFile 
   return { fileId: document.file_id, kind, bytes: document.file_size ?? 0, name }
 }
 
+/**
+ * What the bot can do, said once.
+ *
+ * A list rather than a menu of buttons: there is no mode to enter here, so a
+ * button per capability would only be a label that talks. What you can send is
+ * the thing worth knowing; the buttons appear on the file itself, where they
+ * can actually act on something.
+ */
 async function greet(chatId: number, locale: BotLocale, context: Context): Promise<void> {
   const s = STRINGS[locale]
-  await context.api.sendMessage(
-    chatId,
-    `${s.greeting}\n\n${s.howTo}\n\n${s.limits}\n\n${s.sendAsFile}\n\n${s.privacy}`
-  )
+  const lines = [s.greeting, s.can.join('\n'), s.howTo, s.limits, s.sendAsFile, s.privacy]
+  await context.api.sendMessage(chatId, lines.join('\n\n'))
 }
 
 /**
