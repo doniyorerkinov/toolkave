@@ -96,6 +96,18 @@ export const categories: CategoryDef[] = [
 
 export const tools: ToolDef[] = [
   {
+    id: 'color-picker',
+    category: 'color',
+    group: 'pick',
+    component: 'color/Picker',
+    icon: 'palette',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'color-picker', ru: 'podbor-cveta', uz: 'rang-tanlash' },
+    related: ['json-validator'],
+    maxFiles: 0
+  },
+  {
     id: 'pdf-merge',
     category: 'pdf',
     group: 'organize',
@@ -750,17 +762,6 @@ export const tools: ToolDef[] = [
     related: ['qr-generator']
   },
   {
-    id: 'color-picker',
-    category: 'dev',
-    group: 'design',
-    component: 'dev/ColorPicker',
-    icon: 'palette',
-    published: false,
-    locales: ['en', 'ru', 'uz'],
-    slugs: { en: 'color-picker', ru: 'podbor-cveta', uz: 'rang-tanlash' },
-    related: ['base64', 'json-formatter']
-  },
-  {
     id: 'password-generator',
     category: 'generators',
     group: 'security',
@@ -770,6 +771,30 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'password-generator', ru: 'generator-parolej', uz: 'parol-generatori' },
     related: []
+  },
+  {
+    id: 'json-validator',
+    category: 'dev',
+    group: 'json',
+    component: 'dev/JsonValidator',
+    icon: 'badge-check',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'json-validator', ru: 'proverka-json', uz: 'json-tekshirish' },
+    related: ['json-diff', 'json-formatter'],
+    maxFiles: 0
+  },
+  {
+    id: 'json-diff',
+    category: 'dev',
+    group: 'json',
+    component: 'dev/JsonDiff',
+    icon: 'git-compare',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'json-diff', ru: 'sravnit-json', uz: 'json-taqqoslash' },
+    related: ['json-validator', 'json-formatter'],
+    maxFiles: 0
   },
   {
     id: 'base64',

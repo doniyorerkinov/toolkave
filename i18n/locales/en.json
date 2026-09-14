@@ -966,7 +966,15 @@
     "valid": "Valid JSON",
     "summaryObject": "object with {n} key(s)",
     "summaryArray": "array of {n} item(s)",
-    "summaryScalar": "{type} value"
+    "summaryScalar": "{type} value",
+    "openFile": "Open a file",
+    "sample": "Try an example",
+    "clear": "Clear",
+    "lines": "{n} lines",
+    "invalidAt": "Line {line}, column {column}",
+    "shape": "{keys} keys · {items} array items · {depth} levels deep",
+    "spaces": "{n} spaces",
+    "copyResult": "Copy the result"
   },
   "tools": {
     "pdf-merge": {
@@ -1729,24 +1737,28 @@
     },
     "color-picker": {
       "name": "Colour picker",
-      "short": "Convert between HEX, RGB and HSL, with contrast checking.",
-      "title": "Colour Picker — HEX to RGB and HSL converter, free",
-      "description": "Free online colour picker and converter. Move between HEX, RGB and HSL and check WCAG contrast against white and black. Runs in your browser.",
-      "intro": "Pick a colour or type a HEX value and get it in every common notation, along with its contrast against white and black. The contrast figures are the ones accessibility guidelines actually use.",
+      "short": "One colour, every code, and what goes with it.",
+      "title": "Colour Picker — hex, RGB, HSL, CMYK and OKLCH, free online",
+      "description": "Free online colour picker. Pick a colour and get hex, RGB, HSL, HSV, CMYK, LAB and OKLCH at once, plus contrast, lighter and darker steps, and matching colours.",
+      "intro": "Pick a colour, type one in, or lift one off your screen, and every code appears at once — hex, RGB, HSL, HSV, CMYK, LAB, LCH and OKLCH. Under that: whether text can be read on it, a run of lighter and darker steps, and the colours that go with it. Click anything to copy it.",
       "howTo": {
-        "step1": "Pick a colour, or type a HEX value like #0369a1.",
-        "step2": "Copy whichever notation you need.",
-        "step3": "Check the contrast figures before using it for text."
+        "step1": "Pick a colour, or paste a hex, rgb(), hsl() or CSS colour name.",
+        "step2": "Click whichever code your tool needs to copy it.",
+        "step3": "Scroll down for shades, matching colours, and whether text will read on it."
       },
       "faq": {
-        "q1": "What do the contrast numbers mean?",
-        "a1": "They are the ratio between your colour's brightness and white or black, as defined by WCAG. Body text needs at least 4.5:1 against its background, and large or bold text at least 3:1. Below that, the text is hard to read for many people and fails accessibility audits.",
-        "q2": "Why not just compare RGB values?",
-        "a2": "Because the eye is far more sensitive to green than to blue. The calculation weights the channels accordingly and linearises them first, which is why two colours with similar RGB numbers can have very different contrast.",
-        "q3": "When is HSL more useful than HEX?",
-        "a3": "When building a palette. HSL separates hue from saturation and lightness, so you can produce a lighter or more muted version of a colour by changing one number, instead of guessing at a new HEX value.",
-        "q4": "Does it accept short HEX codes?",
-        "a4": "Yes. Three-digit values like #0af are expanded automatically, with or without the leading hash."
+        "q1": "Which format should I use?",
+        "a1": "Hex for CSS and design tools — it is the shortest and the most widely understood. RGB where a tool asks for three numbers. HSL when you want to adjust a colour by hand, because changing one number does one predictable thing. CMYK only for print, and only as a starting point. OKLCH if you are writing modern CSS: it is the one where making a colour lighter does not also make it look different.",
+        "q2": "What is OKLCH, and why is it here?",
+        "a2": "A newer way of describing colour where the numbers match what your eye actually does. In HSL, two colours with the same lightness value can look wildly different in brightness — yellow at 50% looks far lighter than blue at 50%. OKLCH fixes that, which is why CSS adopted it and why palettes built in it look even. Browsers have supported it since 2023.",
+        "q3": "Is the CMYK conversion accurate?",
+        "a3": "It is the standard formula, and it is what most online tools give you — but no formula can be exactly right. Real CMYK depends on the press, the ink and the paper, which is what an ICC profile describes. Use these numbers to fill in a form or start a conversation with a printer; ask the printer for a proof before committing to anything that matters.",
+        "q4": "Can I pick a colour from somewhere else on my screen?",
+        "a4": "If you are in Chrome or Edge, yes — the Pick from screen button samples any pixel, including outside the browser. Firefox and Safari have not implemented it, so the button is simply absent there. A page cannot see your screen without the browser's help, and no amount of clever code changes that.",
+        "q5": "What do the contrast numbers mean?",
+        "a5": "The ratio between your colour and white or black, from 1:1 to 21:1. Body text needs 4.5:1 to meet WCAG AA, large text and icons need 3:1. It is worth checking even when you are not chasing compliance: a ratio under about 3:1 is genuinely hard to read for a lot of people in ordinary daylight.",
+        "q6": "Is anything sent anywhere?",
+        "a6": "No. Every conversion here is arithmetic running in your browser. There is no upload, no lookup and no account — the page works with the network off."
       }
     },
     "password-generator": {
@@ -2728,6 +2740,54 @@
         "q6": "Does it work offline?",
         "a6": "Once the model is on your device, yes — open the page, and the whole thing runs with no network at all. That is the clearest proof that nothing is being sent anywhere."
       }
+    },
+    "json-validator": {
+      "name": "JSON validator",
+      "short": "Find out whether it is valid JSON, and exactly where it is not.",
+      "title": "JSON Validator — find the error, free online, no upload",
+      "description": "Free online JSON validator. Says whether your JSON is valid and points at the line and column where it breaks, in plain words. Runs in your browser — nothing is uploaded.",
+      "intro": "Paste JSON or open a file. If it is valid you get it formatted, with a count of keys, array items and nesting depth. If it is not, you get the line, the column and what went wrong in words — a trailing comma, a single quote, a comment, a string that was never closed.",
+      "howTo": {
+        "step1": "Paste your JSON, or open a .json file.",
+        "step2": "If there is an error, the line and column appear straight away.",
+        "step3": "Once it is valid, pick an indent and copy the formatted result."
+      },
+      "faq": {
+        "q1": "Why does my browser's error message not say where the problem is?",
+        "a1": "Because recent versions of Chrome stopped including a position. You get an \"unexpected token\" complaint and a four-hundred-line file to search by eye. This tool does not rely on that message — it reads through the document itself and reports the line and column, which is the only thing you actually needed.",
+        "q2": "Why is my file rejected when it looks fine?",
+        "a2": "Almost always one of four things: a comma after the last item in a list or object, single quotes instead of double, a comment, or a line break inside a string. All four are perfectly normal in JavaScript and none of them are allowed in JSON. The error message here names whichever one it found.",
+        "q3": "Does it accept JSON5 or JSONC?",
+        "a3": "No, deliberately. Those formats allow comments and trailing commas, and accepting them here would mean telling you a file is fine when the parser you are actually feeding it to will reject it. This accepts exactly what the JSON standard allows, which is exactly what your code will accept.",
+        "q4": "How big a file can it handle?",
+        "a4": "Large ones — it is limited by your device's memory, not by an upload limit, because there is no upload. A few megabytes is comfortable. Very large documents will make the browser pause while it works, since the formatting happens on the same thread that draws the page.",
+        "q5": "Is my data sent anywhere?",
+        "a5": "No. The checking happens inside your browser and nothing is transmitted, which matters here more than on most tools — JSON pasted into a validator is very often an API response with real customer data or a token in it."
+      }
+    },
+    "json-diff": {
+      "name": "Compare two JSON",
+      "short": "See how alike two JSON documents are, and exactly where they differ.",
+      "title": "JSON Diff — compare two JSON files online, free, no upload",
+      "description": "Free online JSON comparison. Get a similarity percentage and every difference by path — reordered keys and reformatting are ignored. Runs in your browser, nothing uploaded.",
+      "intro": "Paste two documents and get a straight answer: how alike they are as a percentage, and every place they disagree, listed by path. Key order and formatting are ignored, because changing those does not change what the document means.",
+      "howTo": {
+        "step1": "Paste one document on the left and the other on the right.",
+        "step2": "Read the similarity score, then the list of differences below it.",
+        "step3": "Filter to just the changes, additions or removals, and copy the report."
+      },
+      "faq": {
+        "q1": "How is this different from a normal text diff?",
+        "a1": "A text diff compares lines, so it flags everything that moved — reformat a file or sort its keys and every line lights up while the one value that actually changed hides among them. This compares what the documents mean. Two files with the same keys in a different order come out as identical, because they are.",
+        "q2": "What does the percentage actually measure?",
+        "a2": "The share of leaf values that are present and equal in both. A document with ten values where one changed scores 90%. An added object counts for all the values inside it, not one, so dropping a large section moves the number by a lot rather than a little.",
+        "q3": "How are arrays compared?",
+        "a3": "Position by position: the first item against the first, the second against the second. Matching items up cleverly — by an id field, or by finding the longest common run — sounds better until it guesses wrong, and a comparison that silently re-pairs your items is worse than one that says plainly that index 3 changed.",
+        "q4": "Can I compare two files instead of pasting?",
+        "a4": "Open each file in a text editor and paste it in. A file picker is coming; in the meantime pasting works for anything a text editor can open, which is everything JSON.",
+        "q5": "Is my data sent anywhere?",
+        "a5": "No. Both documents stay in your browser. That matters here: comparing two API responses usually means two real payloads, and the whole point of doing it locally is that neither one leaves your machine."
+      }
     }
   },
   "wordCounter": {
@@ -3060,5 +3120,48 @@
   "select": {
     "search": "Search…",
     "noMatch": "Nothing matches"
+  },
+  "colour": {
+    "copy": "Copy",
+    "copied": "Copied",
+    "harmony": {
+      "complementary": "Complementary — the opposite",
+      "analogous": "Analogous — the neighbours",
+      "triadic": "Triadic — a third of the wheel each",
+      "split-complementary": "Split complementary — either side of the opposite",
+      "tetradic": "Tetradic — two pairs of opposites",
+      "square": "Square — four, evenly spaced",
+      "monochromatic": "Monochromatic — one hue, many lightnesses"
+    },
+    "picker": {
+      "yourColour": "Your colour",
+      "pick": "Pick a colour",
+      "enter": "Enter a colour",
+      "placeholder": "#c2410c, rgb(194 65 12), tomato…",
+      "accepts": "Type hex, rgb(), hsl() or a CSS colour name — all of them work.",
+      "screen": "Pick from screen",
+      "random": "Random",
+      "readability": "Can text be read on it",
+      "sample": "The quick brown fox",
+      "fails": "Too low",
+      "lighterDarker": "Lighter and darker",
+      "goesWith": "What goes with it"
+    }
+  },
+  "jsonDiff": {
+    "left": "First document",
+    "right": "Second document",
+    "swap": "Swap sides",
+    "similarity": "How alike they are",
+    "identical": "These two mean exactly the same thing.",
+    "summary": "{changed} changed · {added} added · {removed} removed",
+    "filter": {
+      "all": "Everything",
+      "changed": "Changed",
+      "added": "Added",
+      "removed": "Removed"
+    },
+    "copyReport": "Copy the report",
+    "reportHead": "{percent}% alike · {n} differences"
   }
 }

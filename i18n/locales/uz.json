@@ -962,11 +962,19 @@
     "sortKeys": "Kalitlarni saralash",
     "inputLabel": "JSON kiritish",
     "outputLabel": "Formatlangan",
-    "placeholder": "JSON ni bu yerga qo'ying…",
-    "valid": "To'g'ri JSON",
+    "placeholder": "JSON ni shu yerga qo‘ying…",
+    "valid": "JSON to‘g‘ri",
     "summaryObject": "obyekt, kalitlar: {n}",
     "summaryArray": "massiv, elementlar: {n}",
-    "summaryScalar": "{type} turidagi qiymat"
+    "summaryScalar": "{type} turidagi qiymat",
+    "openFile": "Fayl ochish",
+    "sample": "Namuna",
+    "clear": "Tozalash",
+    "lines": "{n} qator",
+    "invalidAt": "{line}-qator, {column}-ustun",
+    "shape": "{keys} kalit · massiv elementlari: {items} · chuqurligi: {depth}",
+    "spaces": "{n} bo‘sh joy",
+    "copyResult": "Natijani nusxalash"
   },
   "tools": {
     "pdf-merge": {
@@ -1729,24 +1737,28 @@
     },
     "color-picker": {
       "name": "Rang tanlash",
-      "short": "HEX, RGB va HSL orasida o'giring, kontrastni tekshiring.",
-      "title": "Rang tanlash — HEX dan RGB va HSL ga konvertor, bepul",
-      "description": "Bepul onlayn rang tanlash va konvertor. HEX, RGB va HSL orasida o'ting va WCAG kontrastini oq hamda qora fonda tekshiring. Brauzerda ishlaydi.",
-      "intro": "Rang tanlang yoki HEX qiymatini yozing — uni barcha keng tarqalgan yozuvlarda, oq va qora fondagi kontrasti bilan birga olasiz. Kontrast ko'rsatkichlari qulaylik bo'yicha qo'llanmalar ishlatadigan usulda hisoblanadi.",
+      "short": "Bitta rang, barcha kodlar va u nima bilan yarashishi.",
+      "title": "Rang tanlash — hex, RGB, HSL, CMYK va OKLCH, bepul onlayn",
+      "description": "Bepul onlayn rang tanlagich. Rangni tanlang va hex, RGB, HSL, HSV, CMYK, LAB hamda OKLCH ni bir vaqtda oling; kontrast, yorug‘ va to‘q pog‘onalar va yarashadigan ranglar ham shu yerda.",
+      "intro": "Rangni tanlang, yozing yoki ekrandan pipetka bilan oling — barcha kodlar darhol chiqadi: hex, RGB, HSL, HSV, CMYK, LAB, LCH va OKLCH. Pastda: shu rang ustida matn o‘qiladimi, yorug‘ va to‘q pog‘onalar qatori hamda u bilan yarashadigan ranglar. Nusxalash uchun istalgan joyni bosing.",
       "howTo": {
-        "step1": "Rang tanlang yoki #0369a1 kabi HEX qiymatini yozing.",
-        "step2": "Kerakli yozuvni nusxalang.",
-        "step3": "Matn uchun ishlatishdan oldin kontrastni tekshiring."
+        "step1": "Rangni tanlang yoki hex, rgb(), hsl() yoxud CSS rang nomini qo‘ying.",
+        "step2": "Vositangiz so‘ragan kodni bosing — u nusxalanadi.",
+        "step3": "Pastda pog‘onalar, yarashadigan ranglar va matn o‘qilishini ko‘ring."
       },
       "faq": {
-        "q1": "Kontrast raqamlari nimani bildiradi?",
-        "a1": "Bu WCAG bo'yicha rangingiz yorqinligining oq yoki qoraga nisbati. Asosiy matn foniga nisbatan kamida 4,5:1, yirik yoki qalin matn esa kamida 3:1 bo'lishi kerak. Undan past bo'lsa, matn ko'p odam uchun qiyin o'qiladi va qulaylik tekshiruvidan o'tmaydi.",
-        "q2": "Nega shunchaki RGB qiymatlarini solishtirib bo'lmaydi?",
-        "a2": "Chunki ko'z yashil rangga ko'k rangdan ancha sezgir. Hisobda kanallar shunga mos ravishda vaznlanadi va avval chiziqlashtiriladi — shuning uchun RGB raqamlari o'xshash ranglarning kontrasti juda farq qilishi mumkin.",
-        "q3": "HSL qachon HEX dan qulayroq?",
-        "a3": "Palitra tuzayotganda. HSL rang tonini to'yinganlik va yorug'likdan ajratadi, shuning uchun rangning ochroq yoki bosiqroq variantini yangi HEX ni taxmin qilmasdan, bitta raqamni o'zgartirib olasiz.",
-        "q4": "Qisqa HEX kodlari qabul qilinadimi?",
-        "a4": "Ha. #0af kabi uch xonali qiymatlar avtomatik yoyiladi, panjara belgisi bilan ham, usiz ham."
+        "q1": "Qaysi formatni tanlagan ma’qul?",
+        "a1": "CSS va grafik dasturlar uchun hex — u eng qisqa va hamma joyda tushunarli. Uchta raqam so‘ralgan joyda RGB. Rangni qo‘lda sozlamoqchi bo‘lsangiz HSL: bitta raqamni o‘zgartirish aynan bitta oldindan aytib bo‘ladigan ishni qiladi. CMYK faqat bosma uchun va faqat boshlang‘ich nuqta sifatida. Zamonaviy CSS yozayotgan bo‘lsangiz OKLCH: bu shunday format-ki, unda “yorug‘roq qilish” bir vaqtning o‘zida “boshqacha qilish” degani emas.",
+        "q2": "OKLCH nima va u nega bu yerda?",
+        "a2": "Rangni tasvirlashning yangiroq usuli bo‘lib, undagi raqamlar ko‘z ko‘radigan narsaga mos keladi. HSL da bir xil yorug‘likdagi ikki rang butunlay boshqacha ko‘rinishi mumkin: 50% dagi sariq 50% dagi ko‘kdan ancha yorug‘roq tuyuladi. OKLCH buni tuzatadi — shuning uchun uni CSS qabul qildi va shuning uchun unda yig‘ilgan palitralar tekis ko‘rinadi. Brauzerlar uni 2023-yildan qo‘llab-quvvatlaydi.",
+        "q3": "CMYK ga o‘girish aniqmi?",
+        "a3": "Bu standart formula va uni ko‘pchilik onlayn vositalar ham beradi — lekin mutlaqo aniq formula mavjud emas. Haqiqiy CMYK mashina, bo‘yoq va qog‘ozga bog‘liq; aynan buni ICC profil tasvirlaydi. Bu raqamlardan shaklni to‘ldirish yoki bosmaxona bilan suhbatni boshlash uchun foydalaning, muhim narsani bosishdan oldin esa namuna so‘rang.",
+        "q4": "Ekrandagi boshqa joydan rang olsa bo‘ladimi?",
+        "a4": "Chrome va Edge da — ha: “Ekrandan olish” tugmasi istalgan pikselni, jumladan brauzerdan tashqaridagini ham oladi. Firefox va Safari buni amalga oshirmagan, shuning uchun u yerda tugma shunchaki bo‘lmaydi. Sahifa brauzer yordamisiz ekraningizni ko‘ra olmaydi va buni hech qanday ayyor kod o‘zgartirmaydi.",
+        "q5": "Kontrast raqamlari nimani bildiradi?",
+        "a5": "Rangingiz bilan oq yoki qora orasidagi nisbat, 1:1 dan 21:1 gacha. Asosiy matnga WCAG AA uchun 4,5:1, yirik matn va nishonchalarga 3:1 kerak. Rasmiy talablar sizga tegishli bo‘lmasa ham tekshirgan ma’qul: nisbat taxminan 3:1 dan past bo‘lganda ko‘p odamlarga oddiy kunduz yorug‘ida ham o‘qish haqiqatan qiyin.",
+        "q6": "Biror narsa qayerdadir yuboriladimi?",
+        "a6": "Yo‘q. Bu yerdagi barcha o‘girishlar — brauzeringizda bajariladigan arifmetika. Na yuklash, na so‘rov, na hisob: sahifa tarmoq o‘chirilgan holda ham ishlaydi."
       }
     },
     "password-generator": {
@@ -2728,6 +2740,54 @@
         "q6": "Internetsiz ishlaydimi?",
         "a6": "Model qurilmada bo‘lgach — ha: sahifani oching, va hammasi umuman tarmoqsiz ishlaydi. Bu hech narsa hech qayerga yuborilmayotganining eng aniq dalili."
       }
+    },
+    "json-validator": {
+      "name": "JSON tekshirish",
+      "short": "JSON to‘g‘rimi va qayerda buzilganini aniqlash.",
+      "title": "JSON tekshirgich — xatoni topish, bepul onlayn, yuklamasdan",
+      "description": "Bepul onlayn JSON tekshirgich. JSON to‘g‘rimi yoki yo‘qligini aytadi va u buziladigan qator va ustunni oddiy so‘zlar bilan ko‘rsatadi. Brauzerda ishlaydi — hech narsa yuklanmaydi.",
+      "intro": "JSON ni qo‘ying yoki faylni oching. To‘g‘ri bo‘lsa, uni formatlangan holda, kalitlar soni, massiv elementlari va ichma-ichlik chuqurligi bilan olasiz. Bo‘lmasa — qator, ustun va nima noto‘g‘ri ekani so‘z bilan: ortiqcha vergul, bitta qo‘shtirnoq, izoh, yopilmagan satr.",
+      "howTo": {
+        "step1": "JSON ingizni qo‘ying yoki .json faylni oching.",
+        "step2": "Xato bo‘lsa, qator va ustun darhol ko‘rinadi.",
+        "step3": "To‘g‘ri bo‘lgach, chekinishni tanlang va natijani nusxalang."
+      },
+      "faq": {
+        "q1": "Nega brauzerim muammo qayerdaligini aytmaydi?",
+        "a1": "Chunki Chrome ning so‘nggi versiyalari joyni ko‘rsatishni to‘xtatdi. Sizga “kutilmagan token” degan shikoyat va ko‘z bilan qidiriladigan to‘rt yuz qator qoladi. Bu vosita o‘sha xabarga tayanmaydi: u hujjatning o‘zidan yurib o‘tib, qator va ustunni aytadi — sizga kerak bo‘lgan yagona narsa shu.",
+        "q2": "Fayl yaxshi ko‘rinsa ham nega rad etiladi?",
+        "a2": "Deyarli doim to‘rttadan biri: ro‘yxat yoki obyektning oxirgi elementidan keyingi vergul, qo‘shtirnoq o‘rniga bitta tirnoq, izoh yoki satr ichidagi qator uzilishi. Bularning hammasi JavaScript da butunlay oddiy va hech biri JSON da ruxsat etilmagan. Bu yerdagi xato xabari topilganini to‘g‘ridan-to‘g‘ri nomlaydi.",
+        "q3": "U JSON5 yoki JSONC ni qabul qiladimi?",
+        "a3": "Yo‘q, va bu ataylab shunday. U formatlarda izohlar va osilgan vergullar ruxsat etilgan; ularni bu yerda qabul qilish sizga fayl joyida deb aytish, uni beradigan tahlilchingiz esa rad etishi degani bo‘lardi. Bu yerda JSON standarti ruxsat etgan narsa aynan qabul qilinadi — kodingiz qabul qiladigan narsaning o‘zi.",
+        "q4": "Qanday hajmdagi faylni ko‘taradi?",
+        "a4": "Kattasini: cheklov qurilmangiz xotirasi, yuklash limiti emas, chunki yuklash yo‘q. Bir necha megabayt bemalol o‘tadi. Juda katta hujjatlar brauzerni bir lahza o‘ylantiradi, chunki formatlash sahifani chizadigan oqimning o‘zida bajariladi.",
+        "q5": "Ma’lumotlarim qayerdadir yuboriladimi?",
+        "a5": "Yo‘q. Tekshirish brauzeringiz ichida bajariladi va hech narsa uzatilmaydi; bu yerda bu ko‘p vositalardagidan ham muhimroq: tekshirgichga qo‘yiladigan JSON ko‘pincha ichida haqiqiy mijoz ma’lumotlari yoki token bor API javobi bo‘lib chiqadi."
+      }
+    },
+    "json-diff": {
+      "name": "Ikki JSON ni taqqoslash",
+      "short": "Ikki JSON qanchalik o‘xshash va aynan qayerda farq qilishini ko‘rish.",
+      "title": "JSON taqqoslash — ikki faylni onlayn solishtirish, bepul",
+      "description": "Bepul onlayn JSON taqqoslash. O‘xshashlik foizi va barcha farqlar yo‘llar bo‘yicha; kalitlar tartibi va formatlash hisobga olinmaydi. Brauzerda ishlaydi, hech narsa yuklanmaydi.",
+      "intro": "Ikki hujjatni qo‘ying va to‘g‘ridan-to‘g‘ri javob oling: ular qanchalik o‘xshash — foizda, va qayerlarda farq qilishi — yo‘llar bo‘yicha ro‘yxat bilan. Kalitlar tartibi va formatlash e’tiborga olinmaydi, chunki ularni o‘zgartirish hujjat ma’nosini o‘zgartirmaydi.",
+      "howTo": {
+        "step1": "Bitta hujjatni chapga, ikkinchisini o‘ngga qo‘ying.",
+        "step2": "O‘xshashlik foizini, so‘ng ostidagi farqlar ro‘yxatini ko‘ring.",
+        "step3": "Faqat o‘zgarishlar, qo‘shilganlar yoki o‘chirilganlarni filtrlang va hisobotni nusxalang."
+      },
+      "faq": {
+        "q1": "Bu oddiy matn taqqoslashdan nimasi bilan farq qiladi?",
+        "a1": "Oddiy taqqoslash qatorlar bo‘yicha ishlaydi, shuning uchun siljigan hamma narsani belgilaydi: faylni qayta formatlang yoki kalitlarni saralang — har bir qator yonadi, haqiqatan o‘zgargan yagona qiymat esa ular orasida yo‘qoladi. Bu yerda ma’no taqqoslanadi. Bir xil kalitlari boshqa tartibda turgan ikki fayl bir xil chiqadi, chunki ular haqiqatan bir xil.",
+        "q2": "Foiz aynan nimani o‘lchaydi?",
+        "a2": "Ikkalasida ham bor va mos keladigan oxirgi qiymatlar ulushini. O‘nta qiymatdan bittasi o‘zgargan hujjat 90% beradi. Qo‘shilgan obyekt bitta emas, ichidagi barcha qiymatlar sifatida hisoblanadi, shuning uchun katta bo‘limni olib tashlash raqamni sal emas, kuchli siljitadi.",
+        "q3": "Massivlar qanday taqqoslanadi?",
+        "a3": "O‘rin bilan o‘rin: birinchi element birinchisi bilan, ikkinchisi ikkinchisi bilan. Ayyorroq moslashtirish — id maydoni bo‘yicha yoki eng uzun umumiy ketma-ketlikni topib — birinchi xatogacha yaxshiroq eshitiladi, elementlaringizni jimgina qayta juftlagan taqqoslash esa 3-indeks o‘zgardi deb ochiq aytadiganidan yomonroq.",
+        "q4": "Matn qo‘yish o‘rniga ikki faylni taqqoslasa bo‘ladimi?",
+        "a4": "Har bir faylni matn muharririda oching va bu yerga qo‘ying. Fayl tanlash keyinroq qo‘shiladi; hozircha qo‘yish matn muharriri ocha oladigan hamma narsa uchun ishlaydi — ya’ni har qanday JSON uchun.",
+        "q5": "Ma’lumotlarim qayerdadir yuboriladimi?",
+        "a5": "Yo‘q. Ikkala hujjat ham brauzerda qoladi. Bu yerda bu muhim: ikki API javobini taqqoslash odatda ikkita haqiqiy javob degani, va buni mahalliy qilishning butun mazmuni shundaki, ularning hech biri mashinangizdan chiqmaydi."
+      }
     }
   },
   "wordCounter": {
@@ -3060,5 +3120,48 @@
   "select": {
     "search": "Qidirish…",
     "noMatch": "Hech narsa topilmadi"
+  },
+  "colour": {
+    "copy": "Nusxalash",
+    "copied": "Nusxalandi",
+    "harmony": {
+      "complementary": "Komplementar — qarama-qarshisi",
+      "analogous": "Qo‘shni — yonidagilar",
+      "triadic": "Triada — doiraning uchdan biridan",
+      "split-complementary": "Bo‘lingan komplementar — qarama-qarshining ikki yonidan",
+      "tetradic": "Tetrada — ikki juft qarama-qarshi",
+      "square": "Kvadrat — teng oraliqdagi to‘rttasi",
+      "monochromatic": "Monoxrom — bitta ton, turli yorug‘lik"
+    },
+    "picker": {
+      "yourColour": "Sizning rangingiz",
+      "pick": "Rang tanlash",
+      "enter": "Rangni kiriting",
+      "placeholder": "#c2410c, rgb(194 65 12), tomato…",
+      "accepts": "hex, rgb(), hsl() yoki CSS rang nomini yozing — hammasi qabul qilinadi.",
+      "screen": "Ekrandan olish",
+      "random": "Tasodifiy",
+      "readability": "Uning ustida matn o‘qiladimi",
+      "sample": "Tez qo‘ng‘ir tulki sakraydi",
+      "fails": "Yetarli emas",
+      "lighterDarker": "Yorug‘roq va to‘qroq",
+      "goesWith": "Nima bilan yarashadi"
+    }
+  },
+  "jsonDiff": {
+    "left": "Birinchi hujjat",
+    "right": "Ikkinchi hujjat",
+    "swap": "O‘rnini almashtirish",
+    "similarity": "Qanchalik o‘xshash",
+    "identical": "Bu ikkisi aynan bir xil ma’noni bildiradi.",
+    "summary": "O‘zgargan: {changed} · qo‘shilgan: {added} · o‘chirilgan: {removed}",
+    "filter": {
+      "all": "Hammasi",
+      "changed": "O‘zgargan",
+      "added": "Qo‘shilgan",
+      "removed": "O‘chirilgan"
+    },
+    "copyReport": "Hisobotni nusxalash",
+    "reportHead": "{percent}% o‘xshash · {n} ta farq"
   }
 }

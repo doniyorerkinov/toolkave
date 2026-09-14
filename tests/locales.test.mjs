@@ -100,3 +100,27 @@ test('no word mixes Latin and Cyrillic letters', () => {
     }
   }
 })
+
+/**
+ * A brace that vue-i18n cannot pair with anything is a compile error, and a
+ * compile error in one message takes the entire locale file down with it —
+ * every string on the site renders as its own key. Quoting a JSON parser's
+ * complaint is exactly how it happens.
+ *
+ * Legitimate braces are `{name}`, `{0}` and the escape `{'{'}`; anything
+ * left after removing those is a stray.
+ */
+const VALID_BRACES = /\{\s*'[^']*'\s*\}|\{\s*[A-Za-z_$][\w$]*\s*\}|\{\s*\d+\s*\}/g
+
+test('no message has a brace the compiler cannot pair up', () => {
+  for (const name of LOCALES) {
+    const data = JSON.parse(readFileSync(path.join(DIR, name), 'utf8'))
+    for (const [key, value] of messages(data)) {
+      const stripped = value.replace(VALID_BRACES, '')
+      assert.ok(
+        !stripped.includes('{') && !stripped.includes('}'),
+        `${name} → ${key} has a stray brace; write a literal one as {'{'}: ${value.slice(0, 80)}`
+      )
+    }
+  }
+})
