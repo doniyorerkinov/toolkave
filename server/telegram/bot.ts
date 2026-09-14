@@ -26,9 +26,27 @@ const MAX_TOTAL_BYTES = 45 * 1024 * 1024
 
 const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/jpg']
 
+/**
+ * How long to wait for the rest of a batch before speaking.
+ *
+ * Telegram delivers an album as one update per photo, all at once, and a
+ * Worker answers each in its own invocation. Reacting to every one of them
+ * meant thirty edits in two seconds - past Telegram's rate limit, so the
+ * counter silently stopped moving - and left the buttons stranded thirty
+ * messages above the photos, which is what "stuck" looked like.
+ *
+ * So each invocation waits, then looks again: whoever's file ended up last
+ * speaks for the whole batch and the rest say nothing. Waiting is wall time,
+ * not CPU, so it costs the Worker nothing.
+ */
+const ALBUM_SETTLE_MS = 1500
+const SINGLE_SETTLE_MS = 700
+
 interface Context {
   api: TelegramApi
   store: SessionStore
+  /** Overridden in tests, where waiting a real second and a half is waste. */
+  settle?: { album: number; single: number }
 }
 
 export async function handleUpdate(update: TelegramUpdate, context: Context): Promise<void> {
@@ -72,8 +90,12 @@ async function onMessage(message: NonNullable<TelegramUpdate['message']>, contex
   }
 
   await context.store.add(chatId, incoming)
-  await showCount(chatId, locale, [...session.files, incoming], session.counterMessageId, context)
+  const delays = context.settle ?? { album: ALBUM_SETTLE_MS, single: SINGLE_SETTLE_MS }
+  await settle(message.media_group_id ? delays.album : delays.single)
+  await showCount(chatId, locale, incoming, context)
 }
+
+const settle = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 /** The largest photo size Telegram offers, or a document it will accept. */
 function fileFrom(message: NonNullable<TelegramUpdate['message']>): PendingFile | null {
@@ -107,15 +129,29 @@ async function greet(chatId: number, locale: BotLocale, context: Context): Promi
   )
 }
 
-/** The running count, rewritten in place, with the buttons that end the batch. */
+/**
+ * Say what is in the batch, with the buttons that end it.
+ *
+ * Posted fresh at the bottom of the chat and the previous one deleted, rather
+ * than rewritten where it stood: an album pushes thirty photos in underneath,
+ * and a counter edited in place ends up somewhere above them where nobody
+ * scrolls. The buttons have to be the last thing in the chat to be found.
+ *
+ * `mine` is the file this invocation added. Thirty of these run at once, so
+ * the count is re-read from the table rather than assumed, and whoever's file
+ * ended up last is the one that speaks - the other twenty-nine return here.
+ */
 async function showCount(
   chatId: number,
   locale: BotLocale,
-  files: PendingFile[],
-  counterMessageId: number | null,
+  mine: PendingFile,
   context: Context
 ): Promise<void> {
   const s = STRINGS[locale]
+  const session = await context.store.read(chatId)
+  if (session.files.at(-1)?.fileId !== mine.fileId) return
+
+  const files = session.files
   const images = files.filter(file => file.kind === 'image').length
   const pdfs = files.length - images
 
@@ -131,12 +167,9 @@ async function showCount(
           [{ text: s.clear, callback_data: 'clear' }]
         ]
 
-  if (counterMessageId) {
-    await context.api.editMessage(chatId, counterMessageId, text, buttons)
-    return
-  }
   const sent = await context.api.sendMessage(chatId, text, buttons)
   await context.store.setCounterMessage(chatId, sent.message_id)
+  if (session.counterMessageId) await context.api.deleteMessage(chatId, session.counterMessageId)
 }
 
 async function onCallback(query: NonNullable<TelegramUpdate['callback_query']>, context: Context): Promise<void> {

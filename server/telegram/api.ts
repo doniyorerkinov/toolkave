@@ -64,6 +64,19 @@ export class TelegramApi {
     }
   }
 
+  /**
+   * Used to move the counter to the bottom of the chat rather than leave it
+   * stranded above an album of thirty photos. Like `editMessage`, a failure
+   * means the message is already gone, which is the outcome wanted anyway.
+   */
+  async deleteMessage(chatId: number, messageId: number): Promise<void> {
+    try {
+      await this.call('deleteMessage', { chat_id: chatId, message_id: messageId })
+    } catch {
+      // Already deleted, too old to delete, or never existed.
+    }
+  }
+
   answerCallback(callbackId: string, text?: string): Promise<unknown> {
     return this.call('answerCallbackQuery', { callback_query_id: callbackId, ...(text ? { text } : {}) })
   }
@@ -117,6 +130,12 @@ export interface TelegramMessage {
   text?: string
   photo?: TelegramPhotoSize[]
   document?: TelegramDocument
+  /**
+   * Telegram splits an album into one update per photo, all carrying the same
+   * id. Its presence is the only warning that thirty more are already in
+   * flight behind this one.
+   */
+  media_group_id?: string
 }
 
 export interface TelegramCallback {
