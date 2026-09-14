@@ -2840,6 +2840,30 @@
         "q6": "Can I use these commercially?",
         "a6": "Yes. Colours are not copyrightable, and nothing here is licensed to you because nothing here needs to be. Use them for anything."
       }
+    },
+    "color-palettes": {
+      "name": "Colour palettes",
+      "short": "Palettes worth stealing, sorted by mood.",
+      "title": "Colour Palettes — free hex palettes to browse and copy",
+      "description": "A gallery of hand-picked four-colour palettes. Filter by mood, copy any hex with a click, and see which ones stay readable for colour-blind viewers.",
+      "intro": "Palettes chosen rather than generated, four colours each, filtered by the mood you are after — pastel, vintage, neon, earth, night. Click any band to copy its hex, or take all four at once. Each one is also checked for something this kind of gallery normally ignores: whether two of its colours become the same colour for a reader with red-green colour blindness.",
+      "howTo": {
+        "step1": "Pick a mood, or shuffle for something you were not looking for.",
+        "step2": "Click a band to copy that colour, or Copy all four for the set.",
+        "step3": "Send one to the generator to lock a colour and build around it."
+      },
+      "faq": {
+        "q1": "What does the Safe badge mean?",
+        "a1": "That no two colours in the palette collapse into one for a reader with red-green colour blindness, which affects roughly one man in twelve. It is worked out from the colours themselves, not typed in by hand: each one is put through a simulation of how that eye sees it and the results are compared. A palette without the badge is not bad — it is fine for decoration — but do not use it to mean anything, like pass and fail.",
+        "q2": "Can I use these commercially?",
+        "a2": "Yes, without restriction. A colour is not copyrightable and neither is a list of four of them. Use them in client work, products, anything.",
+        "q3": "Why four colours and not five?",
+        "a3": "Because four is what you can actually hold in your head and use. Most palette galleries settle on four for the same reason: it is enough for a background, a surface, a text colour and an accent, which is a whole interface.",
+        "q4": "How do I build on one?",
+        "a4": "Send it to the palette generator with the wand button. It opens with those colours loaded, and from there you can lock the ones you want, reroll the rest and export the result as CSS or Tailwind.",
+        "q5": "Are new palettes added?",
+        "a5": "These are picked by hand, so the set grows when there is something worth adding rather than on a schedule. There is no voting or submission, which also means there is nothing to sign up for and no account to have."
+      }
     }
   },
   "wordCounter": {
@@ -3240,6 +3264,31 @@
       },
       "copyLink": "Copy the link",
       "linkHint": "The palette is in the address bar, so the link carries it — no account, nothing saved anywhere."
+    },
+    "gallery": {
+      "all": "All",
+      "onlySafe": "Only colour-blind safe",
+      "shuffle": "Shuffle",
+      "showing": "{n} palettes",
+      "copyAll": "Copy all four",
+      "openInGenerator": "Open in the generator",
+      "safe": "Safe",
+      "safeTitle": "No two colours here collapse into one for a reader with red-green colour blindness",
+      "none": "Nothing matches those filters. Try another tag, or turn off the colour-blind filter.",
+      "tag": {
+        "pastel": "Pastel",
+        "vintage": "Vintage",
+        "retro": "Retro",
+        "neon": "Neon",
+        "earth": "Earth",
+        "nature": "Nature",
+        "sunset": "Sunset",
+        "sea": "Sea",
+        "night": "Night",
+        "coffee": "Coffee",
+        "candy": "Candy",
+        "mono": "One hue"
+      }
     }
   },
   "jsonDiff": {

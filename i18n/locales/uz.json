@@ -2840,6 +2840,30 @@
         "q6": "Bularni tijoriy maqsadda ishlatsa bo‘ladimi?",
         "a6": "Ha. Ranglar mualliflik huquqi bilan himoyalanmaydi va bu yerda sizga hech narsa litsenziyalanmaydi, chunki bunga hojat yo‘q. Xohlaganingizcha foydalaning."
       }
+    },
+    "color-palettes": {
+      "name": "Rang palitralari",
+      "short": "O‘g‘irlashga arziydigan palitralar, kayfiyat bo‘yicha saralangan.",
+      "title": "Rang palitralari — tayyor hex palitralarni ko‘rish va nusxalash",
+      "description": "Qo‘lda tanlangan to‘rt rangli palitralar galereyasi. Kayfiyat bo‘yicha filtrlang, istalgan hex ni bir bosishda nusxalang va rang ko‘rlikda qaysilari o‘qilishini ko‘ring.",
+      "intro": "Palitralar yaratilgan emas, tanlangan: har birida to‘rt rang, kayfiyat bo‘yicha filtr bilan — pastel, vintaj, neon, tuproq, tun. Hex ni nusxalash uchun chiziqni bosing yoki to‘rttasini birdan oling. Har biri bunday galereyalar odatda e’tibordan chetda qoldiradigan narsaga ham tekshirilgan: uning ikki rangi qizil-yashil rang ko‘rligi bor odam uchun bitta rangga aylanib qolmaganmi.",
+      "howTo": {
+        "step1": "Kayfiyatni tanlang yoki kutilmagan narsaga duch kelish uchun aralashtiring.",
+        "step2": "Rangni nusxalash uchun chiziqni bosing yoki “To‘rttasini nusxalash”ni tanlang.",
+        "step3": "Rangni qulflab, qolganini qurish uchun palitrani generatorga yuboring."
+      },
+      "faq": {
+        "q1": "“Xavfsiz” belgisi nimani bildiradi?",
+        "a1": "Palitradagi hech bir rang jufti qizil-yashil rang ko‘rligi bor odam uchun bitta rangga qo‘shilib ketmasligini; bunday odamlar taxminan har o‘n ikki erkakdan bittasi. Bu qo‘lda yozilmaydi, ranglarning o‘zidan hisoblanadi: har biri shunday ko‘z qanday ko‘rishini modellashtiruvchi hisobdan o‘tkaziladi va natijalar taqqoslanadi. Belgisiz palitra yomon emas — bezak uchun yaraydi — lekin uning ranglariga “o‘tdi” va “o‘tmadi” kabi ma’no yuklamang.",
+        "q2": "Ularni tijoriy maqsadda ishlatsa bo‘ladimi?",
+        "a2": "Ha, cheklovsiz. Rang mualliflik huquqi bilan himoyalanmaydi, to‘rtta rangdan iborat ro‘yxat ham. Mijoz ishlarida, mahsulotlarda — xohlagan joyda ishlating.",
+        "q3": "Nega besh emas, to‘rt rang?",
+        "a3": "Chunki to‘rtta — bu esda turadigan va amalda ishlatiladigan miqdor. Ko‘pchilik palitra galereyalari ham shu sababdan to‘rttada to‘xtagan: fon, yuza, matn rangi va urg‘u uchun yetadi, bu esa allaqachon butun interfeys.",
+        "q4": "Palitrani qanday davom ettiraman?",
+        "a4": "Hassa tugmasi bilan uni generatorga yuboring. U shu ranglar bilan ochiladi, keyin keraklisini qulflab, qolganini qayta terib, natijani CSS yoki Tailwind sifatida eksport qilishingiz mumkin.",
+        "q5": "Yangi palitralar qo‘shiladimi?",
+        "a5": "Ular qo‘lda tanlanadi, shuning uchun to‘plam jadval bo‘yicha emas, qo‘shishga arziydigan narsa topilganda o‘sadi. Ovoz berish yoki ariza qabul qilish yo‘q — demak, ro‘yxatdan o‘tish ham, hisob ham kerak emas."
+      }
     }
   },
   "wordCounter": {
@@ -3240,6 +3264,31 @@
       },
       "copyLink": "Havolani nusxalash",
       "linkHint": "Palitra manzil satrida yozilgan, shuning uchun havola uni o‘zi bilan olib yuradi — hisobsiz va hech qayerda saqlanmasdan."
+    },
+    "gallery": {
+      "all": "Hammasi",
+      "onlySafe": "Faqat rang ko‘rlikda xavfsizlari",
+      "shuffle": "Aralashtirish",
+      "showing": "{n} ta palitra",
+      "copyAll": "To‘rttasini nusxalash",
+      "openInGenerator": "Generatorda ochish",
+      "safe": "Xavfsiz",
+      "safeTitle": "Bu yerdagi hech bir rang jufti qizil-yashil rang ko‘rligi bor odam uchun qo‘shilib ketmaydi",
+      "none": "Bu filtrlarga hech narsa mos kelmadi. Boshqa tegni sinab ko‘ring yoki rang ko‘rlik filtrini olib tashlang.",
+      "tag": {
+        "pastel": "Pastel",
+        "vintage": "Vintaj",
+        "retro": "Retro",
+        "neon": "Neon",
+        "earth": "Tuproq",
+        "nature": "Tabiat",
+        "sunset": "Shafaq",
+        "sea": "Dengiz",
+        "night": "Tun",
+        "coffee": "Qahva",
+        "candy": "Shirinlik",
+        "mono": "Bitta ton"
+      }
     }
   },
   "jsonDiff": {
