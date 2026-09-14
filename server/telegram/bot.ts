@@ -212,11 +212,10 @@ async function askLanguage(chatId: number, context: Context): Promise<void> {
  */
 async function greet(chatId: number, locale: BotLocale, context: Context): Promise<void> {
   const s = STRINGS[locale]
-  const lines = [s.greeting, s.can.join('\n'), s.howTo, s.limits, s.sendAsFile, s.privacy, s.changeLanguage]
+  const lines = [s.greeting, s.can.join('\n'), s.limits, s.sendAsFile, s.privacy, s.changeLanguage]
   await context.api.sendMessage(chatId, lines.join('\n\n'), [
     [{ text: s.menu.photos, callback_data: 'how:photos' }],
-    [{ text: s.menu.merge, callback_data: 'how:merge' }],
-    [{ text: s.menu.cover, callback_data: 'how:cover' }]
+    [{ text: s.menu.merge, callback_data: 'how:merge' }]
   ])
 }
 
@@ -296,7 +295,7 @@ async function onCallback(query: NonNullable<TelegramUpdate['callback_query']>, 
   // A menu button: say what to send, remember nothing. The file that arrives
   // next is still what decides which buttons appear under it.
   if (query.data?.startsWith('how:')) {
-    const which = query.data.slice(4) as 'photos' | 'merge' | 'cover'
+    const which = query.data.slice(4) as 'photos' | 'merge'
     const how = STRINGS[locale].how[which]
     if (how) await context.api.sendMessage(chatId, how)
     return

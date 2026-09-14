@@ -372,7 +372,7 @@ test('the greeting lists every capability, in all three languages', async () => 
     const reply = await openedIn(language, context)
 
     const listed = reply.text.split('\n').filter(line => /^\p{Emoji_Presentation}/u.test(line))
-    assert.equal(listed.length, 3, `${language}: three capabilities listed`)
+    assert.equal(listed.length, 2, `${language}: two capabilities listed`)
     assert.ok(/20 MB|20 МБ/.test(reply.text), `${language}: states the file cap`)
     assert.ok(/\/language/.test(reply.text), `${language}: says how to change language back`)
   }
@@ -390,8 +390,8 @@ test('the greeting offers a button per capability, and tapping one only explains
   const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
   const intro = await openedIn('uz', context)
 
-  assert.equal(intro.buttons.length, 3, 'one button per capability')
-  assert.deepEqual(intro.buttons.flat().map(button => button.callback_data), ['how:photos', 'how:merge', 'how:cover'])
+  assert.equal(intro.buttons.length, 2, 'one button per capability')
+  assert.deepEqual(intro.buttons.flat().map(button => button.callback_data), ['how:photos', 'how:merge'])
 
   await handleUpdate(press('how:merge', 'ru'), context)
   // Uzbek was chosen, so the answer is Uzbek even though the phone says Russian.
@@ -483,7 +483,7 @@ test('a lone PDF is not offered a merge with itself', async () => {
   await deliver([pdfDoc('c', cover)], context)
   const counter = context.api.log.messages.at(-1)
 
-  assert.match(counter.text, /One PDF received/)
+  assert.match(counter.text, /One PDF received\. Send another/)
   assert.deepEqual(counter.buttons.flat().map(button => button.callback_data), ['clear'],
     'nothing to do with one PDF but send another file')
 })

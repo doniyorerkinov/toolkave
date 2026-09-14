@@ -111,3 +111,27 @@
     background-color: var(--color-ember-400);
   }
 }
+
+/*
+ * Opened as a Telegram Mini App.
+ *
+ * Telegram draws its own header, back button and close button above the page,
+ * so ours would be a second set of the same controls - and the footer's links
+ * lead out of an app that has no address bar to come back from. The tools
+ * themselves are untouched: they are the reason the app exists.
+ */
+.in-telegram header,
+.in-telegram footer {
+  display: none;
+}
+
+.in-telegram main {
+  /* The header is gone; without this every page starts flush against the
+     top of Telegram's chrome. */
+  padding-top: 0.75rem;
+}
+
+.in-telegram body,
+.in-telegram {
+  background: var(--tg-bg, inherit);
+}
