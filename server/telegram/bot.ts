@@ -248,18 +248,29 @@ async function showCount(
   }
   const images = files.filter(file => file.kind === 'image').length
   const pdfs = files.length - images
+  const mixed = images > 0 && pdfs > 0
 
-  // The batch decides what to offer: all PDFs merge, anything with a photo in
-  // it needs a page size first, because that is the only choice the user has.
-  const text = images === 0 ? s.countPdfs(pdfs) : pdfs === 0 ? s.countImages(images) : s.countMixed(images, pdfs)
+  // Three states, three honest answers. A lone PDF is the one that used to lie:
+  // it offered "merge into one PDF", which with nothing to merge it into hands
+  // back the same file - and it appears exactly when someone has just been told
+  // to send a cover first, so it contradicts the instruction it follows.
+  const text = images === 0 && pdfs === 1 ? s.countOnePdf
+    : images === 0 ? s.countPdfs(pdfs)
+    : pdfs === 0 ? s.countImages(images)
+    : s.countMixed(images, pdfs)
+
   const buttons =
-    images === 0
-      ? [[{ text: s.mergePdfs, callback_data: 'merge' }], [{ text: s.clear, callback_data: 'clear' }]]
-      : [
-          [{ text: s.makePdfA4, callback_data: 'a4' }],
-          [{ text: s.makePdfOriginal, callback_data: 'image' }],
-          [{ text: s.clear, callback_data: 'clear' }]
-        ]
+    images === 0 && pdfs === 1
+      ? [[{ text: s.clear, callback_data: 'clear' }]]
+      : images === 0
+        ? [[{ text: s.mergePdfs, callback_data: 'merge' }], [{ text: s.clear, callback_data: 'clear' }]]
+        : [
+            // "Make PDF" is photo language; a cover plus pages is a document
+            // being assembled, and the label has to say the thing being done.
+            [{ text: mixed ? s.combineA4 : s.makePdfA4, callback_data: 'a4' }],
+            [{ text: mixed ? s.combineOriginal : s.makePdfOriginal, callback_data: 'image' }],
+            [{ text: s.clear, callback_data: 'clear' }]
+          ]
 
   const sent = await context.api.sendMessage(chatId, text, buttons)
   await context.store.setCounterMessage(chatId, sent.message_id)

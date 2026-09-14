@@ -43,7 +43,12 @@ interface Strings {
   privacy: string
   countImages: (n: number) => string
   countPdfs: (n: number) => string
+  /** One PDF cannot be merged with itself; say what would actually help. */
+  countOnePdf: string
   makePdfA4: string
+  /** Labels for a batch holding both: "make a PDF" is photo talk, and wrong here. */
+  combineA4: string
+  combineOriginal: string
   makePdfOriginal: string
   mergePdfs: string
   clear: string
@@ -83,6 +88,9 @@ const en: Strings = {
   privacy: 'Your files are never saved: they are converted in memory and gone the moment the PDF is sent.',
   countImages: n => `${n} photo${n === 1 ? '' : 's'} received. Send more, or:`,
   countPdfs: n => `${n} PDF${n === 1 ? '' : 's'} received. Send more, or:`,
+  countOnePdf: 'One PDF received. Send more PDFs and I will join them — or photograph the pages, and this becomes the cover.',
+  combineA4: '📑 Make one document (A4)',
+  combineOriginal: '🖼 One document (photo size)',
   makePdfA4: '📄 Make PDF (A4)',
   makePdfOriginal: '🖼 Make PDF (photo size)',
   mergePdfs: '📎 Merge into one PDF',
@@ -124,6 +132,9 @@ const ru: Strings = {
   privacy: 'Ваши файлы нигде не сохраняются: они обрабатываются в памяти и исчезают сразу после отправки PDF.',
   countImages: n => `Получено фото: ${n}. Отправьте ещё или:`,
   countPdfs: n => `Получено PDF: ${n}. Отправьте ещё или:`,
+  countOnePdf: 'Получен 1 PDF. Пришлите ещё PDF — объединю. Или сфотографируйте страницы, и этот станет титульным.',
+  combineA4: '📑 Собрать один документ (A4)',
+  combineOriginal: '🖼 Один документ (размер фото)',
   makePdfA4: '📄 Собрать PDF (A4)',
   makePdfOriginal: '🖼 Собрать PDF (размер фото)',
   mergePdfs: '📎 Объединить в один PDF',
@@ -165,6 +176,9 @@ const uz: Strings = {
   privacy: "Fayllaringiz hech qayerda saqlanmaydi: xotirada ishlanadi va PDF yuborilishi bilan yo'qoladi.",
   countImages: n => `${n} ta surat qabul qilindi. Yana yuboring yoki:`,
   countPdfs: n => `${n} ta PDF qabul qilindi. Yana yuboring yoki:`,
+  countOnePdf: "1 ta PDF qabul qilindi. Yana PDF yuboring — birlashtiraman. Yoki sahifalarni suratga oling — bu muqova bo'lib qoladi.",
+  combineA4: '📑 Bitta hujjat qilish (A4)',
+  combineOriginal: "🖼 Bitta hujjat (surat o'lchami)",
   makePdfA4: '📄 PDF yasash (A4)',
   makePdfOriginal: '🖼 PDF yasash (surat o\'lchami)',
   mergePdfs: '📎 Bitta PDF ga birlashtirish',

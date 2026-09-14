@@ -226,7 +226,9 @@ test('PDFs on their own are merged', async () => {
   const context = { api: fakeApi({ p1: bytes, p2: bytes }), store: fakeStore(), settle: BRIEF }
   await handleUpdate(pdfDoc('p1', bytes), context)
   await handleUpdate(pdfDoc('p2', bytes), context)
-  assert.match(context.api.log.messages[0].text, /2 PDFs received|1 PDF received/)
+  // The first PDF says "send another"; the second is what can actually merge.
+  assert.match(context.api.log.messages[0].text, /One PDF received/)
+  assert.match(context.api.log.messages.at(-1).text, /2 PDFs received/)
 
   await handleUpdate(press('merge'), context)
   const merged = await PDFDocument.load(context.api.log.documents[0].bytes)
@@ -461,4 +463,48 @@ test('/language reopens the picker and the new choice sticks', async () => {
 
   await handleUpdate(press('lang:ru', 'uz'), context)
   assert.match(context.api.log.messages.at(-1).text, /Пришлите файл/)
+})
+
+/**
+ * The state right after "send the cover first" is the one that went wrong.
+ *
+ * A lone PDF was offered "merge into one PDF", which with nothing to merge it
+ * into hands the same file back - and it arrives seconds after the bot has told
+ * someone to send a cover and then the pages, so it contradicts its own
+ * instruction. And once the photos landed the buttons said "make PDF", which is
+ * photo talk for what is actually a document being assembled.
+ */
+test('a lone PDF is not offered a merge with itself', async () => {
+  const doc = await PDFDocument.create()
+  doc.addPage([595, 842])
+  const cover = await doc.save()
+  const context = { api: fakeApi({ c: cover }), store: fakeStore(), settle: BRIEF }
+
+  await deliver([pdfDoc('c', cover)], context)
+  const counter = context.api.log.messages.at(-1)
+
+  assert.match(counter.text, /One PDF received/)
+  assert.deepEqual(counter.buttons.flat().map(button => button.callback_data), ['clear'],
+    'nothing to do with one PDF but send another file')
+})
+
+test('a cover plus pages is labelled as one document, not as making a PDF', async () => {
+  const doc = await PDFDocument.create()
+  doc.addPage([595, 842])
+  const cover = await doc.save()
+  const png = solidPng(60, 90)
+  const context = { api: fakeApi({ c: cover, a: png, b: png }), store: fakeStore(), settle: BRIEF }
+
+  await deliver([pdfDoc('c', cover), photo('a'), photo('b')], context)
+  const counter = context.api.log.messages.at(-1)
+
+  assert.match(counter.text, /2 photos and 1 PDF received/)
+  const labels = counter.buttons.flat().map(button => button.text)
+  assert.ok(labels.some(label => /one document/i.test(label)), `photo-only wording is back: ${labels}`)
+  assert.ok(!labels.some(label => /Make PDF/i.test(label)))
+
+  // And it still builds, cover first.
+  await handleUpdate(press('a4'), context)
+  const out = await PDFDocument.load(context.api.log.documents[0].bytes)
+  assert.equal(out.getPageCount(), 3)
 })
