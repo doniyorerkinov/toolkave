@@ -92,6 +92,31 @@ sitemap count) before deploying.
 `?cb=random` cache-buster before diagnosing anything. This has now happened
 twice and wasted time both times.
 
+## Core Web Vitals
+
+Measured by Cloudflare Web Analytics, 24 Aug – 14 Sept 2026:
+
+| Metric | P75 | Google's "good" | |
+|---|---|---|---|
+| LCP | **356 ms** | ≤ 2,500 ms | 88% good |
+| INP | — | ≤ 200 ms | **100% good** |
+| CLS | — | ≤ 0.1 | **100% good** |
+
+P50 LCP is 238 ms. **Performance is not a problem and needs no work.**
+
+Two caveats worth keeping straight:
+
+- **P90 and P99 are both 8,224 ms — the same number.** Identical values at two
+  percentiles means a single sample in the tail, not a slow page: roughly one
+  view in eight. Checked against the build, and it is not structural — the
+  homepage ships 62 KB of HTML and ~363 KB of JS uncompressed, everything is
+  served brotli-encoded with `CF-Cache-Status: HIT`, and the genuinely heavy
+  chunks (the 1.9 MB ONNX runtime, the 424 KB PDF worker) are lazy-loaded and
+  never touch the homepage. One visitor on a bad connection.
+- **The sample is tiny.** Cloudflare's own chart caps at "5 items" and a count
+  axis of 40. One visit moves a percentile by 13 points. These numbers are
+  excellent and they describe almost nothing yet.
+
 ## Search engines
 
 ### Google — healthy, just young

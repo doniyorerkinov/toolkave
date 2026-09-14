@@ -95,6 +95,14 @@ Other constraints already known: ~30 MB first download (cache it — the
 `/models/*` immutable-cache pattern in `_headers` is the precedent), must run in
 a Web Worker with a real progress bar, practical ceiling around 500 MB input.
 
+**Fetch the 30 MB on the user's first action, never on page load.** Core Web
+Vitals for the whole site currently sit at a P75 LCP of **356 ms** (Google's
+"good" bar is 2,500 ms) with INP and CLS 100% good — measured 24 Aug–14 Sept
+2026. A payload that size firing at page load would wreck that on `/video` and
+`/audio`, and Core Web Vitals is a ranking input. The precedent is already in
+the repo: the background-removal model downloads when the user picks an image,
+not when the page opens.
+
 ### 2. SVG → 3D (three.js)
 
 Upload or paste an SVG, extrude the paths into a mesh, orbit it, export it.
