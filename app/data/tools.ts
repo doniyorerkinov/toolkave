@@ -67,6 +67,15 @@ export interface ToolDef {
   locales: Locale[]
   slugs: Partial<Record<Locale, string>>
   related: string[]
+  /**
+   * Locales whose live URL has been handed to Google Search Console.
+   *
+   * A record of what has been asked for, nothing more: it changes nothing
+   * about the site, and whether a tool is live depends on `published`
+   * alone. Kept here rather than in a notebook because the alternative is
+   * asking Google to index the same page twice and missing three others.
+   */
+  indexed?: Locale[]
   /** Heavy tools lazy-load their libraries and run in a web worker. */
   heavy?: boolean
   acceptedTypes?: string[]

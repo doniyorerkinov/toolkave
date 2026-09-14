@@ -10,6 +10,22 @@ export default defineNuxtConfig({
 
   modules: ['@nuxtjs/i18n', '@pinia/nuxt'],
 
+  hooks: {
+    /**
+     * Keep the indexing workbench out of the shipped site.
+     *
+     * The page refuses to render outside dev on its own, but a route that
+     * does not exist cannot be found by a crawler, cannot appear in a build
+     * manifest, and cannot be forgotten about.
+     */
+    'pages:extend'(pages) {
+      if (process.env.NODE_ENV === 'development') return
+      for (let i = pages.length - 1; i >= 0; i--) {
+        if (/^\/(?:[a-z]{2}\/)?indexing$/.test(pages[i]!.path)) pages.splice(i, 1)
+      }
+    }
+  },
+
   i18n: {
     locales: [
       { code: 'en', language: 'en', name: 'English', file: 'en.json' },
