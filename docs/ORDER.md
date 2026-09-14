@@ -270,7 +270,12 @@ PWA · tool chaining through the Pinia store · batch mode · presets · recent 
 favourites · embeddable widgets. Full list in
 [toolkave-roadmap-and-bot.md §4](toolkave-roadmap-and-bot.md).
 
-### 7. Document builders — position not yet decided
+### 7. Document builders — presentation dropped; resume and invoice unscheduled
+
+**Presentation editor stopped 15 Sept** before any code: without editing an
+existing `.pptx` it does not earn its size. Resume and invoice stay possible
+but wait on AdSense (deferred until there is traffic) and on a decision to
+build builder-shaped tools at all.
 
 Presentation, resume and invoice builders: spec in
 [toolkave-document-builders.md](toolkave-document-builders.md), build plan in

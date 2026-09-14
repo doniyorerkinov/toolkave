@@ -1,5 +1,10 @@
 # Presentation Editor — Plan
 
+> **Stopped, 15 September 2026, before Phase 0.** Too large for what it returns:
+> without opening and editing an existing `.pptx` — which is out of reach — an
+> editor that only makes new decks is not worth three weeks of build and test.
+> Kept for the analysis (model, coordinates, export mapping) should it return.
+
 **Supersedes the presentation sections (Phases 1, 2 and 6) of
 [toolkave-document-builders-plan.md](toolkave-document-builders-plan.md)** and
 the spec's line *"not a slide editor"*. Decided 15 September 2026: it is one.

@@ -7,10 +7,11 @@ registry, the exporters and the test harness rather than assuming them.
 
 Position in the overall order is **not decided yet** — see the last section.
 
-> **Presentation is now a slide editor, not an outline generator** — decided
-> 15 Sept. Phases 1, 2 and 6 below are superseded by
+> **Presentation dropped, 15 Sept** — see the stopped
 > [toolkave-presentation-editor-plan.md](toolkave-presentation-editor-plan.md).
-> Phase 0 (foundation) and Phases 3–5 (resume, invoice) stand as written.
+> Phases 1, 2 and 6 below no longer apply. Resume and invoice (Phases 0, 3–5)
+> remain valid but are **not scheduled**; they wait on a decision to build
+> builder-shaped tools at all, and on AdSense, which is deferred until traffic.
 
 ---
 
