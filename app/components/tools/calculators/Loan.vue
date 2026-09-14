@@ -28,40 +28,19 @@ const interestShare = computed(() => {
         <label for="ln-p" class="block text-sm font-medium text-stone-900">
           {{ t('loan.amount') }}
         </label>
-        <input
-          id="ln-p"
-          v-model.number="principal"
-          type="number"
-          min="0"
-          step="any"
-          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
-        />
+        <ShellNumberInput id="ln-p" v-model="principal" :min="0" class="mt-1" />
       </div>
       <div>
         <label for="ln-r" class="block text-sm font-medium text-stone-900">
           {{ t('loan.rate') }}
         </label>
-        <input
-          id="ln-r"
-          v-model.number="rate"
-          type="number"
-          min="0"
-          step="any"
-          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
-        />
+        <ShellNumberInput id="ln-r" v-model="rate" :decimals="2" :min="0" :max="200" class="mt-1" />
       </div>
       <div>
         <label for="ln-y" class="block text-sm font-medium text-stone-900">
           {{ t('loan.years') }}
         </label>
-        <input
-          id="ln-y"
-          v-model.number="years"
-          type="number"
-          min="0"
-          step="any"
-          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
-        />
+        <ShellNumberInput id="ln-y" v-model="years" :decimals="1" :min="0" :max="100" class="mt-1" />
       </div>
     </div>
 

@@ -109,12 +109,12 @@ const popular = computed(() => {
             {{ t('currency.amount') }}
           </label>
           <div class="mt-1 flex gap-2">
-            <input
+            <ShellNumberInput
               id="cur-amount"
-              v-model.number="amount"
-              type="number"
-              step="any"
-              class="min-w-0 flex-1 rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
+              v-model="amount"
+              :decimals="2"
+              :min="0"
+              class="min-w-0 flex-1"
             />
             <ShellSelect
               v-model="from"
