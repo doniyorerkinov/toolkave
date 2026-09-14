@@ -3096,7 +3096,7 @@
           "heading": "Oʻzgarishlar va aloqa",
           "body": [
             "Siyosat o'zgarsa, yuqoridagi sana ham o'zgaradi.",
-            "Maxfiylik boʻyicha savollar: hello{'@'}toolkave.com"
+            "Maxfiylik boʻyicha savollar: bogʻlanishning barcha yoʻllari kontaktlar sahifasida."
           ]
         }
       ]
@@ -3149,7 +3149,7 @@
           "heading": "Oʻzgarishlar, huquq va aloqa",
           "body": [
             "Shartlar o'zgarsa, yuqoridagi sana ham o'zgaradi. Ular O'zbekiston Respublikasi qonunchiligiga bo'ysunadi.",
-            "Savollar: hello{'@'}toolkave.com"
+            "Savollar: bogʻlanishning barcha yoʻllari kontaktlar sahifasida."
           ]
         }
       ]
@@ -3200,12 +3200,6 @@
       "description": "Toolkave bilan qanday bog'lanish: xatolar haqida xabar, yangi vosita so'rovlari va boshqasi.",
       "lead": "Biror narsa ishlamayaptimi, yetishmayaptimi yoki hamkorlik taklifingiz bormi? Yozing.",
       "sections": [
-        {
-          "heading": "Pochta",
-          "body": [
-            "hello{'@'}toolkave.com — tirik odamga yetib borishning eng tez yo'li. Xatolar, yangi vosita so'rovlari, hamkorlik — nimaiki bo'lsa."
-          ]
-        },
         {
           "heading": "Telegram",
           "body": [

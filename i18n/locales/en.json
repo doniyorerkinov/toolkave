@@ -3096,7 +3096,7 @@
           "heading": "Changes and contact",
           "body": [
             "If this policy changes, the date at the top changes with it.",
-            "Questions about privacy: hello{'@'}toolkave.com"
+            "Questions about privacy: the contact page lists every way to reach us."
           ]
         }
       ]
@@ -3149,7 +3149,7 @@
           "heading": "Changes, law and contact",
           "body": [
             "If these terms change, the date at the top changes with them. They are governed by the law of the Republic of Uzbekistan.",
-            "Questions: hello{'@'}toolkave.com"
+            "Questions: the contact page lists every way to reach us."
           ]
         }
       ]
@@ -3200,12 +3200,6 @@
       "description": "How to reach Toolkave: bug reports, tool requests and everything else.",
       "lead": "Something broken, something missing, or something you want to build on? Write.",
       "sections": [
-        {
-          "heading": "Email",
-          "body": [
-            "hello{'@'}toolkave.com — the fastest way to reach a human. Bug reports, tool requests, partnerships, anything."
-          ]
-        },
         {
           "heading": "Telegram",
           "body": [

@@ -152,7 +152,10 @@ weeks. Until it lands:
 
 ## Open items that are not code
 
-- Create `hello@toolkave.com` via Cloudflare Email Routing
+- ~~Create `hello@toolkave.com`~~ — **dropped 15 Sept.** The address was
+  advertised on the contact, privacy and terms pages while the domain had no MX
+  records at all, so every message to it had bounced since launch. Removed from
+  all three pages in all three languages rather than set up.
 - Finish the Bing Webmaster import
 - Set the Yandex region
 - Rotate the Telegram bot token and webhook secret **if** they were ever pasted
