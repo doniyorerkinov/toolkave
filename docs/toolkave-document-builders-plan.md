@@ -7,6 +7,11 @@ registry, the exporters and the test harness rather than assuming them.
 
 Position in the overall order is **not decided yet** — see the last section.
 
+> **Presentation is now a slide editor, not an outline generator** — decided
+> 15 Sept. Phases 1, 2 and 6 below are superseded by
+> [toolkave-presentation-editor-plan.md](toolkave-presentation-editor-plan.md).
+> Phase 0 (foundation) and Phases 3–5 (resume, invoice) stand as written.
+
 ---
 
 ## What the codebase already gives us
