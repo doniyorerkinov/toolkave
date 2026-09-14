@@ -2788,6 +2788,32 @@
         "q5": "Ma’lumotlarim qayerdadir yuboriladimi?",
         "a5": "Yo‘q. Ikkala hujjat ham brauzerda qoladi. Bu yerda bu muhim: ikki API javobini taqqoslash odatda ikkita haqiqiy javob degani, va buni mahalliy qilishning butun mazmuni shundaki, ularning hech biri mashinangizdan chiqmaydi."
       }
+    },
+    "image-color-picker": {
+      "name": "Rasmdan rang olish",
+      "short": "Rasmdan istalgan rangni yoki butun palitrani olish.",
+      "title": "Rasmdan rang olish — istalgan fotodan hex ni bilish, bepul",
+      "description": "Rasmlar uchun bepul onlayn pipetka. Istalgan pikselni bosib hex, RGB va HSL ni oling hamda fotoning asosiy ranglarini ko‘ring. Brauzerda ishlaydi — rasm hech qayerga yuklanmaydi.",
+      "intro": "Rasmni qo‘shing va uning ustida yuring. Lupa kursor ostidagini kattalashtiradi, shunda bosishdan oldin aniq pikselni ko‘rasiz, bosish esa o‘sha rangni olib nusxalaydi. Pastda — rasm asosan qaysi bir necha rangdan tashkil topgani.",
+      "howTo": {
+        "step1": "Surat, skrinshot yoki logotip qo‘shing.",
+        "step2": "Ko‘rish uchun ustida yuring, kerakli rangni olish uchun bosing.",
+        "step3": "Bitta kodni yoki yig‘ilgan hammasini CSS sifatida nusxalang."
+      },
+      "faq": {
+        "q1": "Lupa nima uchun kerak?",
+        "a1": "Chunki surat ekranda o‘zidan kichikroq ko‘rsatiladi va bitta ekran pikseli bir nechta haqiqiy pikselni qoplaydi. Kattalashtirmasdan “qizil joyni” bosish — qaysi piksel tekkanini taxmin qilish demak, suratda esa qo‘shni piksellar deyarli hech qachon bir xil rangda bo‘lmaydi. Lupa kursor atrofidagi haqiqiy piksellarni ko‘rsatadi va siz turganini ramkaga oladi — taxmin tanlovga aylanadi.",
+        "q2": "Pastdagi ranglar nima?",
+        "a2": "Rasm asosan tashkil topgan ranglar. Ular barcha piksellarni o‘xshashligi bo‘yicha guruhlab, har bir guruh o‘rtasidan haqiqiy pikselni olish yo‘li bilan topiladi — takrorlanadigan hex kodlarni sanash bilan emas, chunki suratda bir xil piksellar deyarli yo‘q va bunday sanoq shovqin beradi. Guruhlar masofa ko‘z ko‘rgan farqqa mos keladigan fazoda taqqoslanadi, shuning uchun natijada siz o‘zingiz ham nomlagan bo‘lardingiz degan ranglar chiqadi.",
+        "q3": "Skrinshot yoki logotip bilan ishlaydimi?",
+        "a3": "Suratdan ham yaxshiroq. Tekis grafikada bir xil aniq rangdagi katta sohalar bo‘ladi, ya’ni qayerni bossangiz, o‘shani olasiz, ajratib olingan palitra esa dizayner haqiqatan ishlatgan bir necha rangni qaytaradi.",
+        "q4": "Bir nechta rang olsa bo‘ladimi?",
+        "a4": "Ha. Har bir bosish rangni pastdagi qatorga qo‘shadi, yangilari oldinda, takrorlanganlari esa e’tiborga olinmaydi. Kerakligini yig‘ib bo‘lgach, “CSS sifatida nusxalash” ularni uslublarga qo‘yishga tayyor maxsus xossalar ko‘rinishida beradi.",
+        "q5": "iPhone dagi HEIC suratlar-chi?",
+        "a5": "Ishlaydi. Rasm avval brauzerda dekodlanadi, shuning uchun brauzer odatda ko‘rsata olmaydigan format ham qayta ishlanadi.",
+        "q6": "Rasm biror joyga yuklanadimi?",
+        "a6": "Yo‘q. U brauzeringiz ichida, o‘z qurilmangizda o‘qiladi va chiziladi. Serverga hech narsa yuborilmaydi — shuning uchun sahifa ochilgach, internetsiz ham ishlayveradi."
+      }
     }
   },
   "wordCounter": {
@@ -3146,6 +3172,15 @@
       "fails": "Yetarli emas",
       "lighterDarker": "Yorug‘roq va to‘qroq",
       "goesWith": "Nima bilan yarashadi"
+    },
+    "fromImage": {
+      "reading": "Rasm o‘qilmoqda…",
+      "hint": "Ko‘rish uchun rasm ustida yuring, rangni olish uchun bosing. Lupa siz turgan aniq pikselni ko‘rsatadi.",
+      "main": "U asosan qaysi ranglardan tashkil topgan",
+      "picked": "Olingan ranglar ({n})",
+      "copyCss": "CSS sifatida nusxalash",
+      "clear": "Tozalash",
+      "remove": "Buni olib tashlash"
     }
   },
   "jsonDiff": {

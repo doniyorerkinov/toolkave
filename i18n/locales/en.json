@@ -2788,6 +2788,32 @@
         "q5": "Is my data sent anywhere?",
         "a5": "No. Both documents stay in your browser. That matters here: comparing two API responses usually means two real payloads, and the whole point of doing it locally is that neither one leaves your machine."
       }
+    },
+    "image-color-picker": {
+      "name": "Colour from an image",
+      "short": "Take any colour out of a picture, or the whole palette at once.",
+      "title": "Image Colour Picker — get the hex from any photo, free online",
+      "description": "Free online colour picker for images. Click any pixel to get its hex, RGB and HSL, and see the main colours a photo is made of. Runs in your browser — the picture is never uploaded.",
+      "intro": "Add a picture and move over it. A loupe magnifies whatever is under the cursor so you can see the exact pixel before you commit, and clicking takes that colour and copies it. Underneath, the handful of colours the picture is mostly made of, worked out for you.",
+      "howTo": {
+        "step1": "Add a photo, a screenshot or a logo.",
+        "step2": "Move over it to look, then click to take the colour you want.",
+        "step3": "Copy a single code, or copy everything you collected as CSS."
+      },
+      "faq": {
+        "q1": "Why is there a magnifier?",
+        "a1": "Because a photo on screen is shown smaller than it is, so one screen pixel covers several real ones. Clicking on \"the red bit\" without magnification is a guess about which pixel you actually got — and on a photograph, neighbouring pixels are rarely the same colour. The loupe shows the real pixels around the cursor with the one you are on boxed, which turns the guess into a choice.",
+        "q2": "What are the colours shown underneath?",
+        "a2": "The ones the picture is mostly made of. They are found by grouping every pixel by how similar it looks and taking a real pixel from the middle of each group — not by counting which hex codes repeat, which returns noise on a photograph because almost no two pixels are exactly equal. The groups are compared in a space where distance matches what your eye sees, so the result is the colours you would have named yourself.",
+        "q3": "Does it work with a screenshot or a logo?",
+        "a3": "Better than with a photograph, in fact. Flat graphics have large areas of one exact colour, so what you click is what you get, and the extracted palette comes back as the handful of colours the designer actually used.",
+        "q4": "Can I take several colours?",
+        "a4": "Yes. Every click adds to the row at the bottom, newest first, and the same colour twice is ignored. When you have what you need, Copy as CSS gives you them as custom properties ready to paste into a stylesheet.",
+        "q5": "What about HEIC photos from an iPhone?",
+        "a5": "They work. The picture is decoded in your browser first, so a format your browser cannot normally display is handled anyway.",
+        "q6": "Is the picture uploaded anywhere?",
+        "a6": "No. It is read and drawn inside your browser, on your own device. Nothing is sent to a server, which is why it also works with the tab offline once the page has loaded."
+      }
     }
   },
   "wordCounter": {
@@ -3146,6 +3172,15 @@
       "fails": "Too low",
       "lighterDarker": "Lighter and darker",
       "goesWith": "What goes with it"
+    },
+    "fromImage": {
+      "reading": "Reading the picture…",
+      "hint": "Move over the picture to look, click to take the colour. The loupe shows the exact pixel you are on.",
+      "main": "The colours it is mostly made of",
+      "picked": "Colours you took ({n})",
+      "copyCss": "Copy as CSS",
+      "clear": "Clear",
+      "remove": "Remove this one"
     }
   },
   "jsonDiff": {

@@ -104,8 +104,21 @@ export const tools: ToolDef[] = [
     published: false,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'color-picker', ru: 'podbor-cveta', uz: 'rang-tanlash' },
-    related: ['json-validator'],
+    related: ['image-color-picker'],
     maxFiles: 0
+  },
+  {
+    id: 'image-color-picker',
+    category: 'color',
+    group: 'pick',
+    component: 'color/FromImage',
+    icon: 'image',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'image-color-picker', ru: 'cvet-s-izobrazheniya', uz: 'rasmdan-rang-olish' },
+    related: ['color-picker'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/heic'],
+    maxFiles: 1
   },
   {
     id: 'pdf-merge',
