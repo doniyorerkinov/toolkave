@@ -806,7 +806,23 @@
     },
     "healthyRange": "Bu bo'yda normal TVI {min}–{max} kg ga to'g'ri keladi.",
     "disclaimer": "TVI — taxminiy skrining ko'rsatkichi, tashxis emas. U mushak bilan yog'ni ajratmaydi va sportchilar, keksalar, homiladorlar va bolalar uchun kamroq ma'noli.",
-    "enterValues": "Natijani ko'rish uchun vazn va bo'yni kiriting."
+    "enterValues": "Natijani ko'rish uchun vazn va bo'yni kiriting.",
+    "age": "Yosh",
+    "sex": "Jins",
+    "male": "Erkak",
+    "female": "Ayol",
+    "sameForBoth": "TMI ning o‘zi katta yoshli erkak va ayollar uchun bir xil — chegaralar jinsga qarab farq qilmaydi va bu ko‘pchilikni hayratda qoldiradi. Farq qiladigani boshqa narsa: bir xil TMI ortida qancha yog‘ turgani. Quyidagi jadval aynan shu haqda.",
+    "bodyFat": "Shu TMI va yoshdagi {sex} uchun tana yog‘ining taxminiy miqdori",
+    "fat": {
+      "essential": "Faqat zarur miqdor",
+      "athletic": "Sportchi",
+      "fit": "Yaxshi holat",
+      "average": "O‘rtacha",
+      "high": "Yuqori"
+    },
+    "fatNote": "TMI, yosh va jins asosida Deyrenberg formulasi bilan hisoblangan — bu o‘lchov emas, aholi bo‘yicha o‘rtacha qiymat. U mushakni yog‘dan ajrata olmaydi, shuning uchun jiddiy shug‘ullanadiganlarda ko‘proq ko‘rsatadi.",
+    "waist": "Belni ham o‘lchagan ma’qul",
+    "waistGuide": "TMI vazn qayerda joylashganini ko‘rmaydi, o‘lchov lentasi esa ko‘radi. Sizning jinsingiz uchun {raised} sm dan ortig‘i ortgan xavf, {high} sm dan ortig‘i yuqori xavf hisoblanadi. Kindik sathida, tik turib, nafas chiqarib o‘lchang."
   },
   "loan": {
     "amount": "Kredit summasi",
@@ -3306,5 +3322,14 @@
     },
     "copyReport": "Hisobotni nusxalash",
     "reportHead": "{percent}% o‘xshash · {n} ta farq"
+  },
+  "date": {
+    "choose": "Sanani tanlang",
+    "month": "Oy",
+    "year": "Yil",
+    "previousMonth": "Oldingi oy",
+    "nextMonth": "Keyingi oy",
+    "clear": "Tozalash",
+    "today": "Bugun"
   }
 }

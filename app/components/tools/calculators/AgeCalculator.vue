@@ -60,23 +60,13 @@ const stats = computed(() => {
         <label for="age-from" class="block text-sm font-medium text-stone-900">
           {{ t('age.fromLabel') }}
         </label>
-        <input
-          id="age-from"
-          v-model="from"
-          type="date"
-          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
-        />
+        <ShellDateInput id="age-from" v-model="from" :aria-label="t('age.fromLabel')" class="mt-1" />
       </div>
       <div>
         <label for="age-to" class="block text-sm font-medium text-stone-900">
           {{ t('age.toLabel') }}
         </label>
-        <input
-          id="age-to"
-          v-model="to"
-          type="date"
-          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
-        />
+        <ShellDateInput id="age-to" v-model="to" :aria-label="t('age.toLabel')" class="mt-1" />
       </div>
     </div>
 

@@ -131,6 +131,68 @@ export function healthyWeightRange(cm: number): { min: number; max: number } | n
   return { min: 18.5 * metres * metres, max: 24.9 * metres * metres }
 }
 
+
+export type Sex = 'male' | 'female'
+
+/**
+ * Estimated body fat from BMI, age and sex — the Deurenberg equation.
+ *
+ * This is where sex actually matters. The BMI bands themselves are the same
+ * for adult men and women, which surprises people, but the amount of fat
+ * behind a given BMI is not: a woman and a man at BMI 24 carry markedly
+ * different proportions, and the healthy ranges reflect that.
+ *
+ * An estimate from a population study, not a measurement. It does not know
+ * whether the weight is muscle, and on a trained athlete it reads high.
+ */
+export function bodyFatPercent(bmiValue: number, age: number, sex: Sex): number | null {
+  if (!Number.isFinite(bmiValue) || bmiValue <= 0 || age <= 0 || age > 120) return null
+  const value = 1.2 * bmiValue + 0.23 * age - 10.8 * (sex === 'male' ? 1 : 0) - 5.4
+  return Math.max(0, Math.min(75, value))
+}
+
+export type FatBand = 'essential' | 'athletic' | 'fit' | 'average' | 'high'
+
+/**
+ * Body fat bands, which differ by sex by roughly eight points throughout.
+ * The figures are the American Council on Exercise's, the ones every chart
+ * of this kind is drawn from.
+ */
+export const FAT_BANDS: Record<Sex, { key: FatBand; from: number; to: number }[]> = {
+  male: [
+    { key: 'essential', from: 2, to: 5 },
+    { key: 'athletic', from: 6, to: 13 },
+    { key: 'fit', from: 14, to: 17 },
+    { key: 'average', from: 18, to: 24 },
+    { key: 'high', from: 25, to: 45 }
+  ],
+  female: [
+    { key: 'essential', from: 10, to: 13 },
+    { key: 'athletic', from: 14, to: 20 },
+    { key: 'fit', from: 21, to: 24 },
+    { key: 'average', from: 25, to: 31 },
+    { key: 'high', from: 32, to: 50 }
+  ]
+}
+
+export function fatBand(percent: number, sex: Sex): FatBand {
+  const bands = FAT_BANDS[sex]
+  for (const band of bands) if (percent <= band.to) return band.key
+  return 'high'
+}
+
+/**
+ * Waist thresholds, which are sex-specific where BMI is not.
+ *
+ * Worth showing because waist catches what BMI misses: two people at the
+ * same BMI carrying it in different places are not at the same risk, and a
+ * tape measure is the cheapest instrument in medicine.
+ */
+export const WAIST_LIMITS: Record<Sex, { raised: number; high: number }> = {
+  male: { raised: 94, high: 102 },
+  female: { raised: 80, high: 88 }
+}
+
 /* ------------------------------------------------------------------ */
 /* Loans                                                               */
 /* ------------------------------------------------------------------ */

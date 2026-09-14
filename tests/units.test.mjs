@@ -107,3 +107,36 @@ test('page comparison classifies identical, changed, added and removed', () => {
   assert.deepEqual(compare.comparePages(['a', 'b'], ['a']).map(r => r.status), ['identical', 'removed'])
   assert.deepEqual(compare.summarise(result), { identical: 3, changed: 0, added: 1, removed: 0 })
 })
+
+test('body fat estimate differs by sex, which is the point of asking', () => {
+  // Deurenberg: 1.2*BMI + 0.23*age - 10.8*(male?1:0) - 5.4
+  // At BMI 24, age 30: man 1.2*24 + 6.9 - 10.8 - 5.4 = 19.5; woman = 30.3.
+  const man = calc.bodyFatPercent(24, 30, 'male')
+  const woman = calc.bodyFatPercent(24, 30, 'female')
+  assert.ok(Math.abs(man - 19.5) < 0.01, `man came out ${man}`)
+  assert.ok(Math.abs(woman - 30.3) < 0.01, `woman came out ${woman}`)
+  assert.ok(Math.abs(woman - man - 10.8) < 0.01, 'the gap is the sex term itself')
+
+  assert.equal(calc.bodyFatPercent(0, 30, 'male'), null)
+  assert.equal(calc.bodyFatPercent(24, 0, 'male'), null)
+})
+
+test('the same percentage lands in different bands for men and women', () => {
+  // 22% is average for a man and athletic-to-fit for a woman.
+  assert.equal(calc.fatBand(22, 'male'), 'average')
+  assert.equal(calc.fatBand(22, 'female'), 'fit')
+  assert.equal(calc.fatBand(12, 'male'), 'athletic')
+  assert.equal(calc.fatBand(12, 'female'), 'essential')
+  assert.equal(calc.fatBand(40, 'male'), 'high')
+  assert.equal(calc.fatBand(40, 'female'), 'high')
+})
+
+test('BMI bands do not differ by sex, and the tool must not pretend they do', () => {
+  // Same weight and height, same category — this is the claim the page makes.
+  const a = calc.bmi(70, 175)
+  assert.equal(a.category, 'normal')
+  assert.ok(Math.abs(a.value - 22.857) < 0.01, `bmi came out ${a.value}`)
+  assert.equal(calc.bmi(85, 175).category, 'overweight')
+  assert.equal(calc.bmi(95, 175).category, 'obese')
+  assert.equal(calc.bmi(50, 175).category, 'underweight')
+})

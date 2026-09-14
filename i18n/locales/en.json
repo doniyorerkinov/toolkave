@@ -806,7 +806,23 @@
     },
     "healthyRange": "A normal BMI at this height means {min}–{max} kg.",
     "disclaimer": "BMI is a rough screening figure, not a diagnosis. It does not distinguish muscle from fat, and is less meaningful for athletes, older adults, pregnancy and children.",
-    "enterValues": "Enter weight and height to see the result."
+    "enterValues": "Enter weight and height to see the result.",
+    "age": "Age",
+    "sex": "Sex",
+    "male": "Male",
+    "female": "Female",
+    "sameForBoth": "BMI itself is the same for adult men and women — the thresholds do not differ by sex, which surprises most people. What does differ is how much fat sits behind a given BMI, so that is what the chart below is for.",
+    "bodyFat": "Estimated body fat for a {sex} of this BMI and age",
+    "fat": {
+      "essential": "Essential only",
+      "athletic": "Athletic",
+      "fit": "Fit",
+      "average": "Average",
+      "high": "High"
+    },
+    "fatNote": "Estimated from BMI, age and sex using the Deurenberg equation — a population average, not a measurement. It cannot tell muscle from fat, so it reads high on anyone who trains seriously.",
+    "waist": "Waist is worth measuring too",
+    "waistGuide": "BMI cannot see where the weight sits, and a tape measure can. Above {raised} cm counts as raised risk and above {high} cm as high, for someone of your sex. Measure at the navel, standing, breathing out."
   },
   "loan": {
     "amount": "Loan amount",
@@ -3306,5 +3322,14 @@
     },
     "copyReport": "Copy the report",
     "reportHead": "{percent}% alike · {n} differences"
+  },
+  "date": {
+    "choose": "Pick a date",
+    "month": "Month",
+    "year": "Year",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "clear": "Clear",
+    "today": "Today"
   }
 }

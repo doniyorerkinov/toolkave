@@ -239,12 +239,7 @@ onMounted(() => {
         <label for="tz-date" class="block text-sm font-medium text-stone-900">
           {{ t('timezone.date') }}
         </label>
-        <input
-          id="tz-date"
-          v-model="date"
-          type="date"
-          class="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 outline-none focus:border-ember-500 focus:ring-2 focus:ring-ember-200"
-        />
+        <ShellDateInput id="tz-date" v-model="date" :aria-label="t('timezone.date')" class="mt-1" />
       </div>
       <div>
         <label for="tz-time" class="block text-sm font-medium text-stone-900">
