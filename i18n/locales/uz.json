@@ -877,7 +877,7 @@
     "loading": "Bugungi kurslar yuklanmoqda…",
     "failed": "Valyuta kurslarini yuklab bo'lmadi. Aloqani tekshiring va qayta urinib ko'ring.",
     "retry": "Qayta urinish",
-    "popular": "So'mga nisbatan ommabop kurslar",
+    "popular": "{code} ga nisbatan ommabop kurslar",
     "sourceCbu": "O'zbekiston Markaziy banki",
     "sourceErApi": "exchangerate-api.com",
     "attribution": "Kurslar: {source}, {date}. Ma'lumot uchun — banklar va shoxobchalar o'z kurs va yig'imlarini qo'llaydi."

@@ -877,7 +877,7 @@
     "loading": "Loading today's rates…",
     "failed": "Could not load exchange rates. Check your connection and try again.",
     "retry": "Try again",
-    "popular": "Popular rates against the som",
+    "popular": "Popular rates against {code}",
     "sourceCbu": "Central Bank of Uzbekistan",
     "sourceErApi": "exchangerate-api.com",
     "attribution": "Rates from {source}, {date}. Indicative only — banks and exchange offices apply their own rates and fees."

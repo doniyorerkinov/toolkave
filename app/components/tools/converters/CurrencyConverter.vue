@@ -57,15 +57,28 @@ const sourceName = computed(() =>
   table.value?.source === 'cbu' ? t('currency.sourceCbu') : t('currency.sourceErApi')
 )
 
-/** A few pairs people actually look up here. */
+/** The currencies people here actually compare against. */
+const COMMON = ['USD', 'EUR', 'RUB', 'KZT', 'TRY', 'CNY']
+
+/**
+ * A few rates alongside the one that was asked for.
+ *
+ * These follow whatever is being converted *to*, rather than always being
+ * against the som. Converting dollars to yen and then being shown six rates
+ * against the som is a table about a question nobody asked; the same six
+ * against the yen is the context that makes the answer mean something.
+ *
+ * The som leads whenever it is not the target, because it is still the
+ * currency most people reading this think in.
+ */
 const popular = computed(() => {
   if (!table.value) return []
-  return ['USD', 'EUR', 'RUB', 'KZT', 'TRY', 'CNY']
-    .filter(code => code !== 'UZS' && table.value!.rates[code])
-    .map(code => ({
-      code,
-      value: convertCurrency(1, code, 'UZS', table.value!.rates)
-    }))
+  const target = to.value
+  const order = target === 'UZS' ? COMMON : ['UZS', ...COMMON]
+  return order
+    .filter(code => code !== target && table.value!.rates[code])
+    .slice(0, 6)
+    .map(code => ({ code, value: convertCurrency(1, code, target, table.value!.rates) }))
     .filter(row => row.value !== null)
 })
 </script>
@@ -148,7 +161,7 @@ const popular = computed(() => {
       </p>
 
       <div v-if="popular.length">
-        <h3 class="mb-2 text-sm font-medium text-stone-900">{{ t('currency.popular') }}</h3>
+        <h3 class="mb-2 text-sm font-medium text-stone-900">{{ t('currency.popular', { code: to }) }}</h3>
         <dl class="grid gap-2 sm:grid-cols-3">
           <div
             v-for="row in popular"
@@ -156,7 +169,7 @@ const popular = computed(() => {
             class="rounded-lg border border-stone-200 bg-white px-3 py-2"
           >
             <dt class="text-xs text-stone-500">1 {{ row.code }}</dt>
-            <dd class="mt-0.5 tabular-nums text-stone-900">{{ tidyNumber(row.value!) }} UZS</dd>
+            <dd class="mt-0.5 tabular-nums text-stone-900">{{ tidyNumber(row.value!) }} {{ to }}</dd>
           </div>
         </dl>
       </div>
