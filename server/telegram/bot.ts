@@ -47,6 +47,17 @@ interface Context {
   store: SessionStore
   /** Overridden in tests, where waiting a real second and a half is waste. */
   settle?: { album: number; single: number }
+  /**
+   * Keeps work running after Telegram has been answered.
+   *
+   * Telegram delivers a chat's updates one at a time, waiting for the response
+   * to each before sending the next. So waiting for a batch to settle *before*
+   * replying does the opposite of what it looks like: it serialises the album,
+   * every photo becomes the last one in an empty queue, and each posts its own
+   * counter. Answering first and settling afterwards is what lets the thirty
+   * arrive together and agree on one message.
+   */
+  defer?: (work: Promise<unknown>) => void
 }
 
 export async function handleUpdate(update: TelegramUpdate, context: Context): Promise<void> {
@@ -90,9 +101,23 @@ async function onMessage(message: NonNullable<TelegramUpdate['message']>, contex
   }
 
   await context.store.add(chatId, incoming)
+
+  // The first file answers at once, so the buttons are there while the rest of
+  // the album is still uploading. Everything after it coalesces.
   const delays = context.settle ?? { album: ALBUM_SETTLE_MS, single: SINGLE_SETTLE_MS }
-  await settle(message.media_group_id ? delays.album : delays.single)
-  await showCount(chatId, locale, incoming, context)
+  const wait = session.files.length === 0 ? 0 : message.media_group_id ? delays.album : delays.single
+
+  const finish = (async () => {
+    try {
+      if (wait) await settle(wait)
+      await showCount(chatId, locale, incoming, context)
+    } catch (error) {
+      console.error('[bot] counter failed', error)
+    }
+  })()
+
+  if (context.defer) context.defer(finish)
+  else await finish
 }
 
 const settle = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))

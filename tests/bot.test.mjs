@@ -84,10 +84,19 @@ const press = (data, language = 'en') => ({
 })
 
 /**
- * The bot waits for the rest of an album before it speaks. That wait is real
- * seconds in production and pure waste here, so every context switches it off.
+ * The bot waits for the rest of an album before it speaks. Shortened here, not
+ * switched off: a zero wait removes the coalescing entirely, which is the bug
+ * these tests exist to catch rather than the behaviour under test.
  */
-const NO_WAIT = { album: 0, single: 0 }
+const BRIEF = { album: 25, single: 25 }
+
+/** Telegram answers one update at a time, then the deferred work overlaps. */
+async function deliver(updates, context) {
+  const deferred = []
+  context.defer = work => deferred.push(work)
+  for (const update of updates) await handleUpdate(update, context)
+  await Promise.all(deferred)
+}
 
 const pdfDoc = (fileId, bytes) => ({
   message: {
@@ -99,7 +108,7 @@ const pdfDoc = (fileId, bytes) => ({
 })
 
 test('the counter moves to the bottom of the chat instead of being rewritten above', async () => {
-  const context = { api: fakeApi(), store: fakeStore(), settle: NO_WAIT }
+  const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
   for (const id of ['a', 'b', 'c']) await handleUpdate(photo(id), context)
 
   // A new message each time, because an album pushes the old one out of sight.
@@ -122,28 +131,56 @@ test('the counter moves to the bottom of the chat instead of being rewritten abo
  * the counter silently froze - and left the buttons above thirty photos where
  * nobody would scroll. One message, one correct count, is the whole fix.
  */
-test('an album of 30 produces exactly one counter, with the right number on it', async () => {
-  const context = { api: fakeApi(), store: fakeStore(), settle: NO_WAIT }
-  const album = Array.from({ length: 30 }, (_, i) => photo(`p${i}`, 2048, 'album-1'))
+test('thirty photos arrive as three albums and leave four messages, not thirty', async () => {
+  const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
+  for (let album = 0; album < 3; album++) {
+    await deliver(
+      Array.from({ length: 10 }, (_, i) => photo(`a${album}-${i}`, 2048, `group-${album}`)),
+      context
+    )
+  }
 
-  await Promise.all(album.map(update => handleUpdate(update, context)))
-
-  assert.equal(context.api.log.messages.length, 1, 'one message for the whole album')
-  assert.equal(context.api.log.messages[0].text, '30 photos received. Send more, or:')
+  assert.deepEqual(
+    context.api.log.messages.map(message => message.text),
+    [
+      '1 photo received. Send more, or:',
+      '10 photos received. Send more, or:',
+      '20 photos received. Send more, or:',
+      '30 photos received. Send more, or:'
+    ]
+  )
   assert.equal(context.api.log.edits.length, 0)
-  assert.equal(context.api.log.deleted.length, 0, 'nothing to delete: it is the first counter')
+  assert.equal(context.api.log.deleted.length, 3, 'each counter clears the one before it')
+})
 
-  // A second album on top of the first counts both and replaces the counter.
-  const more = Array.from({ length: 5 }, (_, i) => photo(`q${i}`, 2048, 'album-2'))
-  await Promise.all(more.map(update => handleUpdate(update, context)))
-  assert.equal(context.api.log.messages.length, 2)
-  assert.equal(context.api.log.messages[1].text, '35 photos received. Send more, or:')
-  assert.deepEqual(context.api.log.deleted, [100], 'the first counter is removed')
+/**
+ * What actually caused "it is sending me 10 messages, one per photo".
+ *
+ * Telegram holds a chat's next update until the current one is answered, so
+ * settling before the response serialised the whole album: each photo was the
+ * only one in the table when its turn came, so each was "last", so each posted
+ * a counter. Deferring the wait until after the reply is what lets them
+ * overlap - modelled here by running the handlers together, which is what
+ * `defer` produces in the Worker.
+ */
+test('an album settles into one counter only because the reply comes first', async () => {
+  const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
+  const deferred = []
+  context.defer = work => deferred.push(work)
+
+  const album = Array.from({ length: 10 }, (_, i) => photo(`d${i}`, 2048, 'album-d'))
+  for (const update of album) await handleUpdate(update, context)   // Telegram, one at a time
+  await Promise.all(deferred)                                        // the background work
+
+  assert.equal(context.api.log.messages.length, 2, 'one for the first photo, one for the settled batch')
+  assert.equal(context.api.log.messages[0].text, '1 photo received. Send more, or:')
+  assert.equal(context.api.log.messages[1].text, '10 photos received. Send more, or:')
+  assert.deepEqual(context.api.log.deleted, [100], 'the first counter is cleared away')
 })
 
 test('the button turns the batch into a real PDF and forgets it', async () => {
   const png = solidPng(120, 80)
-  const context = { api: fakeApi({ a: png, b: png }), store: fakeStore(), settle: NO_WAIT }
+  const context = { api: fakeApi({ a: png, b: png }), store: fakeStore(), settle: BRIEF }
   await handleUpdate(photo('a'), context)
   await handleUpdate(photo('b'), context)
   await handleUpdate(press('a4'), context)
@@ -161,7 +198,7 @@ test('the button turns the batch into a real PDF and forgets it', async () => {
 
 test('photo size is respected when asked for', async () => {
   const png = solidPng(120, 80)
-  const context = { api: fakeApi({ a: png }), store: fakeStore(), settle: NO_WAIT }
+  const context = { api: fakeApi({ a: png }), store: fakeStore(), settle: BRIEF }
   await handleUpdate(photo('a'), context)
   await handleUpdate(press('image'), context)
 
@@ -177,7 +214,7 @@ test('PDFs on their own are merged', async () => {
   source.addPage([200, 200])
   const bytes = await source.save()
 
-  const context = { api: fakeApi({ p1: bytes, p2: bytes }), store: fakeStore(), settle: NO_WAIT }
+  const context = { api: fakeApi({ p1: bytes, p2: bytes }), store: fakeStore(), settle: BRIEF }
   await handleUpdate(pdfDoc('p1', bytes), context)
   await handleUpdate(pdfDoc('p2', bytes), context)
   assert.match(context.api.log.messages[0].text, /2 PDFs received|1 PDF received/)
@@ -205,7 +242,7 @@ test('a cover and scanned pages come back in the order they were sent', async ()
 
   const run = async order => {
     const files = { c: cover, a: photo1, b: photo2 }
-    const context = { api: fakeApi(files), store: fakeStore(), settle: NO_WAIT }
+    const context = { api: fakeApi(files), store: fakeStore(), settle: BRIEF }
     for (const id of order) {
       await handleUpdate(id === 'c' ? pdfDoc('c', cover) : photo(id), context)
     }
@@ -237,7 +274,7 @@ test('the counter names both kinds once a batch is mixed', async () => {
   source.addPage([200, 200])
   const cover = await source.save()
 
-  const context = { api: fakeApi({ c: cover, a: solidPng(60, 60) }), store: fakeStore(), settle: NO_WAIT }
+  const context = { api: fakeApi({ c: cover, a: solidPng(60, 60) }), store: fakeStore(), settle: BRIEF }
   await handleUpdate(pdfDoc('c', cover), context)
   await handleUpdate(photo('a'), context)
 
@@ -253,7 +290,7 @@ test('the counter names both kinds once a batch is mixed', async () => {
  * only be enforced afterwards, on what is really there.
  */
 test('a burst that overshoots the weight cap is trimmed back, oldest kept', async () => {
-  const context = { api: fakeApi(), store: fakeStore(), settle: NO_WAIT }
+  const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
   const eightMb = 8 * 1024 * 1024
   const burst = Array.from({ length: 10 }, (_, i) => photo(`big${i}`, eightMb, 'album-heavy'))
 
@@ -270,7 +307,7 @@ test('a burst that overshoots the weight cap is trimmed back, oldest kept', asyn
 
 test('a file that will not download is left out instead of losing the batch', async () => {
   const png = solidPng(60, 60)
-  const context = { api: fakeApi({ a: png }), store: fakeStore(), settle: NO_WAIT }
+  const context = { api: fakeApi({ a: png }), store: fakeStore(), settle: BRIEF }
   await handleUpdate(photo('a'), context)
   await handleUpdate(photo('missing'), context)
   await handleUpdate(press('a4'), context)
@@ -283,13 +320,13 @@ test('the caps stop a batch before the Worker runs out of memory', async () => {
   const MB = 1024 * 1024
 
   // Past what Telegram will even hand a bot, whatever the chat shows.
-  const single = { api: fakeApi(), store: fakeStore(), settle: NO_WAIT }
+  const single = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
   await handleUpdate(photo('huge', 25 * MB), single)
   assert.match(single.api.log.messages[0].text, /20 MB/)
   assert.equal((await single.store.read(7)).files.length, 0)
 
   // Each one allowed, the pile is not: the third would put the PDF past 45 MB.
-  const many = { api: fakeApi(), store: fakeStore(), settle: NO_WAIT }
+  const many = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
   for (const id of ['a', 'b', 'c']) await handleUpdate(photo(id, 19 * MB), many)
 
   assert.ok(many.api.log.messages.some(message => /too heavy/i.test(message.text)))
@@ -297,11 +334,11 @@ test('the caps stop a batch before the Worker runs out of memory', async () => {
 })
 
 test('an Uzbek phone is answered in Uzbek without being asked', async () => {
-  const context = { api: fakeApi(), store: fakeStore(), settle: NO_WAIT }
+  const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
   await handleUpdate({ message: { message_id: 1, chat: { id: 7 }, from: { language_code: 'uz' }, text: '/start' } }, context)
   assert.match(context.api.log.messages[0].text, /Suratlarni yuboring/)
 
-  const russian = { api: fakeApi(), store: fakeStore(), settle: NO_WAIT }
+  const russian = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
   await handleUpdate({ message: { message_id: 1, chat: { id: 7 }, from: { language_code: 'ru-RU' }, text: '/start' } }, russian)
   assert.match(russian.api.log.messages[0].text, /Отправьте фотографии/)
 })

@@ -37,7 +37,15 @@ export default defineEventHandler(async event => {
   }
 
   const update = await readBody<TelegramUpdate>(event)
-  const context = { api: new TelegramApi(env.TELEGRAM_BOT_TOKEN), store: new SessionStore(env.BOT_DB) }
+
+  // Telegram holds the next update for this chat until this one is answered,
+  // so anything that waits has to wait after the response, not before it.
+  const keepAlive = event.context.waitUntil as ((work: Promise<unknown>) => void) | undefined
+  const context = {
+    api: new TelegramApi(env.TELEGRAM_BOT_TOKEN),
+    store: new SessionStore(env.BOT_DB),
+    defer: keepAlive ? (work: Promise<unknown>) => keepAlive(work) : undefined
+  }
 
   try {
     await handleUpdate(update, context)
