@@ -42,6 +42,32 @@ export class SessionStore {
     this.db = db
   }
 
+  /**
+   * The language this chat chose, or null if it never has.
+   *
+   * Deliberately not derived from Telegram's `language_code`: in Uzbekistan a
+   * phone set to Russian says nothing about what its owner reads comfortably,
+   * and a teacher greeted in the wrong language closes the bot rather than
+   * hunting for a setting.
+   */
+  async readLocale(chatId: number): Promise<string | null> {
+    const row = await this.db
+      .prepare('SELECT locale FROM prefs WHERE chat_id = ?1')
+      .bind(chatId)
+      .first<{ locale: string }>()
+    return row?.locale ?? null
+  }
+
+  async setLocale(chatId: number, locale: string): Promise<void> {
+    await this.db
+      .prepare(
+        'INSERT INTO prefs (chat_id, locale, set_at) VALUES (?1, ?2, ?3) ' +
+          'ON CONFLICT(chat_id) DO UPDATE SET locale = ?2, set_at = ?3'
+      )
+      .bind(chatId, locale, Date.now())
+      .run()
+  }
+
   async read(chatId: number): Promise<Session> {
     const [files, chat] = await Promise.all([
       this.db

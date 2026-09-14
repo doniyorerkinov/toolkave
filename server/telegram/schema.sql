@@ -15,3 +15,13 @@ CREATE TABLE IF NOT EXISTS chats (
   counter_message_id INTEGER,
   updated_at         INTEGER NOT NULL
 );
+
+-- The language someone picked, which is not the language their phone is in:
+-- plenty of Uzbek teachers run Telegram in Russian and read Uzbek. Kept apart
+-- from `chats` on purpose - that table is batch state and gets cleared the
+-- moment a PDF is sent, while a preference has to outlive every batch.
+CREATE TABLE IF NOT EXISTS prefs (
+  chat_id INTEGER PRIMARY KEY,
+  locale  TEXT    NOT NULL,
+  set_at  INTEGER NOT NULL
+);

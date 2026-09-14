@@ -21,8 +21,17 @@ const { PDFDocument } = lib
 function fakeStore() {
   const files = new Map()
   const counters = new Map()
+  // A separate map on purpose: clear() must not touch it, just as clear()
+  // does not touch the prefs table.
+  const locales = new Map()
   return {
     sent: files,
+    async readLocale(chatId) {
+      return locales.get(chatId) ?? null
+    },
+    async setLocale(chatId, locale) {
+      locales.set(chatId, locale)
+    },
     async read(chatId) {
       return { files: files.get(chatId) ?? [], counterMessageId: counters.get(chatId) ?? null }
     },
@@ -335,14 +344,19 @@ test('the caps stop a batch before the Worker runs out of memory', async () => {
 
 const start = language => ({ message: { message_id: 1, chat: { id: 7 }, from: { language_code: language }, text: '/start' } })
 
-test('an Uzbek phone is answered in Uzbek without being asked', async () => {
-  const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
-  await handleUpdate(start('uz'), context)
-  assert.match(context.api.log.messages[0].text, /Fayl yuboring/)
+/** /start, then answer the picker — how every chat now actually begins. */
+async function openedIn(locale, context, phone = 'ru') {
+  await handleUpdate(start(phone), context)
+  await handleUpdate(press(`lang:${locale}`, phone), context)
+  return context.api.log.messages.at(-1)
+}
+
+test('once a language is chosen, the phone stops mattering', async () => {
+  const uzbek = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
+  assert.match((await openedIn('uz', uzbek)).text, /Fayl yuboring/)
 
   const russian = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
-  await handleUpdate(start('ru-RU'), russian)
-  assert.match(russian.api.log.messages[0].text, /Пришлите файл/)
+  assert.match((await openedIn('ru', russian, 'en')).text, /Пришлите файл/)
 })
 
 /**
@@ -350,16 +364,15 @@ test('an Uzbek phone is answered in Uzbek without being asked', async () => {
  * anyone the bot could merge PDFs or put a cover in front of scanned pages.
  * Whatever the bot can do has to be listed there, in every language.
  */
-test('/start lists every capability, in all three languages', async () => {
+test('the greeting lists every capability, in all three languages', async () => {
   for (const language of ['en', 'ru', 'uz']) {
     const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
-    await handleUpdate(start(language), context)
-    const [reply] = context.api.log.messages
+    const reply = await openedIn(language, context)
 
     const listed = reply.text.split('\n').filter(line => /^\p{Emoji_Presentation}/u.test(line))
     assert.equal(listed.length, 3, `${language}: three capabilities listed`)
     assert.ok(/20 MB|20 МБ/.test(reply.text), `${language}: states the file cap`)
-    assert.equal(context.api.log.messages.length, 1, `${language}: one message, not a wall of them`)
+    assert.ok(/\/language/.test(reply.text), `${language}: says how to change language back`)
   }
 })
 
@@ -371,17 +384,16 @@ test('/start lists every capability, in all three languages', async () => {
  * tapping the wrong one costs a sentence rather than putting the chat into a
  * state it has to be talked out of.
  */
-test('/start offers a button per capability, and tapping one only explains', async () => {
+test('the greeting offers a button per capability, and tapping one only explains', async () => {
   const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
-  await handleUpdate(start('uz'), context)
+  const intro = await openedIn('uz', context)
 
-  const [intro] = context.api.log.messages
   assert.equal(intro.buttons.length, 3, 'one button per capability')
   assert.deepEqual(intro.buttons.flat().map(button => button.callback_data), ['how:photos', 'how:merge', 'how:cover'])
 
-  // The callback carries the phone's language too, so the answer stays Uzbek.
-  await handleUpdate(press('how:merge', 'uz'), context)
-  assert.match(context.api.log.messages[1].text, /PDF fayllarni kerakli tartibda/)
+  await handleUpdate(press('how:merge', 'ru'), context)
+  // Uzbek was chosen, so the answer is Uzbek even though the phone says Russian.
+  assert.match(context.api.log.messages.at(-1).text, /PDF fayllarni kerakli tartibda/)
 })
 
 test('tapping the wrong menu button leaves nothing behind to get stuck in', async () => {
@@ -399,4 +411,54 @@ test('tapping the wrong menu button leaves nothing behind to get stuck in', asyn
 
   await handleUpdate(press('a4'), context)
   assert.equal(context.api.log.documents.length, 1, 'the PDF is made regardless of what was tapped earlier')
+})
+
+/**
+ * An Uzbek teacher whose phone is in Russian - which is most of them - was
+ * being greeted in Russian and had no way to say otherwise. The phone's
+ * language is a guess, and a bad one here, so the bot asks instead.
+ */
+test('the first /start asks which language, in all three at once', async () => {
+  const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
+  await handleUpdate(start('ru'), context)     // a Russian phone
+
+  const [ask] = context.api.log.messages
+  assert.match(ask.text, /Tilni tanlang/)
+  assert.match(ask.text, /Выберите язык/)
+  assert.match(ask.text, /Choose your language/)
+  assert.deepEqual(ask.buttons.flat().map(button => button.callback_data), ['lang:uz', 'lang:ru', 'lang:en'])
+  assert.equal(context.api.log.messages.length, 1, 'nothing is said in a language before one is chosen')
+
+  // Picking Uzbek on a Russian phone is the whole point.
+  await handleUpdate(press('lang:uz', 'ru'), context)
+  assert.match(context.api.log.messages[1].text, /Fayl yuboring/)
+})
+
+test('the choice outlives the batch it was made in', async () => {
+  const png = solidPng(50, 50)
+  const context = { api: fakeApi({ a: png }), store: fakeStore(), settle: BRIEF }
+
+  await handleUpdate(start('en'), context)
+  await handleUpdate(press('lang:uz', 'en'), context)
+
+  // A whole batch, finished - which clears the chat's row.
+  await deliver([photo('a')], context)
+  await handleUpdate(press('a4', 'en'), context)
+  assert.equal(context.api.log.documents.length, 1)
+
+  // Still Uzbek afterwards, from a phone that is not.
+  await handleUpdate(start('en'), context)
+  assert.match(context.api.log.messages.at(-1).text, /Fayl yuboring/)
+})
+
+test('/language reopens the picker and the new choice sticks', async () => {
+  const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
+  await handleUpdate(start('uz'), context)
+  await handleUpdate(press('lang:uz', 'uz'), context)
+
+  await handleUpdate({ message: { message_id: 9, chat: { id: 7 }, from: { language_code: 'uz' }, text: '/language' } }, context)
+  assert.match(context.api.log.messages.at(-1).text, /Choose your language/)
+
+  await handleUpdate(press('lang:ru', 'uz'), context)
+  assert.match(context.api.log.messages.at(-1).text, /Пришлите файл/)
 })

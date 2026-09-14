@@ -11,7 +11,7 @@
 import { imagesToPdf, mergePdfs } from '../../shared/pdf-core'
 import { MAX_DOWNLOAD_BYTES, TelegramApi, type TelegramUpdate } from './api'
 import { SessionStore, type PendingFile, type PendingKind } from './session'
-import { STRINGS, localeOf, type BotLocale } from './strings'
+import { CHOOSE_LANGUAGE, LANGUAGE_BUTTONS, STRINGS, localeOf, type BotLocale } from './strings'
 
 /** Where a result points people next. */
 const SITE = 'https://toolkave.com'
@@ -67,10 +67,17 @@ export async function handleUpdate(update: TelegramUpdate, context: Context): Pr
 
 async function onMessage(message: NonNullable<TelegramUpdate['message']>, context: Context): Promise<void> {
   const chatId = message.chat.id
-  const locale = localeOf(message.from?.language_code)
+  const chosen = await pickedLocale(chatId, context)
+  const locale = chosen ?? localeOf(message.from?.language_code)
   const text = message.text?.trim() ?? ''
 
-  if (text.startsWith('/start')) return await greet(chatId, locale, context)
+  if (text.startsWith('/language') || text.startsWith('/til') || text.startsWith('/lang')) {
+    return await askLanguage(chatId, context)
+  }
+  // Never greeted before: ask which language before saying anything in one.
+  if (text.startsWith('/start')) {
+    return chosen ? await greet(chatId, locale, context) : await askLanguage(chatId, context)
+  }
   if (text.startsWith('/done')) return await build(chatId, locale, 'a4', context)
   if (text.startsWith('/cancel') || text.startsWith('/clear')) {
     await context.store.clear(chatId)
@@ -178,6 +185,23 @@ function fileFrom(message: NonNullable<TelegramUpdate['message']>): PendingFile 
 }
 
 /**
+ * What this chat chose, not what its phone is set to.
+ *
+ * A stored choice always wins. Telegram's `language_code` is only a guess for
+ * someone who has not answered yet, and in Uzbekistan it is a poor one: phones
+ * are routinely Russian while their owners read Uzbek.
+ */
+async function pickedLocale(chatId: number, context: Context): Promise<BotLocale | null> {
+  const stored = await context.store.readLocale(chatId)
+  return stored === 'en' || stored === 'ru' || stored === 'uz' ? stored : null
+}
+
+/** The picker. No greeting attached: that comes back in the chosen language. */
+async function askLanguage(chatId: number, context: Context): Promise<void> {
+  await context.api.sendMessage(chatId, CHOOSE_LANGUAGE, LANGUAGE_BUTTONS)
+}
+
+/**
  * What the bot can do, said once, with a button for each.
  *
  * The buttons are a menu that teaches rather than a mode that traps: tapping
@@ -188,7 +212,7 @@ function fileFrom(message: NonNullable<TelegramUpdate['message']>): PendingFile 
  */
 async function greet(chatId: number, locale: BotLocale, context: Context): Promise<void> {
   const s = STRINGS[locale]
-  const lines = [s.greeting, s.can.join('\n'), s.howTo, s.limits, s.sendAsFile, s.privacy]
+  const lines = [s.greeting, s.can.join('\n'), s.howTo, s.limits, s.sendAsFile, s.privacy, s.changeLanguage]
   await context.api.sendMessage(chatId, lines.join('\n\n'), [
     [{ text: s.menu.photos, callback_data: 'how:photos' }],
     [{ text: s.menu.merge, callback_data: 'how:merge' }],
@@ -244,9 +268,19 @@ async function showCount(
 
 async function onCallback(query: NonNullable<TelegramUpdate['callback_query']>, context: Context): Promise<void> {
   const chatId = query.message?.chat.id
-  const locale = localeOf(query.from?.language_code)
   await context.api.answerCallback(query.id)
   if (!chatId) return
+
+  if (query.data?.startsWith('lang:')) {
+    const picked = query.data.slice(5)
+    if (picked === 'en' || picked === 'ru' || picked === 'uz') {
+      await context.store.setLocale(chatId, picked)
+      await greet(chatId, picked, context)
+    }
+    return
+  }
+
+  const locale = (await pickedLocale(chatId, context)) ?? localeOf(query.from?.language_code)
 
   // A menu button: say what to send, remember nothing. The file that arrives
   // next is still what decides which buttons appear under it.

@@ -6,6 +6,20 @@
  * The wording matches the site's, because a person who meets one should
  * recognise the other.
  */
+/**
+ * The one message that cannot be in a language, because it is the message that
+ * asks which language to use. All three at once, so whichever of them the
+ * reader knows, one of these clauses lands.
+ */
+export const CHOOSE_LANGUAGE = "Tilni tanlang  ·  Выберите язык  ·  Choose your language"
+
+/** Each written in itself: nobody has to read another language to find theirs. */
+export const LANGUAGE_BUTTONS = [
+  [{ text: "🇺🇿  O'zbekcha", callback_data: 'lang:uz' }],
+  [{ text: '🇷🇺  Русский', callback_data: 'lang:ru' }],
+  [{ text: '🇬🇧  English', callback_data: 'lang:en' }]
+]
+
 export type BotLocale = 'en' | 'ru' | 'uz'
 
 export function localeOf(languageCode: string | undefined): BotLocale {
@@ -19,6 +33,8 @@ interface Strings {
   greeting: string
   /** What the bot can do, one line each. Listed so nobody has to guess. */
   can: string[]
+  /** How to get the language picker back, shown once the choice is made. */
+  changeLanguage: string
   /** Button labels on /start, for people who expect a menu rather than prose. */
   menu: { photos: string; merge: string; cover: string }
   /** What each of those buttons answers with: what to send, nothing more. */
@@ -52,6 +68,7 @@ const en: Strings = {
     '📎  Several PDFs into one',
     '📑  A cover plus scanned pages, in the order you send them'
   ],
+  changeLanguage: 'Wrong language? /language',
   menu: {
     photos: '📄 Photos → PDF',
     merge: '📎 Merge PDFs',
@@ -92,6 +109,7 @@ const ru: Strings = {
     '📎  Несколько PDF в один',
     '📑  Титульный лист и отсканированные страницы, в том порядке, в каком прислали'
   ],
+  changeLanguage: 'Не тот язык? /language',
   menu: {
     photos: '📄 Фото → PDF',
     merge: '📎 Объединить PDF',
@@ -132,6 +150,7 @@ const uz: Strings = {
     "📎  Bir nechta PDF dan bitta PDF",
     "📑  Muqova va skan qilingan sahifalar, yuborgan tartibingizda"
   ],
+  changeLanguage: "Til noto'g'rimi? /language",
   menu: {
     photos: '📄 Surat → PDF',
     merge: '📎 PDF birlashtirish',
