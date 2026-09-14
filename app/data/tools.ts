@@ -384,7 +384,7 @@ export const tools: ToolDef[] = [
     group: 'everyday',
     component: 'calculators/Percentage',
     icon: 'percent',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'percentage-calculator', ru: 'kalkulyator-procentov', uz: 'foiz-kalkulyatori' },
     related: ['loan-calculator']
@@ -395,7 +395,7 @@ export const tools: ToolDef[] = [
     group: 'dates',
     component: 'calculators/AgeCalculator',
     icon: 'calendar',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'age-calculator', ru: 'kalkulyator-vozrasta', uz: 'yosh-kalkulyatori' },
     related: ['timezone-converter']
@@ -406,7 +406,7 @@ export const tools: ToolDef[] = [
     group: 'health',
     component: 'calculators/Bmi',
     icon: 'activity',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'bmi-calculator', ru: 'kalkulyator-imt', uz: 'tvi-kalkulyatori' },
     related: ['unit-converter']
@@ -417,7 +417,7 @@ export const tools: ToolDef[] = [
     group: 'money',
     component: 'calculators/Loan',
     icon: 'banknote',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'loan-calculator', ru: 'kreditnyj-kalkulyator', uz: 'kredit-kalkulyatori' },
     related: ['percentage-calculator']
@@ -778,7 +778,7 @@ export const tools: ToolDef[] = [
     group: 'codes',
     component: 'generators/QrGenerator',
     icon: 'qr-code',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'qr-code-generator', ru: 'generator-qr-koda', uz: 'qr-kod-generatori' },
     related: ['password-generator']
@@ -789,7 +789,7 @@ export const tools: ToolDef[] = [
     group: 'media',
     component: 'generators/YoutubeThumbnail',
     icon: 'youtube',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: {
       en: 'youtube-thumbnail-downloader',
@@ -804,7 +804,7 @@ export const tools: ToolDef[] = [
     group: 'security',
     component: 'generators/PasswordGenerator',
     icon: 'key',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'password-generator', ru: 'generator-parolej', uz: 'parol-generatori' },
     related: []
