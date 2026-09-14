@@ -839,7 +839,7 @@ export const tools: ToolDef[] = [
     group: 'encoding',
     component: 'dev/Base64',
     icon: 'binary',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'base64', ru: 'base64', uz: 'base64' },
     related: ['json-formatter']
@@ -850,7 +850,7 @@ export const tools: ToolDef[] = [
     group: 'formatting',
     component: 'dev/JsonFormatter',
     icon: 'braces',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'json-formatter', ru: 'json-formatter', uz: 'json-formatter' },
     related: ['base64']
@@ -885,7 +885,7 @@ export const tools: ToolDef[] = [
     group: 'repair',
     component: 'text/FixEncoding',
     icon: 'wrench',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: {
       en: 'fix-broken-text',
@@ -901,7 +901,7 @@ export const tools: ToolDef[] = [
     group: 'analyze',
     component: 'text/WordCounter',
     icon: 'file-text',
-    published: false,
+    published: true,
     locales: ['en', 'ru', 'uz'],
     slugs: {
       en: 'word-count-docx',
