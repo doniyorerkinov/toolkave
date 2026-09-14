@@ -8,6 +8,13 @@ Ordering principle: anything expensive to retrofit goes first; anything cheap to
 
 Last updated: 9 Sept 2026
 
+> **Superseded for planning as of 14 Sept 2026.** Every phase and wave below is
+> complete; all 83 tools are published. The live order of work is now
+> [ORDER.md](ORDER.md), and [STATUS.md](STATUS.md) holds the current state.
+> This file remains authoritative for the **locked decisions**, the **standing
+> engineering rules**, the **publishing gate** and the reasoning behind how each
+> wave was chosen — none of which is repeated elsewhere.
+
 ---
 
 ## Locked decisions
