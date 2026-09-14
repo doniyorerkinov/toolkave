@@ -72,6 +72,14 @@ export class SessionStore {
       .run()
   }
 
+  /** Put a file back: used when a burst of album photos overshoots the caps. */
+  async remove(chatId: number, fileId: string): Promise<void> {
+    await this.db
+      .prepare('DELETE FROM pending WHERE chat_id = ?1 AND file_id = ?2')
+      .bind(chatId, fileId)
+      .run()
+  }
+
   async setCounterMessage(chatId: number, messageId: number | null): Promise<void> {
     await this.db
       .prepare(

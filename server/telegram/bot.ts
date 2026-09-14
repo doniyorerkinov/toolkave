@@ -97,6 +97,37 @@ async function onMessage(message: NonNullable<TelegramUpdate['message']>, contex
 
 const settle = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
+/**
+ * Drop whatever arrived over the caps, and say so.
+ *
+ * The check made when a file lands reads the table before inserting, and an
+ * album lands all at once - so ten invocations can each see room that only one
+ * of them is going to use, and the batch ends up past a limit every one of
+ * them thought it was inside. This runs after the batch has settled, on what
+ * is actually there. Without it someone forwarding ten 20 MB scans gets a
+ * Worker that dies at build time with no explanation.
+ *
+ * Order decides what goes: the files that arrived first are the ones kept, so
+ * a cover sent before the pages is never the one thrown away.
+ */
+async function trimToCaps(chatId: number, files: PendingFile[], context: Context): Promise<PendingFile[]> {
+  const kept: PendingFile[] = []
+  const over: PendingFile[] = []
+  let total = 0
+
+  for (const file of files) {
+    if (kept.length < MAX_FILES && total + file.bytes <= MAX_TOTAL_BYTES) {
+      kept.push(file)
+      total += file.bytes
+    } else {
+      over.push(file)
+    }
+  }
+
+  for (const file of over) await context.store.remove(chatId, file.fileId)
+  return kept
+}
+
 /** The largest photo size Telegram offers, or a document it will accept. */
 function fileFrom(message: NonNullable<TelegramUpdate['message']>): PendingFile | null {
   if (message.photo?.length) {
@@ -151,7 +182,10 @@ async function showCount(
   const session = await context.store.read(chatId)
   if (session.files.at(-1)?.fileId !== mine.fileId) return
 
-  const files = session.files
+  const files = await trimToCaps(chatId, session.files, context)
+  if (files.length < session.files.length) {
+    await context.api.sendMessage(chatId, files.length >= MAX_FILES ? s.tooMany(MAX_FILES) : s.tooHeavy)
+  }
   const images = files.filter(file => file.kind === 'image').length
   const pdfs = files.length - images
 

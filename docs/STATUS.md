@@ -19,8 +19,8 @@ Revenue model is ads; there are no accounts and no server-side storage.
 | Tools held back as drafts | **0** |
 | URLs in the sitemap | **288** |
 | Locales | en (default, unprefixed), ru, uz |
-| Last deploy | version `af9c0cfc-2a8d-4058-a307-97ac7eb6f3f8` |
-| Last commit | `cf8dfb8` — *Publish the last four: the whole registry is live* |
+| Last deploy | version `f330c432-ceeb-4be0-957f-3bd2b17d9467` |
+| Cloudflare | Workers **Paid** since 14 Sept — the bot's PDF build needs more CPU than the free ceiling allows |
 
 Every tool in the registry is live. This is the first day that has been true.
 

@@ -13,6 +13,14 @@
     // sends the slash form back to it instead.
     "html_handling": "drop-trailing-slash"
   },
+  // Building a PDF is the one thing here that is not near-instant: thirty
+  // photos and a cover measured 183 ms of CPU, and a hundred files would be
+  // several times that. The free plan's per-request ceiling is far below it,
+  // so the bot needs Workers Paid - this line is the dependency written down.
+  // The ceiling is a kill switch, not a budget: CPU is billed per millisecond
+  // actually spent, so a high limit costs nothing and only stops a runaway.
+  "limits": { "cpu_ms": 30000 },
+
   // The Telegram bot's pending-files table. Only file identifiers and counts:
   // the photos themselves are fetched from Telegram at conversion time and
   // never written anywhere.

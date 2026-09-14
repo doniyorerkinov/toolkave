@@ -86,7 +86,7 @@ what they want:
 Less code than modes, and it matches how a teacher already thinks: *I have this
 file, what can I do with it.*
 
-### Move to Workers Paid before the mailing — $5/month
+### Move to Workers Paid before the mailing — $5/month  ✅ done 14 Sept
 
 The infrastructure decision sitting under all of the above. The free plan caps
 CPU at 10 ms per request and the bundle at 3 MB compressed; paid gives 30 s CPU,
@@ -99,6 +99,12 @@ CPU at 10 ms per request and the bundle at 3 MB compressed; paid gives 30 s CPU,
 
 Cheapest item on this page, and it deletes a whole category of "works on my
 file, fails on hers".
+
+**Done.** Subscribed 14 Sept; `wrangler.jsonc` now states `limits.cpu_ms: 30000`
+so the dependency is written down rather than remembered. Set a billing usage
+alert (Manage Account → Notifications) if one is not in place — the overage
+authorisation has no ceiling of its own, and measured usage is about 0.5% of
+the included CPU, so an alert at $10 would only ever fire on a runaway.
 
 ### Compression without canvas — real, but next month
 

@@ -29,6 +29,9 @@ function fakeStore() {
     async add(chatId, file) {
       files.set(chatId, [...(files.get(chatId) ?? []), file])
     },
+    async remove(chatId, fileId) {
+      files.set(chatId, (files.get(chatId) ?? []).filter(file => file.fileId !== fileId))
+    },
     async setCounterMessage(chatId, messageId) {
       counters.set(chatId, messageId)
     },
@@ -242,6 +245,27 @@ test('the counter names both kinds once a batch is mixed', async () => {
   // as an edit rather than a new message.
   const last = context.api.log.edits.at(-1) ?? context.api.log.messages.at(-1)
   assert.match(last.text, /1 photo and 1 PDF received/)
+})
+
+/**
+ * Ten album photos arrive at once, so ten invocations each read the table
+ * before any of them has inserted. Every one of them sees room. The caps can
+ * only be enforced afterwards, on what is really there.
+ */
+test('a burst that overshoots the weight cap is trimmed back, oldest kept', async () => {
+  const context = { api: fakeApi(), store: fakeStore(), settle: NO_WAIT }
+  const eightMb = 8 * 1024 * 1024
+  const burst = Array.from({ length: 10 }, (_, i) => photo(`big${i}`, eightMb, 'album-heavy'))
+
+  await Promise.all(burst.map(update => handleUpdate(update, context)))
+
+  const { files } = await context.store.read(7)
+  const total = files.reduce((sum, file) => sum + file.bytes, 0)
+  assert.ok(total <= 45 * 1024 * 1024, `kept ${(total / 1024 / 1024).toFixed(0)} MB, over the cap`)
+  assert.equal(files.length, 5, '5 x 8 MB fits, the sixth does not')
+  // The ones that arrived first are the ones kept.
+  assert.deepEqual(files.map(file => file.fileId), ['big0', 'big1', 'big2', 'big3', 'big4'])
+  assert.ok(context.api.log.messages.some(message => /too heavy/i.test(message.text)))
 })
 
 test('a file that will not download is left out instead of losing the batch', async () => {
