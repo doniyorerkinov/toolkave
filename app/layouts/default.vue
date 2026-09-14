@@ -26,21 +26,27 @@ const navCategories = computed(() =>
     </a>
 
     <!-- The cave mouth: dark, with the ember mark as the one point of light. -->
-    <header class="bg-stone-950 text-stone-100">
-      <div class="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
+    <header class="sticky top-0 z-30 border-b border-white/5 bg-stone-950/95 text-stone-100 backdrop-blur">
+      <div class="mx-auto flex w-full max-w-6xl items-center gap-3 px-4 py-2.5 sm:gap-4">
         <NuxtLink :to="localePath('/')" class="shrink-0 text-white">
           <ShellLogo />
         </NuxtLink>
 
+        <!--
+          The categories scroll sideways rather than wrapping to a second row:
+          a header that changes height as you move between pages is worse than
+          one you occasionally have to push. The masks are how you know there
+          is more, since the scrollbar itself is hidden.
+        -->
         <nav
           :aria-label="t('nav.allTools')"
-          class="order-3 -mx-4 w-[calc(100%+2rem)] overflow-x-auto px-4 [scrollbar-width:none] sm:order-none sm:mx-0 sm:w-auto sm:min-w-0 sm:flex-1 sm:px-0 [&::-webkit-scrollbar]:hidden"
+          class="nav-scroll min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          <ul class="flex items-center gap-1 text-sm whitespace-nowrap">
+          <ul class="flex items-center gap-0.5 text-sm whitespace-nowrap">
             <li v-for="category in navCategories" :key="category.id">
               <NuxtLink
                 :to="category.href"
-                class="block rounded-full px-3 py-1.5 font-medium text-stone-300 transition hover:bg-white/10 hover:text-white"
+                class="block rounded-lg px-2.5 py-1.5 font-medium text-stone-400 transition hover:bg-white/10 hover:text-white"
                 active-class="bg-white/10 text-white"
               >
                 {{ category.name }}
@@ -49,13 +55,11 @@ const navCategories = computed(() =>
           </ul>
         </nav>
 
-        <div class="ms-auto shrink-0">
-          <ShellLanguageSwitcher />
-        </div>
+        <ShellLanguageSwitcher compact class="shrink-0" />
       </div>
     </header>
 
-    <main id="main" class="flex-1">
+    <main id="main" class="flex-1 scroll-mt-20">
       <slot />
     </main>
 
@@ -85,3 +89,16 @@ const navCategories = computed(() =>
     </footer>
   </div>
 </template>
+
+<style scoped>
+/*
+ * Fade the ends of the category strip so a cut-off name reads as "there is
+ * more this way" rather than as a rendering mistake. The mask is only drawn
+ * where the strip actually overflows, which is what `scroll-timeline` would
+ * do properly; until that is everywhere, both ends are always faded and the
+ * cost of a fade over nothing is invisible on a dark bar.
+ */
+.nav-scroll {
+  mask-image: linear-gradient(to right, transparent, #000 12px, #000 calc(100% - 12px), transparent);
+}
+</style>
