@@ -921,7 +921,19 @@
     "alt": "Generated QR code",
     "download": "Download PNG",
     "empty": "Type something above to generate a QR code.",
-    "tooLong": "That is too much data for one QR code. Shorten it, or lower the error correction level."
+    "tooLong": "That is too much data for one QR code. Shorten it, or lower the error correction level.",
+    "above": "Text above (optional)",
+    "abovePlaceholder": "Scan for the menu",
+    "below": "Text below (optional)",
+    "belowPlaceholder": "yourshop.uz",
+    "logoAdd": "Add a logo",
+    "logoChange": "Change the logo",
+    "logoRemove": "Remove",
+    "logoSize": "Logo size: {n}% of the code",
+    "logoHint": "A logo goes in the middle. A PNG with a transparent background looks best.",
+    "logoNote": "Kept well under the size where codes start failing to scan — measured, not guessed. Always test the printed version with a real phone before ordering a thousand of them.",
+    "levelForced": "Raised to the highest level automatically: a logo covers part of the code, and that is what pays for it.",
+    "logoFailed": "That image could not be read. Try a PNG or JPG."
   },
   "youtube": {
     "inputLabel": "YouTube link or video ID",
