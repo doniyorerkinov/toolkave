@@ -931,9 +931,16 @@
     "logoRemove": "Remove",
     "logoSize": "Logo size: {n}% of the code",
     "logoHint": "A logo goes in the middle. A PNG with a transparent background looks best.",
-    "logoNote": "Kept well under the size where codes start failing to scan — measured, not guessed. Always test the printed version with a real phone before ordering a thousand of them.",
+    "logoNote": "How big a logo can be depends on what is encoded — a long link leaves more room than a short one. Push it as far as you like; the check above reads the finished code back and tells you when you have gone too far. Test the printed version too.",
     "levelForced": "Raised to the highest level automatically: a logo covers part of the code, and that is what pays for it.",
-    "logoFailed": "That image could not be read. Try a PNG or JPG."
+    "logoFailed": "That image could not be read. Try a PNG or JPG.",
+    "cropHint": "A logo goes into a square. Drag the frame to pick which part.",
+    "cropUse": "Use this square",
+    "cropCancel": "Cancel",
+    "cropAgain": "Change the square",
+    "checking": "Checking it still scans…",
+    "scansOk": "Checked — this still scans.",
+    "scansFail": "This no longer scans. Make the logo smaller, or shorten the text you are encoding."
   },
   "youtube": {
     "inputLabel": "YouTube link or video ID",

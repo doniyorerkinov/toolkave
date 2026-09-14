@@ -931,9 +931,16 @@
     "logoRemove": "Olib tashlash",
     "logoSize": "Logotip o‘lchami: koddan {n}%",
     "logoHint": "Logotip o‘rtaga qo‘yiladi. Shaffof fonli PNG eng chiroyli chiqadi.",
-    "logoNote": "O‘lcham kodlar o‘qilmay qoladigan chegaradan ancha past ushlanadi — bu taxmin emas, o‘lchangan. Ko‘p nusxada chop etishdan oldin bosilgan kodni albatta haqiqiy telefon bilan tekshiring.",
+    "logoNote": "Logotip qanchalik katta bo‘la olishi nima kodlanganiga bog‘liq: uzun havolada qisqasiga qaraganda ko‘proq joy bo‘ladi. Xohlagancha suring — yuqoridagi tekshiruv tayyor kodni qaytadan o‘qiydi va chegaradan o‘tganingizni aytadi. Bosilgan variantni ham sinab ko‘ring.",
     "levelForced": "Daraja avtomatik ravishda eng yuqorisiga ko‘tarildi: logotip kodning bir qismini yopadi va buning hisobi xatolarni tuzatishdan chiqadi.",
-    "logoFailed": "Bu rasmni o‘qib bo‘lmadi. PNG yoki JPG ni sinab ko‘ring."
+    "logoFailed": "Bu rasmni o‘qib bo‘lmadi. PNG yoki JPG ni sinab ko‘ring.",
+    "cropHint": "Logotip kvadratga joylashadi. Qaysi qismini olishni tanlash uchun ramkani torting.",
+    "cropUse": "Shu kvadratni olish",
+    "cropCancel": "Bekor qilish",
+    "cropAgain": "Kvadratni o‘zgartirish",
+    "checking": "Hali ham skanerlanishini tekshiryapmiz…",
+    "scansOk": "Tekshirildi — skanerlanadi.",
+    "scansFail": "Endi skanerlanmaydi. Logotipni kichraytiring yoki kodlayotgan matnni qisqartiring."
   },
   "youtube": {
     "inputLabel": "YouTube havolasi yoki video ID",

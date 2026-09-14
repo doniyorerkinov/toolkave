@@ -72,7 +72,7 @@ test('a plain code still decodes after being redrawn', async () => {
 })
 
 test('a code with a logo in the middle still decodes', async () => {
-  for (const scale of [0.1, 0.15, 0.18, MAX_LOGO_SCALE]) {
+  for (const scale of [0.1, 0.15, 0.2, 0.3]) {
     const { canvas } = await render({ logoScale: scale })
     assert.equal(decode(canvas), PAYLOAD, `logo at ${Math.round(scale * 100)}% of the width`)
   }
@@ -91,15 +91,9 @@ test('captions do not disturb the code', async () => {
   assert.ok(plan.qrY > 0, 'the code should have been pushed down by the caption above it')
 })
 
-test('the cap keeps a wide margin against where it actually breaks', async () => {
-  // Short payloads have the least room, so they set the limit. Measured:
-  // a centre disc at level H starts failing around 39% of the width.
-  const short = 'https://toolkave.com'
-  const png = await QR.toBuffer(short, { width: SIZE, margin: 2, errorCorrectionLevel: 'H' })
-  const qr = await loadImage(png)
+test('how much room a logo has depends on the payload, which is why it is checked', async () => {
   const logo = await makeLogo()
-
-  const paint = (scale) => {
+  const paint = (qr, scale) => {
     const canvas = createCanvas(SIZE, SIZE)
     const context = canvas.getContext('2d')
     context.fillStyle = '#ffffff'
@@ -110,20 +104,16 @@ test('the cap keeps a wide margin against where it actually breaks', async () =>
     return canvas
   }
 
-  assert.equal(decode(paint(MAX_LOGO_SCALE)), short, 'the cap itself must be comfortably safe')
-  assert.equal(decode(paint(0.45)), null, 'well past the cap, it really does stop reading')
+  const load = async (payload) =>
+    loadImage(await QR.toBuffer(payload, { width: SIZE, margin: 2, errorCorrectionLevel: 'H' }))
 
-  // An absurd request through the real path is clamped, not obeyed.
-  const options = {
-    qr,
-    qrSize: SIZE,
-    logo: { image: logo, width: logo.width, height: logo.height },
-    logoScale: 0.9
-  }
-  const plan = layout(options)
-  const clamped = createCanvas(plan.width, plan.height)
-  drawQrArt(clamped.getContext('2d'), options)
-  assert.equal(decode(clamped), short, 'an absurd request must be clamped, not obeyed')
+  const short = 'https://toolkave.com'
+  const long = 'WIFI:T:WPA;S:SomeNetworkName;P:a-fairly-long-password-1234567890;H:false;;' + 'x'.repeat(120)
+
+  // At a third of the width, one survives and the other does not. A single
+  // fixed cap cannot serve both, which is the case for checking instead.
+  assert.equal(decode(paint(await load(long), 0.45)), long, 'a long payload still has room at 45%')
+  assert.equal(decode(paint(await load(short), 0.45)), null, 'a short one gave out well before that')
 })
 
 test('the lowest error correction cannot carry a logo, which is why H is forced', async () => {

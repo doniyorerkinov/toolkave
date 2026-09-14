@@ -54,23 +54,25 @@ export interface QrArtOptions {
 }
 
 /**
- * The most of the code a logo may cover, as a share of its width.
+ * How far the logo slider goes.
  *
- * Measured rather than guessed. Covering the centre of a code at level H
- * with a solid disc and decoding it back, the point of failure was:
+ * Not a safety limit — the safety comes from reading the finished code back
+ * with a decoder and saying so. A fixed cap has to assume the worst payload
+ * anyone will ever enter, which means everybody else gets a logo smaller
+ * than their code could carry. Measured failure points, covering the centre
+ * with a solid disc and decoding it back:
  *
  *     payload   L     M     Q     H
  *     short    19%   25%   28%   39%
  *     typical  22%   31%   41%   49%
  *     long     27%   38%   47%   52%
  *
- * The worst case that matters is a short payload at level H — 39%. That is
- * a decoder reading perfect pixels head-on, which is not what a phone does
- * to a printed flyer at an angle in bad light, so the cap keeps a wide
- * margin against it rather than sitting near the edge. Level H is forced
- * whenever a logo is used, because the same table shows L failing at 19%.
+ * So the room available depends entirely on what is encoded. The slider
+ * goes to 40% — past where a short payload gives out and short of where a
+ * long one does — and the checker decides which side of the line you are on.
+ * Level H is forced whenever a logo is present, since L gives up at 19%.
  */
-export const MAX_LOGO_SCALE = 0.25
+export const MAX_LOGO_SCALE = 0.4
 
 export interface QrArtLayout {
   width: number
@@ -143,7 +145,7 @@ export function drawQrArt(context: DrawTarget, options: QrArtOptions): QrArtLayo
   context.drawImage(options.qr as never, plan.qrX, plan.qrY, options.qrSize, options.qrSize)
 
   if (options.logo) {
-    const scale = Math.min(MAX_LOGO_SCALE, Math.max(0.05, options.logoScale ?? 0.18))
+    const scale = Math.min(MAX_LOGO_SCALE, Math.max(0.05, options.logoScale ?? 0.2))
     const box = options.qrSize * scale
     const { width, height } = options.logo
     const fit = Math.min(box / width, box / height)
