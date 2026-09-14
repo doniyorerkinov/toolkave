@@ -270,6 +270,26 @@ PWA · tool chaining through the Pinia store · batch mode · presets · recent 
 favourites · embeddable widgets. Full list in
 [toolkave-roadmap-and-bot.md §4](toolkave-roadmap-and-bot.md).
 
+### 7. Document builders — position not yet decided
+
+Presentation, resume and invoice builders: spec in
+[toolkave-document-builders.md](toolkave-document-builders.md), build plan in
+[toolkave-document-builders-plan.md](toolkave-document-builders-plan.md).
+
+About **four weeks to all three at MVP, seven for everything** — larger than
+audio/video above it. It is listed last here only because its place in the
+order is Doniyor's call and has not been made; it is not a judgement on value.
+The Uzbek and Russian search targets ("rezyume yaratish", "создать
+презентацию онлайн бесплатно") face weaker competition than anything in PDF.
+
+Two things do not wait for that decision:
+
+- **AdSense application** — gates the resume and invoice download gate and
+  nothing else; approval takes days to weeks, so applying is worth doing now
+  regardless of where the track lands.
+- **Presentation MVP needs no ads** and has a real test waiting — the nephew's
+  assignment — so it could start ahead of the rest of the track.
+
 ---
 
 ## Not a build task, but the real constraint
