@@ -1011,3 +1011,101 @@ export async function splitImage(
     bitmap.close()
   }
 }
+
+/** A cell of a collage, as fractions of the whole sheet. */
+export interface LayoutCell {
+  x: number
+  y: number
+  w: number
+  h: number
+}
+
+export interface CollageOptions {
+  cells: LayoutCell[]
+  /** Width over height of the finished sheet. */
+  aspect: number
+  /** Space between cells, as a fraction of the sheet's short side. */
+  gap: number
+  background: string
+  /** Corner rounding, as a fraction of the sheet's short side. */
+  radius: number
+}
+
+/**
+ * Draw pictures into a layout of uneven cells.
+ *
+ * Unlike the plain grid, a cell here is filled rather than fitted: a layout
+ * exists to make a shape, and a picture floating inside its cell with gaps
+ * either side breaks the shape. Each picture is scaled to cover its cell and
+ * centred, which is what a collage app does and what the preview shows.
+ */
+export async function buildCollage(
+  files: HeldFile[],
+  options: CollageOptions,
+  format: ImageFormat,
+  quality = 0.92
+): Promise<ImageResult> {
+  const used = files.slice(0, options.cells.length)
+  if (!used.length) throw new Error('nothing to lay out')
+  const bitmaps = await Promise.all(used.map(file => decode(file.data)))
+
+  try {
+    // Sized so the cell that asks for the most detail gets it at close to
+    // one pixel each, rather than picking a round number and softening
+    // whichever picture happened to be largest.
+    const wanted = Math.max(
+      ...bitmaps.map((bitmap, index) => bitmap.width / Math.max(0.05, options.cells[index]!.w))
+    )
+    const width = Math.round(Math.min(4000, Math.max(800, wanted)))
+    const height = Math.round(width / options.aspect)
+
+    const canvas = document.createElement('canvas')
+    canvas.width = width
+    canvas.height = height
+    const context = canvas.getContext('2d')
+    if (!context) throw new Error('canvas unavailable')
+    context.fillStyle = options.background
+    context.fillRect(0, 0, width, height)
+
+    const short = Math.min(width, height)
+    const gap = (options.gap * short) / 2
+    const radius = options.radius * short
+
+    bitmaps.forEach((bitmap, index) => {
+      const cell = options.cells[index]!
+      const left = cell.x * width + gap
+      const top = cell.y * height + gap
+      const cellWidth = cell.w * width - gap * 2
+      const cellHeight = cell.h * height - gap * 2
+      if (cellWidth <= 0 || cellHeight <= 0) return
+
+      context.save()
+      context.beginPath()
+      if (radius > 0 && 'roundRect' in context) {
+        context.roundRect(left, top, cellWidth, cellHeight, Math.min(radius, cellWidth / 2, cellHeight / 2))
+      } else {
+        context.rect(left, top, cellWidth, cellHeight)
+      }
+      context.clip()
+
+      const cover = Math.max(cellWidth / bitmap.width, cellHeight / bitmap.height)
+      const drawWidth = bitmap.width * cover
+      const drawHeight = bitmap.height * cover
+      context.drawImage(
+        bitmap,
+        left + (cellWidth - drawWidth) / 2,
+        top + (cellHeight - drawHeight) / 2,
+        drawWidth,
+        drawHeight
+      )
+      context.restore()
+    })
+
+    const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, MIME[format], quality))
+    if (!blob) throw new Error('encode failed')
+    if (blob.type !== MIME[format]) throw new Error(UNSUPPORTED_OUTPUT)
+    return { data: new Uint8Array(await blob.arrayBuffer()), width, height }
+  } finally {
+    for (const bitmap of bitmaps) bitmap.close()
+  }
+}

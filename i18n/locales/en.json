@@ -636,17 +636,44 @@
       "direction": {
         "row": "Side by side",
         "column": "One above another",
-        "grid": "Grid"
+        "grid": "Grid",
+        "layout": "Layout"
       },
       "columns": "columns",
       "hint": {
         "row": "Every picture is brought to the same height — the smallest one's — so the join is a straight line.",
         "column": "Every picture is brought to the same width — the smallest one's — so the edges line up.",
-        "grid": "Every picture gets the same cell and is fitted inside whole, so nothing is cropped without you asking."
+        "grid": "Every picture gets the same cell and is fitted inside whole, so nothing is cropped without you asking.",
+        "layout": "One picture is the main one. Tap two cells in the preview to trade the pictures between them."
       },
       "gap": "Gap: {n} px",
       "backgroundLabel": "Gap colour",
-      "note": "{n} pictures joined — {w} × {h}"
+      "note": "{n} pictures joined — {w} × {h}",
+      "layoutLabel": "Arrangement",
+      "layout": {
+        "pair": "Two side by side",
+        "stack": "Two stacked",
+        "big-left": "One big, two small",
+        "big-top": "One across the top, two below",
+        "quarters": "Four equal",
+        "big-left-three": "One big, three down the side",
+        "centre-four": "One in the middle, four around",
+        "feature-four": "One across the top, four below",
+        "mosaic": "One big, three around",
+        "six": "Six, mixed sizes"
+      },
+      "aspectLabel": "Shape",
+      "aspect": {
+        "square": "Square",
+        "portrait": "Portrait 4:5",
+        "landscape": "Landscape 3:2",
+        "story": "Story 9:16"
+      },
+      "swapHint": "Tap a cell to pick it up, then tap another to trade places.",
+      "swapPicked": "Cell {n} picked — tap another to trade places, or tap it again to let go.",
+      "spare": "This arrangement uses the first few pictures; {n} are not placed. Drag them up the list or pick a bigger arrangement.",
+      "gapPercent": "Gap: {n}%",
+      "rounded": "Rounded corners: {n}%"
     },
     "split": {
       "action": "Cut it up",
@@ -2598,10 +2625,10 @@
     },
     "image-join": {
       "name": "Join images",
-      "short": "Put several pictures together into one.",
-      "title": "Combine Images Into One — free, online, no upload",
+      "short": "Put several pictures together — in a line, a grid, or a collage.",
+      "title": "Combine Images Into One — collage maker, free, no upload",
       "description": "Free online tool to join pictures into one image — side by side, stacked, or in a grid, with an optional gap. Runs in your browser, so nothing is uploaded.",
-      "intro": "Add the pictures, drag them into the order you want, and choose whether they sit side by side, one above another, or in a grid. Pictures in a row are brought to a common height and pictures in a column to a common width, so the join is a straight line rather than a staircase.",
+      "intro": "Add the pictures and pick an arrangement: side by side, stacked, an even grid, or a layout where one picture is the main one and the others sit around it. Tap two cells to trade the pictures between them. Everything happens in your browser — no app to install and nothing uploaded.",
       "howTo": {
         "step1": "Add two or more pictures.",
         "step2": "Drag them into order and pick an arrangement.",
@@ -2617,7 +2644,9 @@
         "q4": "Can I put text or borders between them?",
         "a4": "Not here. Set a gap and a gap colour for a plain border; for anything more, join them first and add the text in whatever you would normally use. Keeping this tool to one job is what makes it predictable.",
         "q5": "Are my pictures uploaded anywhere?",
-        "a5": "No. They are read and drawn together inside your browser, on your own device. Nothing is sent to a server."
+        "a5": "No. They are read and drawn together inside your browser, on your own device. Nothing is sent to a server.",
+        "q6": "How do I choose which picture goes where?",
+        "a6": "In a layout, tap one cell and then another and the two pictures trade places. The first cell of every arrangement is the feature — the big one, or the one in the middle — so the picture at the top of the list lands there by default. You can also drag the list above into order, which is the same thing by another route."
       }
     },
     "image-split": {

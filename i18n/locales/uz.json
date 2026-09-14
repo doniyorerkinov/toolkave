@@ -636,17 +636,44 @@
       "direction": {
         "row": "Yonma-yon",
         "column": "Ustma-ust",
-        "grid": "To‘r shaklida"
+        "grid": "To‘r shaklida",
+        "layout": "Joylashuv"
       },
       "columns": "ustun",
       "hint": {
         "row": "Barcha rasmlar bitta balandlikka — eng kichigiga — keltiriladi, shunda ulanish joyi tekis chiziq bo‘ladi.",
         "column": "Barcha rasmlar bitta kenglikka — eng kichigiga — keltiriladi, shunda chetlari to‘g‘ri keladi.",
-        "grid": "Har bir rasmga bir xil katak beriladi va u butunligicha sig‘diriladi, ya’ni siz so‘ramasdan hech narsa qirqilmaydi."
+        "grid": "Har bir rasmga bir xil katak beriladi va u butunligicha sig‘diriladi, ya’ni siz so‘ramasdan hech narsa qirqilmaydi.",
+        "layout": "Bitta rasm asosiy bo‘ladi. Ular o‘rnini almashtirish uchun ko‘rinishdagi ikkita katakni bosing."
       },
       "gap": "Oraliq: {n} px",
       "backgroundLabel": "Oraliq rangi",
-      "note": "{n} ta rasm birlashtirildi — {w} × {h}"
+      "note": "{n} ta rasm birlashtirildi — {w} × {h}",
+      "layoutLabel": "Tartib",
+      "layout": {
+        "pair": "Ikkitasi yonma-yon",
+        "stack": "Ikkitasi ustma-ust",
+        "big-left": "Bittasi katta, ikkitasi kichik",
+        "big-top": "Bittasi tepada, ikkitasi pastda",
+        "quarters": "To‘rttasi teng",
+        "big-left-three": "Bittasi katta, uchtasi yonida",
+        "centre-four": "Bittasi o‘rtada, to‘rttasi atrofida",
+        "feature-four": "Bittasi tepada, to‘rttasi pastda",
+        "mosaic": "Bittasi katta, uchtasi atrofida",
+        "six": "Oltitasi, turli o‘lchamda"
+      },
+      "aspectLabel": "Shakli",
+      "aspect": {
+        "square": "Kvadrat",
+        "portrait": "Tik 4:5",
+        "landscape": "Ko‘ndalang 3:2",
+        "story": "Storis 9:16"
+      },
+      "swapHint": "Katakni olish uchun uni bosing, so‘ng o‘rin almashtirish uchun boshqasini bosing.",
+      "swapPicked": "{n}-katak olindi — o‘rin almashtirish uchun boshqasini bosing yoki qo‘yib yuborish uchun yana o‘shanisini bosing.",
+      "spare": "Bu tartib birinchi rasmlarni oladi; {n} tasiga joy yetmadi. Ularni ro‘yxatda yuqoriga suring yoki kattaroq tartib tanlang.",
+      "gapPercent": "Oraliq: {n}%",
+      "rounded": "Burchak yumaloqligi: {n}%"
     },
     "split": {
       "action": "Qirqish",
@@ -2598,10 +2625,10 @@
     },
     "image-join": {
       "name": "Rasmlarni birlashtirish",
-      "short": "Bir nechta rasmni bitta rasmga jamlash.",
-      "title": "Rasmlarni bitta rasmga birlashtirish — bepul, onlayn, yuklamasdan",
+      "short": "Bir nechta rasmni birga jamlash — qatorga, to‘rga yoki kollajga.",
+      "title": "Rasmlarni bitta rasmga birlashtirish — onlayn kollaj, bepul",
       "description": "Rasmlarni bitta tasvirga jamlash uchun bepul onlayn vosita — yonma-yon, ustma-ust yoki to‘r shaklida, xohlasangiz oraliq bilan. Brauzerda ishlaydi, hech narsa yuklanmaydi.",
-      "intro": "Rasmlarni qo‘shing, kerakli tartibda sudrab joylang va ular yonma-yon, ustma-ust yoki to‘r shaklida turishini tanlang. Qatordagilar umumiy balandlikka, ustundagilar umumiy kenglikka keltiriladi, shuning uchun ulanish joyi zinapoya emas, tekis chiziq bo‘ladi.",
+      "intro": "Rasmlarni qo‘shing va tartibni tanlang: yonma-yon, ustma-ust, tekis to‘r yoki bitta rasm asosiy bo‘lib, qolganlari atrofida turadigan joylashuv. Rasmlarning o‘rnini almashtirish uchun ikkita katakni bosing. Hammasi brauzerda bajariladi — hech narsa o‘rnatish va hech qayerga yuklash shart emas.",
       "howTo": {
         "step1": "Ikki yoki undan ortiq rasm qo‘shing.",
         "step2": "Ularni tartibga soling va joylashuvni tanlang.",
@@ -2617,7 +2644,9 @@
         "q4": "Ular orasiga matn yoki ramka qo‘shsa bo‘ladimi?",
         "a4": "Bu yerda yo‘q. Oddiy ramka uchun oraliq va uning rangini tanlang; undan ortig‘i uchun avval birlashtiring, matnni esa odatda ishlatadigan dasturingizda qo‘shing. Bitta vosita — bitta vazifa, shuning uchun u oldindan aytib bo‘ladigan natija beradi.",
         "q5": "Rasmlarim biror joyga yuklanadimi?",
-        "a5": "Yo‘q. Ular brauzeringiz ichida, o‘z qurilmangizda o‘qiladi va birlashtiriladi. Serverga hech narsa yuborilmaydi."
+        "a5": "Yo‘q. Ular brauzeringiz ichida, o‘z qurilmangizda o‘qiladi va birlashtiriladi. Serverga hech narsa yuborilmaydi.",
+        "q6": "Qaysi rasm qayerga tushishini qanday tanlayman?",
+        "a6": "Joylashuvda avval bitta katakni, so‘ng boshqasini bosing — rasmlar o‘rin almashadi. Har bir tartibning birinchi katagi asosiysi: eng kattasi yoki o‘rtadagisi, shuning uchun ro‘yxatdagi birinchi rasm o‘sha yerga tushadi. Yuqoridagi ro‘yxatni shunchaki sudrab tartiblash ham mumkin — natija bir xil."
       }
     },
     "image-split": {
