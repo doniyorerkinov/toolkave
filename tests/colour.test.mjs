@@ -136,3 +136,80 @@ test('readableOn picks the one you can actually read', () => {
   assert.equal(c.rgbToHex(c.readableOn(c.hexToRgb('#000000'))), '#ffffff')
   assert.equal(c.rgbToHex(c.readableOn(c.hexToRgb('#c2410c'))), '#ffffff')
 })
+
+test('a generated palette holds together and respects locks', () => {
+  // A fixed sequence, so a failure is reproducible rather than "sometimes".
+  let seed = 0.123
+  const next = () => {
+    seed = (seed * 9301 + 49297) % 233280 / 233280
+    return seed
+  }
+
+  const palette = c.generatePalette('analogous', 5, [], next)
+  assert.equal(palette.length, 5)
+
+  // Lightness must climb, or the row is unusable for an interface.
+  const light = palette.map(entry => c.rgbToOklch(entry).l)
+  for (let i = 1; i < light.length; i++) {
+    assert.ok(light[i] > light[i - 1], `step ${i} should be lighter than ${i - 1}`)
+  }
+
+  // Analogous means neighbours: every hue within a reasonable arc of the first.
+  const hues = palette.map(entry => c.rgbToOklch(entry).h)
+  for (const hue of hues) {
+    const apart = Math.min(Math.abs(hue - hues[0]), 360 - Math.abs(hue - hues[0]))
+    assert.ok(apart <= 90, `analogous hues should stay close, ${hue} vs ${hues[0]}`)
+  }
+
+  // Every entry is a real colour, not something that fell outside sRGB.
+  for (const entry of palette) {
+    for (const channel of [entry.r, entry.g, entry.b]) {
+      assert.ok(Number.isInteger(channel) && channel >= 0 && channel <= 255, `channel ${channel} out of range`)
+    }
+  }
+})
+
+test('locked colours come back exactly, and set the hue for the rest', () => {
+  const brand = c.hexToRgb('#c2410c')
+  const locked = [null, brand, null, null, null]
+  const palette = c.generatePalette('analogous', 5, locked)
+  assert.equal(c.rgbToHex(palette[1]), '#c2410c', 'the locked entry must survive untouched')
+
+  const brandHue = c.rgbToOklch(brand).h
+  for (const entry of palette) {
+    const hue = c.rgbToOklch(entry).h
+    const apart = Math.min(Math.abs(hue - brandHue), 360 - Math.abs(hue - brandHue))
+    assert.ok(apart <= 90, `derived hue ${hue} should relate to the locked ${brandHue}`)
+  }
+})
+
+test('monochromatic stays on one hue', () => {
+  const palette = c.generatePalette('monochromatic', 5, [c.hexToRgb('#0ea5e9'), null, null, null, null])
+  const hues = palette.map(entry => c.rgbToOklch(entry).h)
+  for (const hue of hues) {
+    const apart = Math.min(Math.abs(hue - hues[0]), 360 - Math.abs(hue - hues[0]))
+    assert.ok(apart <= 20, `monochromatic should not wander, ${hue} vs ${hues[0]}`)
+  }
+})
+
+test('confusable pairs finds the colours a deuteranope cannot separate', () => {
+  const trap = [c.hexToRgb('#d62728'), c.hexToRgb('#2ca02c')]
+  assert.deepEqual(c.confusablePairs(trap), [[0, 1]], 'that red and green are the classic trap')
+
+  const safe = [c.hexToRgb('#0000ff'), c.hexToRgb('#ffcc00')]
+  assert.deepEqual(c.confusablePairs(safe), [], 'blue and yellow stay apart')
+})
+
+test('out-of-gamut colours keep their hue instead of being clipped', () => {
+  // A chroma no screen can show. Clipping channels would swing the hue;
+  // reducing chroma must not move it more than a rounding error.
+  for (const hue of [30, 120, 200, 265, 330]) {
+    const asked = { l: 0.65, c: 0.4, h: hue }
+    assert.equal(c.inSrgbGamut(asked), false, `chroma 0.4 at hue ${hue} should be outside sRGB`)
+    const got = c.rgbToOklch(c.oklchToRgb(asked))
+    const apart = Math.min(Math.abs(got.h - hue), 360 - Math.abs(got.h - hue))
+    assert.ok(apart < 2, `hue ${hue} came back as ${got.h}`)
+    assert.ok(Math.abs(got.l - 0.65) < 0.02, `lightness drifted to ${got.l}`)
+    assert.ok(got.c < 0.4, 'chroma should have been reduced, not the hue changed')
+  }
+})

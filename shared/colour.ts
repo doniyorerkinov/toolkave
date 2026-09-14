@@ -316,23 +316,65 @@ export function rgbToOklab(rgb: Rgb): Lab {
   }
 }
 
-export function oklabToRgb({ l, a, b }: Lab): Rgb {
+/** Linear sRGB, unclamped — negative or over one means outside the gamut. */
+function oklabToLinear({ l, a, b }: Lab): { r: number; g: number; b: number } {
   const lc = (l + 0.3963377774 * a + 0.2158037573 * b) ** 3
   const mc = (l - 0.1055613458 * a - 0.0638541728 * b) ** 3
   const sc = (l - 0.0894841775 * a - 1.291485548 * b) ** 3
   return {
-    r: fromLinear(4.0767416621 * lc - 3.3077115913 * mc + 0.2309699292 * sc),
-    g: fromLinear(-1.2684380046 * lc + 2.6097574011 * mc - 0.3413193965 * sc),
-    b: fromLinear(-0.0041960863 * lc - 0.7034186147 * mc + 1.707614701 * sc)
+    r: 4.0767416621 * lc - 3.3077115913 * mc + 0.2309699292 * sc,
+    g: -1.2684380046 * lc + 2.6097574011 * mc - 0.3413193965 * sc,
+    b: -0.0041960863 * lc - 0.7034186147 * mc + 1.707614701 * sc
   }
+}
+
+export function oklabToRgb(lab: Lab): Rgb {
+  const linear = oklabToLinear(lab)
+  return { r: fromLinear(linear.r), g: fromLinear(linear.g), b: fromLinear(linear.b) }
 }
 
 export function rgbToOklch(rgb: Rgb): Lch {
   return labToLch(rgbToOklab(rgb))
 }
 
+const EPSILON = 1e-6
+const fits = (lab: Lab) => {
+  const { r, g, b } = oklabToLinear(lab)
+  return (
+    r >= -EPSILON && r <= 1 + EPSILON &&
+    g >= -EPSILON && g <= 1 + EPSILON &&
+    b >= -EPSILON && b <= 1 + EPSILON
+  )
+}
+
+/**
+ * OKLCH to a real colour, keeping the hue.
+ *
+ * Most of OKLCH describes colours a screen cannot show. Letting those fall
+ * out and clipping each channel separately is the obvious thing to do and it
+ * is wrong: clipping red harder than blue turns the colour a different hue,
+ * so asking for five shades of one blue quietly returns four blues and a
+ * teal. Instead the chroma is walked down until the colour fits, which keeps
+ * the hue and the lightness someone asked for and gives up only the
+ * saturation that was never available.
+ */
 export function oklchToRgb(lch: Lch): Rgb {
-  return oklabToRgb(lchToLab(lch))
+  const wanted = lchToLab(lch)
+  if (fits(wanted)) return oklabToRgb(wanted)
+
+  let low = 0
+  let high = lch.c
+  for (let i = 0; i < 18; i++) {
+    const middle = (low + high) / 2
+    if (fits(lchToLab({ ...lch, c: middle }))) low = middle
+    else high = middle
+  }
+  return oklabToRgb(lchToLab({ ...lch, c: low }))
+}
+
+/** Whether a screen can actually show this, before anything is given up. */
+export function inSrgbGamut(lch: Lch): boolean {
+  return fits(lchToLab(lch))
 }
 
 /* ------------------------------------------------------------------ *
@@ -531,4 +573,119 @@ export function difference(a: Rgb, b: Rgb): number {
   const first = rgbToLab(a)
   const second = rgbToLab(b)
   return Math.hypot(first.l - second.l, first.a - second.a, first.b - second.b)
+}
+
+/* ------------------------------------------------------------------ *
+ * Palette generation
+ * ------------------------------------------------------------------ */
+
+export type PaletteMode =
+  | 'auto'
+  | 'analogous'
+  | 'monochromatic'
+  | 'complementary'
+  | 'split-complementary'
+  | 'triadic'
+  | 'square'
+
+/** Hue offsets each mode walks, repeated as needed to fill the row. */
+const MODE_HUES: Record<Exclude<PaletteMode, 'auto' | 'monochromatic'>, number[]> = {
+  analogous: [-40, -20, 0, 20, 40],
+  complementary: [0, 0, 180, 180, 0],
+  'split-complementary': [0, 0, 150, 210, 150],
+  triadic: [0, 120, 240, 0, 120],
+  square: [0, 90, 180, 270, 0]
+}
+
+/**
+ * Lightness across a row, dark to light.
+ *
+ * A palette where every colour has the same lightness is unusable — nothing
+ * can sit on anything else. Spreading it is what makes a set you can
+ * actually build an interface out of.
+ */
+function lightnessRow(count: number, seed: () => number): number[] {
+  const low = 0.22 + seed() * 0.1
+  const high = 0.88 + seed() * 0.07
+  return Array.from({ length: count }, (_, i) => low + ((high - low) * i) / Math.max(1, count - 1))
+}
+
+/**
+ * A palette that holds together.
+ *
+ * Five random colours look like five random colours. These are built in
+ * OKLCH from one hue relationship with lightness spread across the row, so
+ * the result reads as a set — and because OKLCH is perceptual, the steps
+ * look even rather than bunching in the middle the way HSL does.
+ *
+ * Locked entries are kept exactly, and the first of them sets the hue
+ * everything else is derived from, so locking a brand colour and rerolling
+ * gives you colours that go with it rather than colours that ignore it.
+ */
+export function generatePalette(
+  mode: PaletteMode,
+  count = 5,
+  locked: (Rgb | null)[] = [],
+  random: () => number = Math.random
+): Rgb[] {
+  const anchor = locked.find((entry): entry is Rgb => !!entry)
+  const anchorLch = anchor ? rgbToOklch(anchor) : null
+
+  const effective: Exclude<PaletteMode, 'auto'> =
+    mode === 'auto'
+      ? (['analogous', 'monochromatic', 'complementary', 'split-complementary', 'triadic', 'square'] as const)[
+          Math.floor(random() * 6)
+        ]!
+      : mode
+
+  const baseHue = anchorLch ? anchorLch.h : random() * 360
+  const baseChroma = anchorLch && anchorLch.c > 0.02 ? anchorLch.c : 0.08 + random() * 0.1
+  const lights = lightnessRow(count, random)
+
+  // Where the anchor sits in the row decides which lightness slot it owns,
+  // so the rest arrange themselves around it instead of fighting it.
+  const anchorIndex = locked.findIndex(entry => !!entry)
+
+  const out: Rgb[] = []
+  for (let i = 0; i < count; i++) {
+    const kept = locked[i]
+    if (kept) {
+      out.push(kept)
+      continue
+    }
+
+    const hue =
+      effective === 'monochromatic'
+        ? baseHue + (random() - 0.5) * 8
+        : baseHue + (MODE_HUES[effective][i % MODE_HUES[effective]!.length] ?? 0)
+
+    // Chroma eases off at the pale and the near-black ends, where no real
+    // colour can hold it, and wanders a little so a row is never mechanical.
+    const l = lights[i]!
+    const taper = 1 - Math.abs(l * 2 - 1) ** 1.5
+    const chroma = Math.max(0.012, baseChroma * (0.55 + taper * 0.75) * (0.85 + random() * 0.3))
+    out.push(oklchToRgb({ l, c: chroma, h: ((hue % 360) + 360) % 360 }))
+  }
+
+  void anchorIndex
+  return out
+}
+
+/**
+ * Whether a palette is safe for the most common colour vision deficiency.
+ *
+ * Two colours a deuteranope cannot tell apart are two colours that cannot
+ * carry meaning between them — which is fine in a decorative palette and a
+ * problem in a chart or a status badge. The threshold is CIE76, where about
+ * ten is the point where a difference stops being obvious at a glance.
+ */
+export function confusablePairs(palette: Rgb[], kind: Deficiency = 'deuteranopia', threshold = 10): [number, number][] {
+  const seen = palette.map(entry => simulate(entry, kind))
+  const pairs: [number, number][] = []
+  for (let i = 0; i < seen.length; i++) {
+    for (let j = i + 1; j < seen.length; j++) {
+      if (difference(seen[i]!, seen[j]!) < threshold) pairs.push([i, j])
+    }
+  }
+  return pairs
 }

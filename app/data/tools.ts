@@ -96,6 +96,18 @@ export const categories: CategoryDef[] = [
 
 export const tools: ToolDef[] = [
   {
+    id: 'palette-generator',
+    category: 'color',
+    group: 'pick',
+    component: 'color/Palette',
+    icon: 'sparkles',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'color-palette-generator', ru: 'generator-palitry', uz: 'palitra-generatori' },
+    related: ['image-color-picker', 'color-picker'],
+    maxFiles: 0
+  },
+  {
     id: 'color-picker',
     category: 'color',
     group: 'pick',

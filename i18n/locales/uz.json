@@ -2814,6 +2814,32 @@
         "q6": "Rasm biror joyga yuklanadimi?",
         "a6": "Yo‘q. U brauzeringiz ichida, o‘z qurilmangizda o‘qiladi va chiziladi. Serverga hech narsa yuborilmaydi — shuning uchun sahifa ochilgach, internetsiz ham ishlayveradi."
       }
+    },
+    "palette-generator": {
+      "name": "Palitra generatori",
+      "short": "Bir-biriga yarashadigan beshta rang. Yaxshilarini qulflang, qolganini qaytadan.",
+      "title": "Rang palitrasi generatori — bepul, bir zumda, ro‘yxatdan o‘tmasdan",
+      "description": "Bepul rang palitrasi generatori. Bo‘sh joy tugmasi — yangi beshlik; yoqqanlarini qulflang va CSS, SCSS, Tailwind yoki JSON sifatida eksport qiling. Kontrast va rang ko‘rlikni ham tekshiradi.",
+      "intro": "Yangi beshlik olish uchun bo‘sh joy tugmasini bosing. Saqlashga arziydiganlarini qulflang va yana bosing — qolganlari siz saqlaganlari atrofida qayta joylashadi. Har bir palitra manzil satriga yoziladi, ya’ni havolaning o‘zi “saqlash” tugmasi. Pastda esa ko‘pchilik generatorlar tashlab ketadigan narsa: ikkita rangingiz qizil-yashil rang ko‘rligi bor odam uchun bitta rang bo‘lib qolmaganmi.",
+      "howTo": {
+        "step1": "Yoqqunicha bo‘sh joy tugmasini yoki “Yangi palitra”ni bosing.",
+        "step2": "Saqlamoqchi bo‘lgan ranglarni qulflang va qolganini qayta terish uchun yana bosing.",
+        "step3": "Bitta hex ni nusxalang, to‘plamni CSS yoki Tailwind sifatida eksport qiling yoki havolani nusxalang."
+      },
+      "faq": {
+        "q1": "Ranglar qanday tanlanadi?",
+        "a1": "Bitta ton munosabati — qo‘shnilar, qarama-qarshilar, uchdan birlar — va qator bo‘ylab yoyilgan yorug‘lik, hammasi OKLCH da quriladi. Oxirgisi muhim: eski rang modellarida tekis raqamli to‘plam ko‘zga notekis chiqadi, sariqlar qamashtiradi, ko‘klar loyqalanadi. OKLCH ko‘z nima qilishiga qarab qurilgan, shuning uchun qadamlar o‘lchangani kabi tekis ko‘rinadi.",
+        "q2": "Nega palitra bo‘ylab yorug‘lik o‘zgaradi?",
+        "a2": "Chunki hammasi bir xil yorug‘likdagi palitradan foydalanib bo‘lmaydi. Unga matn qo‘yib bo‘lmaydi, karta qurib bo‘lmaydi, hech narsa boshqasidan ajralmaydi. Yorug‘likni to‘qdan yorug‘gacha yoyish beshta yoqimli rangni interfeys quriladigan to‘plamga aylantiradi.",
+        "q3": "Qulflash nima qiladi?",
+        "a3": "O‘sha rangni aynan saqlaydi va qolganlarini undan keltirib chiqaradi. Brend rangingizni birinchi bo‘lib qulflang — shundan keyin yaratilgan hamma narsa uni e’tiborsiz qoldirmay, unga bog‘lanadi. Ikki yoki undan ko‘pini qulflasangiz, hammasi saqlanadi va bo‘shliqlar to‘ldiriladi.",
+        "q4": "Rang ko‘rligi haqidagi ogohlantirish nima?",
+        "a4": "Har o‘n ikki erkakdan taxminan bittasi qizil bilan yashilni ishonchli ajrata olmaydi. Palitrangizdagi ikki rang ular uchun bir xil chiqsa, ogohlantirish paydo bo‘ladi. Bezak uchun bu muammo emas. Lekin rang ma’no anglatadigan joyda — holat belgisi, grafikdagi chiziq, “o‘tdi yoki yo‘q” — axborot ko‘p odam uchun ko‘rinmay qoladi, shuning uchun qayta terish yoki ranglarni ton bilan birga yorug‘lik bo‘yicha ham ajratish kerak.",
+        "q5": "Palitrani qanday saqlayman?",
+        "a5": "Havolani nusxalang. Ranglar to‘g‘ridan-to‘g‘ri manzilga yozilgan, ya’ni havolaning o‘zi palitra: hisobsiz, serverda saqlanmasdan, va sayt yomon kun ko‘rayotgan bo‘lsa ham ishlaydi. Uni istalgan brauzerga qo‘ysangiz, palitra ochiladi.",
+        "q6": "Bularni tijoriy maqsadda ishlatsa bo‘ladimi?",
+        "a6": "Ha. Ranglar mualliflik huquqi bilan himoyalanmaydi va bu yerda sizga hech narsa litsenziyalanmaydi, chunki bunga hojat yo‘q. Xohlaganingizcha foydalaning."
+      }
     }
   },
   "wordCounter": {
@@ -3181,6 +3207,39 @@
       "copyCss": "CSS sifatida nusxalash",
       "clear": "Tozalash",
       "remove": "Buni olib tashlash"
+    },
+    "palette": {
+      "generate": "Yangi palitra",
+      "spaceHint": "yoki bo‘sh joy tugmasini bosing",
+      "mode": {
+        "auto": "Har qanday",
+        "analogous": "Qo‘shnilar",
+        "monochromatic": "Bitta ton",
+        "complementary": "Qarama-qarshi",
+        "split-complementary": "Bo‘lingan",
+        "triadic": "Uchdan bir",
+        "square": "Chorak"
+      },
+      "lock": "Qulflash",
+      "unlock": "Qulfni ochish",
+      "remove": "Olib tashlash",
+      "showShades": "Pog‘onalar",
+      "hideShades": "Pog‘onalarni yashirish",
+      "adjusting": "{hex} sozlanmoqda",
+      "shadeHint": "Nusxalash uchun pog‘onani bosing yoki yangi rang tanlang — u palitrada shuning o‘rnini egallaydi.",
+      "confusable": "Qizil-yashil rang ko‘rlikda bitta rangdek ko‘rinadigan juftlar: {n}. Bezak uchun muammo emas; ranglar biror ma’no anglatsa — muammo.",
+      "confusableShort": "Qo‘shilib ketadi",
+      "confusableTitle": "Qizil-yashil rang ko‘rlikda bu yerdagi boshqa rang shunga o‘xshab ko‘rinadi",
+      "takeItWith": "O‘zingiz bilan olish",
+      "as": {
+        "hex": "Hex ro‘yxati",
+        "css": "CSS",
+        "scss": "SCSS",
+        "tailwind": "Tailwind",
+        "json": "JSON"
+      },
+      "copyLink": "Havolani nusxalash",
+      "linkHint": "Palitra manzil satrida yozilgan, shuning uchun havola uni o‘zi bilan olib yuradi — hisobsiz va hech qayerda saqlanmasdan."
     }
   },
   "jsonDiff": {

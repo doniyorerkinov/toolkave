@@ -2814,6 +2814,32 @@
         "q6": "Is the picture uploaded anywhere?",
         "a6": "No. It is read and drawn inside your browser, on your own device. Nothing is sent to a server, which is why it also works with the tab offline once the page has loaded."
       }
+    },
+    "palette-generator": {
+      "name": "Palette generator",
+      "short": "Five colours that go together. Lock the good ones, reroll the rest.",
+      "title": "Colour Palette Generator — free, instant, no sign-up",
+      "description": "Free colour palette generator. Press space for a new set, lock the ones you like, and export as CSS, SCSS, Tailwind or JSON. Checks contrast and colour blindness too.",
+      "intro": "Press the space bar for a new set of five. Lock the ones worth keeping and press again — the rest rearrange themselves around what you kept. Every palette is in the address bar, so the link is the save button. Underneath, the part most generators skip: whether two of your colours are the same colour to someone with red-green colour blindness.",
+      "howTo": {
+        "step1": "Press the space bar, or the New palette button, until something looks right.",
+        "step2": "Lock the colours you want to keep and press again to reroll the others.",
+        "step3": "Copy a single hex, export the set as CSS or Tailwind, or copy the link to share it."
+      },
+      "faq": {
+        "q1": "How are the colours chosen?",
+        "a1": "One hue relationship — neighbours, opposites, thirds — with lightness spread across the row, built in OKLCH. That last part matters: in older colour models a set with even-looking numbers comes out uneven to the eye, with the yellows glaring and the blues muddy. OKLCH is built around what the eye actually does, so the steps look as even as they measure.",
+        "q2": "Why does lightness change across the palette?",
+        "a2": "Because a palette where everything is equally light is unusable. You cannot put text on it, you cannot build a card on it, and nothing separates from anything else. Spreading lightness from dark to light is what turns five nice colours into a set you can build an interface from.",
+        "q3": "What does locking do?",
+        "a3": "Keeps that colour exactly and derives the rest from it. Lock your brand colour first and everything generated afterwards relates to it, instead of ignoring it. Locking two or more keeps all of them and fills the gaps.",
+        "q4": "What is the colour blindness warning?",
+        "a4": "Around one man in twelve cannot reliably separate red from green. When two colours in your palette come out the same to them, the warning says so. For decoration that is fine. For anything where the colour carries meaning — a status badge, a chart line, a pass-or-fail — it means the information is invisible to a lot of people, and you should reroll or separate them by lightness as well as hue.",
+        "q5": "How do I save a palette?",
+        "a5": "Copy the link. The colours are written into the address, so the link is the palette — no account, nothing stored on any server, and it still works if this site is having a bad day. Paste it back in any browser and the palette comes up.",
+        "q6": "Can I use these commercially?",
+        "a6": "Yes. Colours are not copyrightable, and nothing here is licensed to you because nothing here needs to be. Use them for anything."
+      }
     }
   },
   "wordCounter": {
@@ -3181,6 +3207,39 @@
       "copyCss": "Copy as CSS",
       "clear": "Clear",
       "remove": "Remove this one"
+    },
+    "palette": {
+      "generate": "New palette",
+      "spaceHint": "or press the space bar",
+      "mode": {
+        "auto": "Any",
+        "analogous": "Neighbours",
+        "monochromatic": "One hue",
+        "complementary": "Opposites",
+        "split-complementary": "Split",
+        "triadic": "Thirds",
+        "square": "Quarters"
+      },
+      "lock": "Lock this one",
+      "unlock": "Unlock",
+      "remove": "Remove",
+      "showShades": "Shades",
+      "hideShades": "Hide shades",
+      "adjusting": "Adjusting {hex}",
+      "shadeHint": "Click any shade to copy it, or use the picker to replace this colour in the palette.",
+      "confusable": "Pairs that look like one colour to someone with red-green colour blindness: {n}. Fine for decoration; a problem if the colours mean different things.",
+      "confusableShort": "Confusable",
+      "confusableTitle": "Another colour here looks the same as this one to someone with red-green colour blindness",
+      "takeItWith": "Take it with you",
+      "as": {
+        "hex": "Hex list",
+        "css": "CSS",
+        "scss": "SCSS",
+        "tailwind": "Tailwind",
+        "json": "JSON"
+      },
+      "copyLink": "Copy the link",
+      "linkHint": "The palette is in the address bar, so the link carries it — no account, nothing saved anywhere."
     }
   },
   "jsonDiff": {
