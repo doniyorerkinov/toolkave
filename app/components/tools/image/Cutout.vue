@@ -6,6 +6,7 @@ import {
   cutoutReady,
   maskFromConfidence,
   prepareCutout,
+  release,
   type CutoutProgress
 } from '~/composables/useCutout'
 import { decodeImage } from '~/composables/useImage'
@@ -44,7 +45,13 @@ const size = ref<{ width: number; height: number } | null>(null)
 const cutMs = ref<number | null>(null)
 
 let bitmap: ImageBitmap | null = null
-let mask: Uint8ClampedArray | null = null
+/**
+ * False once this page has been left. Two seconds of inference outlives a
+ * click on another tool, and the store is shared — without this, work
+ * started here finishes on somebody else's page and writes its result,
+ * its error, or a stuck busy flag over what they are doing.
+ */
+let alive = true
 /**
  * Held in a ref because the preview and the save button are computed from
  * whether it exists — a plain variable changes without anything noticing,
@@ -90,33 +97,39 @@ onMounted(async () => {
   if (!metered.value || wasCached.value) start()
 })
 
+/** What is behind the subject, as the compositor wants it. */
+function chosenBackdrop() {
+  if (backdrop.value === 'colour') return { kind: 'colour' as const, colour: colour.value }
+  return backdrop.value === 'blur' ? { kind: 'blur' as const } : { kind: 'transparent' as const }
+}
+
+/**
+ * Draw the preview at the size it is shown.
+ *
+ * Composing at the photo's own size and scaling the result down was doing
+ * about fifteen megabytes of work per slider move on a 12-megapixel photo,
+ * half a second each, and leaving the canvases behind — thirty moves took
+ * the tab from 150 MB to 615 MB and stayed there. Nothing on screen is
+ * better for it: the preview is 500 pixels wide either way.
+ */
 function paint() {
   const el = canvas.value
   if (!el || !bitmap || !confidence.value || !size.value) return
-  mask = maskFromConfidence(
-    confidence.value,
-    size.value.width,
-    size.value.height,
-    band.value.low,
-    band.value.high
-  )
-  const composed = applyMask(
-    bitmap,
-    mask,
-    backdrop.value === 'transparent'
-      ? { kind: 'transparent' }
-      : backdrop.value === 'colour'
-        ? { kind: 'colour', colour: colour.value }
-        : { kind: 'blur' }
-  )
   const room = Math.max(240, Math.min(560, el.parentElement?.clientWidth ?? 560))
-  const factor = Math.max(composed.width / room, composed.height / 460, 1)
-  el.width = Math.round(composed.width / factor)
-  el.height = Math.round(composed.height / factor)
+  const factor = Math.max(size.value.width / room, size.value.height / 460, 1)
+  const width = Math.max(1, Math.round(size.value.width / factor))
+  const height = Math.max(1, Math.round(size.value.height / factor))
+
+  const preview = maskFromConfidence(confidence.value, width, height, band.value.low, band.value.high)
+  const composed = applyMask(bitmap, preview, chosenBackdrop(), width, height)
+  el.width = width
+  el.height = height
   const context = el.getContext('2d')
-  if (!context) return
-  context.clearRect(0, 0, el.width, el.height)
-  context.drawImage(composed, 0, 0, el.width, el.height)
+  if (context) {
+    context.clearRect(0, 0, width, height)
+    context.drawImage(composed, 0, 0)
+  }
+  release(composed)
 }
 
 async function cut() {
@@ -127,15 +140,16 @@ async function cut() {
     const result = await cutoutConfidence(bitmap, update => {
       progress.value = update
     })
+    if (!alive) return
     confidence.value = result.confidence
     cutMs.value = Math.round(result.ms)
     await nextTick()
     paint()
   } catch {
-    store.error = t('image.cutout.errorRun')
+    if (alive) store.error = t('image.cutout.errorRun')
   } finally {
     progress.value = null
-    store.busy = false
+    if (alive) store.busy = false
   }
 }
 
@@ -145,7 +159,6 @@ watch(
     bitmap?.close()
     bitmap = null
     confidence.value = null
-    mask = null
     size.value = null
     cutMs.value = null
     if (!current) return
@@ -165,26 +178,23 @@ watch(
 watch([backdrop, colour, edge], paint)
 
 async function save() {
-  if (!canRun.value || !file.value || !bitmap || !mask) return
+  if (!canRun.value || !file.value || !bitmap || !confidence.value || !size.value) return
   store.busy = true
   store.error = null
   try {
-    const composed = applyMask(
-      bitmap,
-      mask,
-      backdrop.value === 'transparent'
-        ? { kind: 'transparent' }
-        : backdrop.value === 'colour'
-          ? { kind: 'colour', colour: colour.value }
-          : { kind: 'blur' }
-    )
+    // The only place the full resolution is paid for, once, on the way out.
+    const { width, height } = size.value
+    const mask = maskFromConfidence(confidence.value, width, height, band.value.low, band.value.high)
+    const composed = applyMask(bitmap, mask, chosenBackdrop(), width, height)
     // PNG only where transparency is the point. Once something opaque is
     // behind the subject the picture is a photograph again, and a PNG of a
     // photograph runs to megabytes for nothing.
     const transparent = backdrop.value === 'transparent'
     const type = transparent ? 'image/png' : 'image/jpeg'
     const blob = await new Promise<Blob | null>(resolve => composed.toBlob(resolve, type, 0.92))
+    release(composed)
     if (!blob) throw new Error('encode failed')
+    if (!alive) return
     store.setResult({
       name: withSuffix(file.value.name, '-cutout', transparent ? 'png' : 'jpg'),
       type,
@@ -193,9 +203,9 @@ async function save() {
       note: t(`image.cutout.note.${backdrop.value}`)
     })
   } catch {
-    store.error = t('image.errorGeneric')
+    if (alive) store.error = t('image.errorGeneric')
   } finally {
-    store.busy = false
+    if (alive) store.busy = false
   }
 }
 
@@ -204,7 +214,15 @@ function onFiles(files: File[]) {
   store.add(files.slice(0, 1))
 }
 
-onBeforeUnmount(() => bitmap?.close())
+onBeforeUnmount(() => {
+  alive = false
+  bitmap?.close()
+  bitmap = null
+  confidence.value = null
+  // Anything this page started and has not finished belongs to nobody now.
+  progress.value = null
+  store.busy = false
+})
 </script>
 
 <template>

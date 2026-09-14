@@ -149,6 +149,11 @@ export async function prepareCutout(onProgress?: (progress: CutoutProgress) => v
       cutoutReady.value = true
       return session as unknown as InferenceSessionLike
     })()
+    // A rejected promise kept here would be remembered forever: one dropped
+    // connection and the tool stays broken until the page is reloaded.
+    sessionPromise.catch(() => {
+      sessionPromise = null
+    })
   }
   return await sessionPromise
 }
@@ -190,8 +195,8 @@ export function maskFromConfidence(
   }
   smallContext.putImageData(image, 0, 0)
 
-  // Back up to the picture's size; the browser's smoothing is what turns the
-  // 320-pixel edge into something that does not look like stairs.
+  // Up to whatever size was asked for; the browser's smoothing is what turns
+  // the 320-pixel edge into something that does not look like stairs.
   const full = document.createElement('canvas')
   full.width = width
   full.height = height
@@ -203,7 +208,22 @@ export function maskFromConfidence(
 
   const mask = new Uint8ClampedArray(width * height)
   for (let i = 0; i < mask.length; i++) mask[i] = scaled[i * 4]!
+  release(small)
+  release(full)
   return mask
+}
+
+/**
+ * Hand a canvas's pixels back rather than waiting for the collector.
+ *
+ * A full-resolution canvas is tens of megabytes and browsers are slow to
+ * reclaim them, so a tool that makes one per slider move climbs into the
+ * hundreds of megabytes and stays there. Zeroing the size frees the buffer
+ * immediately.
+ */
+export function release(canvas: HTMLCanvasElement) {
+  canvas.width = 0
+  canvas.height = 0
 }
 
 /**
@@ -265,23 +285,25 @@ export async function cutoutConfidence(
 export function applyMask(
   bitmap: ImageBitmap,
   mask: Uint8ClampedArray,
-  backdrop: { kind: 'transparent' } | { kind: 'colour'; colour: string } | { kind: 'blur' }
+  backdrop: { kind: 'transparent' } | { kind: 'colour'; colour: string } | { kind: 'blur' },
+  width: number,
+  height: number
 ): HTMLCanvasElement {
   const cut = document.createElement('canvas')
-  cut.width = bitmap.width
-  cut.height = bitmap.height
+  cut.width = width
+  cut.height = height
   const cutContext = cut.getContext('2d', { willReadFrequently: true })
   if (!cutContext) throw new Error('canvas unavailable')
-  cutContext.drawImage(bitmap, 0, 0)
-  const image = cutContext.getImageData(0, 0, bitmap.width, bitmap.height)
+  cutContext.drawImage(bitmap, 0, 0, width, height)
+  const image = cutContext.getImageData(0, 0, width, height)
   for (let i = 0; i < mask.length; i++) image.data[i * 4 + 3] = mask[i]!
   cutContext.putImageData(image, 0, 0)
 
   if (backdrop.kind === 'transparent') return cut
 
   const out = document.createElement('canvas')
-  out.width = bitmap.width
-  out.height = bitmap.height
+  out.width = width
+  out.height = height
   const context = out.getContext('2d')
   if (!context) throw new Error('canvas unavailable')
   if (backdrop.kind === 'colour') {
@@ -290,10 +312,11 @@ export function applyMask(
   } else {
     // The subject's own surroundings, out of focus — the portrait-mode look,
     // and the one backdrop that is guaranteed to suit the light in the photo.
-    context.filter = `blur(${Math.max(6, Math.round(Math.min(out.width, out.height) / 45))}px)`
-    context.drawImage(bitmap, 0, 0)
+    context.filter = `blur(${Math.max(6, Math.round(Math.min(width, height) / 45))}px)`
+    context.drawImage(bitmap, 0, 0, width, height)
     context.filter = 'none'
   }
   context.drawImage(cut, 0, 0)
+  release(cut)
   return out
 }
