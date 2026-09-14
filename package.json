@@ -3,15 +3,16 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
+    "build": "npm run copy-onnx && nuxt build",
+    "dev": "npm run copy-onnx && nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",
     "test": "node --experimental-strip-types --disable-warning=ExperimentalWarning --test \"tests/*.test.mjs\"",
-    "cf:preview": "nuxt build && wrangler dev",
-    "deploy": "nuxt build && wrangler deploy",
-    "postinstall": "nuxt prepare"
+    "cf:preview": "npm run copy-onnx && nuxt build && wrangler dev",
+    "deploy": "npm run copy-onnx && nuxt build && wrangler deploy",
+    "postinstall": "nuxt prepare",
+    "copy-onnx": "node scripts/copy-onnx.mjs"
   },
   "dependencies": {
     "@cantoo/pdf-lib": "^2.9.2",
@@ -28,6 +29,7 @@
     "mammoth": "^1.12.2",
     "marked": "^18.0.12",
     "nuxt": "^4.5.2",
+    "onnxruntime-web": "^1.29.0",
     "papaparse": "^5.7.0",
     "pdfjs-dist": "^6.3.289",
     "pdfmake": "^0.3.11",

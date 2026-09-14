@@ -81,3 +81,22 @@ test('the locales carry the same keys as each other', () => {
     assert.deepEqual(extra, [], `${name} has keys en.json does not`)
   }
 })
+
+/**
+ * Cyrillic and Latin inside one word is never deliberate — it is a keyboard
+ * left in the wrong layout mid-sentence, and it renders as a word that looks
+ * almost right, which is why it survives proofreading. A whole Cyrillic word
+ * in the Uzbek file can be intentional (naming the letters Ўў, Ҳҳ, Ққ, Ғғ),
+ * so only mixed words are caught.
+ */
+const MIXED = /[A-Za-z][\u0400-\u04FF]|[\u0400-\u04FF][A-Za-z]/
+
+test('no word mixes Latin and Cyrillic letters', () => {
+  for (const name of LOCALES) {
+    const data = JSON.parse(readFileSync(path.join(DIR, name), 'utf8'))
+    for (const [key, value] of messages(data)) {
+      const offender = value.split(/\s+/).find(word => MIXED.test(word))
+      assert.equal(offender, undefined, `${name} → ${key} has a half-Cyrillic word: ${offender}`)
+    }
+  }
+})

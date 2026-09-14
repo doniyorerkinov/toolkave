@@ -91,6 +91,25 @@ export const useFilesStore = defineStore('files', () => {
     files.value = next
   }
 
+  /**
+   * Exchange two files' positions.
+   *
+   * A collage tool lets someone tap one cell and then another to trade the
+   * pictures in them, which is an exchange rather than the pull-out-and-
+   * reinsert that `move` does — doing it as two moves shifts everything in
+   * between, which is not what a swap looks like on screen.
+   */
+  function swap(a: number, b: number) {
+    if (a === b) return
+    const next = [...files.value]
+    const first = next[a]
+    const second = next[b]
+    if (!first || !second) return
+    next[a] = second
+    next[b] = first
+    files.value = next
+  }
+
   function setResult(next: ToolResult | null) {
     result.value = next
   }
@@ -141,6 +160,7 @@ export const useFilesStore = defineStore('files', () => {
     add,
     remove,
     move,
+    swap,
     setResult,
     chainResult,
     reset

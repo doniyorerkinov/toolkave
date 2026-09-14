@@ -30,3 +30,6 @@ logs
 
 # Test render artifacts (TOOLKAVE_TEST_ARTIFACTS=1 npm test)
 tests/.artifacts
+
+# Copied from node_modules by scripts/copy-onnx.mjs at build time.
+public/onnx/

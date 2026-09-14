@@ -676,6 +676,35 @@
       "brightness": "Brightness: {n}%",
       "contrast": "Contrast: {n}%",
       "saturation": "Colour: {n}%"
+    },
+    "cutout": {
+      "action": "Save the cutout",
+      "again": "Cut again",
+      "loading": "Getting the tool ready",
+      "loadingBytes": "{done} of {total}",
+      "onceOnly": "this happens once, then it is kept on your device",
+      "metered": "Your browser says you are on a limited connection. This tool needs about 7 MB the first time — after that it is free.",
+      "meteredAction": "Get it anyway",
+      "errorLoad": "The tool could not be loaded. Check your connection and reload the page.",
+      "errorRun": "Something went wrong working out the background. Try a smaller picture.",
+      "preparing": "Getting ready…",
+      "running": "Looking at the picture…",
+      "took": "cut in {ms} ms",
+      "backdropLabel": "What goes behind",
+      "backdrop": {
+        "transparent": "Nothing",
+        "colour": "A colour",
+        "blur": "The original, blurred"
+      },
+      "edgeLabel": "Edge",
+      "edgeKeep": "Keep more",
+      "edgeTight": "Cut tighter",
+      "edgeHint": "Moves the line without doing the work again, so it responds as you drag.",
+      "note": {
+        "transparent": "Cut out on a transparent background",
+        "colour": "Cut out on a solid colour",
+        "blur": "Cut out against its own blurred background"
+      }
     }
   },
   "percent": {
@@ -2637,6 +2666,32 @@
         "a4": "The picture is saved again in the same format at high quality, which costs a very small amount on a JPG as any re-save does, and nothing on PNG or WebP. Strong contrast can flatten detail in the darkest and lightest parts, so ease off if shadows start turning into solid black.",
         "q5": "Is my picture uploaded anywhere?",
         "a5": "No. The adjustment happens inside your browser, on your own device — which is worth knowing when the thing you are photographing is a document."
+      }
+    },
+    "image-cutout": {
+      "name": "Remove background",
+      "short": "Cut the subject out of a photo, on your own device.",
+      "title": "Remove Background from Image — free, in your browser",
+      "description": "Free background remover that runs on your device, not a server. Cut out a person or object, keep it transparent or put a colour behind it, and download a PNG. The photo is never uploaded.",
+      "intro": "Add a photo and the subject is separated from its background in about two seconds. Keep the background transparent, put a colour behind it, or blur the original for the portrait-mode look. Every other free background remover uploads your photo to a server; this one downloads a small model to your device instead and does the work there.",
+      "howTo": {
+        "step1": "Add a photo — a person, a product, an animal.",
+        "step2": "Wait a couple of seconds, then choose what goes behind and nudge the edge if you need to.",
+        "step3": "Press Save the cutout and download the PNG."
+      },
+      "faq": {
+        "q1": "How can this work without uploading my photo?",
+        "a1": "The part that recognises a subject is a small neural network — about 4 MB — and modern browsers can run one. The first time you open this page it is downloaded along with the code that runs it, roughly 7 MB together, and then kept on your device for good. After that it starts in under a second and every photo is handled where it already is.",
+        "q2": "Why is there a download at all?",
+        "a2": "Because the alternative is sending your photo to someone else's computer. Every free background remover that starts instantly does exactly that — your picture goes up, the answer comes back, and what happens to the copy in between is their business. Seven megabytes once is the price of that not happening, and it is roughly two phone photos.",
+        "q3": "The edge is wrong on my picture.",
+        "a3": "Drag the Edge slider — it moves the line between subject and background without running the model again, so it responds while you drag. Keep more brings back hair and soft edges that were cut off; cut tighter removes a halo of leftover background. If neither helps, the picture is probably a hard one: the model does best when the subject is clearly the main thing in the frame.",
+        "q4": "What does it struggle with?",
+        "a4": "Very fine hair against a busy background, glass and other transparent things, a subject the same colour as what is behind it, and photos where it is genuinely unclear what the subject is. It is good, not perfect — for a product on a plain surface it is close to flawless; for a crowd it will pick one thing and you may not agree with the choice.",
+        "q5": "What format do I get?",
+        "a5": "PNG when you keep the background transparent, because JPG cannot store transparency — saving a cutout as JPG fills the gap with black or white and throws away the thing that made it a cutout. As soon as you put a colour or the blurred original behind the subject the picture is a photograph again, so it comes back as a JPG, which is a fraction of the size for the same thing on screen.",
+        "q6": "Does it work offline?",
+        "a6": "Once the model is on your device, yes — open the page, and the whole thing runs with no network at all. That is the clearest proof that nothing is being sent anywhere."
       }
     }
   },

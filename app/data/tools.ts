@@ -511,6 +511,19 @@ export const tools: ToolDef[] = [
     maxFiles: 1
   },
   {
+    id: 'image-cutout',
+    category: 'image',
+    group: 'optimise',
+    component: 'image/Cutout',
+    icon: 'sparkles',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'remove-background', ru: 'udalit-fon', uz: 'fonni-olib-tashlash' },
+    related: ['image-passport', 'image-crop', 'image-compress'],
+    acceptedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/heic'],
+    maxFiles: 1
+  },
+  {
     id: 'image-passport',
     category: 'image',
     group: 'optimise',

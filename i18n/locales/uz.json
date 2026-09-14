@@ -676,6 +676,35 @@
       "brightness": "Yorqinlik: {n}%",
       "contrast": "Kontrast: {n}%",
       "saturation": "Rang: {n}%"
+    },
+    "cutout": {
+      "action": "Kesilganini saqlash",
+      "again": "Qaytadan kesish",
+      "loading": "Vosita tayyorlanmoqda",
+      "loadingBytes": "{total} dan {done}",
+      "onceOnly": "bu bir marta bo‘ladi, keyin qurilmangizda saqlanib qoladi",
+      "metered": "Brauzer aloqangiz cheklangan deb xabar bermoqda. Bu vositaga birinchi marta 7 MB atrofida kerak bo‘ladi — keyin bepul.",
+      "meteredAction": "Baribir yuklansin",
+      "errorLoad": "Vosita yuklanmadi. Aloqani tekshiring va sahifani yangilang.",
+      "errorRun": "Fonni aniqlashda nimadir xato ketdi. Kichikroq rasm bilan urinib ko‘ring.",
+      "preparing": "Tayyorlanmoqda…",
+      "running": "Rasmga qaralmoqda…",
+      "took": "{ms} ms da kesildi",
+      "backdropLabel": "Orqasida nima bo‘lsin",
+      "backdrop": {
+        "transparent": "Hech narsa",
+        "colour": "Rang",
+        "blur": "Xiralashtirilgan asl fon"
+      },
+      "edgeLabel": "Chet",
+      "edgeKeep": "Ko‘proq qoldirish",
+      "edgeTight": "Zichroq kesish",
+      "edgeHint": "Chegarani qaytadan hisoblamasdan suradi, shuning uchun tortayotganingizda darhol javob beradi.",
+      "note": {
+        "transparent": "Shaffof fonda kesib olindi",
+        "colour": "Yaxlit rang fonida kesib olindi",
+        "blur": "O‘zining xiralashtirilgan foni ustida kesib olindi"
+      }
     }
   },
   "percent": {
@@ -2637,6 +2666,32 @@
         "a4": "Rasm o‘sha formatda yuqori sifatda qayta saqlanadi: JPG uchun bu har qanday qayta saqlashdagidek juda oz turadi, PNG va WebP uchun umuman bepul. Kuchli kontrast eng to‘q va eng yorug‘ joylardagi tafsilotni yo‘qotishi mumkin, shuning uchun soyalar yaxlit qoraga aylana boshlasa, biroz kamaytiring.",
         "q5": "Rasmim biror joyga yuklanadimi?",
         "a5": "Yo‘q. O‘zgarish brauzeringiz ichida, o‘z qurilmangizda bajariladi — suratga olayotgan narsangiz hujjat bo‘lsa, buni bilib qo‘ygan ma’qul."
+      }
+    },
+    "image-cutout": {
+      "name": "Fonni olib tashlash",
+      "short": "Suratdagi obyektni o‘z qurilmangizda kesib olish.",
+      "title": "Suratdan fonni olib tashlash — bepul, brauzeringizda",
+      "description": "Serverda emas, o‘z qurilmangizda ishlaydigan bepul fon olib tashlagich. Odam yoki buyumni kesib oling, fonni shaffof qoldiring yoki ortiga rang qo‘ying va PNG yuklab oling. Surat hech qayerga yuklanmaydi.",
+      "intro": "Suratni qo‘shing — va taxminan ikki soniyada obyekt fondan ajratiladi. Fonni shaffof qoldiring, ortiga rang qo‘ying yoki “portret rejimi” ko‘rinishi uchun asl fonni xiralashtiring. Boshqa barcha bepul xizmatlar suratingizni serverga yuboradi; bu esa qurilmangizga kichik modelni yuklab, hisobni o‘sha yerda bajaradi.",
+      "howTo": {
+        "step1": "Surat qo‘shing — odam, mahsulot, hayvon.",
+        "step2": "Bir-ikki soniya kuting, ortida nima bo‘lishini tanlang va kerak bo‘lsa chetni suring.",
+        "step3": "“Kesilganini saqlash”ni bosing va PNG ni yuklab oling."
+      },
+      "faq": {
+        "q1": "Suratni yuklamasdan bu qanday ishlaydi?",
+        "a1": "Obyektni taniydigan qism — bu kichik neyron tarmoq, taxminan 4 MB, zamonaviy brauzerlar esa bunaqasini ishlata oladi. Sahifani birinchi marta ochganingizda u uni ishga tushiradigan kod bilan birga — hammasi bo‘lib 7 MB atrofida — yuklanadi va keyin qurilmangizda butunlay qolib ketadi. Undan keyin ishga tushish bir soniyadan kam vaqt oladi va har bir surat o‘zi turgan joyda qayta ishlanadi.",
+        "q2": "Nega umuman biror narsa yuklanishi kerak?",
+        "a2": "Chunki muqobili — suratingizni begona kompyuterga yuborish. Darhol ishlay boshlaydigan har qanday bepul xizmat aynan shuni qiladi: rasm yuqoriga ketadi, javob qaytadi, oradagi nusxa bilan nima bo‘lgani esa ularning ishi. Bir martalik yetti megabayt — shunday bo‘lmasligining narxi, va bu taxminan ikkita telefon suratiga teng.",
+        "q3": "Mening rasmimda chet noto‘g‘ri chiqdi.",
+        "a3": "“Chet” slayderini suring — u modelni qaytadan ishlatmasdan obyekt bilan fon orasidagi chegarani siljitadi, shuning uchun tortayotganingizda darhol javob beradi. “Ko‘proq qoldirish” kesib ketilgan soch va yumshoq chetlarni qaytaradi; “zichroq kesish” qolib ketgan fon halqasini olib tashlaydi. Ikkalasi ham yordam bermasa, demak rasm qiyin: model obyekt kadrda aniq asosiy bo‘lganda eng yaxshi ishlaydi.",
+        "q4": "U nima bilan qiynaladi?",
+        "a4": "Rang-barang fondagi juda ingichka sochlar, shisha va boshqa shaffof narsalar, orqasidagi fon bilan bir xil rangdagi obyekt hamda umuman nimani obyekt deb hisoblash noaniq bo‘lgan suratlar. U yaxshi, lekin benuqson emas: bir tusli yuzadagi mahsulot deyarli mukammal chiqadi, olomonda esa u bittasini tanlaydi va bu tanlovga qo‘shilmasligingiz mumkin.",
+        "q5": "Natija qaysi formatda bo‘ladi?",
+        "a5": "Fonni shaffof qoldirsangiz — PNG, chunki JPG shaffoflikni saqlay olmaydi: kesilganini JPG qilib saqlash bo‘shliqni qora yoki oq bilan to‘ldiradi va butun ish nima uchun qilinganini yo‘qqa chiqaradi. Obyekt ortiga rang yoki xiralashtirilgan asl fon qo‘yilishi bilan rasm yana fotosuratga aylanadi, shuning uchun u JPG bo‘lib qaytadi — ekranda bir xil ko‘rinib, hajmi bir necha barobar kichik.",
+        "q6": "Internetsiz ishlaydimi?",
+        "a6": "Model qurilmada bo‘lgach — ha: sahifani oching, va hammasi umuman tarmoqsiz ishlaydi. Bu hech narsa hech qayerga yuborilmayotganining eng aniq dalili."
       }
     }
   },
