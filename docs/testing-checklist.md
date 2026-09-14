@@ -41,7 +41,7 @@ it by name. After every deploy, take that tool's en/ru/uz URLs to Search Console
 inspection → Request indexing, one at a time (~10/day), and put the rest through Yandex
 Webmaster → Indexing → Reindex pages (~20/day). Live but unindexed is not shipped.
 
-Registry snapshot: **78 tools, 52 published, 26 drafts** — every PDF and image tool is live, plus Word counter. What is left is text, converters, calculators, generators and developer tools.
+Registry snapshot: **83 tools, 72 published, 11 drafts** — every PDF, image, colour and converter tool is live, plus the JSON pair and Word counter. What is left is calculators, generators, two text tools and two developer ones.
 
 **The order below is the testing order, and therefore the publishing order.** It is
 ranked by search volume, by where the site has no competition, and by how much of your
