@@ -38,6 +38,12 @@
       "title": "Bepul onlayn rasm vositalari — siqish, o'lcham, format",
       "heading": "Rasm vositalari"
     },
+    "color": {
+      "name": "Ranglar",
+      "description": "Rang tanlang, palitra va gradientlar yarating, kontrastni tekshiring — hammasi brauzerda.",
+      "title": "Ranglar uchun bepul vositalar — tanlash, palitra, gradient, kontrast",
+      "heading": "Ranglar uchun vositalar"
+    },
     "converters": {
       "name": "Konvertorlar",
       "description": "O'lchov birliklari, valyuta va vaqt mintaqalarini o'girish.",

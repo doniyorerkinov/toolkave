@@ -38,6 +38,12 @@
       "title": "Free image tools online — compress, resize, convert",
       "heading": "Image tools"
     },
+    "color": {
+      "name": "Colour",
+      "description": "Pick colours, build palettes and gradients, and check contrast — all in your browser.",
+      "title": "Free colour tools online — picker, palettes, gradients, contrast",
+      "heading": "Colour tools"
+    },
     "converters": {
       "name": "Converters",
       "description": "Convert units, currencies and time zones.",

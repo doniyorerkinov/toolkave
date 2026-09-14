@@ -17,6 +17,7 @@ export const DEFAULT_LOCALE: Locale = 'en'
 export type CategoryId =
   | 'pdf'
   | 'image'
+  | 'color'
   | 'converters'
   | 'calculators'
   | 'generators'
@@ -85,6 +86,7 @@ export interface ToolDef {
 export const categories: CategoryDef[] = [
   { id: 'pdf', icon: 'file-text', slugs: { en: 'pdf', ru: 'pdf', uz: 'pdf' } },
   { id: 'image', icon: 'image', slugs: { en: 'image', ru: 'izobrazheniya', uz: 'rasm' } },
+  { id: 'color', icon: 'palette', slugs: { en: 'color', ru: 'cveta', uz: 'ranglar' } },
   { id: 'converters', icon: 'repeat', slugs: { en: 'converters', ru: 'konvertery', uz: 'konvertorlar' } },
   { id: 'calculators', icon: 'calculator', slugs: { en: 'calculators', ru: 'kalkulyatory', uz: 'kalkulyatorlar' } },
   { id: 'generators', icon: 'sparkles', slugs: { en: 'generators', ru: 'generatory', uz: 'generatorlar' } },

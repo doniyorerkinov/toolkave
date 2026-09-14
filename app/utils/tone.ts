@@ -17,6 +17,7 @@ export interface Tone {
 export const TONES: Record<CategoryId, Tone> = {
   pdf: { tile: 'bg-ember-100 text-ember-700', tileHover: 'group-hover:bg-ember-200', text: 'text-ember-700' },
   image: { tile: 'bg-teal-100 text-teal-700', tileHover: 'group-hover:bg-teal-200', text: 'text-teal-700' },
+  color: { tile: 'bg-fuchsia-100 text-fuchsia-700', tileHover: 'group-hover:bg-fuchsia-200', text: 'text-fuchsia-700' },
   converters: { tile: 'bg-violet-100 text-violet-700', tileHover: 'group-hover:bg-violet-200', text: 'text-violet-700' },
   calculators: { tile: 'bg-emerald-100 text-emerald-700', tileHover: 'group-hover:bg-emerald-200', text: 'text-emerald-700' },
   generators: { tile: 'bg-pink-100 text-pink-700', tileHover: 'group-hover:bg-pink-200', text: 'text-pink-700' },
