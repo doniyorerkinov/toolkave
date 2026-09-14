@@ -111,21 +111,64 @@ Watch for: SVGs with strokes but no fills (nothing to extrude — say so rather
 than rendering nothing), text elements (need converting to paths first), and
 files with thousands of paths (cap it and warn).
 
-### 3. Solar panel calculator
+### 3. Solar — a section on toolkave.com, not a second site
 
-**Scope question to settle first.** `docs/solar-calculator-spec.md` describes a
-*separate lead-generation site* for home solar in Uzbekistan — its own domain,
-its own Telegram bot, its own analytics, a sponsorship model. That is a
-different product, not a Toolkave tool.
+**Decided 14 Sept 2026.** `docs/solar-calculator-spec.md` was written around a
+standalone site with its own domain, bot and analytics. That is superseded on
+one point, and it is the point everything else hangs off: **solar lives on
+toolkave.com, as its own section, sharing this domain's SEO.**
 
-Assumption taken here, to be confirmed: build a **solar calculator as a Toolkave
-tool** under `/calculators` — system size, cost and payback from bill or kWh,
-region and roof orientation — and keep the standalone lead-gen site as its own
-track, using the existing spec when it starts. The calculator work is reusable
-by both, so nothing is wasted either way.
+The reason is that we would otherwise be throwing away everything already
+built. toolkave.com has verified properties in both Google Search Console and
+Yandex Webmaster, a sitemap Google is already crawling, working hreflang across
+three locales, breadcrumb JSON-LD validating with zero errors, and a publishing
+gate that has now shipped 83 tools without an untested page reaching
+production. A new domain starts at zero on every one of those and would need the
+same months of indexing work repeated. The solar spec's product thinking stands;
+its hosting section does not.
 
-If it should instead *be* the separate site, say so and the spec becomes the
-plan rather than this entry.
+**Shape:** a new category alongside PDF, Image and Colour — not a single
+calculator. The spec's page cluster becomes tools in the registry:
+
+| Tool | Purpose |
+|---|---|
+| Solar calculator | system size, cost, payback from bill or kWh + region + roof |
+| Electricity bill calculator | by tariff tier; its own search traffic, links to solar |
+| Generator / UPS sizing | blackout-season traffic |
+| Battery runtime | "how long will X run on Y Ah"; feeds battery leads |
+
+**What this section needs that the site has never had:**
+
+- **Two locales, not three.** Uzbek and Russian only — English has no audience
+  for Uzbek electricity tariffs. `ToolDef.locales` already supports this, but
+  **every tool so far has been all three**, so the two-locale path is untested:
+  verify hreflang, `x-default`, the sitemap entries and the category page all
+  behave when a locale is absent, before building the second tool on top of it.
+- **Article pages.** The spec wants FAQ and guide content, and the site has only
+  ever had tool pages and category pages. That is a genuinely new page type with
+  its own JSON-LD (`Article`, `FAQPage`) and its own place in the registry or
+  beside it. Decide that shape before writing the first article.
+- **A "last updated" stamp and a tariff source link** on every calculator, per
+  the spec. Tariffs and net-metering rules change; stale numbers are worse than
+  no numbers here in a way they are not for a PDF merger.
+
+**Lead capture reuses what exists.** `server/telegram/` and the `BOT_DB` D1
+binding are already deployed and working — do not stand up a second bot. The
+deep-link payload carrying a calculator result, and the users table behind it,
+extend the current bot rather than replacing it.
+
+**Two consequences to accept openly:**
+
+1. **No domain-level geo-targeting.** The spec wanted the site geo-targeted to
+   Uzbekistan; that is not available for a section of a global three-language
+   site without hurting the other 83 tools. Uzbek and Russian content plus
+   correct hreflang has to carry it instead. This is a real cost of the
+   decision, and the right trade.
+2. **The sponsor pitch changes.** It is no longer "a dedicated solar site" but
+   "the solar section of a tools site with existing traffic". Arguably an easier
+   sell once there is traffic to point at, but it is a different conversation
+   and worth knowing before talking to an installer.
+
 
 ### 4. Remaining colour tools
 

@@ -2,6 +2,18 @@
 
 Lead-generation site for home solar in Uzbekistan. A free calculator estimates system size, cost and payback; users are pushed into a Telegram bot; installers later pay a flat sponsorship fee for exclusive access to that audience.
 
+> **Hosting decision changed, 14 Sept 2026.** Solar is **not** a separate site.
+> It ships as a section of **toolkave.com**, sharing that domain's SEO, sitemap,
+> hreflang, indexing and the existing `@toolkavebot` + `BOT_DB` — because a new
+> domain would throw away the verified Search Console and Yandex properties, the
+> crawled sitemap and the publishing pipeline already built here.
+>
+> This supersedes the "separate brand / own domain / own bot / own analytics"
+> constraints in section 1, the two-box architecture in section 2, and all of
+> section 3. The product thinking below - the calculator spec, the page cluster,
+> the lead flow, the tariff-freshness rule - stands unchanged and is still the
+> plan. See [ORDER.md](ORDER.md) section 3 for what that means in practice.
+
 ## 1. Goals and constraints
 
 **Goal:** a small SEO/Telegram-driven site that produces a re-contactable audience of homeowners interested in solar, which can be sold as an exclusive sponsorship to 1–2 installers.
