@@ -6,6 +6,11 @@ export interface SelectOption {
   label: string
   /** Secondary text — a currency's name, a timezone's offset. */
   hint?: string
+  /**
+   * Extra words the search should match but nobody should have to read.
+   * The time zone database says "Asia/Katmandu"; people type Kathmandu.
+   */
+  search?: string
 }
 
 /**
@@ -49,12 +54,22 @@ const selected = computed(() => props.options.find(option => option.value === pr
 const shown = computed(() => {
   const needle = query.value.trim().toLowerCase()
   if (!needle) return props.options
-  return props.options.filter(
-    option =>
+  return props.options.filter(option => {
+    // Visible text matches anywhere: the reader can see why it matched.
+    if (
       option.value.toLowerCase().includes(needle) ||
       option.label.toLowerCase().includes(needle) ||
       option.hint?.toLowerCase().includes(needle)
-  )
+    ) {
+      return true
+    }
+    // Hidden text matches only at the start of a word, because a match
+    // nobody can see has to be explicable — "UK" should find the United
+    // Kingdom, not Nuuk and Truk.
+    return option.search
+      ? option.search.toLowerCase().split(/[^a-z0-9]+/).some(word => word.startsWith(needle))
+      : false
+  })
 })
 
 function scrollActiveIntoView() {

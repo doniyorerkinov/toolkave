@@ -6,7 +6,11 @@ const { t } = useI18n()
  * handles daylight saving. Hard-coded UTC offsets are the usual bug here -
  * they silently go wrong twice a year.
  */
-const ZONES = [
+/**
+ * The handful worth putting at the top, for the people this site is for.
+ * Everything else follows alphabetically.
+ */
+const COMMON = [
   'Asia/Tashkent',
   'Europe/Moscow',
   'Europe/London',
@@ -27,6 +31,75 @@ const ZONES = [
   'UTC'
 ]
 
+/**
+ * Names people type that the database does not use.
+ *
+ * The tz database keeps old spellings as the canonical id for compatibility,
+ * so a browser hands back Asia/Katmandu and nobody searching Kathmandu ever
+ * finds it. The same goes for the handful of cities that were renamed. The
+ * country names are there because "what time is it in Japan" is how the
+ * question is actually asked, not "Asia/Tokyo".
+ */
+const ALIASES: Record<string, string> = {
+  'Asia/Katmandu': 'Kathmandu Nepal',
+  'Asia/Calcutta': 'Kolkata India',
+  'Asia/Kolkata': 'Calcutta India Mumbai Delhi',
+  'Asia/Saigon': 'Ho Chi Minh Vietnam',
+  'Asia/Ho_Chi_Minh': 'Saigon Vietnam',
+  'Asia/Rangoon': 'Yangon Myanmar Burma',
+  'Asia/Yangon': 'Rangoon Myanmar Burma',
+  'Asia/Thimbu': 'Thimphu Bhutan',
+  'Asia/Macao': 'Macau',
+  'Europe/Kiev': 'Kyiv Ukraine',
+  'Europe/Kyiv': 'Kiev Ukraine',
+  'Africa/Asmera': 'Asmara Eritrea',
+  'America/Godthab': 'Nuuk Greenland',
+  'Atlantic/Faeroe': 'Faroe Islands',
+  'Pacific/Ponape': 'Pohnpei Micronesia',
+  'Asia/Tashkent': 'Uzbekistan',
+  'Europe/Moscow': 'Russia',
+  'Europe/London': 'United Kingdom UK Britain England',
+  'Europe/Berlin': 'Germany',
+  'Europe/Istanbul': 'Turkey Turkiye',
+  'Asia/Dubai': 'United Arab Emirates UAE Abu Dhabi',
+  'Asia/Almaty': 'Kazakhstan',
+  'Asia/Karachi': 'Pakistan',
+  'Asia/Shanghai': 'China Beijing',
+  'Asia/Tokyo': 'Japan',
+  'Asia/Seoul': 'South Korea',
+  'America/New_York': 'United States USA east coast EST',
+  'America/Chicago': 'United States USA central CST',
+  'America/Los_Angeles': 'United States USA west coast California PST',
+  'America/Sao_Paulo': 'Brazil',
+  'Australia/Sydney': 'Australia'
+}
+
+/**
+ * Every zone the browser knows, which is the whole IANA database — a few
+ * hundred of them, kept current by whoever ships the browser rather than by
+ * us. A hand-written list is fine until someone needs Asia/Yerevan and finds
+ * eighteen entries and no way in.
+ *
+ * Filled in after mounting so the server and the client render the same
+ * markup; the list only matters once the picker is opened, which is well
+ * after that.
+ */
+const ZONES = ref<string[]>(COMMON)
+
+function allZones(): string[] {
+  try {
+    const supported = (Intl as unknown as { supportedValuesOf?: (key: string) => string[] })
+      .supportedValuesOf?.('timeZone')
+    if (!supported?.length) return COMMON
+    const rest = supported.filter(zone => !COMMON.includes(zone)).sort()
+    return [...COMMON, ...rest]
+  } catch {
+    // Older browsers have the zones but will not enumerate them.
+    return COMMON
+  }
+}
+
+/** Whatever this device is set to, which is the only sensible default. */
 function localZone(): string {
   try {
     return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
@@ -35,7 +108,7 @@ function localZone(): string {
   }
 }
 
-const source = ref(ZONES.includes(localZone()) ? localZone() : 'Asia/Tashkent')
+const source = ref(localZone())
 const targets = ref<string[]>(['Europe/London', 'America/New_York', 'Asia/Dubai'])
 
 const now = new Date()
@@ -67,7 +140,10 @@ function offsetMinutes(zone: string, at: Date): number {
     Number(parts.minute),
     Number(parts.second)
   )
-  return (asUtc - at.getTime()) / 60000
+  // Rounded because the formatted parts stop at whole seconds while the
+  // instant carries milliseconds, and every real zone offset is a whole
+  // number of minutes anyway. Without this you get UTC+02:59.9957.
+  return Math.round((asUtc - at.getTime()) / 60000)
 }
 
 /** The instant that the chosen wall-clock time represents in the source zone. */
@@ -119,15 +195,41 @@ function removeTarget(zone: string) {
   targets.value = targets.value.filter(z => z !== zone)
 }
 
-const zoneLabel = (zone: string) => zone.replace(/_/g, ' ').replace('/', ' / ')
+const zoneLabel = (zone: string) => zone.replace(/_/g, ' ').replace(/\//g, ' / ')
 
-/** Labelled for the picker, so a search matches the city as well as the code. */
-const zoneOptions = computed(() => ZONES.map(zone => ({ value: zone, label: zoneLabel(zone) })))
+/**
+ * Built once rather than as a live computed: an offset needs a formatter per
+ * zone, and doing that for four hundred of them on every keystroke in the
+ * search box is a visibly janky picker. They only change at a daylight
+ * saving boundary, which no open tab is going to sit through.
+ */
+const zoneOptions = shallowRef<{ value: string; label: string; hint: string }[]>([])
+
+function buildOptions() {
+  const at = new Date()
+  zoneOptions.value = ZONES.value.map(zone => {
+    const offset = offsetMinutes(zone, at)
+    const sign = offset >= 0 ? '+' : '-'
+    const abs = Math.abs(offset)
+    return {
+      value: zone,
+      label: zoneLabel(zone),
+      hint: `UTC${sign}${pad(Math.floor(abs / 60))}:${pad(abs % 60)}`,
+      search: ALIASES[zone]
+    }
+  })
+}
+
 /** The add-a-zone picker never holds a value; choosing one is the action. */
 const addOptions = computed(() => [
-  { value: '', label: t('timezone.choose') },
-  ...ZONES.map(zone => ({ value: zone, label: zoneLabel(zone) }))
+  { value: '', label: t('timezone.choose'), hint: '', search: '' },
+  ...zoneOptions.value.filter(option => !targets.value.includes(option.value) && option.value !== source.value)
 ])
+
+onMounted(() => {
+  ZONES.value = allZones()
+  buildOptions()
+})
 </script>
 
 <template>
