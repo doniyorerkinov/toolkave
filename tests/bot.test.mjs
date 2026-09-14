@@ -362,3 +362,41 @@ test('/start lists every capability, in all three languages', async () => {
     assert.equal(context.api.log.messages.length, 1, `${language}: one message, not a wall of them`)
   }
 })
+
+/**
+ * The menu has to be a menu that teaches, not a mode that traps.
+ *
+ * Doniyor's worry was that people used to tapping a button would not know to
+ * just send a file. The answer is buttons that explain and store nothing, so
+ * tapping the wrong one costs a sentence rather than putting the chat into a
+ * state it has to be talked out of.
+ */
+test('/start offers a button per capability, and tapping one only explains', async () => {
+  const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
+  await handleUpdate(start('uz'), context)
+
+  const [intro] = context.api.log.messages
+  assert.equal(intro.buttons.length, 3, 'one button per capability')
+  assert.deepEqual(intro.buttons.flat().map(button => button.callback_data), ['how:photos', 'how:merge', 'how:cover'])
+
+  // The callback carries the phone's language too, so the answer stays Uzbek.
+  await handleUpdate(press('how:merge', 'uz'), context)
+  assert.match(context.api.log.messages[1].text, /PDF fayllarni kerakli tartibda/)
+})
+
+test('tapping the wrong menu button leaves nothing behind to get stuck in', async () => {
+  const png = solidPng(60, 40)
+  const context = { api: fakeApi({ a: png, b: png }), store: fakeStore(), settle: BRIEF }
+
+  await handleUpdate(start('en'), context)
+  await handleUpdate(press('how:merge'), context)      // says "send me PDFs"
+
+  // ...and then photos arrive anyway. The file decides, not the tap.
+  await deliver([photo('a'), photo('b')], context)
+  const counter = context.api.log.messages.at(-1)
+  assert.match(counter.text, /2 photos received/)
+  assert.deepEqual(counter.buttons.flat().map(button => button.callback_data), ['a4', 'image', 'clear'])
+
+  await handleUpdate(press('a4'), context)
+  assert.equal(context.api.log.documents.length, 1, 'the PDF is made regardless of what was tapped earlier')
+})

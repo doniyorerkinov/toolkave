@@ -178,17 +178,22 @@ function fileFrom(message: NonNullable<TelegramUpdate['message']>): PendingFile 
 }
 
 /**
- * What the bot can do, said once.
+ * What the bot can do, said once, with a button for each.
  *
- * A list rather than a menu of buttons: there is no mode to enter here, so a
- * button per capability would only be a label that talks. What you can send is
- * the thing worth knowing; the buttons appear on the file itself, where they
- * can actually act on something.
+ * The buttons are a menu that teaches rather than a mode that traps: tapping
+ * one answers with what to send and stores nothing. So someone who taps
+ * "Merge PDFs" and then sends photos anyway is not stuck in a wrong mode -
+ * the file still decides what the buttons under it offer. People who expect
+ * a menu find one; people who just send a file never notice it exists.
  */
 async function greet(chatId: number, locale: BotLocale, context: Context): Promise<void> {
   const s = STRINGS[locale]
   const lines = [s.greeting, s.can.join('\n'), s.howTo, s.limits, s.sendAsFile, s.privacy]
-  await context.api.sendMessage(chatId, lines.join('\n\n'))
+  await context.api.sendMessage(chatId, lines.join('\n\n'), [
+    [{ text: s.menu.photos, callback_data: 'how:photos' }],
+    [{ text: s.menu.merge, callback_data: 'how:merge' }],
+    [{ text: s.menu.cover, callback_data: 'how:cover' }]
+  ])
 }
 
 /**
@@ -242,6 +247,15 @@ async function onCallback(query: NonNullable<TelegramUpdate['callback_query']>, 
   const locale = localeOf(query.from?.language_code)
   await context.api.answerCallback(query.id)
   if (!chatId) return
+
+  // A menu button: say what to send, remember nothing. The file that arrives
+  // next is still what decides which buttons appear under it.
+  if (query.data?.startsWith('how:')) {
+    const which = query.data.slice(4) as 'photos' | 'merge' | 'cover'
+    const how = STRINGS[locale].how[which]
+    if (how) await context.api.sendMessage(chatId, how)
+    return
+  }
 
   if (query.data === 'clear') {
     await context.store.clear(chatId)

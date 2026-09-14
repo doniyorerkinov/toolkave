@@ -19,6 +19,10 @@ interface Strings {
   greeting: string
   /** What the bot can do, one line each. Listed so nobody has to guess. */
   can: string[]
+  /** Button labels on /start, for people who expect a menu rather than prose. */
+  menu: { photos: string; merge: string; cover: string }
+  /** What each of those buttons answers with: what to send, nothing more. */
+  how: { photos: string; merge: string; cover: string }
   howTo: string
   privacy: string
   countImages: (n: number) => string
@@ -48,6 +52,16 @@ const en: Strings = {
     '📎  Several PDFs into one',
     '📑  A cover plus scanned pages, in the order you send them'
   ],
+  menu: {
+    photos: '📄 Photos → PDF',
+    merge: '📎 Merge PDFs',
+    cover: '📑 Cover + pages'
+  },
+  how: {
+    photos: 'Send me the photos — a few at a time or all at once. When you have sent them all, press the button and I will send back one PDF.',
+    merge: 'Send me the PDF files, in the order you want them. Then press the button and I will join them into one.',
+    cover: 'Send the cover first, as a PDF. Then photograph the pages and send those. Press the button and the cover comes out in front.'
+  },
   howTo: 'For the last one: send the cover first as a PDF, then photograph the pages. Nothing is reordered.',
   privacy: 'Your files are never saved: they are converted in memory and gone the moment the PDF is sent.',
   countImages: n => `${n} photo${n === 1 ? '' : 's'} received. Send more, or:`,
@@ -78,6 +92,16 @@ const ru: Strings = {
     '📎  Несколько PDF в один',
     '📑  Титульный лист и отсканированные страницы, в том порядке, в каком прислали'
   ],
+  menu: {
+    photos: '📄 Фото → PDF',
+    merge: '📎 Объединить PDF',
+    cover: '📑 Титульный + страницы'
+  },
+  how: {
+    photos: 'Присылайте фотографии — по несколько или все сразу. Когда пришлёте все, нажмите кнопку, и я верну один PDF.',
+    merge: 'Пришлите PDF-файлы в том порядке, в каком они нужны. Потом нажмите кнопку — соберу их в один.',
+    cover: 'Сначала пришлите титульный лист в виде PDF. Потом сфотографируйте страницы и пришлите их. Нажмите кнопку — титульный будет первым.'
+  },
   howTo: 'Для последнего: сначала пришлите титульный лист как PDF, потом сфотографируйте страницы. Порядок не меняется.',
   privacy: 'Ваши файлы нигде не сохраняются: они обрабатываются в памяти и исчезают сразу после отправки PDF.',
   countImages: n => `Получено фото: ${n}. Отправьте ещё или:`,
@@ -108,6 +132,16 @@ const uz: Strings = {
     "📎  Bir nechta PDF dan bitta PDF",
     "📑  Muqova va skan qilingan sahifalar, yuborgan tartibingizda"
   ],
+  menu: {
+    photos: '📄 Surat → PDF',
+    merge: '📎 PDF birlashtirish',
+    cover: '📑 Muqova + sahifalar'
+  },
+  how: {
+    photos: "Suratlarni yuboring — bir nechtadan yoki hammasini birvarakayiga. Hammasini yuborib bo'lgach, tugmani bosing, men bitta PDF qaytaraman.",
+    merge: "PDF fayllarni kerakli tartibda yuboring. Keyin tugmani bosing — ularni bittaga birlashtiraman.",
+    cover: "Avval muqovani PDF sifatida yuboring. Keyin sahifalarni suratga olib yuboring. Tugmani bossangiz, muqova birinchi bo'lib chiqadi."
+  },
   howTo: "Oxirgisi uchun: avval muqovani PDF sifatida yuboring, keyin sahifalarni suratga oling. Tartib o'zgarmaydi.",
   privacy: "Fayllaringiz hech qayerda saqlanmaydi: xotirada ishlanadi va PDF yuborilishi bilan yo'qoladi.",
   countImages: n => `${n} ta surat qabul qilindi. Yana yuboring yoki:`,
