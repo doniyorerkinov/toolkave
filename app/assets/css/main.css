@@ -164,8 +164,29 @@
  * Contrast was chosen against the new surfaces, not carried over — `stone-500`
  * as muted text needs to be lighter on black than it was dark on white.
  */
+/*
+ * Dark mode, declared twice, and on purpose.
+ *
+ * A theme switch has to beat the system preference in both directions: a
+ * visitor on a dark laptop who picks light must get light, and one on a
+ * light laptop who picks dark must get dark. The first is a media query
+ * that steps aside when overridden; the second is a plain selector no
+ * media query can reach. No single rule does both.
+ *
+ * So the two palettes have to stay identical, which is a real hazard with
+ * forty measured colour values in each. `tests/theme.test.mjs` compares
+ * them declaration by declaration, so drift is a failing test rather than
+ * a colour that is subtly wrong in only one of the two ways of asking for
+ * dark.
+ *
+ * No stored choice means no attribute at all, which is why the media query
+ * carries the default: the site follows the system until somebody says
+ * otherwise, and keeps doing so with JavaScript turned off.
+ */
+
+/* Dark because the system asks for it, unless the visitor chose light. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     color-scheme: dark;
 
     --color-white: oklch(22.5% 0.004 106);
@@ -220,23 +241,101 @@
     --color-red-700: oklch(80% 0.14 25);
     --color-red-800: oklch(85% 0.12 25);
     --color-red-900: oklch(90% 0.09 25);
+
   }
 
   /*
-   * `text-white` is ink on dark chrome, not a surface, so it must stay white
-   * while `--color-white` becomes a card.
+   * `text-white` is ink on dark chrome, not a surface, so it must stay
+   * white while `--color-white` becomes a card.
    */
-  .text-white {
+  :root:not([data-theme='light']) .text-white {
     color: #fff;
   }
 
   /*
-   * A canvas or page preview is a picture of paper. Turning it over would be
-   * a lie about the file the user is about to save — a scan would appear
-   * inverted on screen and come out white in the download.
+   * A canvas or page preview is a picture of paper. Turning it over
+   * would be a lie about the file the user is about to save - a scan
+   * would appear inverted on screen and come out white in the download.
    */
-  canvas.bg-white,
-  svg.bg-white {
+  :root:not([data-theme='light']) canvas.bg-white,
+  :root:not([data-theme='light']) svg.bg-white {
     background-color: #fff;
   }
+}
+
+/* Dark because the visitor chose it, whatever the system says. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-white: oklch(22.5% 0.004 106);
+  --color-stone-50: oklch(17.5% 0.004 106);
+  --color-stone-100: oklch(26% 0.005 106);
+  --color-stone-200: oklch(31% 0.006 56);
+  --color-stone-300: oklch(37% 0.008 56);
+  /* Lifted from the mirrored 52%: measured at 3.07 against a card, where
+   * body text needs 4.5. Contrast was always going to need choosing
+   * rather than mirroring, and this is where it showed. */
+  --color-stone-400: oklch(63% 0.012 56);
+  --color-stone-500: oklch(66% 0.013 58);
+  --color-stone-600: oklch(73% 0.012 58);
+  --color-stone-700: oklch(84% 0.008 56);
+  --color-stone-800: oklch(89% 0.006 56);
+  --color-stone-900: oklch(95% 0.004 48);
+  --color-stone-950: oklch(97.5% 0.003 106);
+
+  /* Ember stays the lantern. Lifted, because a mid-orange that reads as
+     warm on paper reads as muddy on black. */
+  --color-ember-50: oklch(27% 0.045 62);
+  --color-ember-100: oklch(31% 0.055 62);
+  --color-ember-200: oklch(38% 0.07 60);
+  --color-ember-300: oklch(46% 0.09 58);
+  --color-ember-400: oklch(70% 0.15 55);
+  --color-ember-500: oklch(74% 0.16 55);
+  --color-ember-600: oklch(79% 0.14 58);
+  --color-ember-700: oklch(84% 0.11 62);
+  --color-ember-800: oklch(88% 0.09 66);
+  --color-ember-900: oklch(92% 0.06 70);
+
+  /* Status tints: a pale wash becomes a deep one, dark ink becomes light. */
+  --color-amber-50: oklch(27% 0.05 80);
+  --color-amber-100: oklch(32% 0.06 80);
+  --color-amber-200: oklch(40% 0.07 80);
+  --color-amber-300: oklch(47% 0.08 80);
+  --color-amber-700: oklch(84% 0.11 85);
+  --color-amber-800: oklch(88% 0.09 85);
+  --color-amber-900: oklch(92% 0.07 85);
+
+  --color-emerald-50: oklch(26% 0.05 160);
+  --color-emerald-100: oklch(31% 0.06 160);
+  --color-emerald-200: oklch(39% 0.08 160);
+  --color-emerald-700: oklch(84% 0.13 162);
+  --color-emerald-800: oklch(88% 0.11 162);
+  --color-emerald-900: oklch(92% 0.08 162);
+
+  --color-red-50: oklch(26% 0.06 25);
+  --color-red-100: oklch(31% 0.07 25);
+  --color-red-200: oklch(38% 0.09 25);
+  --color-red-400: oklch(56% 0.14 25);
+  --color-red-700: oklch(80% 0.14 25);
+  --color-red-800: oklch(85% 0.12 25);
+  --color-red-900: oklch(90% 0.09 25);
+
+}
+
+/*
+ * `text-white` is ink on dark chrome, not a surface, so it must stay
+ * white while `--color-white` becomes a card.
+ */
+:root[data-theme='dark'] .text-white {
+  color: #fff;
+}
+
+/*
+ * A canvas or page preview is a picture of paper. Turning it over
+ * would be a lie about the file the user is about to save - a scan
+ * would appear inverted on screen and come out white in the download.
+ */
+:root[data-theme='dark'] canvas.bg-white,
+:root[data-theme='dark'] svg.bg-white {
+  background-color: #fff;
 }

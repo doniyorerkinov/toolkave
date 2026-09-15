@@ -31,32 +31,7 @@ const current = computed(() => options.value.find(option => option.code === loca
 const open = ref(false)
 const root = ref<HTMLElement | null>(null)
 
-function onPointerDown(event: PointerEvent) {
-  const target = event.target
-  if (target instanceof Node && root.value?.contains(target)) return
-  open.value = false
-}
-
-function onKeydown(event: KeyboardEvent) {
-  if (event.key === 'Escape') open.value = false
-}
-
-watch(open, isOpen => {
-  if (!import.meta.client) return
-  if (isOpen) {
-    document.addEventListener('pointerdown', onPointerDown, true)
-    document.addEventListener('keydown', onKeydown)
-  } else {
-    document.removeEventListener('pointerdown', onPointerDown, true)
-    document.removeEventListener('keydown', onKeydown)
-  }
-})
-
-onBeforeUnmount(() => {
-  if (!import.meta.client) return
-  document.removeEventListener('pointerdown', onPointerDown, true)
-  document.removeEventListener('keydown', onKeydown)
-})
+useDismissable(open, root)
 
 // Navigating away should not leave a menu hanging open behind the new page.
 watch(() => alternates.value, () => (open.value = false))

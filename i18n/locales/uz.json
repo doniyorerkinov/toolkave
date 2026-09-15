@@ -9,7 +9,8 @@
     "home": "Bosh sahifa",
     "allTools": "Barcha vositalar",
     "language": "Til",
-    "skipToContent": "Asosiy qismga o'tish"
+    "skipToContent": "Asosiy qismga o'tish",
+    "theme": "Mavzu"
   },
   "footer": {
     "about": "Loyiha haqida",
@@ -4389,5 +4390,10 @@
       "tritanopia": "Tritanopiya — koʻk kolbachalar yoʻq (kam uchraydi, ikkala jinsda teng)",
       "achromatopsia": "Axromatopsiya — rang umuman yoʻq (juda kam)"
     }
+  },
+  "theme": {
+    "system": "Qurilmadagidek",
+    "light": "Yorug‘",
+    "dark": "Qorong‘i"
   }
 }

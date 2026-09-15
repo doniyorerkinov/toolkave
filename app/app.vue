@@ -16,6 +16,29 @@ const FONT_SUBSETS = [
 
 useHead({
   htmlAttrs: { lang: locale },
+  /*
+   * The theme, applied before the first pixel is drawn.
+   *
+   * Every page here is prerendered to the same HTML for everybody, so the
+   * server cannot know which theme this visitor chose. Anything that waits for
+   * Vue to hydrate would paint the default first and correct it a moment
+   * later, which is the white flash that makes a dark site unpleasant to open.
+   * A blocking inline script in the head is the one thing that runs early
+   * enough.
+   *
+   * It only reads: a missing or unreadable value leaves the attribute off and
+   * the media query in `main.css` follows the system, which is the right
+   * answer for everyone who has never touched the switch. The key is repeated
+   * from `useTheme.ts` because this runs long before any module is loaded.
+   */
+  script: [
+    {
+      tagPosition: 'head',
+      innerHTML:
+        "try{var t=localStorage.getItem('toolkave-theme');" +
+        "if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}"
+    }
+  ],
   titleTemplate: title => (title ? `${title}` : t('site.name')),
   link: computed(() => [
     { rel: 'icon', href: '/favicon.ico', sizes: '32x32' },

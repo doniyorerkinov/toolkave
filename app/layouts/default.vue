@@ -55,7 +55,10 @@ const navCategories = computed(() =>
           </ul>
         </nav>
 
-        <ShellLanguageSwitcher compact class="shrink-0" />
+        <div class="flex shrink-0 items-center gap-1.5">
+          <ShellThemeSwitcher />
+          <ShellLanguageSwitcher compact />
+        </div>
       </div>
     </header>
 

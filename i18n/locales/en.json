@@ -9,7 +9,8 @@
     "home": "Home",
     "allTools": "All tools",
     "language": "Language",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "theme": "Theme"
   },
   "footer": {
     "about": "About",
@@ -4389,5 +4390,10 @@
       "tritanopia": "Tritanopia — no blue cones (rare, affects both sexes equally)",
       "achromatopsia": "Achromatopsia — no colour at all (very rare)"
     }
+  },
+  "theme": {
+    "system": "Match my device",
+    "light": "Light",
+    "dark": "Dark"
   }
 }
