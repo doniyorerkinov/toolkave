@@ -10,7 +10,7 @@
  * download — so that is a second, optional button rather than something the
  * page does on arrival.
  */
-import {MEDIA_MAX_SIZE, AUDIO_TYPES, inputName, readProbe, VIDEO_TYPES, type MediaInfo } from '~~/shared/media'
+import { MEDIA_MAX_SIZE, AUDIO_TYPES, inputName, readProbe, VIDEO_TYPES, type MediaInfo } from '~~/shared/media'
 import { formatBytes } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 

@@ -265,20 +265,38 @@ export function socialArgs(preset: SocialPreset, fit: SocialFit): string[] {
 }
 
 /**
- * Still images out of a video.
+ * Still images out of a video - always as PNG, whatever the visitor asked for.
  *
- * `fps` below 1 means one frame every few seconds — the useful end for
- * "give me a contact sheet of this lecture". The frame cap is not a
- * limitation so much as a guard: `fps=25` on a ten-minute video is fifteen
- * thousand PNGs, which fills memory and produces a zip nobody wanted.
+ * ffmpeg's own JPEG encoder is not usable in this wasm core: on a 10-bit HEVC
+ * source it corrupts memory after a few dozen frames and the worker dies with
+ * "memory access out of bounds", taking the shared engine with it. Converting
+ * to 8-bit first made no difference; the fault is in the encoder. PNG output
+ * from the same command runs to the end, so ffmpeg produces PNG and, when JPG
+ * was wanted, the browser's own encoder makes it from that - see Frames.vue.
+ * Do not put mjpeg back here without a file like that to test against.
+ *
+ * `fps` below 1 means one frame every few seconds - the useful end for "give
+ * me a contact sheet of this lecture". The frame cap is a guard: `fps=25` on a
+ * ten-minute video is fifteen thousand files, which fills memory and produces
+ * a zip nobody wanted.
  */
-export function framesArgs(options: { fps: number; width: number; limit: number; format: 'jpg' | 'png' }): string[] {
-  return [
-    '-vf', `fps=${options.fps},scale='min(${options.width},iw)':-2`,
-    '-frames:v', String(options.limit),
-    // -q:v is the JPEG quality scale (2 is near-lossless); PNG ignores it.
-    ...(options.format === 'jpg' ? ['-q:v', '2'] : [])
-  ]
+/**
+ * How much of the input the frame cap can possibly need, in seconds.
+ *
+ * `-frames:v` only limits output. If the `fps` filter stops emitting - a
+ * timestamp discontinuity in the source is enough - ffmpeg carries on decoding
+ * to the end of the file looking for frames that never come, and a 60-frame
+ * request against a two-hour video becomes a two-hour decode with the progress
+ * bar frozen. Capping the input read with `-t` makes the run proportional to
+ * the cap whatever the file does. One extra period so the filter can flush
+ * the final frame.
+ */
+export function framesSpan(options: { fps: number; limit: number }): number {
+  return Math.ceil((options.limit + 1) / options.fps)
+}
+
+export function framesArgs(options: { fps: number; width: number; limit: number }): string[] {
+  return ['-vf', `fps=${options.fps},scale='min(${options.width},iw)':-2`, '-frames:v', String(options.limit)]
 }
 
 /* ------------------------------------------------------------------ *

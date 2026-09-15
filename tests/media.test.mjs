@@ -153,12 +153,18 @@ test('social presets fill, fit or blur — and only blur needs a filter graph', 
 })
 
 test('frame extraction is capped, or a long video becomes fifteen thousand files', () => {
-  const args = media.framesArgs({ fps: 1, width: 1280, limit: 200, format: 'jpg' })
+  const args = media.framesArgs({ fps: 1, width: 1280, limit: 200 })
   assert.equal(valueAfter(args, '-frames:v'), '200')
   assert.match(valueAfter(args, '-vf'), /^fps=1,scale='min\(1280,iw\)':-2$/)
-  assert.ok(args.includes('-q:v'), 'jpg needs a quality; without one ffmpeg picks a poor default')
-  // PNG is lossless, so -q:v would be meaningless and ffmpeg warns about it.
-  assert.ok(!media.framesArgs({ fps: 1, width: 1280, limit: 10, format: 'png' }).includes('-q:v'))
+})
+
+test('ffmpeg is never asked for JPEG frames, because its encoder crashes the core', () => {
+  // The wasm mjpeg encoder corrupts memory on a 10-bit HEVC source and kills
+  // the worker mid-run. JPG is made by the browser from PNG instead, so no
+  // JPEG quality flag and no JPEG-only option may reach ffmpeg from here.
+  const args = media.framesArgs({ fps: 2, width: 640, limit: 10 })
+  assert.ok(!args.includes('-q:v'), 'a JPEG quality flag means mjpeg is back')
+  assert.ok(!args.some(a => /mjpeg|yuvj/.test(a)))
 })
 
 test('merging normalises every input first, because concat refuses mismatches', () => {
@@ -331,4 +337,13 @@ test('a mono voice note reports one channel, not stereo', () => {
   ])
   assert.equal(info.streams[0].channels, 'mono')
   assert.equal(info.duration, 9)
+})
+
+test('frame extraction reads only the span the cap can use, plus one period to flush', () => {
+  // 60 frames one second apart need 60 s of input, and the fps filter emits a
+  // frame only when it sees the next one - so one more period.
+  assert.equal(media.framesSpan({ fps: 1, limit: 60 }), 61)
+  assert.equal(media.framesSpan({ fps: 2, limit: 300 }), 151)
+  // Every three seconds, ten frames: 33 s, not the whole film.
+  assert.equal(media.framesSpan({ fps: 1 / 3, limit: 10 }), 33)
 })

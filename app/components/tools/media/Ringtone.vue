@@ -12,7 +12,7 @@
  * browser's own player does it: press play, find the chorus, press "start
  * here". Nothing is decoded by us until the cut is made.
  */
-import {MEDIA_MAX_SIZE, AUDIO_TYPES, inputName, RINGTONE_MAX, ringtoneArgs, type RingtonePhone } from '~~/shared/media'
+import { MEDIA_MAX_SIZE, AUDIO_TYPES, inputName, RINGTONE_MAX, ringtoneArgs, type RingtonePhone } from '~~/shared/media'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 

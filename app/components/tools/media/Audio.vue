@@ -7,7 +7,7 @@
  * as its own page because "ogg to mp3" is what people search for after being
  * sent a voice note they need to keep.
  */
-import {MEDIA_MAX_SIZE, AUDIO_TYPES, convertAudioArgs, inputName, normaliseArgs, type AudioFormat } from '~~/shared/media'
+import { MEDIA_MAX_SIZE, AUDIO_TYPES, convertAudioArgs, inputName, normaliseArgs, type AudioFormat } from '~~/shared/media'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 

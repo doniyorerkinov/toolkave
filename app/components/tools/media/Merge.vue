@@ -14,7 +14,7 @@
  * nothing extra — it reads the headers with the same engine the merge needs
  * loaded anyway.
  */
-import {MEDIA_MAX_SIZE, AUDIO_TYPES, inputNames, mergeAudioArgs, mergeVideoArgs, VIDEO_TYPES } from '~~/shared/media'
+import { MEDIA_MAX_SIZE, AUDIO_TYPES, inputNames, mergeAudioArgs, mergeVideoArgs, VIDEO_TYPES } from '~~/shared/media'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 

@@ -9,7 +9,7 @@
  * preview is the site's own player around one of those, with "use current
  * time" buttons beside the fields.
  */
-import {MEDIA_MAX_SIZE, AUDIO_TYPES, inputName, trimArgs, VIDEO_TYPES } from '~~/shared/media'
+import { MEDIA_MAX_SIZE, AUDIO_TYPES, inputName, trimArgs, VIDEO_TYPES } from '~~/shared/media'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 

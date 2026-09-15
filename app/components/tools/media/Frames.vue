@@ -8,7 +8,8 @@
  * control: `fps=25` on a ten-minute lecture is fifteen thousand PNGs, which
  * fills memory long before it finishes and produces something nobody wanted.
  */
-import {MEDIA_MAX_SIZE, framesArgs, inputName, VIDEO_TYPES } from '~~/shared/media'
+import { MEDIA_MAX_SIZE, framesArgs, framesSpan, inputName, VIDEO_TYPES } from '~~/shared/media'
+import { convertImage } from '~/composables/useImage'
 import { zipFiles } from '~/composables/useZip'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
@@ -56,17 +57,40 @@ async function go() {
   store.busy = true
   store.error = null
   try {
+    const fps = 1 / every.value
+    const span = framesSpan({ fps, limit: limit.value })
+    // ffmpeg always hands back PNG; its JPEG encoder crashes this wasm core
+    // on some sources (see framesArgs). JPG, when asked for, is made here by
+    // the browser's own encoder, which is fast and does not take the engine
+    // down with it.
     const frames = await runMany({
       input: { name: inputName(file.value.name), data: file.value.data },
-      output: `frame-%04d.${format.value}`,
-      args: framesArgs({ fps: 1 / every.value, width: width.value, limit: limit.value, format: format.value })
+      output: 'frame-%04d.png',
+      // Read only as much of the file as the cap can use; see framesSpan.
+      beforeInput: ['-t', String(span)],
+      span,
+      args: framesArgs({ fps, width: width.value, limit: limit.value })
     })
+
+    const images: { name: string; data: Uint8Array }[] = []
+    for (const frame of frames) {
+      if (format.value === 'png') {
+        images.push(frame)
+        continue
+      }
+      // One at a time: sixty decoded bitmaps held at once is the kind of thing
+      // that ends a phone tab.
+      const held = { id: frame.name, name: frame.name, size: frame.data.byteLength, type: 'image/png', data: frame.data }
+      const jpeg = await convertImage(held, 'jpeg', 0.9)
+      images.push({ name: frame.name.replace(/\.png$/, '.jpg'), data: jpeg.data })
+    }
+
     store.setResult({
       name: outputName.value,
       type: 'application/zip',
-      data: await zipFiles(frames),
+      data: await zipFiles(images),
       sourceSize: file.value.size,
-      note: t('media.framesNote', { n: frames.length })
+      note: t('media.framesNote', { n: images.length })
     })
   } catch (error) {
     store.error = error instanceof Error && error.message === 'FFMPEG_FAILED' ? t('media.errorFailed') : t('media.errorGeneric')
