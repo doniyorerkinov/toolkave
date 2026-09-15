@@ -753,47 +753,6 @@
         "colour": "Yaxlit rang fonida kesib olindi",
         "blur": "O‘zining xiralashtirilgan foni ustida kesib olindi"
       }
-    },
-    "svg3d": {
-      "notSvg": "Bu SVG emas. Bu yerga vektor faylning oʻzi kerak, uning rasmi emas.",
-      "nothingToExtrude": "Bu faylda koʻtariladigan shakl yoʻq. Matnni avval chiziqlarga aylantirish kerak.",
-      "strokesOff": "Bu rasm faqat chiziqlardan iborat. Ularga qalinlik berish uchun \"Chiziqlarni ham hisobga olish\"ni yoqing.",
-      "readFailed": "Bu SVG oʻqilmadi.",
-      "reading": "Rasm oʻqilmoqda...",
-      "strokes": "Chiziqlarni ham hisobga olish",
-      "strokesNote": "Rasmda chiziqlar ham, boʻyalgan shakllar ham bor. Chiziqlarni ham koʻtarish.",
-      "strokesOnly": "Rasm faqat chiziqlardan iborat, shuning uchun ularsiz model chiqmaydi.",
-      "qualityLabel": "Egri chiziqlar aniqligi",
-      "quality": {
-        "draft": "Qoralama",
-        "normal": "Oddiy",
-        "fine": "Aniq"
-      },
-      "qualityNote": "Egri chiziqlar qanchalik aniq takrorlanadi. Aniqrogʻi silliqroq va ogʻirroq fayl; toʻgʻri burchakli rasmda hech narsani oʻzgartirmaydi."
-    },
-    "png3d": {
-      "readFailed": "Bu rasm oʻqilmadi.",
-      "reading": "Rasm oʻqilmoqda...",
-      "nothingFound": "Hech qanday shakl topilmadi. Boshqa manbani tanlang yoki chegarani suring.",
-      "shapes": "{n} ta shakl",
-      "traceLabel": "Nima koʻtariladi",
-      "traceNote": "Rasmingizdan topilgan kontur — silliqlash va mayda nuqtalarni olib tashlashdan keyin. Shakl aynan shunday chiqadi.",
-      "source": {
-        "alpha": "Shaffoflik",
-        "dark": "Qorongʻi qismi",
-        "light": "Yorugʻ qismi"
-      },
-      "alphaCut": "Piksel qanchalik toʻq boʻlishi kerak",
-      "brightnessCut": "Yorugʻ qayerda qorongʻiga oʻtadi",
-      "speckLabel": "Bundan mayda nuqtalarni hisobga olmaslik",
-      "speckNote": "Yumshoq yoki shovqinli chekka yuzlab mayda orolchalarga boʻlinib ketadi. Shu oʻlchamdan kichiklari tashlab yuboriladi.",
-      "edgeLabel": "Chekkalar",
-      "edges": {
-        "sharp": "Piksel boʻyicha",
-        "soft": "Yumshatilgan",
-        "round": "Yumaloq"
-      },
-      "edgeNote": "Piksellar kvadrat, shuning uchun chizilgan chekka zinapoyaga oʻxshab qoladi. Yumshatish uni yumaloqlaydi; piksel-art va burchaklari toʻgʻri boʻlishi kerak boʻlgan narsalar uchun oʻz holicha qoldiring."
     }
   },
   "percent": {
@@ -3765,50 +3724,6 @@
         "q4": "Ovoz qayta kodlanadimi?",
         "a4": "Yo'q. Tasvir ustidagi qimirlamas rasm ovozni o'zgartira olmaydi, shuning uchun asl yo'lak o'zgarishsiz ko'chiriladi. Faqat video qayta kodlanadi — unga biror narsa chizilayotganda bundan qochib bo'lmaydi."
       }
-    },
-    "svg-to-3d": {
-      "name": "SVG dan 3D modelga",
-      "title": "SVG dan 3D model — bepul STL, GLB va OBJ, brauzeringizda",
-      "short": "Tekis rasmni bosib chiqarsa ham, qoʻlga olsa ham boʻladigan hajmli narsaga aylantiring.",
-      "description": "SVG ni hech qayerga yuklamasdan 3D modelga aylantiring. Oʻlchamni millimetrda bering, qalinlik qoʻshing, modelni aylantirib koʻring va 3D bosma uchun STL, veb uchun GLB yoki 3D dasturlar uchun OBJ yuklab oling.",
-      "intro": "Logotip — bu allaqachon 3D modelning eng ogʻir qismi: kimdir har bir egri chiziqni chizgan, har bir burchakni oʻylagan va hammasini SVG ga saqlagan. Faqat qalinlik yetishmaydi. Bu yerda u millimetrda qoʻshiladi, chunki printer, slayser va tayyor narsani qoʻliga oladigan odam uchun faqat shu oʻlchov ahamiyatli. Oldindan koʻrishda modelning rasmi emas, modelning oʻzi aylanadi — shuning uchun bosmaga yuborishdan oldin orqa tomonini ham koʻrib olsa boʻladi. Hammasi qurilmangizda hisoblanadi, rasm hech qayerga ketmaydi.",
-      "howTo": {
-        "step1": "SVG qoʻshing. Boʻyalgan shakllar ham, chiziqlar ham ishlaydi, shuning uchun chiziq bilan chizilgan ikonka toʻplamlari ham toʻgʻri keladi.",
-        "step2": "Uzun tomoni va qalinlikni millimetrda bering. Xohlasangiz qiya qirra yoki orqa taglik qoʻshing.",
-        "step3": "STL, GLB yoki OBJ ni tanlab yuklab oling."
-      },
-      "faq": {
-        "q1": "Bu rostdan bosiladimi?",
-        "a1": "Bosilishi kerak. Har bir boʻlak teshiklari devor bilan oʻralgan yopiq yuza boʻlib chiqadi — slayserga modelning ichini tashqarisidan ajratish uchun aynan shu kerak. Rasmning qismlari bir-birining ustiga tushgan joyda bir-biriga tegib turgan alohida jismlar hosil boʻladi, ularni har qanday slayser oʻzi birlashtiradi. Asl cheklov — ingichka chiziqlar: taxminan 0,8 mm dan tor joyni suzgich umuman yotqiza olmaydi, shuning uchun rasmni qalinlashtiring yoki modelni kattalashtiring.",
-        "q2": "Model qanday oʻlchamda chiqadi?",
-        "a2": "Siz bergan oʻlchamda. SVG oʻzicha hech narsani anglatmaydigan koordinatalarda chizilgan, shuning uchun uzun tomoni siz aytgan millimetrga keltiriladi, qolgani nisbatini saqlaydi. Oldindan koʻrish ostidagi raqamlar — slayser koʻrsatadigan raqamlarning oʻzi.",
-        "q3": "Nega matn yoʻqolib qoldi?",
-        "a3": "SVG dagi matn — shakl emas, shriftni olish haqidagi koʻrsatma, ustiga-ustak u boshqa kompyuterdagi shrift. Muharriringizda matnni chiziqlarga aylantiring (Kontur, Object to Path, Create Outlines — dasturga qarab turlicha ataladi), shunda harflar qalinlik berish mumkin boʻlgan shakllarga aylanadi.",
-        "q4": "STL, GLB yoki OBJ?",
-        "a4": "Bosib chiqarsangiz — STL: uni har qanday slayser kutadi va u millimetrda. Sayt, telefon yoki AR uchun — GLB: u yerda model oʻz haqiqiy oʻlchamida keladi va asl rasmning ranglarini saqlaydi. Model Blender ga ketayotgan va yana tahrirlanadigan boʻlsa — OBJ."
-      }
-    },
-    "png-to-3d": {
-      "name": "PNG dan 3D modelga",
-      "title": "PNG dan 3D model — bepul, rasmdan STL ga brauzeringizda",
-      "short": "Vektor fayl boʻlmasa ham, logotip yoki ikonkani hajmli narsaga aylantiring.",
-      "description": "PNG, JPG yoki WebP ni hech qayerga yuklamasdan 3D modelga aylantiring. Kontur rasmning oʻzidan topiladi, oʻlcham millimetrda beriladi, natija STL, GLB yoki OBJ boʻlib chiqadi.",
-      "intro": "Koʻpchilikda logotip PNG koʻrinishida, koʻpchilik 3D dasturlar esa SVG soʻraydi. Bu yerda kontur oʻzi topiladi: rasmning cheti — shaffoflik tugagan joy yoki rasm yorugʻdan qorongʻiga oʻtgan joy, va oʻsha chet piksellar uyumi emas, devorlari bor haqiqiy konturga aylanadi. Nima chizilgani hech narsa qurilishidan oldin ekranda koʻrsatiladi, yaʼni chegara — taxmin qilinadigan emas, koʻrinadigan qaror. Ochiq aytadigan bir gap bor: bu haykal emas, soya shakli chiqaradi — yuz surati boshning shakli boʻlib chiqadi.",
-      "howTo": {
-        "step1": "PNG, JPG yoki WebP qoʻshing. Shaffof fondagi rasm eng yaxshi natija beradi.",
-        "step2": "Chizilgan konturga qarang va oʻzingiz xohlagan shaklga toʻgʻri kelguncha chegarani suring.",
-        "step3": "Oʻlcham va qalinlikni millimetrda bering, soʻng STL, GLB yoki OBJ yuklab oling."
-      },
-      "faq": {
-        "q1": "Mening rasmimda fon oq, shaffof emas.",
-        "a1": "Unda qorongʻi yoki yorugʻ qismini tanlang, chegara esa biri ikkinchisiga qayerda oʻtishini hal qiladi. Agar rasm fondan shunchaki toʻqroq yoki ochroq boʻlmasa, avval uni fonni olib tashlash vositasidan oʻtkazing va natijani shu yerga qaytaring — u haqiqiy shaffoflik bilan keladi, bu esa har qanday chegaradan yaxshiroq chet beradi.",
-        "q2": "Nega chet zinapoyaga oʻxshaydi?",
-        "a2": "Chunki piksellar kvadrat, va rasmning haqiqiy chetida boshqa ergashadigan narsa yoʻq. Yumshatish burchaklarni yumaloqlaydi — logotipga aynan shu kerak. Piksel-art va burchaklari toʻgʻri qolishi kerak boʻlgan narsalar uchun oʻtkir chetni qoldiring.",
-        "q3": "Buni surat bilan qilsa boʻladimi?",
-        "a3": "Uning soya shaklini olasiz — toʻgʻri chizilgan, lekin odamning soyasi bir dogʻdan iborat. Chizish cheti aniq rasmlarga toʻgʻri keladi: logotip, ikonka, yozuv, belgi, trafaret. Suratga esa yorugʻlik chuqurlikka aylanishi kerak, bu mutlaqo boshqa vazifa.",
-        "q4": "Bu SVG dan boshlaganchalik yaxshimi?",
-        "a4": "Deyarli, va rasmga bogʻliq. SVG da egri chiziqning oʻzi saqlanadi, shuning uchun uni istalgan oʻlchamda takrorlash mumkin; PNG da esa bir marta chizilgan natija saqlanadi, yaʼni kichik yoki qattiq siqilgan fayl allaqachon detallarni yoʻqotgan va uni hech qanday chizish qaytarmaydi. Faylning oʻzingizdagi eng katta nusxasini oling."
-      }
     }
   },
   "wordCounter": {
@@ -4533,28 +4448,5 @@
     "unmute": "Ovozni yoqish",
     "volume": "Ovoz balandligi",
     "fullscreen": "To‘liq ekran"
-  },
-  "model": {
-    "spin": "Aylantirish",
-    "stopSpin": "Toʻxtatish",
-    "dragHint": "Aylantirish uchun torting",
-    "triangles": "{n} uchburchak",
-    "sizeLabel": "Uzun tomoni",
-    "depthLabel": "Qalinligi",
-    "bevel": "Yuqori qirrasini yumshatish",
-    "bevelNote": "Yuqoridan kichik qiya qirra. Yorugʻlikni tutadi va bosmadagi qatlam izlarini yashiradi.",
-    "plate": "Orqa taglik qoʻshish",
-    "plateNote": "Rasm ortidagi tekis asos. Alohida boʻlaklarni birga ushlab turadi va bosmaga tayanch beradi.",
-    "plateDepth": "Taglik qalinligi",
-    "formatLabel": "Nima qilib yuklash",
-    "formats": {
-      "stl": "3D bosma uchun",
-      "glb": "Veb va AR uchun",
-      "obj": "3D dasturlar uchun"
-    },
-    "action": "{format} yigʻish",
-    "note": "{w} x {h} x {d} mm, {n} uchburchak",
-    "exportFailed": "Modelni saqlab boʻlmadi.",
-    "noWebgl": "Bu brauzer 3D koʻrsata olmaydi. Modelni baribir yigʻib yuklab olish mumkin, faqat oldindan koʻrish ishlamaydi."
   }
 }

@@ -23,26 +23,6 @@ export default defineNuxtConfig({
       for (let i = pages.length - 1; i >= 0; i--) {
         if (/^\/(?:[a-z]{2}\/)?indexing$/.test(pages[i]!.path)) pages.splice(i, 1)
       }
-    },
-
-    /**
-     * Stop the 3D library being prefetched by pages that will never use it.
-     *
-     * Nuxt asks the browser to prefetch the chunks behind every lazy import,
-     * which is right when a chunk is a few kilobytes of tool code. three.js
-     * is 730 KB - on an ordinary tool page it was more than half of
-     * everything prefetched, and the next largest chunk was 15 KB. Prefetch
-     * is idle-time and does not slow the page down, but it is still three
-     * quarters of a megabyte charged to someone's phone plan for a tool they
-     * did not open. It loads when the tool asks for it instead.
-     */
-    'build:manifest'(manifest) {
-      for (const entry of Object.values(manifest)) {
-        if (entry.name === 'three-lib') {
-          entry.prefetch = false
-          entry.preload = false
-        }
-      }
     }
   },
 
@@ -98,17 +78,6 @@ export default defineNuxtConfig({
       // holding a stale URL that answers 504. Naming it here has it
       // pre-bundled at startup instead.
       include: ['libheif-js/libheif-wasm/libheif-bundle.mjs', '@pdf-lib/upng', 'onnxruntime-web/wasm']
-    },
-    build: {
-      rollupOptions: {
-        output: {
-          // Named so the manifest hook above can find it: filenames are
-          // hashes, but the manifest keeps the chunk's name beside them.
-          manualChunks(id: string) {
-            if (id.includes('node_modules/three/')) return 'three-lib'
-          }
-        }
-      }
     }
   },
 
