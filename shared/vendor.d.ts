@@ -4,6 +4,11 @@
  * `mammoth/mammoth.browser.js` is the prebuilt browser bundle. It is the same
  * API as the package's main entry, which is typed — the bundle simply has no
  * declaration file pointing at it.
+ *
+ * Kept beside `shared/docx.ts`, which is the file that imports it: `shared` is
+ * compiled into both the app and the server contexts, so one declaration here
+ * covers the site and the Telegram bot. Under `app/types` the server build
+ * could not see it.
  */
 declare module 'mammoth/mammoth.browser.js' {
   import type mammoth from 'mammoth'

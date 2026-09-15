@@ -12,7 +12,7 @@
  * servers until the moment the PDF is built, and are never written down here.
  */
 
-export type PendingKind = 'image' | 'pdf'
+export type PendingKind = 'image' | 'pdf' | 'docx'
 
 export interface PendingFile {
   fileId: string

@@ -25,6 +25,7 @@ const MAX_FILES = 100
 const MAX_TOTAL_BYTES = 45 * 1024 * 1024
 
 const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/jpg']
+const DOCX_TYPE = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 
 /**
  * How long to wait for the rest of a batch before speaking.
@@ -200,6 +201,7 @@ function fileFrom(message: NonNullable<TelegramUpdate['message']>): PendingFile 
   let kind: PendingKind | null = null
   if (IMAGE_TYPES.includes(mime)) kind = 'image'
   else if (mime === 'application/pdf') kind = 'pdf'
+  else if (mime === DOCX_TYPE || /\.docx$/i.test(name)) kind = 'docx'
   // Telegram sometimes sends no mime type at all; the extension is the only
   // other clue, and the bytes get sniffed again before anything is embedded.
   else if (!mime && /\.(jpe?g|png)$/i.test(name)) kind = 'image'
@@ -224,6 +226,37 @@ async function pickedLocale(chatId: number, context: Context): Promise<BotLocale
 /** The picker. No greeting attached: that comes back in the chosen language. */
 async function askLanguage(chatId: number, context: Context): Promise<void> {
   await context.api.sendMessage(chatId, CHOOSE_LANGUAGE, LANGUAGE_BUTTONS)
+}
+
+/**
+ * A Word file, turned into a PDF, inside a Worker.
+ *
+ * The site does this with the browser's own `DOMParser`. A Worker has no DOM,
+ * so `linkedom` supplies one — the parser is injected rather than assumed,
+ * which is why `shared/doc-pdf` can be the same file in both places.
+ *
+ * Installed once, on the first conversion, not at module load: a chat that
+ * only ever sends photos never pays for a DOM implementation.
+ */
+let parserReady = false
+
+async function ensureParser(): Promise<void> {
+  if (parserReady) return
+  // `linkedom/worker` rather than the default entry: that one reaches for the
+  // native `canvas` binding, which a Worker has no way to resolve and which
+  // parsing HTML never needed anyway.
+  const { parseHTML } = await import('linkedom/worker')
+  const { setHtmlParser } = await import('../../shared/doc-pdf')
+  setHtmlParser(html => parseHTML(html).document as unknown as { body?: unknown })
+  parserReady = true
+}
+
+async function wordToPdf(data: Uint8Array): Promise<Uint8Array> {
+  await ensureParser()
+  const { docxToHtml } = await import('../../shared/docx')
+  const { htmlToPdf } = await import('../../shared/doc-pdf')
+  const { html } = await docxToHtml(data)
+  return await htmlToPdf(html)
 }
 
 /**
@@ -281,7 +314,8 @@ async function greet(chatId: number, locale: BotLocale, context: Context): Promi
   const lines = [s.greeting, s.can.join('\n'), s.limits, s.sendAsFile, s.privacy, s.changeLanguage]
   await context.api.sendMessage(chatId, lines.join('\n\n'), [
     [{ text: s.menu.photos, callback_data: 'how:photos' }],
-    [{ text: s.menu.merge, callback_data: 'how:merge' }]
+    [{ text: s.menu.merge, callback_data: 'how:merge' }],
+    [{ text: s.menu.word, callback_data: 'how:word' }]
   ])
 }
 
@@ -312,6 +346,7 @@ async function showCount(
     await context.api.sendMessage(chatId, files.length >= MAX_FILES ? s.tooMany(MAX_FILES) : s.tooHeavy)
   }
   const images = files.filter(file => file.kind === 'image').length
+  const words = files.filter(file => file.kind === 'docx').length
   const pdfs = files.length - images
   const mixed = images > 0 && pdfs > 0
 
@@ -319,13 +354,16 @@ async function showCount(
   // it offered "merge into one PDF", which with nothing to merge it into hands
   // back the same file - and it appears exactly when someone has just been told
   // to send a cover first, so it contradicts the instruction it follows.
-  const text = images === 0 && pdfs === 1 ? s.countOnePdf
+  const text = files.length === 1 && words === 1 ? s.countOneWord
+    : images === 0 && pdfs === 1 ? s.countOnePdf
     : images === 0 ? s.countPdfs(pdfs)
     : pdfs === 0 ? s.countImages(images)
     : s.countMixed(images, pdfs)
 
   const buttons =
-    images === 0 && pdfs === 1
+    files.length === 1 && words === 1
+      ? [[{ text: s.mergePdfs, callback_data: 'merge' }], [{ text: s.clear, callback_data: 'clear' }]]
+      : images === 0 && pdfs === 1
       ? [[{ text: s.clear, callback_data: 'clear' }]]
       : images === 0
         ? [[{ text: s.mergePdfs, callback_data: 'merge' }], [{ text: s.clear, callback_data: 'clear' }]]
@@ -362,7 +400,7 @@ async function onCallback(query: NonNullable<TelegramUpdate['callback_query']>, 
   // A menu button: say what to send, remember nothing. The file that arrives
   // next is still what decides which buttons appear under it.
   if (query.data?.startsWith('how:')) {
-    const which = query.data.slice(4) as 'photos' | 'merge'
+    const which = query.data.slice(4) as 'photos' | 'merge' | 'word'
     const how = STRINGS[locale].how[which]
     if (how) await context.api.sendMessage(chatId, how)
     return
@@ -452,11 +490,18 @@ async function build(chatId: number, locale: BotLocale, fit: Fit, context: Conte
     for (const file of session.files) {
       try {
         const data = await context.api.download(file.fileId)
-        held.push({
-          name: file.name,
-          type: file.kind === 'pdf' ? 'application/pdf' : 'image/jpeg',
-          data
-        })
+        if (file.kind === 'docx') {
+          // Converted here rather than at assembly time: from this point it is
+          // a PDF like any other, so a Word cover merges with scanned pages
+          // through exactly the same path.
+          held.push({ name: file.name, type: 'application/pdf', data: await wordToPdf(data) })
+        } else {
+          held.push({
+            name: file.name,
+            type: file.kind === 'pdf' ? 'application/pdf' : 'image/jpeg',
+            data
+          })
+        }
       } catch {
         dropped++
       }
@@ -474,6 +519,7 @@ async function build(chatId: number, locale: BotLocale, fit: Fit, context: Conte
     await context.api.sendDocument(chatId, name, bytes, caption)
     // Counted here rather than at the button: this is the line that means a
     // document actually reached somebody.
+    if (session.files.some(file => file.kind === 'docx')) await context.store.count('built:word')
     const sources = held.filter(file => file.type === 'application/pdf').length
     await context.store.count(sources === 0 ? 'built:photos' : sources === held.length ? 'built:merge' : 'built:mixed')
     await context.store.count('files', held.length)

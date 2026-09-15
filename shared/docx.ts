@@ -16,11 +16,16 @@
  * The extension is spelled out because Node's ESM resolver, which the test
  * scripts use, does not add one.
  */
+/**
+ * Mammoth's browser build, which despite the name needs no browser.
+ *
+ * It was once guarded behind `import.meta.server` to keep the library out of
+ * the server bundle. The Telegram bot converts Word files now, so the Worker
+ * needs it — and a probe confirmed the build runs with `document` and
+ * `DOMParser` both undefined: it reads the zip and emits HTML as a string.
+ * Still a dynamic import, so the site loads it only when a file arrives.
+ */
 async function loadMammoth() {
-  // Browser only. `import.meta.server` is a build-time constant, so in the server
-  // build this throws before the import and Rollup drops the import as dead code:
-  // the Worker bundle never carries the library, and never has to parse it.
-  if (import.meta.server) throw new Error('browser only')
   return (await import('mammoth/mammoth.browser.js')).default
 }
 

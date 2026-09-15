@@ -10,7 +10,7 @@ import assert from 'node:assert/strict'
 import { register } from 'node:module'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { lib, solidPng } from './helpers/pdf.mjs'
+import { lib, solidPng, pageTexts } from './helpers/pdf.mjs'
 
 register('./helpers/alias-loader.mjs', import.meta.url)
 const ROOT = path.resolve(fileURLToPath(import.meta.url), '../..')
@@ -377,7 +377,7 @@ test('the greeting lists every capability, in all three languages', async () => 
     const reply = await openedIn(language, context)
 
     const listed = reply.text.split('\n').filter(line => /^\p{Emoji_Presentation}/u.test(line))
-    assert.equal(listed.length, 2, `${language}: two capabilities listed`)
+    assert.equal(listed.length, 3, `${language}: three capabilities listed`)
     assert.ok(/20 MB|20 МБ/.test(reply.text), `${language}: states the file cap`)
     assert.ok(/\/language/.test(reply.text), `${language}: says how to change language back`)
   }
@@ -395,8 +395,8 @@ test('the greeting offers a button per capability, and tapping one only explains
   const context = { api: fakeApi(), store: fakeStore(), settle: BRIEF }
   const intro = await openedIn('uz', context)
 
-  assert.equal(intro.buttons.length, 2, 'one button per capability')
-  assert.deepEqual(intro.buttons.flat().map(button => button.callback_data), ['how:photos', 'how:merge'])
+  assert.equal(intro.buttons.length, 3, 'one button per capability')
+  assert.deepEqual(intro.buttons.flat().map(button => button.callback_data), ['how:photos', 'how:merge', 'how:word'])
 
   await handleUpdate(press('how:merge', 'ru'), context)
   // Uzbek was chosen, so the answer is Uzbek even though the phone says Russian.
@@ -582,4 +582,66 @@ test('what the bot produced is counted, and nothing about who asked', async () =
   for (const key of mixed.store.tally.keys()) {
     assert.ok(!/\d{4,}/.test(key), `tally key "${key}" looks like it carries an id`)
   }
+})
+
+/** A real .docx, built here so the test owns its own fixture. */
+async function docxFixture(heading = 'Yillik hisobot', body = 'Отчёт за сентябрь 2026 года.') {
+  const { default: JSZip } = await import('jszip')
+  const zip = new JSZip()
+  zip.file('[Content_Types].xml', '<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="xml" ContentType="application/xml"/><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>')
+  zip.folder('_rels').file('.rels', '<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>')
+  zip.folder('word').file('document.xml', `<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:t>${heading}</w:t></w:r></w:p><w:p><w:r><w:t>${body}</w:t></w:r></w:p></w:body></w:document>`)
+  return await zip.generateAsync({ type: 'uint8array' })
+}
+
+const wordDoc = (fileId, bytes) => ({
+  message: {
+    message_id: 4, chat: { id: 7 }, from: { language_code: 'uz' },
+    document: {
+      file_id: fileId, file_name: 'hisobot.docx',
+      mime_type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      file_size: bytes.byteLength
+    }
+  }
+})
+
+/**
+ * Teachers are sent .docx templates in the same Telegram groups they would
+ * forward a scan from, so this is the one conversion worth doing inside the
+ * Worker rather than sending them to the website for.
+ */
+test('a Word file comes back as a PDF with its text intact', async () => {
+  const docx = await docxFixture()
+  const context = { api: fakeApi({ w: docx }), store: fakeStore(), settle: BRIEF }
+
+  await deliver([wordDoc('w', docx)], context)
+  const counter = context.api.log.messages.at(-1)
+  assert.match(counter.text, /Word fayli qabul qilindi/, 'a lone Word file is not called "one PDF"')
+  assert.ok(counter.buttons.flat().some(b => b.callback_data === 'merge'), 'and it has something to do')
+
+  await handleUpdate(press('merge', 'uz'), context)
+  const [sent] = context.api.log.documents
+  assert.ok(sent, 'a document came back')
+
+  const out = await PDFDocument.load(sent.bytes)
+  assert.equal(out.getPageCount(), 1)
+  const text = (await pageTexts(sent.bytes)).join('')
+  assert.match(text, /Yillik hisobot/, 'Uzbek Latin survived')
+  assert.match(text, /Отчёт за сентябрь/, 'Cyrillic survived')
+  assert.equal(context.store.tally.get('built:word'), 1)
+})
+
+test('a Word cover and photographed pages come back as one document, cover first', async () => {
+  const docx = await docxFixture('Attestatsiya', 'Muqova')
+  const png = solidPng(300, 400)
+  const context = { api: fakeApi({ w: docx, a: png, b: png }), store: fakeStore(), settle: BRIEF }
+
+  await deliver([wordDoc('w', docx), photo('a'), photo('b')], context)
+  await handleUpdate(press('a4', 'uz'), context)
+
+  const out = await PDFDocument.load(context.api.log.documents[0].bytes)
+  assert.equal(out.getPageCount(), 3)
+  const texts = await pageTexts(context.api.log.documents[0].bytes)
+  assert.match(texts[0], /Attestatsiya/, 'the Word page is first')
+  assert.equal(texts[1].trim(), '', 'the photos carry no text layer')
 })

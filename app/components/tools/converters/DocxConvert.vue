@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { docxToHtml, docxToMarkdown, docxToText, isDocx, isLegacyDoc } from '~/composables/useDocx'
+import { docxToHtml, docxToMarkdown, docxToText, isDocx, isLegacyDoc } from '~~/shared/docx'
 import { useFilesStore } from '~/stores/files'
 
 /** One component, three pages: .docx to plain text, to HTML and to Markdown. */

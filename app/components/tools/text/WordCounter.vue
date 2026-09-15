@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { docxToText, isDocx, isLegacyDoc } from '~/composables/useDocx'
+import { docxToText, isDocx, isLegacyDoc } from '~~/shared/docx'
 import { detectEncoding } from '~/utils/encoding'
 
 /**

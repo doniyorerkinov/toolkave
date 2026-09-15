@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { docxToHtml, isDocx, isLegacyDoc } from '~/composables/useDocx'
-import { htmlToPdf, type Orientation, type PageSize } from '~/composables/useDocPdf'
+import { docxToHtml, isDocx, isLegacyDoc } from '~~/shared/docx'
+import { htmlToPdf, type Orientation, type PageSize } from '~~/shared/doc-pdf'
 import { useFilesStore } from '~/stores/files'
 
 /**

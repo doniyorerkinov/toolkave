@@ -36,14 +36,16 @@ interface Strings {
   /** How to get the language picker back, shown once the choice is made. */
   changeLanguage: string
   /** Button labels on /start, for people who expect a menu rather than prose. */
-  menu: { photos: string; merge: string }
+  menu: { photos: string; merge: string; word: string }
   /** What each of those buttons answers with: what to send, nothing more. */
-  how: { photos: string; merge: string }
+  how: { photos: string; merge: string; word: string }
   privacy: string
   countImages: (n: number) => string
   countPdfs: (n: number) => string
   /** One PDF cannot be merged with itself; say what would actually help. */
   countOnePdf: string
+  /** A Word file on its own: say what will happen to it. */
+  countOneWord: string
   makePdfA4: string
   /** Labels for a batch holding both: "make a PDF" is photo talk, and wrong here. */
   combineA4: string
@@ -72,20 +74,24 @@ const en: Strings = {
   can: [
     '📄  Photos into one PDF, A4 pages or photo size',
     '📎  Several PDFs into one',
+    '📝  A Word file into a PDF',
   ],
   changeLanguage: 'Wrong language? /language',
   menu: {
     photos: '📄 Photos → PDF',
-    merge: '📎 Merge PDFs'
+    merge: '📎 Merge PDFs',
+    word: '📝 Word → PDF'
   },
   how: {
     photos: 'Send me the photos — a few at a time or all at once. When you have sent them all, press the button and I will send back one PDF.',
-    merge: 'Send me the PDF files, in the order you want them. Then press the button and I will join them into one.'
+    merge: 'Send me the PDF files, in the order you want them. Then press the button and I will join them into one.',
+    word: 'Send the .docx file. I will send back a PDF. Send photos with it and they become pages after it.'
   },
   privacy: 'Your files are never saved: they are converted in memory and gone the moment the PDF is sent.',
   countImages: n => `${n} photo${n === 1 ? '' : 's'} received. Send more, or:`,
   countPdfs: n => `${n} PDF${n === 1 ? '' : 's'} received. Send more, or:`,
   countOnePdf: 'One PDF received. Send another and I will join them into one.',
+  countOneWord: 'A Word file received. Press the button and I will send it back as a PDF.',
   combineA4: '📑 Make one document (A4)',
   combineOriginal: '🖼 One document (photo size)',
   makePdfA4: '📄 Make PDF (A4)',
@@ -113,20 +119,24 @@ const ru: Strings = {
   can: [
     '📄  Фотографии в один PDF, страницы A4 или размер фото',
     '📎  Несколько PDF в один',
+    '📝  Файл Word в PDF',
   ],
   changeLanguage: 'Не тот язык? /language',
   menu: {
     photos: '📄 Фото → PDF',
-    merge: '📎 Объединить PDF'
+    merge: '📎 Объединить PDF',
+    word: '📝 Word → PDF'
   },
   how: {
     photos: 'Присылайте фотографии — по несколько или все сразу. Когда пришлёте все, нажмите кнопку, и я верну один PDF.',
-    merge: 'Пришлите PDF-файлы в том порядке, в каком они нужны. Потом нажмите кнопку — соберу их в один.'
+    merge: 'Пришлите PDF-файлы в том порядке, в каком они нужны. Потом нажмите кнопку — соберу их в один.',
+    word: 'Пришлите файл .docx — верну PDF. Если добавите фотографии, они станут страницами после него.'
   },
   privacy: 'Ваши файлы нигде не сохраняются: они обрабатываются в памяти и исчезают сразу после отправки PDF.',
   countImages: n => `Получено фото: ${n}. Отправьте ещё или:`,
   countPdfs: n => `Получено PDF: ${n}. Отправьте ещё или:`,
   countOnePdf: 'Получен 1 PDF. Пришлите ещё один — объединю их в один файл.',
+  countOneWord: 'Получен файл Word. Нажмите кнопку — верну его в PDF.',
   combineA4: '📑 Собрать один документ (A4)',
   combineOriginal: '🖼 Один документ (размер фото)',
   makePdfA4: '📄 Собрать PDF (A4)',
@@ -153,21 +163,25 @@ const uz: Strings = {
   greeting: "Fayl yuboring — u bilan nima qila olishimni ko'rsataman. Hammasi bepul.",
   can: [
     "📄  Suratlardan bitta PDF, A4 sahifa yoki surat o'lchami",
-    "📎  Bir nechta PDF dan bitta PDF"
+    "📎  Bir nechta PDF dan bitta PDF",
+    "📝  Word faylini PDF ga"
   ],
   changeLanguage: "Til noto'g'rimi? /language",
   menu: {
     photos: '📄 Surat → PDF',
-    merge: '📎 PDF birlashtirish'
+    merge: '📎 PDF birlashtirish',
+    word: '📝 Word → PDF'
   },
   how: {
     photos: "Suratlarni yuboring — bir nechtadan yoki hammasini birvarakayiga. Hammasini yuborib bo'lgach, tugmani bosing, men bitta PDF qaytaraman.",
-    merge: "PDF fayllarni kerakli tartibda yuboring. Keyin tugmani bosing — ularni bittaga birlashtiraman."
+    merge: "PDF fayllarni kerakli tartibda yuboring. Keyin tugmani bosing — ularni bittaga birlashtiraman.",
+    word: ".docx faylni yuboring — PDF qilib qaytaraman. Surat ham qo'shsangiz, ular undan keyin sahifa bo'ladi."
   },
   privacy: "Fayllaringiz hech qayerda saqlanmaydi: xotirada ishlanadi va PDF yuborilishi bilan yo'qoladi.",
   countImages: n => `${n} ta surat qabul qilindi. Yana yuboring yoki:`,
   countPdfs: n => `${n} ta PDF qabul qilindi. Yana yuboring yoki:`,
   countOnePdf: '1 ta PDF qabul qilindi. Yana bittasini yuboring — ularni birlashtiraman.',
+  countOneWord: "Word fayli qabul qilindi. Tugmani bosing — uni PDF qilib qaytaraman.",
   combineA4: '📑 Bitta hujjat qilish (A4)',
   combineOriginal: "🖼 Bitta hujjat (surat o'lchami)",
   makePdfA4: '📄 PDF yasash (A4)',

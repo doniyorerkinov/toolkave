@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { htmlToMarkdown, markdownToHtml, sanitiseHtml } from '~/composables/useDocx'
+import { htmlToMarkdown, markdownToHtml, sanitiseHtml } from '~~/shared/docx'
 import { downloadBytes } from '~/utils/download'
 
 /** One component, two pages: Markdown to HTML and HTML to Markdown. */

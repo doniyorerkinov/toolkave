@@ -26,6 +26,7 @@
     "jsqr": "^1.4.0",
     "jszip": "^3.10.2",
     "libheif-js": "^1.23.2",
+    "linkedom": "^0.18.13",
     "lucide-vue-next": "^1.0.0",
     "mammoth": "^1.12.2",
     "marked": "^18.0.12",
@@ -50,7 +51,6 @@
     "@types/pdfmake": "^0.3.3",
     "@types/qrcode": "^1.5.6",
     "@types/turndown": "^5.0.6",
-    "linkedom": "^0.18.13",
     "typescript": "^6.0.3",
     "vue-tsc": "^3.3.11",
     "wrangler": "^4.129.1"

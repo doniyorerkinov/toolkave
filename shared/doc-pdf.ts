@@ -1,4 +1,6 @@
-import type { Grid } from '~/utils/table'
+/** A table as rows of cells. Declared here so nothing in `shared` reaches
+ * into `app`: the Worker imports this file and must not pull the site in. */
+export type Grid = string[][]
 
 /**
  * Generating PDFs that contain real, selectable text — for tables and for
@@ -372,6 +374,22 @@ const PAGE_WIDTHS: Record<PageSize, Record<Orientation, number>> = {
   A3: { portrait: 842, landscape: 1191 }
 }
 
+/**
+ * How to turn an HTML string into something walkable.
+ *
+ * The browser has `DOMParser`; a Cloudflare Worker has no DOM at all. Rather
+ * than branch on the environment, the environment supplies the parser — the
+ * same shape as `setPdfFontSource` above, and the reason this file can be
+ * imported by both the site and the bot.
+ */
+type HtmlParser = (html: string) => { body?: unknown; documentElement?: unknown } | null
+
+let parseHtml: HtmlParser = html => new DOMParser().parseFromString(html, 'text/html')
+
+export function setHtmlParser(parser: HtmlParser): void {
+  parseHtml = parser
+}
+
 export async function htmlToPdf(html: string, options: DocPdfOptions = {}): Promise<Uint8Array> {
   const { pageSize = 'A4', orientation = 'portrait', margin = 40 } = options
   const contentWidth = PAGE_WIDTHS[pageSize][orientation] - margin * 2
@@ -380,7 +398,8 @@ export async function htmlToPdf(html: string, options: DocPdfOptions = {}): Prom
   // silently wrap it in <html><body>; not every DOM implementation does, and
   // some keep only the first element. Wrapping explicitly removes the doubt.
   const wrapped = /<(html|body)[\s>]/i.test(html) ? html : `<!doctype html><html><body>${html}</body></html>`
-  const parsed = new DOMParser().parseFromString(wrapped, 'text/html')
+  const parsed = parseHtml(wrapped)
+  if (!parsed) throw new Error('EMPTY_DOCUMENT')
   const root = parsed.body ?? parsed.documentElement
   if (!root) throw new Error('EMPTY_DOCUMENT')
 

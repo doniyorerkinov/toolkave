@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Grid } from '~/utils/table'
 import { readCsv, readWorkbook } from '~/composables/useSheet'
-import { gridToPdf, WIDE_TABLE_COLUMNS, type Orientation, type PageSize } from '~/composables/useDocPdf'
+import { gridToPdf, WIDE_TABLE_COLUMNS, type Orientation, type PageSize } from '~~/shared/doc-pdf'
 import { encodingName } from '~/utils/encoding'
 import { useFilesStore } from '~/stores/files'
 
