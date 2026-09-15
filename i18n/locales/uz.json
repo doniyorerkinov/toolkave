@@ -3270,6 +3270,106 @@
         "q3": "UUID ni baza kaliti qilsa boʻladimi?",
         "a3": "Boʻladi va tizimlar orasida identifikatorlarni kelishishdan xalos qiladi, lekin tasodifiy v4 yozuvlarni indeks boʻylab sochib yuboradi va katta jadvallarda qoʻshishni sekinlashtirishi mumkin. Koʻp jamoalar shu sababli vaqt boʻyicha tartiblangan v7 ni oladi."
       }
+    },
+    "contrast-checker": {
+      "name": "Kontrastni tekshirish",
+      "short": "Matn oʻz foni ustida oʻqiladimi yoki yoʻqligini tekshirish.",
+      "title": "Rang kontrastini tekshirish — WCAG AA va AAA, bepul",
+      "description": "Bepul WCAG kontrast tekshiruvi. Ikki rangni AA va AAA darajalariga solishtiring, nisbatni koʻring va oʻtadigan eng yaqin rangni oling.",
+      "intro": "Oq kartochkadagi kulrang matn dizayner monitorida nafis koʻrinadi va kunduzi telefonda yoʻqoladi. Bu yerda nisbat ham, hukm ham bor, ustiga koʻp tekshiruvlar tashlab ketadigan qism: rostdan oʻtadigan eng yaqin rang. U OKLCH da yorqinlikni surish bilan topiladi, shuning uchun rang tusi oʻzingiznikiligicha qoladi.",
+      "howTo": {
+        "step1": "Matn rangi va fonni kiriting.",
+        "step2": "Nisbat va AA, AAA hukmlarini oʻqing.",
+        "step3": "Oʻtmasa, taklif qilingan rangni oling."
+      },
+      "faq": {
+        "q1": "AA va AAA nimani anglatadi?",
+        "a1": "Bu WCAG tavsiyalarining ikki darajasi. AA oddiy matn uchun 4,5:1, yirik yoki qalin matn uchun 3:1 talab qiladi — koʻp qoidalar va shartnomalar shuni soʻraydi. AAA 7:1 talab qiladi va rostdan oʻqiladigan matnlarda shunga intilish arziydi.",
+        "q2": "Nega taklif mening rangimni saqlaydi?",
+        "a2": "Chunki ishlatmaydigan taklif foyda bermaydi. OKLCH da faqat yorqinlik suriladi, rang tusiga tegilmaydi, shuning uchun natija siz tanlagan rangning toʻqroq yoki ochroq varianti boʻladi, boshqa rang emas.",
+        "q3": "Rang koʻrlik hisobga olinadimi?",
+        "a3": "Yoʻq. Kontrast yorugʻ va qorongʻi haqida va hamma uchun bir xil ishlaydi. Ikki rangni ajratib boʻladimi — bu boshqa savol, unga rang koʻrlik simulyatori javob beradi."
+      }
+    },
+    "gradient-generator": {
+      "name": "CSS gradient generatori",
+      "short": "Oʻrtasida kulrangga aylanmaydigan gradient yasash.",
+      "title": "CSS gradient generatori — silliq, kulrang oʻrtasiz, bepul",
+      "description": "Bepul CSS gradient generatori. Ikki rangni OKLab orqali aralashtiring, shunda oʻrtasi toʻyingan qoladi, va CSS ni nusxalang.",
+      "intro": "Koʻkni sariqqa oddiy yoʻl bilan aralashtiring — oʻrtasi loyqa kulrang boʻladi, chunki RGB da ular orasidagi toʻgʻri chiziq fazoning toʻyingan qismidan chiqib ketadi. OKLab orqali oʻtish uni aylanib oʻtadi. Ikkala variant yonma-yon koʻrsatilgan, shunda farqni ishonch bilan emas, koʻz bilan bilib olasiz.",
+      "howTo": {
+        "step1": "Ikkita rangni tanlang.",
+        "step2": "Burchakni belgilang va ikki oʻtishni solishtiring.",
+        "step3": "CSS ni nusxalang."
+      },
+      "faq": {
+        "q1": "Nega CSS da toʻqqizta rang bor?",
+        "a1": "Chunki brauzer nima bersangiz ham sRGB da aralashtiradi. Oʻrtasini aniq yozib qoʻyish — barcha brauzerlarni OKLab yoʻlidan yurishga majburlashning yagona usuli, faqat rang fazosi koʻrsatmasini tushunadigan eng yangilarini emas.",
+        "q2": "sRGB qachon yomon koʻrinadi?",
+        "a2": "Ranglar tus boʻyicha uzoq boʻlganda, ayniqsa koʻk va sariq, qizil va yashil kabi qarama-qarshilarida. Bir rangning ikki tusi ikkala holatda ham deyarli bir xil koʻrinadi.",
+        "q3": "Ikkitadan koʻp rang boʻladimi?",
+        "a3": "Hozircha yoʻq. Ikkita gradient yasab CSS ni qoʻlda ulang yoki oʻrtadagi rangni birining oxiri va keyingisining boshi qilib qoʻying."
+      }
+    },
+    "shades-tints": {
+      "name": "Ochiq va toʻq ranglar",
+      "short": "Bitta rangdan ochiqdan toʻqqacha toʻliq shkala yasash.",
+      "title": "Ochiq va toʻq ranglar generatori — bitta rangdan shkala, bepul",
+      "description": "Bepul ochiq va toʻq ranglar generatori. Bitta rangni toʻliq shkalaga aylantiring va hex ni nusxalang.",
+      "intro": "Bitta brend rangi hech qachon yetmaydi: fon uchun ochiqrogʻi, bosilgan holat uchun toʻqrogʻi, chegara uchun bosigʻi kerak. Bu yerda uchala oila birdan chiqadi. Ochiqlari oq bilan, toʻqlari qora bilan, bosiqlari kulrang bilan aralashtirilgan, har bir qadam esa bir bosishda nusxalanadi.",
+      "howTo": {
+        "step1": "Rangingizni kiriting.",
+        "step2": "Uch shkalani koʻrib chiqing.",
+        "step3": "Hex ni nusxalash uchun namunani bosing."
+      },
+      "faq": {
+        "q1": "Ochiq, toʻq va bosiq nimasi bilan farq qiladi?",
+        "a1": "Ochiq oq qoʻshadi. Toʻq qora qoʻshadi. Bosiq kulrang qoʻshadi: rang sezilarli ochiq yoki toʻq boʻlmasdan tinchroq boʻladi, chegaraga yoki nofaol holatga koʻpincha aynan shu kerak.",
+        "q2": "Bularni tayyor dizayn shkalasi sifatida olsa boʻladimi?",
+        "a2": "Bu yaxshi boshlanish nuqtasi va qadamlar tuzilishiga koʻra bir tekis. Haqiqiy interfeys shkalasi uchun matn tushadigan pogʻonalarni kontrast tekshiruvidan oʻtkazing: bir tekislik va oʻqilishlik bir narsa emas.",
+        "q3": "Nega baʻzi qadamlar bir-biriga yaqinroq koʻrinadi?",
+        "a3": "Chunki koʻz chiziqli emas. Teng miqdorda aralashtirish teng darajada farqli ranglar bermaydi, ayniqsa oqqa yaqin joyda, u yerda kichik oʻzgarishlarni payqash qiyin."
+      }
+    },
+    "colour-mixer": {
+      "name": "Rang aralashtirish",
+      "short": "Ikki rangni aralashtirib, aslida nima chiqishini koʻrish.",
+      "title": "Rang aralashtirish onlayn — bepul",
+      "description": "Bepul onlayn rang aralashtirish. Istalgan ikki rangni istalgan nisbatda, OKLab yoki sRGB da aralashtiring va natijani hex da nusxalang.",
+      "intro": "Ikki rangni qizil, yashil va koʻkini oʻrtachalab aralashtirishning ravshan usuli odatda ikkalasidan ham toʻqroq va kulrangroq natija beradi. OKLab da aralashtirish yorqinlikni kutilgan joyda ushlab turadi. Ikkalasi ham shu yerda, farq nimaga tushishini koʻrasiz.",
+      "howTo": {
+        "step1": "Ikkala rangni kiriting.",
+        "step2": "Nisbatni surgich bilan belgilang.",
+        "step3": "Nusxalash uchun natijani bosing."
+      },
+      "faq": {
+        "q1": "Nega aralashtirishning ikki usuli bor?",
+        "a1": "sRGB — koʻp kod qiladigan narsa, kanal boʻyicha oʻrtachalash esa yoʻlda toʻqroq va kamroq toʻyingan qiymatlardan oʻtadi. OKLab teng qadamlar teng koʻrinadigan qilib qurilgan, shuning uchun aralashma oʻzi kelib chiqqan ranglar kabi yorqin qoladi.",
+        "q2": "Boʻyoqlar ham shunday aralashadimi?",
+        "a2": "Yoʻq. Boʻyoqlar subtraktiv aralashadi, shuning uchun koʻk va sariq qogʻozda yashil, ekranda esa kulrang beradi. Bu yerda yorugʻlik aralashadi, ekran ham shunday qiladi.",
+        "q3": "Ikkitadan koʻpini aralashtirsa boʻladimi?",
+        "a3": "Ikkitasini aralashtiring, natijani nusxalang va uni uchinchisi bilan aralashtiring. Tartib javobni oʻzgartiradi, xuddi boʻyoqdagidek."
+      }
+    },
+    "colour-blindness": {
+      "name": "Rang koʻrlik simulyatori",
+      "short": "Rangni har oʻn ikki erkakdan bittasi koʻrgandek koʻrish.",
+      "title": "Rang koʻrlik simulyatori — rangni onlayn tekshirish, bepul",
+      "description": "Bepul rang koʻrlik simulyatori. Istalgan rangni protanopiya, deyteranopiya, tritanopiya va axromatopsiyada qanday koʻrinishini koʻring.",
+      "intro": "Taxminan har oʻn ikki erkakdan biri qizilni yashildan qolganlar kabi ajrata olmaydi, va bu qizil xato xabari bilan yashil muvaffaqiyat xabari ular uchun bitta xabar boʻlishiga yetadi. Bu yerda rang toʻrt xil rang koʻrish nuqsoni orqali koʻrsatiladi, buning uchun Machado matritsalari qoʻpol filtr emas, chiziqli yorugʻlikka qoʻllanadi.",
+      "howTo": {
+        "step1": "Rangni kiriting.",
+        "step2": "Toʻrt simulyatsiyani solishtiring.",
+        "step3": "Ikki rangingiz birlashsa, shakl yoki yozuv qoʻshing."
+      },
+      "faq": {
+        "q1": "Bu qanchalik aniq?",
+        "a1": "2009 yildagi Machado, Oliveira va Fernandes modeli ishlatiladi — brauzerlar va dizayn vositalari ishlatadigani, sRGB qiymatlariga emas, chiziqli yorugʻlikka qoʻllangan holda. Bu yaxshi taqribiy, tajribaning oʻzi emas.",
+        "q2": "Ikki rang bir xil koʻrinsa nima qilish kerak?",
+        "a2": "Faqat rangga tayanmang. Belgi, yozuv, naqsh yoki yorqinlikdagi farq qoʻshing. Rang butunlay olib tashlansa ham saqlanib qoladigan har qanday narsa har qanday nuqsonda ham saqlanadi.",
+        "q3": "Qaysi turi eng muhim?",
+        "a3": "Deyteranopiya, katta farq bilan: u eng keng tarqalgan va aynan u qizil bilan yashilni birlashtiradi. Tritanopiya kam uchraydi, lekin qizil-yashil turlaridan farqli oʻlaroq ayollarda ham erkaklardagidek tez-tez uchraydi."
+      }
     }
   },
   "wordCounter": {
@@ -3816,6 +3916,43 @@
       "jwt": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ.signature",
       "epoch": "1758000000",
       "cron": "0 9 * * 1"
+    }
+  },
+  "colourtools": {
+    "foreground": "Matn rangi",
+    "background": "Fon",
+    "colour": "Rang",
+    "first": "Birinchi rang",
+    "second": "Ikkinchi rang",
+    "from": "Dan",
+    "to": "Gacha",
+    "result": "Natija",
+    "swap": "Oʻrnini almashtirish",
+    "copy": "Nusxalash",
+    "copied": "Nusxalandi",
+    "pass": "Oʻtadi",
+    "fail": "Oʻtmaydi",
+    "sampleLarge": "Yirik matn shunday koʻrinadi",
+    "sampleSmall": "Sahifaning katta qismi terilgan oddiy matn esa shunday koʻrinadi.",
+    "suggestion": "Rang tusini saqlagan holda AA dan oʻtadigan eng yaqin rang:",
+    "tints": "Ochiq — oq aralashgan",
+    "shades": "Toʻq — qora aralashgan",
+    "tones": "Bosiq — kulrang aralashgan",
+    "amount": "Aralashma: ikkinchi rangdan {n}%",
+    "angle": "Burchak: {n}°",
+    "spaceLabel": "Qaysi fazo orqali",
+    "space": {
+      "oklab": "OKLab — tekis, rangini yoʻqotmaydi",
+      "srgb": "sRGB — CSS sukut boʻyicha shunday qiladi"
+    },
+    "spaceNote": "sRGB ikki rang orasiga toʻgʻri chiziq tortadi, qarama-qarshi tuslar uchun esa u kulrang orqali oʻtadi. OKLab uni aylanib oʻtadi va toʻyinganligini saqlaydi.",
+    "gradientNote": "Ikkita emas, toʻqqizta nuqta yoziladi, shunda har bir brauzer bir xil yoʻldan boradi, oʻzicha sRGB da aralashtirmaydi.",
+    "unreadable": "Bu rangga oʻxshamaydi. #f27d14 kabi hex yoki rgb(242, 125, 20) ni sinab koʻring.",
+    "deficiency": {
+      "protanopia": "Protanopiya — qizil kolbachalar yoʻq (erkaklarning taxminan 1%)",
+      "deuteranopia": "Deyteranopiya — yashil kolbachalar yoʻq (erkaklarning taxminan 1%)",
+      "tritanopia": "Tritanopiya — koʻk kolbachalar yoʻq (kam uchraydi, ikkala jinsda teng)",
+      "achromatopsia": "Axromatopsiya — rang umuman yoʻq (juda kam)"
     }
   }
 }

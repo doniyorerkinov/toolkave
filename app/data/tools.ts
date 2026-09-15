@@ -100,6 +100,64 @@ export const categories: CategoryDef[] = [
 
 export const tools: ToolDef[] = [
   {
+    id: 'contrast-checker',
+    category: 'color',
+    group: 'check',
+    component: 'color/Contrast',
+    icon: 'contrast',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'contrast-checker', ru: 'proverka-kontrasta', uz: 'kontrast-tekshirish' },
+    related: ['colour-blindness', 'color-picker']
+  },
+  {
+    id: 'gradient-generator',
+    category: 'color',
+    group: 'make',
+    component: 'color/Gradient',
+    icon: 'blend',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'css-gradient-generator', ru: 'generator-gradientov', uz: 'gradient-generatori' },
+    related: ['colour-mixer', 'palette-generator']
+  },
+  {
+    id: 'shades-tints',
+    category: 'color',
+    group: 'make',
+    component: 'color/Derive',
+    icon: 'layers',
+    published: false,
+    config: { mode: 'shades' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'shades-and-tints', ru: 'ottenki-i-tona', uz: 'ranglar-shkalasi' },
+    related: ['colour-mixer', 'palette-generator']
+  },
+  {
+    id: 'colour-mixer',
+    category: 'color',
+    group: 'make',
+    component: 'color/Derive',
+    icon: 'droplets',
+    published: false,
+    config: { mode: 'mix' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'color-mixer', ru: 'smeshivanie-cvetov', uz: 'rang-aralashtirish' },
+    related: ['gradient-generator', 'shades-tints']
+  },
+  {
+    id: 'colour-blindness',
+    category: 'color',
+    group: 'check',
+    component: 'color/Derive',
+    icon: 'eye-off',
+    published: false,
+    config: { mode: 'blind' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'color-blindness-simulator', ru: 'simulyator-daltonizma', uz: 'rang-korlik-simulyatori' },
+    related: ['contrast-checker', 'color-palettes']
+  },
+  {
     id: 'color-palettes',
     category: 'color',
     group: 'pick',

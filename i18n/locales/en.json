@@ -3270,6 +3270,106 @@
         "q3": "Should I use a UUID as a database key?",
         "a3": "It works and avoids coordinating ids across systems, but a random v4 scatters writes across an index and can slow inserts on large tables. Many teams use v7, which is time-ordered, for exactly that reason."
       }
+    },
+    "contrast-checker": {
+      "name": "Contrast checker",
+      "short": "Check whether text can actually be read on its background.",
+      "title": "Colour Contrast Checker — WCAG AA and AAA, free online",
+      "description": "Free WCAG contrast checker. Test any two colours against AA and AAA, see the ratio, and get the nearest colour that passes.",
+      "intro": "Grey text on a white card looks refined on a designer monitor and disappears on a phone in daylight. This gives the ratio and the verdict, and then the part most checkers leave out: the nearest colour that actually passes, found by walking the lightness in OKLCH so the hue stays where you put it.",
+      "howTo": {
+        "step1": "Enter the text colour and the background.",
+        "step2": "Read the ratio and the AA and AAA verdicts.",
+        "step3": "If it fails, take the suggested colour."
+      },
+      "faq": {
+        "q1": "What do AA and AAA mean?",
+        "a1": "They are the two levels of the Web Content Accessibility Guidelines. AA needs 4.5:1 for ordinary text and 3:1 once it is large or bold, and is what most rules and contracts require. AAA needs 7:1 and is worth aiming for on anything long enough to read properly.",
+        "q2": "Why does the suggestion keep my colour?",
+        "a2": "Because a suggestion you will not use is no help. The lightness is moved in OKLCH and the hue is left alone, so the result is a darker or lighter version of the colour you chose rather than a different one.",
+        "q3": "Does this cover colour blindness?",
+        "a3": "No. Contrast is about light and dark, and works the same for everyone. Whether two colours can be told apart is a different question, and the colour blindness simulator answers it."
+      }
+    },
+    "gradient-generator": {
+      "name": "CSS gradient generator",
+      "short": "Build a gradient that stays colourful in the middle.",
+      "title": "CSS Gradient Generator — smooth, no grey middle, free",
+      "description": "Free CSS gradient generator. Blend two colours through OKLab so the middle stays saturated, and copy the CSS.",
+      "intro": "Blend blue into yellow the ordinary way and the middle turns muddy grey, because a straight line between them in RGB dips out of the colourful part of the space. Blending through OKLab bends around that. Both versions are shown side by side, so the difference is something you can see rather than take on trust.",
+      "howTo": {
+        "step1": "Pick the two colours.",
+        "step2": "Set the angle and compare the two blends.",
+        "step3": "Copy the CSS."
+      },
+      "faq": {
+        "q1": "Why does the CSS list nine colours?",
+        "a1": "Because a browser blends in sRGB whatever you give it. Writing the middle out explicitly is the only way to make every browser follow the OKLab path, rather than only the newest ones that understand a colour space hint.",
+        "q2": "When does sRGB look wrong?",
+        "a2": "Whenever the two colours are far apart in hue, especially opposite ones like blue and yellow or red and green. Two shades of the same colour look nearly identical either way.",
+        "q3": "Can I use more than two colours?",
+        "a3": "Not here yet. For now, generate two gradients and join the CSS by hand, or place the middle colour as the end of one and the start of the next."
+      }
+    },
+    "shades-tints": {
+      "name": "Shades and tints",
+      "short": "Build a full scale from one colour, light through dark.",
+      "title": "Shades and Tints Generator — colour scale from one hex, free",
+      "description": "Free shades and tints generator. Turn one colour into a full scale of tints, shades and tones, ready to copy as hex.",
+      "intro": "One brand colour is never enough: you need a lighter one for a background, a darker one for a hover state and something muted for a border. This produces all three families at once. Tints are mixed towards white, shades towards black, tones towards grey, and each step is copied with a click.",
+      "howTo": {
+        "step1": "Enter your colour.",
+        "step2": "Read across the three scales.",
+        "step3": "Click any swatch to copy its hex."
+      },
+      "faq": {
+        "q1": "What is the difference between a tint, a shade and a tone?",
+        "a1": "A tint adds white and gets lighter. A shade adds black and gets darker. A tone adds grey and gets quieter without getting much lighter or darker, which is often what a border or a disabled state wants.",
+        "q2": "Are these ready to use as a design scale?",
+        "a2": "They are a good starting point and evenly spaced by construction. For a real interface scale, check the steps you will put text on with the contrast checker; even spacing and readable spacing are not the same thing.",
+        "q3": "Why do some steps look closer together than others?",
+        "a3": "Because the eye is not linear. Mixing in equal amounts does not produce equally different-looking colours, particularly near white where small changes are hard to see."
+      }
+    },
+    "colour-mixer": {
+      "name": "Colour mixer",
+      "short": "Mix two colours and see what you actually get.",
+      "title": "Colour Mixer Online — blend two colours, free",
+      "description": "Free online colour mixer. Blend any two colours by any proportion, in OKLab or sRGB, and copy the result as hex.",
+      "intro": "Mixing two colours in the obvious way, by averaging their red, green and blue, gives a result that is usually darker and greyer than either. Mixing in OKLab keeps the brightness where you expect it. Both are here, so you can see what the difference costs.",
+      "howTo": {
+        "step1": "Enter both colours.",
+        "step2": "Slide to set the proportion.",
+        "step3": "Click the result to copy it."
+      },
+      "faq": {
+        "q1": "Why are there two ways to mix?",
+        "a1": "sRGB is what most code does, and averaging channel by channel dips through darker and less colourful values on the way. OKLab is built so that equal steps look equal, so the mix stays as bright as the two colours it came from.",
+        "q2": "Is this how paint mixes?",
+        "a2": "No. Paint mixes subtractively, which is why blue and yellow make green on paper and grey on a screen. This mixes light, which is what a screen does.",
+        "q3": "Can I mix more than two?",
+        "a3": "Mix two, copy the result, then mix that with the third. The order changes the answer, exactly as it would with paint."
+      }
+    },
+    "colour-blindness": {
+      "name": "Colour blindness simulator",
+      "short": "See a colour the way about one man in twelve does.",
+      "title": "Colour Blindness Simulator — check a colour online, free",
+      "description": "Free colour blindness simulator. See any colour as protanopia, deuteranopia, tritanopia and achromatopsia render it.",
+      "intro": "About one man in twelve cannot tell red from green the way the rest of the population does, which is enough that a red error message and a green success message are, for them, the same message. This shows a colour through the four kinds of colour deficiency, using the Machado matrices applied to linear light rather than a crude filter.",
+      "howTo": {
+        "step1": "Enter the colour.",
+        "step2": "Compare the four simulations.",
+        "step3": "If two of your colours converge, add a shape or a label."
+      },
+      "faq": {
+        "q1": "How accurate is this?",
+        "a1": "It uses the Machado, Oliveira and Fernandes model from 2009, the same one browsers and design tools use, applied in linear light rather than to the sRGB values directly. It is a good approximation, not the experience itself.",
+        "q2": "What should I do if two colours look the same?",
+        "a2": "Do not rely on the colour alone. Add an icon, a label, a pattern or a difference in lightness. Anything that survives the colour being removed entirely will survive every kind of deficiency.",
+        "q3": "Which kind matters most?",
+        "a3": "Deuteranopia, by a wide margin: it is the most common, and it is the one that collapses red and green. Tritanopia is rare but affects women as often as men, unlike the red-green kinds."
+      }
     }
   },
   "wordCounter": {
@@ -3816,6 +3916,43 @@
       "jwt": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ.signature",
       "epoch": "1758000000",
       "cron": "0 9 * * 1"
+    }
+  },
+  "colourtools": {
+    "foreground": "Text colour",
+    "background": "Background",
+    "colour": "Colour",
+    "first": "First colour",
+    "second": "Second colour",
+    "from": "From",
+    "to": "To",
+    "result": "Result",
+    "swap": "Swap them",
+    "copy": "Copy",
+    "copied": "Copied",
+    "pass": "Pass",
+    "fail": "Fail",
+    "sampleLarge": "Large text looks like this",
+    "sampleSmall": "And ordinary body text, the size most of a page is set in, looks like this.",
+    "suggestion": "Closest colour that passes AA, keeping the same hue:",
+    "tints": "Tints — mixed towards white",
+    "shades": "Shades — mixed towards black",
+    "tones": "Tones — mixed towards grey",
+    "amount": "Mix: {n}% of the second colour",
+    "angle": "Angle: {n}°",
+    "spaceLabel": "Blend through",
+    "space": {
+      "oklab": "OKLab — even, keeps its colour",
+      "srgb": "sRGB — what CSS does by default"
+    },
+    "spaceNote": "sRGB draws a straight line between the two colours, which for opposite hues passes through grey. OKLab bends around it and stays saturated.",
+    "gradientNote": "Nine stops are written out rather than two, so every browser follows the same path instead of blending in sRGB on its own.",
+    "unreadable": "That is not a colour this understands. Try a hex code like #f27d14, or rgb(242, 125, 20).",
+    "deficiency": {
+      "protanopia": "Protanopia — no red cones (about 1% of men)",
+      "deuteranopia": "Deuteranopia — no green cones (about 1% of men)",
+      "tritanopia": "Tritanopia — no blue cones (rare, affects both sexes equally)",
+      "achromatopsia": "Achromatopsia — no colour at all (very rare)"
     }
   }
 }
