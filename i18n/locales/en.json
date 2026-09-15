@@ -3110,6 +3110,166 @@
         "q4": "Can I use it on music?",
         "a4": "You can, but music is usually mastered deliberately, and levelling flattens the difference between quiet and loud passages that the musician intended."
       }
+    },
+    "case-converter": {
+      "name": "Case converter",
+      "short": "Convert text between camelCase, snake_case, kebab-case and the rest.",
+      "title": "Case Converter — camelCase, snake_case, kebab-case, free",
+      "description": "Free online case converter. Switch text between camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE and Title Case in your browser.",
+      "intro": "Rename a column, a variable or a file to whatever convention the code around it uses. The part most converters get wrong is acronyms: parseHTMLDocument is three words, not two, so it becomes parse_html_document rather than parse_h_t_m_l_document. This splits on the boundary before the last capital of a run, which is the rule that gets that right.",
+      "howTo": {
+        "step1": "Paste or type the text.",
+        "step2": "Pick the style you need.",
+        "step3": "Copy the result."
+      },
+      "faq": {
+        "q1": "Does it handle acronyms properly?",
+        "a1": "Yes. getURLPath becomes get_url_path, not get_u_r_l_path. A run of capitals is treated as one word, with the boundary before its last letter where a new word begins.",
+        "q2": "Will it work on a whole list at once?",
+        "a2": "It converts the text as one string, so a list of names becomes one converted name. For a column of values, convert them one at a time, or use snake_case on the whole line if the separator survives.",
+        "q3": "Does Cyrillic work?",
+        "a3": "Splitting relies on Latin capitalisation, so Cyrillic text stays as it is apart from spacing and upper or lower case. Mixed text keeps the Cyrillic and converts the Latin."
+      }
+    },
+    "url-encoder": {
+      "name": "URL encoder and decoder",
+      "short": "Escape text for a URL, or read an escaped one back.",
+      "title": "URL Encode and Decode Online — free, no upload",
+      "description": "Free online URL encoder and decoder. Percent-encode text for a query string or decode one back to readable text, in your browser.",
+      "intro": "A space, an ampersand or a Cyrillic letter in a URL has to be escaped or the address breaks at that point. This escapes everything a query value needs, including the characters encodeURIComponent leaves alone but RFC 3986 reserves, so the result survives servers that read the spec strictly.",
+      "howTo": {
+        "step1": "Paste the text or the encoded string.",
+        "step2": "Choose Encode or Decode.",
+        "step3": "Copy the result."
+      },
+      "faq": {
+        "q1": "Why does it escape brackets and apostrophes?",
+        "a1": "encodeURIComponent leaves ! ' ( ) * alone, but RFC 3986 lists them as reserved. Most servers cope either way; the ones that do not fail in confusing ways, so escaping them costs nothing and removes a class of problem.",
+        "q2": "Why did my plus sign become a space?",
+        "a2": "In a query string a plus means a space, which is older than percent-encoding and still how forms are submitted. Decoding honours that. If you need a literal plus in a value, encode it as %2B.",
+        "q3": "What does the error mean?",
+        "a3": "It means the input is not valid percent-encoding, usually a lone % or one cut short like %E0%A4%A. The text is shown unchanged rather than half-decoded."
+      }
+    },
+    "base-converter": {
+      "name": "Number base converter",
+      "short": "Convert a number between binary, octal, decimal and hex.",
+      "title": "Number Base Converter — binary, octal, decimal, hex, free",
+      "description": "Free online number base converter. Convert between binary, octal, decimal, hexadecimal and base 36 in your browser, with full 64-bit precision.",
+      "intro": "Read a hex colour as decimal, a permission mask as binary, or a 64-bit identifier in whatever base a log printed it. The conversion runs through BigInt rather than ordinary numbers, which matters more than it sounds: past about nine quadrillion an ordinary number silently rounds, and a 64-bit id is exactly the kind of thing people bring to a base converter.",
+      "howTo": {
+        "step1": "Type the number.",
+        "step2": "Say which base it is already in.",
+        "step3": "Read it in every other base."
+      },
+      "faq": {
+        "q1": "What happens with very large numbers?",
+        "a1": "They stay exact. A Telegram chat id or a snowflake id is past the point where a normal JavaScript number starts rounding, so the conversion uses arbitrary-precision integers instead.",
+        "q2": "Why is my input rejected?",
+        "a2": "Because it contains a digit the base does not have. There is no 2 in binary and no g in hex. Refusing is better than guessing at what was meant.",
+        "q3": "Can I convert negative numbers?",
+        "a3": "Yes, with a leading minus. Spaces and underscores in the input are ignored, so 1010_1010 and de ad both work."
+      }
+    },
+    "hash-generator": {
+      "name": "Hash generator",
+      "short": "Get the SHA-256 or SHA-512 fingerprint of any text.",
+      "title": "SHA-256 Hash Generator Online — free, nothing uploaded",
+      "description": "Free online hash generator. Produce SHA-1, SHA-256, SHA-384 or SHA-512 from any text, computed in your browser and never uploaded.",
+      "intro": "A hash is a short fingerprint of a piece of text: the same input always gives the same result, and changing one character changes everything. Useful for checking that two things match without comparing them directly. This uses the browser's own cryptography, so the text never leaves your device, which matters if you are hashing anything you would not paste into a stranger's website.",
+      "howTo": {
+        "step1": "Type or paste the text.",
+        "step2": "Choose the algorithm.",
+        "step3": "Copy the hash."
+      },
+      "faq": {
+        "q1": "Which algorithm should I use?",
+        "a1": "SHA-256 unless something specifically requires another. SHA-1 is here because older systems still ask for it, but it has been broken since 2017 and should not be relied on for security.",
+        "q2": "Can I get the original text back?",
+        "a2": "No, and that is the point. A hash is one-way. Anyone claiming to reverse one is either looking the value up in a table of common inputs or guessing.",
+        "q3": "Is this safe for passwords?",
+        "a3": "Not for storing them. Password storage needs a slow algorithm with a salt, such as bcrypt or Argon2. A plain SHA hash is far too fast and can be attacked at enormous speed."
+      }
+    },
+    "jwt-decoder": {
+      "name": "JWT decoder",
+      "short": "See what is inside a JSON Web Token, without sending it anywhere.",
+      "title": "JWT Decoder Online — read a token safely, free",
+      "description": "Free online JWT decoder. Read the header, payload and expiry of a JSON Web Token in your browser. The token is never uploaded.",
+      "intro": "A JWT is three base64 sections joined by dots, and the middle one is readable by anyone holding the token. This decodes it and reads the dates back in words, including whether it has expired. It does not check the signature, and no browser tool honestly can: that needs the secret key, which belongs on a server. Pasting a live token into somebody else site hands them the token; here it stays on your machine.",
+      "howTo": {
+        "step1": "Paste the token.",
+        "step2": "Read the header and payload.",
+        "step3": "Check the expiry line."
+      },
+      "faq": {
+        "q1": "Why will it not verify the signature?",
+        "a1": "Verification needs the signing secret. Any site offering to verify a token is asking you to paste a production secret into a web page, which is a worse idea than the problem it solves. Decoding tells you what the token claims; only your server can tell you whether the claim is genuine.",
+        "q2": "Is it safe to paste a real token here?",
+        "a2": "Safer than elsewhere: the decoding happens in your browser and nothing is sent to us. You can prove it by disconnecting from the internet after the page loads. Even so, a token is a credential, so treat it like one.",
+        "q3": "What do exp, iat and nbf mean?",
+        "a3": "Expiry, issued-at and not-before, each a count of seconds since 1970. They are shown here as ordinary dates in your own time zone, which is the quickest way to spot a clock problem."
+      }
+    },
+    "epoch-converter": {
+      "name": "Unix timestamp converter",
+      "short": "Turn a Unix timestamp into a readable date, and back.",
+      "title": "Unix Timestamp Converter — epoch to date, free online",
+      "description": "Free online Unix timestamp converter. Turn epoch seconds or milliseconds into a readable date in your own time zone and in UTC.",
+      "intro": "A timestamp in a log or a database is a count of seconds since the first of January 1970, and reading one by eye is impossible. This converts it and shows both your own time zone and UTC, because a bug that looks like bad data is often just a five-hour difference.",
+      "howTo": {
+        "step1": "Paste the number.",
+        "step2": "Read the date in your zone and in UTC.",
+        "step3": "Copy the ISO form if a system needs it."
+      },
+      "faq": {
+        "q1": "Seconds or milliseconds?",
+        "a1": "Both are common and a bare number is genuinely ambiguous. Ten digits or fewer is read as seconds, which is correct for any date between 1973 and the year 5138; more than that is read as milliseconds. Which reading was used is stated above the result.",
+        "q2": "Why show UTC as well?",
+        "a2": "Because servers store UTC and people read local time, and the gap between the two explains a large share of date bugs. Seeing both at once usually settles the question immediately.",
+        "q3": "What is the ISO form for?",
+        "a3": "It is the unambiguous way to write an instant, and what most APIs and databases want when you hand them a date rather than a number."
+      }
+    },
+    "cron-parser": {
+      "name": "Cron expression reader",
+      "short": "Read a cron line in plain words before it runs.",
+      "title": "Cron Expression Parser — read a schedule in words, free",
+      "description": "Free online cron parser. Turn a cron expression into a plain sentence and catch an out-of-range field before the job silently never runs.",
+      "intro": "Five fields decide when something runs, and reading them wrong is easy. The failure is worse than a syntax error, because a cron line with an hour of 25 does not complain: the job simply never fires, and nobody notices until something is missing. This says what the line means in a sentence, and refuses a field outside its real range.",
+      "howTo": {
+        "step1": "Paste the cron expression.",
+        "step2": "Read the sentence.",
+        "step3": "Check each field below it."
+      },
+      "faq": {
+        "q1": "What are the five fields?",
+        "a1": "Minute, hour, day of the month, month and day of the week, in that order. A star means every value; */15 means every fifteenth; 1-5 is a range and 1,3,5 is a list.",
+        "q2": "Why does it reject some expressions?",
+        "a2": "Because a value falls outside what the field allows, such as an hour above 23 or a month above 12. Some systems accept these and then never run the job, which is much harder to notice than an error.",
+        "q3": "Does it handle special strings like {'@'}daily?",
+        "a3": "Not yet. Write {'@'}daily as 0 0 * * * and {'@'}hourly as 0 * * * *, which is what they expand to anyway."
+      }
+    },
+    "uuid-generator": {
+      "name": "UUID generator",
+      "short": "Generate version 4 UUIDs, as many as you need.",
+      "title": "UUID Generator Online — v4, bulk, free",
+      "description": "Free online UUID generator. Create one or hundreds of version 4 UUIDs in your browser, with or without hyphens, upper or lower case.",
+      "intro": "A version 4 UUID is a 122-bit random identifier, unique enough that you can generate one anywhere without asking a database. These come from the cryptographic generator built into the browser rather than from Math.random, which is the usual mistake: the two look identical and only one of them is unpredictable.",
+      "howTo": {
+        "step1": "Say how many you need.",
+        "step2": "Press Generate.",
+        "step3": "Copy one, or all of them."
+      },
+      "faq": {
+        "q1": "Are these really random?",
+        "a1": "They come from the cryptographically secure generator in your browser, the same source used for keys. A UUID built from Math.random looks the same and is predictable, which matters the moment one is used as a token.",
+        "q2": "Could I get a duplicate?",
+        "a2": "In practice, no. There are about 5.3 times 10 to the 36th possible values; you would need to generate billions per second for decades before a collision became likely.",
+        "q3": "Should I use a UUID as a database key?",
+        "a3": "It works and avoids coordinating ids across systems, but a random v4 scatters writes across an index and can slow inserts on large tables. Many teams use v7, which is time-ordered, for exactly that reason."
+      }
     }
   },
   "wordCounter": {
@@ -3589,6 +3749,73 @@
       "normalise": "Level the volume",
       "voice": "Convert to MP3",
       "trim": "Cut it"
+    }
+  },
+  "devtools": {
+    "input": "Input",
+    "output": "Result",
+    "copy": "Copy",
+    "copyAll": "Copy all",
+    "copied": "Copied",
+    "generate": "Generate",
+    "howMany": "How many",
+    "hyphens": "Hyphens",
+    "uppercase": "Uppercase",
+    "encode": "Encode",
+    "decode": "Decode",
+    "fromBase": "Input is in",
+    "header": "Header",
+    "payload": "Payload",
+    "seconds": "seconds",
+    "milliseconds": "milliseconds",
+    "readAs": "Read as {unit} since 1 January 1970.",
+    "badEscape": "That is not valid percent-encoding, an escape is cut short.",
+    "badDigits": "Those digits do not exist in base {base}.",
+    "jwtWarning": "This decodes the token; it does not check the signature. That needs the secret key, which belongs on a server and must never reach a browser. Treat the contents as a claim, not as proof.",
+    "jwtExpired": "Expired {when}.",
+    "jwtValid": "Valid until {when}.",
+    "case": {
+      "camel": "camelCase",
+      "pascal": "PascalCase",
+      "snake": "snake_case",
+      "kebab": "kebab-case",
+      "constant": "CONSTANT_CASE",
+      "title": "Title Case",
+      "sentence": "Sentence case",
+      "lower": "lower case",
+      "upper": "UPPER CASE"
+    },
+    "base": {
+      "2": "Binary (2)",
+      "8": "Octal (8)",
+      "10": "Decimal (10)",
+      "16": "Hex (16)",
+      "36": "Base 36",
+      "binary": "Binary",
+      "octal": "Octal",
+      "decimal": "Decimal",
+      "hex": "Hexadecimal"
+    },
+    "cron": {
+      "minute": "Minute",
+      "hour": "Hour",
+      "day_of_the_month": "Day",
+      "month": "Month",
+      "day_of_the_week": "Weekday"
+    },
+    "invalid": {
+      "jwt": "That does not look like a JWT. A token has three parts separated by dots.",
+      "epoch": "That is not a number.",
+      "cron": ""
+    },
+    "placeholder": {
+      "case": "parseHTMLDocument",
+      "url": "hello world & more",
+      "base": "ff",
+      "hash": "Anything you want a fingerprint of",
+      "jwt": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ.signature",
+      "epoch": "1758000000",
+      "cron": "0 9 * * 1"
     }
   }
 }

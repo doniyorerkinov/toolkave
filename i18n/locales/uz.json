@@ -3110,6 +3110,166 @@
         "q4": "Musiqaga qoʻllasa boʻladimi?",
         "a4": "Boʻladi, lekin musiqa odatda ataylab shunday jamlanadi, tenglash esa musiqachi koʻzlagan jim va baland joylar orasidagi farqni tekislab yuboradi."
       }
+    },
+    "case-converter": {
+      "name": "Registr konvertori",
+      "short": "Matnni camelCase, snake_case, kebab-case va boshqalar orasida almashtirish.",
+      "title": "Registr konvertori — camelCase, snake_case, kebab-case, bepul",
+      "description": "Bepul onlayn registr konvertori. Matnni brauzerda camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE va Bosh Harflar orasida almashtiring.",
+      "intro": "Ustun, oʻzgaruvchi yoki fayl nomini atrofdagi kod qabul qilgan qoidaga moslang. Koʻp konvertorlar qisqartmalarda qoqiladi: parseHTMLDocument uchta soʻz, ikkita emas, shuning uchun u parse_html_document boʻladi. Bu yerda chegara ketma-ket bosh harflarning oxirgisidan oldin qoʻyiladi, va ayni shu qoida toʻgʻri natija beradi.",
+      "howTo": {
+        "step1": "Matnni joylang yoki yozing.",
+        "step2": "Kerakli uslubni tanlang.",
+        "step3": "Natijani nusxalang."
+      },
+      "faq": {
+        "q1": "Qisqartmalar toʻgʻri ishlanadimi?",
+        "a1": "Ha. getURLPath get_url_path boʻladi, get_u_r_l_path emas. Ketma-ket bosh harflar bitta soʻz deb qaraladi, chegara esa yangi soʻz boshlanadigan oxirgi harfdan oldin qoʻyiladi.",
+        "q2": "Bir yoʻla roʻyxatni ishlash mumkinmi?",
+        "a2": "Matn bitta satr sifatida ishlanadi, shuning uchun ismlar roʻyxati bitta oʻzgartirilgan nomga aylanadi. Qiymatlar ustuni uchun bittalab oʻtkazing.",
+        "q3": "Kirill bilan ishlaydimi?",
+        "a3": "Boʻlish lotin bosh harflariga tayanadi, shuning uchun kirill matn boʻshliq va registrdan boshqa jihatdan oʻzgarmaydi. Aralash matnda kirill saqlanadi, lotin esa oʻzgartiriladi."
+      }
+    },
+    "url-encoder": {
+      "name": "URL kodlash va dekodlash",
+      "short": "Matnni URL uchun ekranlash yoki ekranlanganini qaytadan oʻqish.",
+      "title": "URL kodlash onlayn — bepul, yuklashsiz",
+      "description": "Bepul onlayn URL kodlovchi va dekodlovchi. Matnni soʻrov satri uchun ekranlang yoki uni brauzerda qaytadan oʻqiladigan holga keltiring.",
+      "intro": "URL ichidagi boʻshliq, ampersand yoki kirill harfi ekranlanishi kerak, aks holda manzil oʻsha joyda uziladi. Bu yerda soʻrovdagi qiymat uchun kerak boʻlgan hamma narsa ekranlanadi, jumladan encodeURIComponent tegmaydigan, lekin RFC 3986 zaxiralangan deb hisoblaydigan belgilar ham.",
+      "howTo": {
+        "step1": "Matn yoki kodlangan satrni joylang.",
+        "step2": "Kodlash yoki dekodlashni tanlang.",
+        "step3": "Natijani nusxalang."
+      },
+      "faq": {
+        "q1": "Nega qavs va apostroflar ham ekranlanadi?",
+        "a1": "encodeURIComponent ularga tegmaydi, lekin RFC 3986 ularni zaxiralangan deb sanaydi. Koʻp serverlar ikkalasini ham qabul qiladi, qabul qilmaydiganlari esa tushunarsiz tarzda ishdan chiqadi. Ekranlash hech narsa turmaydi va butun bir muammolar turkumini yoʻqotadi.",
+        "q2": "Nega plyus boʻshliqqa aylandi?",
+        "a2": "Soʻrov satrida plyus boʻshliqni anglatadi, bu foiz kodlashdan ham eski va formalar hanuz shunday yuboriladi. Aynan plyus kerak boʻlsa, uni %2B deb kodlang.",
+        "q3": "Xato nimani bildiradi?",
+        "a3": "Kiritilgan narsa toʻgʻri foiz kodlash emasligini: odatda yolgʻiz foiz belgisi yoki uzilgan ketma-ketlik. Matn yarim dekodlangan emas, oʻzgarishsiz koʻrsatiladi."
+      }
+    },
+    "base-converter": {
+      "name": "Sanoq sistemasi konvertori",
+      "short": "Sonni ikkilik, sakkizlik, oʻnlik va oʻn oltilik orasida oʻtkazish.",
+      "title": "Sanoq sistemasi konvertori — ikkilik, sakkizlik, hex, bepul",
+      "description": "Bepul onlayn sanoq sistemasi konvertori. Brauzerda ikkilik, sakkizlik, oʻnlik, oʻn oltilik va 36 asosli sistemalar orasida oʻtkazing.",
+      "intro": "Hex rangni oʻnlikda, ruxsat niqobini ikkilikda yoki 64 bitli identifikatorni jurnal chiqargan sistemada oʻqing. Oʻtkazish oddiy sonlar emas, BigInt orqali boradi, va bu koʻringanidan muhimroq: taxminan toʻqqiz kvadrilliondan keyin oddiy son jimgina yaxlitlay boshlaydi, 64 bitli identifikatorlarni esa aynan shu yerga olib kelishadi.",
+      "howTo": {
+        "step1": "Sonni kiriting.",
+        "step2": "U qaysi sistemada ekanini koʻrsating.",
+        "step3": "Uni qolgan hamma sistemada oʻqing."
+      },
+      "faq": {
+        "q1": "Juda katta sonlar bilan nima boʻladi?",
+        "a1": "Ular aniq qoladi. Telegram chat identifikatori yoki snowflake JavaScript dagi oddiy son yaxlitlay boshlaydigan chegaradan oshgan, shuning uchun bu yerda ixtiyoriy aniqlikdagi butun sonlar ishlatiladi.",
+        "q2": "Nega kiritganim qabul qilinmadi?",
+        "a2": "Chunki unda bu sistemada yoʻq raqam bor. Ikkilikda ikki raqami yoʻq, oʻn oltilikda g yoʻq. Taxmin qilgandan koʻra rad etgan yaxshi.",
+        "q3": "Manfiy sonlar boʻladimi?",
+        "a3": "Ha, oldiga minus qoʻying. Boʻshliq va pastki chiziq hisobga olinmaydi, shuning uchun 1010_1010 va de ad bir xil ishlaydi."
+      }
+    },
+    "hash-generator": {
+      "name": "Hesh generatori",
+      "short": "Istalgan matn uchun SHA-256 yoki SHA-512 barmoq izini olish.",
+      "title": "SHA-256 hesh generatori onlayn — bepul, hech narsa yuklanmaydi",
+      "description": "Bepul onlayn hesh generatori. Istalgan matndan SHA-1, SHA-256, SHA-384 yoki SHA-512 oling, hammasi brauzerda hisoblanadi.",
+      "intro": "Hesh — matnning qisqa barmoq izi: bir xil kirish doim bir xil natija beradi, bitta belgini oʻzgartirsangiz hammasi oʻzgaradi. Ikki narsa mos kelishini toʻgʻridan-toʻgʻri solishtirmasdan tekshirishga qulay. Brauzerning oʻz kriptografiyasi hisoblaydi, shuning uchun matn qurilmadan chiqmaydi, begona saytga joylamaydigan narsani heshlayotgan boʻlsangiz esa bu muhim.",
+      "howTo": {
+        "step1": "Matnni yozing yoki joylang.",
+        "step2": "Algoritmni tanlang.",
+        "step3": "Heshni nusxalang."
+      },
+      "faq": {
+        "q1": "Qaysi algoritmni tanlash kerak?",
+        "a1": "Boshqasi talab qilinmasa, SHA-256. SHA-1 bu yerda eski tizimlar hanuz soʻragani uchun turibdi, lekin u 2017 yildan buzilgan va xavfsizlik uchun yaramaydi.",
+        "q2": "Asl matnni qaytarib boʻladimi?",
+        "a2": "Yoʻq, gap ham shunda. Hesh bir tomonlama. Uni qaytaraman deganlar yo keng tarqalgan satrlar jadvalidan qidiradi, yo taxmin qiladi.",
+        "q3": "Parollar uchun mos keladimi?",
+        "a3": "Saqlash uchun yoʻq. Parollar tuz bilan ishlaydigan sekin algoritmni talab qiladi, masalan bcrypt yoki Argon2. Oddiy SHA juda tez va uni ulkan tezlikda saralab chiqish mumkin."
+      }
+    },
+    "jwt-decoder": {
+      "name": "JWT dekoderi",
+      "short": "JSON Web Token ichida nima borligini hech qayerga yubormasdan koʻrish.",
+      "title": "JWT dekoderi onlayn — tokenni xavfsiz oʻqish, bepul",
+      "description": "Bepul onlayn JWT dekoderi. Tokenning sarlavhasi, maʻlumoti va amal qilish muddatini brauzerda oʻqing. Token hech qayerga yuklanmaydi.",
+      "intro": "JWT — nuqtalar bilan ulangan uchta base64 qism, va oʻrtadagisini token qoʻlida boʻlgan har kim oʻqiy oladi. Bu yerda u dekodlanadi, sanalar esa soʻz bilan, jumladan muddati tugagani ham koʻrsatiladi. Imzo tekshirilmaydi, va buni hech bir brauzer vositasi halol qila olmaydi: maxfiy kalit kerak, uning joyi esa serverda.",
+      "howTo": {
+        "step1": "Tokenni joylang.",
+        "step2": "Sarlavha va maʻlumotni oʻqing.",
+        "step3": "Muddat qatorini tekshiring."
+      },
+      "faq": {
+        "q1": "Nega imzo tekshirilmaydi?",
+        "a1": "Tekshirish uchun imzo maxfiyi kerak. Tokenni tekshirishni taklif qilayotgan sayt sizdan ishlab turgan maxfiy kalitni veb-sahifaga joylashni soʻrayapti, bu esa hal qilmoqchi boʻlgan muammosidan yomonroq. Dekodlash token nima daʻvo qilayotganini koʻrsatadi; rostmi yoki yoʻqmi, buni faqat sizning serveringiz biladi.",
+        "q2": "Bu yerga haqiqiy tokenni joylash xavfsizmi?",
+        "a2": "Boshqa joydan xavfsizroq: hammasi brauzerda boʻladi va bizga hech narsa yuborilmaydi. Buni sahifa yuklangandan keyin internetni uzib tekshirsa boʻladi. Shunga qaramay token hisob maʻlumoti, unga shunday munosabatda boʻling.",
+        "q3": "exp, iat va nbf nimani anglatadi?",
+        "a3": "Muddat, berilgan vaqt va bundan oldin emas, har biri 1970 yildan beri soniyalarda. Bu yerda ular sizning vaqt mintaqangizda oddiy sana sifatida koʻrsatiladi, soat bilan bogʻliq muammoni shu tarzda eng tez payqash mumkin."
+      }
+    },
+    "epoch-converter": {
+      "name": "Unix vaqt konvertori",
+      "short": "Unix vaqt belgisini oʻqiladigan sanaga aylantirish va aksincha.",
+      "title": "Unix vaqt konvertori — epoch dan sanaga, bepul",
+      "description": "Bepul onlayn Unix vaqt konvertori. Epoch soniya yoki millisoniyani oʻz vaqt mintaqangizdagi va UTC dagi oʻqiladigan sanaga aylantiring.",
+      "intro": "Jurnaldagi yoki bazadagi vaqt belgisi 1970 yil 1 yanvardan beri oʻtgan soniyalar soni, va uni koʻz bilan oʻqib boʻlmaydi. Bu yerda u aylantiriladi va ham sizning mintaqangizda, ham UTC da koʻrsatiladi, chunki buzilgan maʻlumotga oʻxshagan xato koʻpincha besh soatlik farq boʻlib chiqadi.",
+      "howTo": {
+        "step1": "Sonni joylang.",
+        "step2": "Sanani oʻz mintaqangizda va UTC da oʻqing.",
+        "step3": "Tizim talab qilsa, ISO shaklini nusxalang."
+      },
+      "faq": {
+        "q1": "Soniyami yoki millisoniyami?",
+        "a1": "Ikkalasi ham uchraydi va yalangʻoch son haqiqatan noaniq. Oʻn raqam yoki undan kam soniya deb oʻqiladi, bu 1973 va 5138 yillar orasidagi har qanday sana uchun toʻgʻri; undan koʻpi millisoniya deb oʻqiladi. Qaysi variant tanlangani natija ustida yozilgan.",
+        "q2": "Nega UTC ham koʻrsatiladi?",
+        "a2": "Chunki serverlar UTC saqlaydi, odamlar esa mahalliy vaqtni oʻqiydi, ular orasidagi tafovut sana bilan bogʻliq xatolarning katta qismini tushuntiradi. Ikkalasini birdan koʻrish odatda yetarli.",
+        "q3": "ISO shakli nima uchun?",
+        "a3": "Bu vaqt lahzasini yozishning bir maʻnoli usuli va koʻp API va bazalar sonni emas, sanani uzatganingizda aynan shuni kutadi."
+      }
+    },
+    "cron-parser": {
+      "name": "Cron ifodasini oʻqish",
+      "short": "Cron qatorini ishga tushishidan oldin oddiy soʻz bilan oʻqish.",
+      "title": "Cron ifodasi tahlili — jadvalni soʻz bilan, bepul",
+      "description": "Bepul onlayn cron tahlilchisi. Cron ifodasini oddiy gapga aylantiring va vazifa jimgina ishlamay qolishidan oldin chegaradan chiqqan maydonni toping.",
+      "intro": "Besh maydon nimadir qachon ishga tushishini hal qiladi, ularda adashish esa oson. Nosozlik sintaksis xatosidan battar: soati 25 boʻlgan cron qatori shikoyat qilmaydi, vazifa shunchaki hech qachon ishlamaydi, buni esa nimadir yetishmay qolgunicha hech kim sezmaydi. Bu yerda qator maʻnosi gap bilan yoziladi, haqiqiy chegaradan tashqaridagi maydon esa rad etiladi.",
+      "howTo": {
+        "step1": "Cron ifodasini joylang.",
+        "step2": "Gapni oʻqing.",
+        "step3": "Ostidagi har bir maydonni tekshiring."
+      },
+      "faq": {
+        "q1": "Besh maydon nima?",
+        "a1": "Daqiqa, soat, oyning kuni, oy va hafta kuni, aynan shu tartibda. Yulduzcha har qanday qiymatni, */15 har oʻn beshinchisini, 1-5 oraliqni, 1,3,5 esa roʻyxatni bildiradi.",
+        "q2": "Nega ifoda rad etildi?",
+        "a2": "Chunki qiymat maydonga ruxsat etilganidan chiqib ketgan: soat 23 dan yoki oy 12 dan katta. Baʻzi tizimlar buni qabul qiladi va keyin vazifani ishga tushirmaydi, buni esa xatodan koʻra ancha qiyin payqash mumkin.",
+        "q3": "Maxsus satrlarni tushunadimi?",
+        "a3": "Hozircha yoʻq. {'@'}daily ni 0 0 * * * deb, {'@'}hourly ni 0 * * * * deb yozing, ular baribir shunga yoyiladi."
+      }
+    },
+    "uuid-generator": {
+      "name": "UUID generatori",
+      "short": "Kerakligicha toʻrtinchi versiya UUID yaratish.",
+      "title": "UUID generatori onlayn — v4, koʻplab, bepul",
+      "description": "Bepul onlayn UUID generatori. Brauzerda bitta yoki yuzlab 4-versiya UUID yarating, chiziqcha bilan yoki chiziqchasiz, katta yoki kichik harflarda.",
+      "intro": "Toʻrtinchi versiya UUID — 122 bitli tasodifiy identifikator, bazadan soʻramasdan istalgan joyda yaratsa boʻladigan darajada betakror. Bular Math.random dan emas, brauzerning kriptografik generatoridan olinadi, va bu odatdagi xato: ikkalasi bir xil koʻrinadi, oldindan aytib boʻlmaydigani esa faqat bittasi.",
+      "howTo": {
+        "step1": "Nechta kerakligini ayting.",
+        "step2": "Yaratish tugmasini bosing.",
+        "step3": "Bittasini yoki hammasini nusxalang."
+      },
+      "faq": {
+        "q1": "Ular rostdan tasodifiymi?",
+        "a1": "Ular brauzerning kriptografik jihatdan ishonchli generatoridan, kalitlar uchun ishlatiladigan manbadan olinadi. Math.random dan yigʻilgan UUID xuddi shunday koʻrinadi va oldindan aytsa boʻladi, bu esa u token sifatida ishlatilgan zahoti muhim boʻladi.",
+        "q2": "Takrorlanishi mumkinmi?",
+        "a2": "Amalda yoʻq. Taxminan 5,3 ga 10 ning 36-darajasi qadar qiymat bor; toʻqnashuv ehtimoli paydo boʻlishi uchun oʻnlab yillar davomida sekundiga milliardlab yaratish kerak boʻlardi.",
+        "q3": "UUID ni baza kaliti qilsa boʻladimi?",
+        "a3": "Boʻladi va tizimlar orasida identifikatorlarni kelishishdan xalos qiladi, lekin tasodifiy v4 yozuvlarni indeks boʻylab sochib yuboradi va katta jadvallarda qoʻshishni sekinlashtirishi mumkin. Koʻp jamoalar shu sababli vaqt boʻyicha tartiblangan v7 ni oladi."
+      }
     }
   },
   "wordCounter": {
@@ -3589,6 +3749,73 @@
       "normalise": "Ovoz balandligini tenglash",
       "voice": "MP3 ga aylantirish",
       "trim": "Qirqish"
+    }
+  },
+  "devtools": {
+    "input": "Kiritish",
+    "output": "Natija",
+    "copy": "Nusxalash",
+    "copyAll": "Hammasini nusxalash",
+    "copied": "Nusxalandi",
+    "generate": "Yaratish",
+    "howMany": "Nechta",
+    "hyphens": "Chiziqchalar",
+    "uppercase": "Bosh harflar",
+    "encode": "Kodlash",
+    "decode": "Dekodlash",
+    "fromBase": "Kiritish sanoq sistemasi",
+    "header": "Sarlavha",
+    "payload": "Maʻlumot",
+    "seconds": "soniya",
+    "milliseconds": "millisoniya",
+    "readAs": "1970-yil 1-yanvardan beri {unit} sifatida oʻqildi.",
+    "badEscape": "Bu toʻgʻri foiz kodlash emas, escape ketma-ketligi uzilgan.",
+    "badDigits": "{base} asosli sanoq sistemasida bunday raqamlar yoʻq.",
+    "jwtWarning": "Bu token dekodlanadi, lekin imzo tekshirilmaydi. Tekshirish uchun maxfiy kalit kerak, uning joyi serverda va u hech qachon brauzerga tushmasligi kerak. Ichidagini dalil emas, daʻvo deb qarang.",
+    "jwtExpired": "Muddati tugagan: {when}.",
+    "jwtValid": "Amal qiladi: {when} gacha.",
+    "case": {
+      "camel": "camelCase",
+      "pascal": "PascalCase",
+      "snake": "snake_case",
+      "kebab": "kebab-case",
+      "constant": "CONSTANT_CASE",
+      "title": "Bosh Harflar Bilan",
+      "sentence": "Gapdagidek",
+      "lower": "kichik harflar",
+      "upper": "KATTA HARFLAR"
+    },
+    "base": {
+      "2": "Ikkilik (2)",
+      "8": "Sakkizlik (8)",
+      "10": "Oʻnlik (10)",
+      "16": "Oʻn oltilik (16)",
+      "36": "36 asosli",
+      "binary": "Ikkilik",
+      "octal": "Sakkizlik",
+      "decimal": "Oʻnlik",
+      "hex": "Oʻn oltilik"
+    },
+    "cron": {
+      "minute": "Daqiqa",
+      "hour": "Soat",
+      "day_of_the_month": "Kun",
+      "month": "Oy",
+      "day_of_the_week": "Hafta kuni"
+    },
+    "invalid": {
+      "jwt": "Bu JWT ga oʻxshamaydi. Tokenda nuqta bilan ajratilgan uchta qism boʻladi.",
+      "epoch": "Bu son emas.",
+      "cron": ""
+    },
+    "placeholder": {
+      "case": "parseHTMLDocument",
+      "url": "salom dunyo & yana",
+      "base": "ff",
+      "hash": "Barmoq izi kerak boʻlgan matn",
+      "jwt": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ.signature",
+      "epoch": "1758000000",
+      "cron": "0 9 * * 1"
     }
   }
 }
