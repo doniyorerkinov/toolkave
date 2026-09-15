@@ -46,7 +46,7 @@ useHead({
      * front of the first paint. Absent entirely until a token is configured.
      */
     ...(cfBeaconToken
-      ? [{ defer: true, src: 'https://static.cloudflareinsights.com/beacon.min.js',
+      ? [{ type: 'module', src: 'https://static.cloudflareinsights.com/beacon.min.js',
            'data-cf-beacon': JSON.stringify({ token: cfBeaconToken }) }]
       : [])
   ],

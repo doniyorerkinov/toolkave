@@ -86,7 +86,9 @@ export default defineNuxtConfig({
     public: {
       locales: LOCALES as unknown as string[],
       /** Cloudflare Web Analytics site token. Empty means no beacon is sent. */
-      cfBeaconToken: process.env.NUXT_PUBLIC_CF_BEACON_TOKEN ?? ''
+      // Public by nature - it sits in every page's HTML - so it lives here rather
+      // than in a secret. Set the env var to '' to switch the beacon off.
+      cfBeaconToken: process.env.NUXT_PUBLIC_CF_BEACON_TOKEN ?? '892cf48fc1c44fd980b1f1ff365a7dd0'
     }
   }
 })
