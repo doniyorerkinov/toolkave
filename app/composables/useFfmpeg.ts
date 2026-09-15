@@ -23,6 +23,7 @@ type FFmpegInstance = {
   writeFile: (name: string, data: Uint8Array) => Promise<void>
   readFile: (name: string) => Promise<Uint8Array | string>
   deleteFile: (name: string) => Promise<void>
+  listDir: (path: string) => Promise<{ name: string; isDir: boolean }[]>
   exec: (args: string[]) => Promise<number>
   on: (event: string, handler: (payload: never) => void) => void
   off: (event: string, handler: (payload: never) => void) => void
@@ -86,12 +87,20 @@ async function boot(onProgress?: (fraction: number) => void): Promise<FFmpegInst
     // year-long immutable cache, and nothing about a tool whose whole claim is
     // that files stay on your device should depend on a third party.
     //
-    // Both go in as blob URLs. ffmpeg runs its core inside a worker it creates
-    // from a blob, and a blob worker has an opaque origin, so a path like
-    // `/ffmpeg/ffmpeg-core.js` has nothing to resolve against and the import
-    // fails. The wasm is a blob for a second reason as well: it is stored
-    // gzipped, because Cloudflare refuses a static asset over 25 MiB and this
-    // one is 30.7.
+    // The core must be the ESM build. @ffmpeg/ffmpeg starts its worker with
+    // `type: "module"` unconditionally, a module worker has no
+    // `importScripts`, so the worker falls through to `await import(coreURL)`
+    // and takes `.default` from it. The UMD build has no default export and
+    // the worker throws "failed to import ffmpeg-core.js" — which is what it
+    // did here, on every browser, until `scripts/copy-ffmpeg.mjs` was pointed
+    // at `dist/esm`. Nothing about that failure is visible in the arguments or
+    // the UI, so it is worth knowing where it comes from.
+    //
+    // Both go in as blob URLs. The wasm has to: it is stored gzipped because
+    // Cloudflare refuses a static asset over 25 MiB and this one is 30.7, so
+    // what ffmpeg gets handed is bytes this tab decompressed, not a URL. The
+    // core JS follows the same path for symmetry, and because the pairing is
+    // what the `mainScriptUrlOrBlob` hack in the core expects.
     const { toBlobURL } = await import('@ffmpeg/util')
     await ffmpeg.load({
       coreURL: await toBlobURL('/ffmpeg/ffmpeg-core.js', 'text/javascript'),
@@ -110,8 +119,13 @@ async function boot(onProgress?: (fraction: number) => void): Promise<FFmpegInst
 }
 
 export interface MediaJob {
-  /** The input file's bytes and a name ffmpeg can key on; the extension matters. */
-  input: { name: string; data: Uint8Array }
+  /**
+   * The input file's bytes and a name ffmpeg can key on; the extension matters.
+   * Kept singular for the tools that only ever take one file.
+   */
+  input?: { name: string; data: Uint8Array }
+  /** Several inputs, in order. They become `-i a -i b` and the filter graph indexes them that way. */
+  inputs?: { name: string; data: Uint8Array }[]
   /** Output file name. Its extension chooses the container. */
   output: string
   /** Arguments between input and output, e.g. ['-crf', '28']. */
@@ -120,6 +134,8 @@ export interface MediaJob {
   onProgress?: (fraction: number) => void
 }
 
+const files = (job: MediaJob) => job.inputs ?? (job.input ? [job.input] : [])
+
 export function useFfmpeg() {
   /** 'idle' | 'loading' the 31 MB core | 'running' the encode. */
   const phase = ref<'idle' | 'loading' | 'running'>('idle')
@@ -127,14 +143,19 @@ export function useFfmpeg() {
   const ready = shallowRef(Boolean(instance?.loaded))
 
   /**
-   * One conversion, start to finish.
+   * Everything the three public calls have in common: get the core up, write
+   * the inputs, run, and clean the filesystem out again whatever happened.
    *
-   * Files are written into ffmpeg's in-memory filesystem, converted, read back
-   * and deleted. Deleting matters: the FS persists for the life of the tab, so
-   * a visitor converting five videos without it would hold all five plus their
-   * outputs in memory at once.
+   * Deleting matters. The FS persists for the life of the tab, so a visitor
+   * converting five videos without it would hold all five plus their outputs
+   * in memory at once — and on a phone that is the difference between a slow
+   * tool and a killed tab.
    */
-  async function run(job: MediaJob): Promise<Uint8Array> {
+  async function withFfmpeg<T>(
+    job: MediaJob,
+    collect: (ffmpeg: FFmpegInstance) => Promise<T>,
+    extraArgs: string[] = []
+  ): Promise<T> {
     phase.value = instance?.loaded ? 'running' : 'loading'
     progress.value = 0
 
@@ -151,27 +172,106 @@ export function useFfmpeg() {
     }
     ffmpeg.on('progress', onProgress as (payload: never) => void)
 
+    const written = files(job)
     try {
-      await ffmpeg.writeFile(job.input.name, job.input.data)
-      const code = await ffmpeg.exec(['-i', job.input.name, ...job.args, job.output])
+      for (const file of written) await ffmpeg.writeFile(file.name, file.data)
+      const inputArgs = written.flatMap(file => ['-i', file.name])
+      const code = await ffmpeg.exec([...inputArgs, ...job.args, ...extraArgs])
       if (code !== 0) throw new Error('FFMPEG_FAILED')
-
-      const out = await ffmpeg.readFile(job.output)
-      if (typeof out === 'string') throw new Error('FFMPEG_FAILED')
-      if (!out.byteLength) throw new Error('FFMPEG_EMPTY')
-      return out
+      return await collect(ffmpeg)
     } finally {
       ffmpeg.off('progress', onProgress as (payload: never) => void)
       // Best effort: a file that was never written cannot be deleted, and a
       // failed cleanup must not replace the real error with its own.
-      await ffmpeg.deleteFile(job.input.name).catch(() => {})
-      await ffmpeg.deleteFile(job.output).catch(() => {})
+      for (const file of written) await ffmpeg.deleteFile(file.name).catch(() => {})
       phase.value = 'idle'
       progress.value = 0
     }
   }
 
-  return { run, phase, progress, ready }
+  /** One conversion, start to finish, producing one file. */
+  async function run(job: MediaJob): Promise<Uint8Array> {
+    return await withFfmpeg(
+      job,
+      async ffmpeg => {
+        try {
+          const out = await ffmpeg.readFile(job.output)
+          if (typeof out === 'string') throw new Error('FFMPEG_FAILED')
+          if (!out.byteLength) throw new Error('FFMPEG_EMPTY')
+          return out
+        } finally {
+          await ffmpeg.deleteFile(job.output).catch(() => {})
+        }
+      },
+      [job.output]
+    )
+  }
+
+  /**
+   * One conversion producing many files, for the tools that split something up.
+   *
+   * `job.output` is an ffmpeg output pattern like `frame-%04d.png`; what comes
+   * back is every file the run actually created, in name order. The pattern
+   * cannot be turned back into a list of names — only ffmpeg knows how many
+   * frames it wrote — so the directory is read afterwards and matched on the
+   * fixed part of the pattern.
+   */
+  async function runMany(job: MediaJob): Promise<{ name: string; data: Uint8Array }[]> {
+    const stem = job.output.split('%')[0] ?? job.output
+    return await withFfmpeg(
+      job,
+      async ffmpeg => {
+        const entries = await ffmpeg.listDir('/')
+        const names = entries
+          .filter(entry => !entry.isDir && entry.name.startsWith(stem))
+          .map(entry => entry.name)
+          .sort()
+        const out: { name: string; data: Uint8Array }[] = []
+        try {
+          for (const name of names) {
+            const data = await ffmpeg.readFile(name)
+            if (typeof data !== 'string' && data.byteLength) out.push({ name, data })
+          }
+        } finally {
+          for (const name of names) await ffmpeg.deleteFile(name).catch(() => {})
+        }
+        if (!out.length) throw new Error('FFMPEG_EMPTY')
+        return out
+      },
+      [job.output]
+    )
+  }
+
+  /**
+   * What ffmpeg can tell us about a file, without converting it.
+   *
+   * `ffmpeg -i file` with no output prints the stream table and then exits
+   * non-zero complaining that no output was given — that non-zero is the
+   * normal, successful outcome here, so this cannot go through `run`. The
+   * information arrives as log lines rather than a return value, so they are
+   * collected as they come.
+   */
+  async function probe(input: { name: string; data: Uint8Array }): Promise<string[]> {
+    phase.value = instance?.loaded ? 'running' : 'loading'
+    const ffmpeg = await boot()
+    ready.value = true
+    phase.value = 'running'
+
+    const lines: string[] = []
+    const onLog = (payload: { message: string }) => lines.push(payload.message)
+    ffmpeg.on('log', onLog as (payload: never) => void)
+    try {
+      await ffmpeg.writeFile(input.name, input.data)
+      await ffmpeg.exec(['-hide_banner', '-i', input.name])
+      return lines
+    } finally {
+      ffmpeg.off('log', onLog as (payload: never) => void)
+      await ffmpeg.deleteFile(input.name).catch(() => {})
+      phase.value = 'idle'
+    }
+  }
+
+  return { run, runMany, probe, phase, progress, ready }
 }
 
 /** Seconds as ffmpeg wants them on the command line. */

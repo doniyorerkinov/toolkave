@@ -3370,6 +3370,336 @@
         "q3": "Which kind matters most?",
         "a3": "Deuteranopia, by a wide margin: it is the most common, and it is the one that collapses red and green. Tritanopia is rare but affects women as often as men, unlike the red-green kinds."
       }
+    },
+    "video-rotate": {
+      "name": "Rotate video",
+      "short": "Turn a sideways video the right way up, and keep it that way everywhere.",
+      "title": "Rotate Video Online — free, no upload, no watermark",
+      "description": "Rotate or flip a video 90 or 180 degrees in your browser. Fixes sideways phone recordings permanently. No upload, no sign-up, no watermark.",
+      "intro": "A phone records which way up it was held as a note attached to the file rather than by turning the picture, and half the players that open it ignore the note. That is why a video looks fine in your gallery and arrives sideways on somebody else's computer. This turns the actual picture, so the file is the right way up everywhere — including in the places that caused the problem.",
+      "howTo": {
+        "step1": "Add the video that came out sideways.",
+        "step2": "Pick a direction and watch the preview turn.",
+        "step3": "Press Rotate the video, then download the result."
+      },
+      "faq": {
+        "q1": "Why does my video look fine on my phone but sideways everywhere else?",
+        "a1": "Because the phone stored the orientation as a flag rather than rotating the picture. Your gallery reads the flag; a lot of desktop players, web uploaders and messaging apps do not. Turning the pixels removes the disagreement.",
+        "q2": "Does rotating lose quality?",
+        "a2": "A little. The video has to be re-encoded, and any re-encode costs something. This uses a high quality setting so the loss is not visible in normal viewing, but it is not the bit-for-bit copy that removing the sound would be.",
+        "q3": "What is the difference between mirror and rotate?",
+        "a3": "Rotating turns the picture a quarter or a half turn. Mirror flips it left to right, which is what you want for footage from a selfie camera where text reads backwards.",
+        "q4": "Is my video uploaded anywhere?",
+        "a4": "No. The video engine is downloaded to your browser and the file is processed there. You can turn off your connection after the page has loaded and it still works."
+      }
+    },
+    "video-mute": {
+      "name": "Remove audio from video",
+      "short": "Take the sound off a video without touching the picture.",
+      "title": "Remove Sound From Video Online — free, instant, no upload",
+      "description": "Mute a video in your browser in seconds. The picture is copied untouched, so there is no quality loss at all. No upload, no sign-up, no watermark.",
+      "intro": "Removing sound is the one video operation that does not need re-encoding. The picture is copied across exactly as it was and only the audio track is left behind, so this finishes in a couple of seconds on a file that would take minutes to convert, and the video you get back is bit-for-bit identical to the one you put in.",
+      "howTo": {
+        "step1": "Add the video with the sound you want gone.",
+        "step2": "Press Remove the sound.",
+        "step3": "Download it. The picture is unchanged."
+      },
+      "faq": {
+        "q1": "Why is this so much faster than the other video tools?",
+        "a1": "Because nothing is re-encoded. Every other tool has to decode the picture, change it and encode it again. This one copies the picture across untouched and simply does not carry the audio over, which is a file operation rather than a conversion.",
+        "q2": "Will the quality drop?",
+        "a2": "Not at all. The video stream in the file you download is the same data as the one you put in. That is the advantage of copying rather than converting.",
+        "q3": "Can I replace the sound instead of removing it?",
+        "a3": "Not here. This drops the existing track; adding a different one is a separate job that needs the second file and a decision about which length wins.",
+        "q4": "Does the file get smaller?",
+        "a4": "Yes, by however much the audio was taking up. On a phone recording that is usually a few per cent. If you need it properly smaller, compress it afterwards."
+      }
+    },
+    "video-resize": {
+      "name": "Resize video",
+      "short": "Drop a video to 1080p, 720p or lower, and make the file much smaller with it.",
+      "title": "Change Video Resolution Online — 1080p, 720p, 480p, free",
+      "description": "Change a video's resolution in your browser. Scale 4K down to 1080p or 720p and cut the file size. No upload, no sign-up, no watermark.",
+      "intro": "Resolution saves more space than quality settings do. A 4K clip holds four times the pixels of a 1080p one and almost none of them survive being watched on a phone, so scaling down is usually the first thing worth trying when a file is too big. The aspect ratio is kept, and a video already smaller than what you ask for is left alone rather than blown up.",
+      "howTo": {
+        "step1": "Add the video you want to scale down.",
+        "step2": "Pick the height you want.",
+        "step3": "Press Change the resolution and download the result."
+      },
+      "faq": {
+        "q1": "What resolution should I pick?",
+        "a1": "720p is enough for anything watched on a phone and for most messaging apps. 1080p is the sensible ceiling for a laptop screen. Below 480p, text on screen starts to become hard to read.",
+        "q2": "Can I make a video bigger?",
+        "a2": "No, deliberately. Upscaling invents pixels that were never recorded: the file gets several times larger and not one bit sharper. Asking for 1080p from a 720p video leaves it at 720p.",
+        "q3": "Will it stay the right shape?",
+        "a3": "Yes. Only the height is set, and the width follows from it, so nothing is stretched or squashed. If you need a different shape, use the social media sizes tool instead.",
+        "q4": "How much smaller will the file be?",
+        "a4": "Roughly in proportion to the pixels. Going from 1080p to 720p removes about half of them and usually lands somewhere near half the size, though the exact figure depends on how much movement is in the footage."
+      }
+    },
+    "video-social": {
+      "name": "Resize video for social media",
+      "short": "Fit any video to a Story, a square post or a YouTube frame, without cutting off the wrong thing.",
+      "title": "Resize Video For Instagram, TikTok and YouTube — free, no upload",
+      "description": "Change a video to 9:16, 1:1, 4:5 or 16:9 for Reels, Stories, TikTok and YouTube. Blurred background, black bars or crop. Free, in your browser.",
+      "intro": "Every platform wants a different shape and none of them tell you before you have uploaded. Landscape footage in a Story gets black bars; portrait footage on YouTube gets them down the sides. Pick the shape you are posting to and choose how the gap is filled: a blurred copy of the footage, plain black bars, or cropping in and losing the edges.",
+      "howTo": {
+        "step1": "Add the video you are about to post.",
+        "step2": "Pick where it is going and how the frame should be filled.",
+        "step3": "Press Resize it, then download the result."
+      },
+      "faq": {
+        "q1": "Which fill should I choose?",
+        "a1": "The blurred background is what the platforms' own editors do and it suits most footage. Use crop when the subject is dead centre and you want the frame filled properly. Use black bars when nothing may be lost and the look does not matter.",
+        "q2": "Will cropping cut someone's head off?",
+        "a2": "It can. Cropping takes the middle of the frame, so anybody standing near the edge of a landscape shot will be cut out of a vertical one. If you are not sure, use the blurred background, which keeps everything.",
+        "q3": "Why is 1080 pixels wide enough?",
+        "a3": "Because every one of these platforms re-encodes what you upload and none of them keep more than that. A 4K upload costs you time and bandwidth and arrives looking the same.",
+        "q4": "Which size is which platform?",
+        "a4": "Story or Reel is 9:16 and covers Instagram Stories and Reels, TikTok and YouTube Shorts. Square is 1:1 and tall is 4:5, both for Instagram and Facebook feed posts. Landscape is 16:9 for YouTube."
+      }
+    },
+    "video-merge": {
+      "name": "Merge videos",
+      "short": "Join several clips into one file, in the order you choose.",
+      "title": "Merge Videos Online — join clips into one, free, no upload",
+      "description": "Join two or more videos into a single file in your browser. Drag to reorder, different sizes handled automatically. No upload, no sign-up, no watermark.",
+      "intro": "Joining clips is easy when they came from the same camera and awkward when they did not: two files can differ in resolution, frame rate and sample rate, and nothing will join until all three agree. Every clip here is fitted into one common frame first, which is why this always re-encodes and takes roughly as long as the total running time. Drag the list to set the order.",
+      "howTo": {
+        "step1": "Add two or more clips, up to ten.",
+        "step2": "Drag them into the order you want.",
+        "step3": "Pick a height, press Join them, and download the result."
+      },
+      "faq": {
+        "q1": "Do the clips have to be the same size?",
+        "a1": "No. Each one is scaled to fit the height you pick, and anything that does not match the shape gets black bars rather than being stretched. Clips already the right shape are unaffected.",
+        "q2": "Why is it slower than joining files on my computer?",
+        "a2": "Because every clip is re-encoded. A desktop tool can sometimes copy streams straight through, but only when the files match exactly in codec, resolution and frame rate, which clips from two different phones almost never do.",
+        "q3": "What happens if one clip has no sound?",
+        "a3": "The result is joined without sound, and it says so. Mixing a silent clip into a batch with audio would fail outright, so the tool takes the option that still produces a file.",
+        "q4": "How many can I join at once?",
+        "a4": "Ten. The limit is memory: everything is held in your browser at the same time, and a phone tab runs out long before a laptop does."
+      }
+    },
+    "video-frames": {
+      "name": "Video to images",
+      "short": "Pull still frames out of a video — a thumbnail, or one every few seconds.",
+      "title": "Video To Images Online — extract frames as JPG or PNG, free",
+      "description": "Extract frames from a video as JPG or PNG images in your browser. One every few seconds, or a single thumbnail. Free, no upload, no watermark.",
+      "intro": "Useful for a thumbnail, for reading a slide somebody filmed rather than photographed, or for turning a lecture recording into something you can skim. Choose how often to take a frame and where to stop: one frame a second over a ten-minute video is six hundred images, so the cap matters more than it looks. The images come back as a zip.",
+      "howTo": {
+        "step1": "Add the video.",
+        "step2": "Choose how often to take a frame, and how many to stop at.",
+        "step3": "Press Extract the frames and download the zip."
+      },
+      "faq": {
+        "q1": "How do I get just one picture?",
+        "a1": "Set the frame limit to one. You will get the opening frame. For a specific moment, trim the video to start there first, then extract one frame from that.",
+        "q2": "Should I choose JPG or PNG?",
+        "a2": "JPG for anything filmed — it is several times smaller and the difference is invisible on camera footage. PNG for screen recordings and slides, where sharp text and flat colour are what you are after.",
+        "q3": "Why is there a limit on the number of frames?",
+        "a3": "Because there has to be one. Every frame is held in your browser's memory until the zip is built, so an unlimited extraction from a long video fills the tab and stops it before it finishes.",
+        "q4": "Why is the zip larger than the video?",
+        "a4": "Still images are not compressed across time the way video is. A video stores mostly the differences between frames; separate pictures each store everything. Two hundred frames from a short clip can easily outweigh the video they came from."
+      }
+    },
+    "screen-recorder": {
+      "name": "Screen recorder",
+      "short": "Record your screen straight from the browser. Nothing to install, nothing uploaded.",
+      "title": "Free Online Screen Recorder — no download, no watermark",
+      "description": "Record your screen or a single window in your browser. No install, no sign-up, no watermark, no time limit. The recording never leaves your device.",
+      "intro": "This is the one tool here that needs no download at all. Browsers can record the screen themselves, so recording starts the moment you give permission and the file is finished the moment you stop — there is no conversion step and no thirty-megabyte engine to fetch first. Nothing is uploaded: the recording is assembled in the tab and saved straight to your device.",
+      "howTo": {
+        "step1": "Press Start recording and choose a screen, a window or a tab.",
+        "step2": "Do the thing you are recording. The timer shows how long you have been going.",
+        "step3": "Press Stop, then download the file."
+      },
+      "faq": {
+        "q1": "Is there a time limit or a watermark?",
+        "a1": "Neither. The recording runs until you stop it or your browser runs out of memory, and nothing is drawn on top of it. There is no account and nothing to pay.",
+        "q2": "Will it record the sound?",
+        "a2": "Sometimes, and that depends on the browser rather than on us. Chrome and Edge can capture the sound of a tab or of the whole system and will offer it in the sharing dialog. Firefox and Safari mostly cannot.",
+        "q3": "What format do I get?",
+        "a3": "WebM in most browsers and MP4 in Safari, because that is what each one can encode by itself. If you need MP4 from a WebM recording, the Convert to MP4 tool will do it.",
+        "q4": "Does this work on a phone?",
+        "a4": "No. Screen capture in a browser is a desktop feature and phone browsers do not offer it. Both iOS and Android have a screen recorder built into the system instead."
+      }
+    },
+    "media-info": {
+      "name": "Media info",
+      "short": "See what is actually inside a video or audio file — codec, resolution, bitrate, length.",
+      "title": "Media Info Online — check video codec, bitrate and resolution free",
+      "description": "Inspect a video or audio file in your browser: duration, resolution, codec, bitrate and channels. The page to open when a file will not play.",
+      "intro": "The page to open when something will not play, or will not upload, and nothing says why. The length, the resolution and the average bitrate come from your browser and appear immediately. The codec, the channel layout and the per-stream bitrates need the video engine, which is a large download — so that is a second button rather than something this page does before you have asked.",
+      "howTo": {
+        "step1": "Add the video or audio file.",
+        "step2": "Read the basics, which appear straight away.",
+        "step3": "Press Read the technical details if you need the codecs as well."
+      },
+      "faq": {
+        "q1": "Why are the codecs behind a second button?",
+        "a1": "Because only the video engine can read them, and loading it is a 31 MB download. Duration, resolution and file size come from your browser for nothing, and for most questions they are the answer, so the expensive half waits until you ask for it.",
+        "q2": "My file will not upload somewhere. What should I look at?",
+        "a2": "The codec line first. A file can be called .mp4 and hold video that a site refuses, and H.264 with AAC is what almost everything accepts. After that, the resolution and the bitrate, which are what upload limits are usually about.",
+        "q3": "Why does it say the length is not stated?",
+        "a3": "Some files genuinely do not record one, particularly recordings that were interrupted or streams saved directly to disk. The file usually still plays; players work the length out as they go.",
+        "q4": "Is the file uploaded in order to read it?",
+        "a4": "No. Reading a file here is exactly like converting one: it happens in your browser, and nothing is sent anywhere."
+      }
+    },
+    "audio-compress": {
+      "name": "Compress audio",
+      "short": "Make an audio file small enough to send, without making speech hard to follow.",
+      "title": "Compress Audio Online — shrink MP3 files free, no upload",
+      "description": "Reduce the size of an MP3, WAV or voice recording in your browser. Pick a bitrate, drop to mono for speech. No upload, no sign-up, no watermark.",
+      "intro": "Size in audio is bitrate multiplied by time, and for speech most of that bitrate is being spent on nothing. A lecture recorded as a 100 MB WAV is perfectly intelligible at 32 kbps mono, which is around a fortieth of the size. Music is a different matter and deserves a higher setting, which is why this asks rather than assuming.",
+      "howTo": {
+        "step1": "Add the audio file.",
+        "step2": "Pick a bitrate, and choose mono if it is speech.",
+        "step3": "Press Compress audio and download the result."
+      },
+      "faq": {
+        "q1": "What bitrate should I use?",
+        "a1": "For speech, 64 kbps mono is comfortable and 32 kbps is still perfectly clear. For music, 128 kbps is the point below which most people start to notice, and 192 kbps is close to transparent.",
+        "q2": "What does mono actually do?",
+        "a2": "It merges the left and right channels into one, which halves the data again. A voice recording has no stereo information worth keeping, so this is usually the single biggest saving available.",
+        "q3": "Can I get quality back later?",
+        "a3": "No. Compression like this discards information permanently, and converting the small file back to a large one only makes it big again. Keep the original if you might need it.",
+        "q4": "Why does my file sound muffled at the lowest setting?",
+        "a4": "Because below about 64 kbps there are not enough bits for the full range, so the top end is dropped first. That suits speech, where the important sound is low down, and it is why the very low settings also reduce the sample rate."
+      }
+    },
+    "audio-silence": {
+      "name": "Remove silence from audio",
+      "short": "Cut the dead air out of a recording — just the ends, or every pause in it.",
+      "title": "Remove Silence From Audio Online — free, no upload",
+      "description": "Trim silence from the start and end of a recording, or cut every pause out of a lecture. Free, in your browser, nothing uploaded.",
+      "intro": "Two different jobs behind one tool. Trimming the ends removes the fumbling before you started talking and the reach for the stop button afterwards, and leaves the middle exactly as recorded. Removing every pause is for lectures and interviews: an hour of hesitant speech often comes out closer to forty minutes, and it is the one thing on this site that no obvious desktop tool does for free.",
+      "howTo": {
+        "step1": "Add the recording.",
+        "step2": "Choose whether to trim the ends or remove every pause.",
+        "step3": "Press Remove the silence and download the result."
+      },
+      "faq": {
+        "q1": "What does the threshold do?",
+        "a1": "It sets what counts as silence. Minus 50 decibels is about the level of a quiet room and is a safe default. Moving it towards minus 30 makes it more aggressive and starts clipping the ends of quietly spoken words.",
+        "q2": "Will it sound unnatural?",
+        "a2": "It can, if you remove too much. Speech needs its pauses to be followed, which is what the shortest-pause setting protects: pauses longer than it are shortened rather than deleted, and anything below half a second usually sounds rushed.",
+        "q3": "Why is trimming the ends slower on a long file?",
+        "a3": "Because there is no way to trim the end directly. The audio is turned round, trimmed from what is now the front, and turned back — and turning it round means holding all of it in memory at once.",
+        "q4": "Can I use this on a video?",
+        "a4": "Not directly, because it would put the sound out of step with the picture. Extract the audio first if you only need the sound."
+      }
+    },
+    "audio-fade": {
+      "name": "Fade audio in and out",
+      "short": "Ease a track in at the start and out at the end instead of cutting it off.",
+      "title": "Fade Audio In And Out Online — free, no upload",
+      "description": "Add a fade in and a fade out to an MP3 or any audio file, in your browser. Set the length of each. No upload, no sign-up, no watermark.",
+      "intro": "A track that starts at full volume and stops dead sounds like a mistake, and it is the difference between a clip that sounds finished and one that sounds cut. Set how long each fade should take; the end is found from the file itself, so you do not have to work out where to put it.",
+      "howTo": {
+        "step1": "Add the audio file.",
+        "step2": "Set how many seconds each fade should take.",
+        "step3": "Press Apply the fades and download the result."
+      },
+      "faq": {
+        "q1": "How long should a fade be?",
+        "a1": "One to two seconds at the start and two to four at the end suits most music. For speech, half a second at each end is plenty — a long fade on a voice sounds like a fault.",
+        "q2": "Can I fade only one end?",
+        "a2": "Yes. Set the other one to zero and it is left alone.",
+        "q3": "Does the file get re-encoded?",
+        "a3": "Yes, because the volume of the actual audio is being changed. If you set both fades to zero nothing is altered and the audio is copied straight through instead.",
+        "q4": "Why is the result always an MP3?",
+        "a4": "Because it is the format that plays everywhere, and a file that has just been faded is usually about to be sent to somebody. Use Convert audio afterwards if you need a different one."
+      }
+    },
+    "audio-merge": {
+      "name": "Merge audio files",
+      "short": "Join several recordings into one, in the order you choose.",
+      "title": "Merge Audio Files Online — join MP3s free, no upload",
+      "description": "Join two or more audio files into one in your browser. Different formats and sample rates handled automatically. No upload, no sign-up.",
+      "intro": "Joining audio sounds simple and has one trap in it: a 44.1 kHz stereo MP3 and a 48 kHz mono voice note cannot simply be laid end to end, and putting them together without converting is how you get a file that plays at the wrong speed. Every input here is brought to a common format first, so files from different sources join correctly. Drag the list to set the order.",
+      "howTo": {
+        "step1": "Add two or more audio files, up to ten.",
+        "step2": "Drag them into the order you want.",
+        "step3": "Press Join them and download the result."
+      },
+      "faq": {
+        "q1": "Can I mix different formats?",
+        "a1": "Yes. MP3, WAV, OGG, M4A and voice notes can all go into the same batch. Each is converted to a common format before joining, which is what stops the speed problems.",
+        "q2": "Will there be a gap between the files?",
+        "a2": "No. They are joined end to end exactly as they are. If you want a pause between them you would need to add silence to the files first.",
+        "q3": "What format do I get back?",
+        "a3": "An MP3, because it plays everywhere. Convert it afterwards if you need something else.",
+        "q4": "Is this the same as mixing them together?",
+        "a4": "No. This plays them one after another. Mixing means playing them at the same time over each other, which is a different job and is not what this does."
+      }
+    },
+    "audio-waveform": {
+      "name": "Audio waveform image",
+      "short": "Draw the whole of a recording as one picture.",
+      "title": "Audio Waveform Image Generator — free, no upload",
+      "description": "Turn an audio file into a waveform image in any colour. For podcast covers, thumbnails, or seeing where somebody actually spoke. Free, in your browser.",
+      "intro": "A waveform is the shape of the sound over time, and it is more useful than it looks: it makes a podcast thumbnail, it sits behind a title on a cover, and it shows at a glance where in a two-hour recording anybody actually said anything. Choose the size and the colour, and draw the channels together or one above the other.",
+      "howTo": {
+        "step1": "Add the audio file.",
+        "step2": "Set the size and pick a colour.",
+        "step3": "Press Draw the waveform and download the PNG."
+      },
+      "faq": {
+        "q1": "What size should I make it?",
+        "a1": "Wider than you need and then scale it down, because a waveform scaled up goes soft. 1600 by 400 covers most uses; go to 3000 wide if it is going across a full page.",
+        "q2": "Does the image have a transparent background?",
+        "a2": "No, the background is black. To place it over something else, use the multiply or screen blend mode in whatever you are laying it out in.",
+        "q3": "What does drawing the channels separately do?",
+        "a3": "It puts the left channel above the right instead of drawing them over one another. On a stereo recording that shows which side sound came from. On a mono file it makes no difference.",
+        "q4": "Why does my waveform look like one solid block?",
+        "a4": "Because the recording is loud and evenly levelled throughout, which is normal for music that has been mastered. Quiet passages and speech produce the more recognisable shape."
+      }
+    },
+    "ringtone-maker": {
+      "name": "Ringtone maker",
+      "short": "Cut a piece out of a song and turn it into a ringtone your phone will accept.",
+      "title": "Ringtone Maker Online — make an iPhone m4r free, no upload",
+      "description": "Make an iPhone .m4r or Android .mp3 ringtone from any song, in your browser. Pick the part, set the fades. Free, no app, no sign-up, no watermark.",
+      "intro": "Making a ringtone is a small job that a whole category of paid apps exists to charge for. On iPhone it means taking up to forty seconds of audio, encoding it as AAC and giving the file the extension .m4r — which is an .m4a renamed, and is the entire trick. On Android it means a plain MP3. Play the song, find the part you want, mark the start, and take it.",
+      "howTo": {
+        "step1": "Add the song, and choose iPhone or Android.",
+        "step2": "Play it, find the part you want, and press Start here.",
+        "step3": "Set the length, press Make the ringtone, and download it."
+      },
+      "faq": {
+        "q1": "How do I get the ringtone onto my iPhone?",
+        "a1": "It has to go through a computer, which is Apple's rule rather than ours. Connect the phone by cable and drag the .m4r file into it in Finder on a Mac, or into the Tones section in iTunes on Windows. Then pick it under Settings, Sounds, Ringtone.",
+        "q2": "Why is forty seconds the limit?",
+        "a2": "Because iPhone refuses anything longer when it syncs. The cap is applied here so you find out now rather than after the file is on your computer.",
+        "q3": "What is an .m4r file?",
+        "a3": "An .m4a with a different extension. It is AAC audio in an MPEG-4 container, exactly like the music files themselves, and the extension is only there so the phone knows what the file is for.",
+        "q4": "How do I put one on an Android phone?",
+        "a4": "Choose Android to get an MP3, copy it into the Ringtones folder on the phone, then pick it in Settings under Sound. No cable or computer is needed if you download it on the phone itself."
+      }
+    },
+    "voice-recorder": {
+      "name": "Voice recorder",
+      "short": "Record your voice in the browser, with a level meter so you know it is working.",
+      "title": "Free Online Voice Recorder — no download, no sign-up",
+      "description": "Record audio from your microphone in your browser. Live level meter, no time limit, no watermark. The recording never leaves your device.",
+      "intro": "A microphone, a timer and a level meter. Like the screen recorder, this needs no download at all — the browser records by itself, so it starts the instant you give permission and the file is ready the moment you stop. The level meter matters more than it sounds: the commonest way to lose a recording is to make the whole thing with the wrong microphone selected and only find out afterwards.",
+      "howTo": {
+        "step1": "Press Start recording and allow access to the microphone.",
+        "step2": "Speak. Watch the level meter move so you know it is hearing you.",
+        "step3": "Press Stop, then download the recording."
+      },
+      "faq": {
+        "q1": "Is there a time limit?",
+        "a1": "No. It runs until you stop it. Very long recordings are held in memory until then, so on a phone it is worth stopping and starting again every so often rather than running for hours.",
+        "q2": "The level meter is not moving. What is wrong?",
+        "a2": "The browser is recording from a microphone that cannot hear you — usually a headset that is connected but not being worn, or a webcam microphone facing away. Change the input in your system sound settings and start again.",
+        "q3": "What format is the recording?",
+        "a3": "WebM audio in most browsers and M4A in Safari. For an MP3, run the result through Convert audio, which the result card offers as the next step.",
+        "q4": "Can I record a phone call with this?",
+        "a4": "No. A browser can only reach the microphone, so it would capture your side and whatever the speaker is loud enough to pick up. Recording calls is also regulated in many places."
+      }
     }
   },
   "wordCounter": {
@@ -3848,7 +4178,112 @@
       "convert": "Convert audio",
       "normalise": "Level the volume",
       "voice": "Convert to MP3",
-      "trim": "Cut it"
+      "trim": "Cut it",
+      "rotate": "Rotate the video",
+      "mute": "Remove the sound",
+      "resize": "Change the resolution",
+      "social": "Resize it",
+      "merge": "Join them",
+      "frames": "Extract the frames",
+      "silence": "Remove the silence",
+      "fade": "Apply the fades",
+      "waveform": "Draw the waveform",
+      "ringtone": "Make the ringtone",
+      "recordScreen": "Start recording",
+      "recordVoice": "Start recording",
+      "probe": "Read the technical details",
+      "audioCompress": "Compress audio"
+    },
+    "rotateLabel": "Which way?",
+    "rotate": {
+      "right": "Turn right",
+      "left": "Turn left",
+      "half": "Upside down",
+      "hflip": "Mirror",
+      "vflip": "Flip vertically"
+    },
+    "muteNote": "The picture is copied across untouched, so this takes seconds rather than minutes and loses no quality at all.",
+    "resizeLabel": "New height",
+    "resizeNote": "A video smaller than this is left alone rather than blown up, which would only make the file bigger.",
+    "socialLabel": "Where is it going?",
+    "social": {
+      "story": "Story or Reel",
+      "square": "Square post",
+      "portrait": "Tall post",
+      "wide": "YouTube or landscape"
+    },
+    "fitLabel": "How should it fill the frame?",
+    "fit": {
+      "blur": "Blurred background. Nothing is cut off, and the bars are filled with a blurred copy of the video — what the apps themselves do.",
+      "pad": "Black bars. Nothing is cut off, and the empty space stays black.",
+      "crop": "Fill the frame. No bars, but the edges are cut off — check that nobody's face is near the side."
+    },
+    "monoNote": "Make it mono. Halves the size again and makes no audible difference to speech.",
+    "silenceLabel": "What should go?",
+    "silence": {
+      "ends": "Just the start and the end — the fumbling before you began and the reach for the stop button.",
+      "all": "Every pause, anywhere in the recording. An hour of hesitant speech often comes out closer to forty minutes."
+    },
+    "thresholdLabel": "Counts as silence below: {n} dB",
+    "thresholdNote": "-50 is a quiet room. Nearer -30 starts trimming the ends of quiet words.",
+    "keepLabel": "Pauses longer than {n} s are shortened",
+    "keepNote": "Speech needs its pauses. Below about half a second the result sounds rushed.",
+    "fadeInLabel": "Fade in: {n} s",
+    "fadeOutLabel": "Fade out: {n} s",
+    "mergeCount": "{n} files, in this order",
+    "mergeNeedTwo": "Add at least one more file — there is nothing to join this to yet.",
+    "mergeHeightLabel": "Height of the result",
+    "mergeHeightNote": "Clips of different sizes are fitted into this one frame, with black bars where the shapes differ. Everything is re-encoded, so allow roughly the total running time.",
+    "mergeSilentNote": "Joined without sound, because at least one clip had no audio track.",
+    "errorMerge": "These files could not be joined. One of them may be damaged, or in a format this tool cannot read.",
+    "everyLabel": "One frame every {n} s",
+    "limitLabel": "Stop after {n} frames",
+    "frameJpg": "JPG — much smaller",
+    "framePng": "PNG — exact, but large",
+    "framesExpected": "About {n} images",
+    "framesCapped": "limited by the frame cap",
+    "framesNote": "{n} images, in a zip.",
+    "heightLabel": "Height: {n} px",
+    "colourLabel": "Colour",
+    "splitChannels": "Draw left and right separately",
+    "phoneLabel": "Which phone?",
+    "phone": {
+      "iphone": "iPhone",
+      "android": "Android"
+    },
+    "startHere": "Start here",
+    "playSelection": "Play the selection",
+    "ringtoneLength": "Length: {n} s",
+    "ringtoneRange": "From {from} to {to}",
+    "ringtoneCap": "iPhone will not accept more than {n} seconds",
+    "ringtoneFadeNote": "A ringtone repeats, and a cut that begins mid-note clicks on every loop. A short fade at each end removes it.",
+    "ringtoneIphoneNote": "Saved as .m4r. Connect the phone and drag the file into Finder, or into the Tones list in iTunes on Windows.",
+    "ringtoneAndroidNote": "Saved as .mp3. Copy it into the Ringtones folder on the phone, then pick it in Settings.",
+    "recordScreenHint": "Your browser will ask which window or screen to record. Nothing leaves your device.",
+    "recordMicHint": "Your browser will ask for the microphone. Nothing leaves your device.",
+    "recording": "Recording",
+    "recordWithSound": "Record sound as well, where the browser allows it",
+    "stopRecording": "Stop",
+    "recordDenied": "Permission was refused, so there is nothing to record. Allow it in the address bar and try again.",
+    "recordUnavailable": "This browser will not start a recording. Chrome, Edge and Firefox all support it on a desktop.",
+    "recordEmpty": "The recording came back empty. That usually means it was stopped before it began.",
+    "infoName": "Name",
+    "infoSize": "Size",
+    "infoType": "Type",
+    "infoDuration": "Length",
+    "infoResolution": "Resolution",
+    "infoAverage": "Average bitrate",
+    "infoUnknown": "Not stated",
+    "infoDeepHint": "Everything above came from your browser. The codecs, channel layout and per-stream bitrates need the video engine, which is a 31 MB download.",
+    "infoStream": "Stream",
+    "infoCodec": "Codec",
+    "infoDetails": "Details",
+    "infoContainer": "Container: {name}",
+    "stream": {
+      "video": "Video",
+      "audio": "Audio",
+      "subtitle": "Subtitles",
+      "other": "Other"
     }
   },
   "devtools": {

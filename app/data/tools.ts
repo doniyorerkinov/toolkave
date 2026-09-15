@@ -98,6 +98,15 @@ export const categories: CategoryDef[] = [
   { id: 'dev', icon: 'code', slugs: { en: 'dev', ru: 'dev', uz: 'dev' } }
 ]
 
+/**
+ * What the media tools will open, listed here rather than imported from
+ * `shared/media.ts` because this file is read by `nuxt.config.ts` at config
+ * time and has to stay import-free. They drive the result card's "what next"
+ * suggestions, so a video result offers the video tools and not the PDF ones.
+ */
+const VIDEO_IN = ['video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/x-matroska', 'video/webm', 'video/3gpp']
+const AUDIO_IN = ['audio/mpeg', 'audio/wav', 'audio/x-wav', 'audio/ogg', 'audio/mp4', 'audio/aac', 'audio/flac', 'audio/opus', 'audio/webm']
+
 export const tools: ToolDef[] = [
   {
     id: 'contrast-checker',
@@ -1083,6 +1092,123 @@ export const tools: ToolDef[] = [
     maxFiles: 1
   },
   {
+    id: 'video-rotate',
+    category: 'video',
+    group: 'edit',
+    component: 'media/Transform',
+    icon: 'rotate-cw',
+    published: false,
+    heavy: true,
+    config: { mode: 'rotate' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'rotate-video', ru: 'povernut-video', uz: 'videoni-burish' },
+    related: ['video-compress', 'video-resize'],
+    acceptedTypes: VIDEO_IN,
+    maxFiles: 1
+  },
+  {
+    id: 'video-mute',
+    category: 'video',
+    group: 'edit',
+    component: 'media/Transform',
+    icon: 'volume-x',
+    published: false,
+    heavy: true,
+    config: { mode: 'mute' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'remove-audio-from-video', ru: 'udalit-zvuk-iz-video', uz: 'videodan-ovozni-ochirish' },
+    related: ['video-to-mp3', 'video-compress'],
+    acceptedTypes: VIDEO_IN,
+    maxFiles: 1
+  },
+  {
+    id: 'video-resize',
+    category: 'video',
+    group: 'size',
+    component: 'media/Transform',
+    icon: 'scaling',
+    published: false,
+    heavy: true,
+    config: { mode: 'resize' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'resize-video', ru: 'izmenit-razreshenie-video', uz: 'video-olchamini-ozgartirish' },
+    related: ['video-compress', 'video-social'],
+    acceptedTypes: VIDEO_IN,
+    maxFiles: 1
+  },
+  {
+    id: 'video-social',
+    category: 'video',
+    group: 'edit',
+    component: 'media/Transform',
+    icon: 'smartphone',
+    published: false,
+    heavy: true,
+    config: { mode: 'social' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'resize-video-for-social-media', ru: 'video-dlya-socsetey', uz: 'ijtimoiy-tarmoq-uchun-video' },
+    related: ['video-resize', 'video-compress'],
+    acceptedTypes: VIDEO_IN,
+    maxFiles: 1
+  },
+  {
+    id: 'video-merge',
+    category: 'video',
+    group: 'edit',
+    component: 'media/Merge',
+    icon: 'layers',
+    published: false,
+    heavy: true,
+    config: { kind: 'video' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'merge-videos', ru: 'obedinit-video', uz: 'videolarni-birlashtirish' },
+    related: ['video-compress', 'video-trim'],
+    acceptedTypes: VIDEO_IN,
+    maxFiles: 10
+  },
+  {
+    id: 'video-frames',
+    category: 'video',
+    group: 'convert',
+    component: 'media/Frames',
+    icon: 'image',
+    published: false,
+    heavy: true,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'video-to-images', ru: 'video-v-kadry', uz: 'videodan-rasmlar' },
+    related: ['video-to-gif', 'video-trim'],
+    acceptedTypes: VIDEO_IN,
+    maxFiles: 1
+  },
+  {
+    id: 'screen-recorder',
+    category: 'video',
+    group: 'record',
+    component: 'media/Recorder',
+    icon: 'monitor',
+    published: false,
+    heavy: true,
+    config: { source: 'screen' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'screen-recorder', ru: 'zapis-ekrana', uz: 'ekran-yozib-olish' },
+    related: ['video-compress', 'video-to-gif'],
+    maxFiles: 1
+  },
+  {
+    id: 'media-info',
+    category: 'video',
+    group: 'inspect',
+    component: 'media/Info',
+    icon: 'info',
+    published: false,
+    heavy: true,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'media-info', ru: 'informaciya-o-video', uz: 'fayl-malumoti' },
+    related: ['video-compress', 'audio-convert'],
+    acceptedTypes: [...VIDEO_IN, ...AUDIO_IN],
+    maxFiles: 1
+  },
+  {
     id: 'audio-convert',
     category: 'audio',
     group: 'convert',
@@ -1136,6 +1262,108 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'normalize-audio-volume', ru: 'vyrovnyat-gromkost', uz: 'ovoz-balandligi' },
     related: ['audio-convert', 'audio-trim'],
+    maxFiles: 1
+  },
+  {
+    id: 'audio-compress',
+    category: 'audio',
+    group: 'size',
+    component: 'media/AudioEdit',
+    icon: 'minimize-2',
+    published: false,
+    heavy: true,
+    config: { mode: 'compress' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'compress-audio', ru: 'szhat-audio', uz: 'audio-siqish' },
+    related: ['audio-convert', 'voice-to-mp3'],
+    acceptedTypes: AUDIO_IN,
+    maxFiles: 1
+  },
+  {
+    id: 'audio-silence',
+    category: 'audio',
+    group: 'edit',
+    component: 'media/AudioEdit',
+    icon: 'scissors-line-dashed',
+    published: false,
+    heavy: true,
+    config: { mode: 'silence' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'remove-silence-from-audio', ru: 'udalit-tishinu-iz-audio', uz: 'audiodan-sukunatni-olib-tashlash' },
+    related: ['audio-normalise', 'audio-trim'],
+    acceptedTypes: AUDIO_IN,
+    maxFiles: 1
+  },
+  {
+    id: 'audio-fade',
+    category: 'audio',
+    group: 'edit',
+    component: 'media/AudioEdit',
+    icon: 'audio-lines',
+    published: false,
+    heavy: true,
+    config: { mode: 'fade' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'fade-audio-in-out', ru: 'plavnoe-zatuhanie-zvuka', uz: 'ovozni-susaytirish' },
+    related: ['audio-trim', 'audio-normalise'],
+    acceptedTypes: AUDIO_IN,
+    maxFiles: 1
+  },
+  {
+    id: 'audio-merge',
+    category: 'audio',
+    group: 'edit',
+    component: 'media/Merge',
+    icon: 'layers',
+    published: false,
+    heavy: true,
+    config: { kind: 'audio' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'merge-audio-files', ru: 'obedinit-audio', uz: 'audiolarni-birlashtirish' },
+    related: ['audio-convert', 'audio-trim'],
+    acceptedTypes: AUDIO_IN,
+    maxFiles: 10
+  },
+  {
+    id: 'audio-waveform',
+    category: 'audio',
+    group: 'convert',
+    component: 'media/Waveform',
+    icon: 'activity',
+    published: false,
+    heavy: true,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'audio-waveform-image', ru: 'volna-audio-kartinka', uz: 'audio-tolqin-rasmi' },
+    related: ['audio-convert', 'audio-normalise'],
+    acceptedTypes: AUDIO_IN,
+    maxFiles: 1
+  },
+  {
+    id: 'ringtone-maker',
+    category: 'audio',
+    group: 'make',
+    component: 'media/Ringtone',
+    icon: 'bell',
+    published: false,
+    heavy: true,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'ringtone-maker', ru: 'sozdat-rington', uz: 'rington-yasash' },
+    related: ['audio-trim', 'audio-convert'],
+    acceptedTypes: AUDIO_IN,
+    maxFiles: 1
+  },
+  {
+    id: 'voice-recorder',
+    category: 'audio',
+    group: 'record',
+    component: 'media/Recorder',
+    icon: 'mic',
+    published: false,
+    heavy: true,
+    config: { source: 'mic' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'voice-recorder', ru: 'diktofon-onlayn', uz: 'ovoz-yozish' },
+    related: ['audio-convert', 'audio-normalise'],
     maxFiles: 1
   },
   {

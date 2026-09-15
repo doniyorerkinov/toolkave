@@ -106,5 +106,14 @@ function onFiles(files: File[]) {
         {{ t(`media.action.${mode}`) }}
       </button>
     </div>
+
+    <p v-if="store.error" class="text-sm text-red-700" role="alert">{{ store.error }}</p>
+
+    <ShellResultCard
+      v-if="store.result"
+      :result="store.result"
+      @reset="store.reset()"
+      @chain="store.chainResult()"
+    />
   </div>
 </template>

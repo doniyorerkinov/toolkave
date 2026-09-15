@@ -3370,6 +3370,336 @@
         "q3": "Qaysi turi eng muhim?",
         "a3": "Deyteranopiya, katta farq bilan: u eng keng tarqalgan va aynan u qizil bilan yashilni birlashtiradi. Tritanopiya kam uchraydi, lekin qizil-yashil turlaridan farqli oʻlaroq ayollarda ham erkaklardagidek tez-tez uchraydi."
       }
+    },
+    "video-rotate": {
+      "name": "Videoni burish",
+      "short": "Yonboshlab tushgan videoni to'g'rilash — va u hamma joyda shunday qolsin.",
+      "title": "Videoni burish onlayn — bepul, serverga yuklamasdan",
+      "description": "Videoni brauzerda 90 yoki 180 gradusga buring yoki ko'zgudek aylantiring. Telefonda yonboshlab tushgan videoni butunlay tuzatadi. Bepul, ro'yxatdan o'tmasdan.",
+      "intro": "Telefon o'zi qanday ushlab turilganini rasmni burish orqali emas, faylga qo'shilgan belgi sifatida yozadi, va uni ochadigan pleyerlarning yarmi bu belgiga e'tibor bermaydi. Shuning uchun video galereyangizda yaxshi ko'rinadi, boshqa odamning kompyuterida esa yonboshlab chiqadi. Bu yerda rasmning o'zi buriladi, shuning uchun fayl hamma joyda to'g'ri turadi — muammo kelib chiqqan joylarda ham.",
+      "howTo": {
+        "step1": "Yonboshlab tushgan videoni qo'shing.",
+        "step2": "Yo'nalishni tanlang va ko'rinish qanday burilishini kuzating.",
+        "step3": "«Videoni burish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Nega video telefonimda yaxshi, boshqa hamma joyda yonboshlab ko'rinadi?",
+        "a1": "Chunki telefon yo'nalishni rasmni burish o'rniga belgi sifatida saqlagan. Galereya bu belgini o'qiydi, ko'plab kompyuter pleyerlari, saytlarga yuklovchilar va messenjerlar esa o'qimaydi. Piksellarni burish bu nomuvofiqlikni yo'qotadi.",
+        "q2": "Burishda sifat yo'qoladimi?",
+        "a2": "Ozgina. Videoni qayta kodlash kerak, har qanday qayta kodlash esa biror narsaga tushadi. Bu yerda yuqori sifat sozlamasi ishlatiladi, shuning uchun oddiy ko'rishda yo'qotish sezilmaydi, lekin bu ovozni olib tashlashdagidek aynan nusxa emas.",
+        "q3": "Ko'zgudek aylantirish burishdan nimasi bilan farq qiladi?",
+        "a3": "Burish rasmni chorak yoki yarim aylanaga o'giradi. Ko'zgu esa uni chapdan o'ngga ag'daradi — bu old kameradagi, matni teskari o'qiladigan videolar uchun kerak.",
+        "q4": "Videom biror joyga yuklanadimi?",
+        "a4": "Yo'q. Video dvigatel brauzeringizga yuklanadi va fayl o'sha yerda qayta ishlanadi. Sahifa ochilgandan keyin internetni o'chirsangiz ham hammasi ishlayveradi."
+      }
+    },
+    "video-mute": {
+      "name": "Videodan ovozni olib tashlash",
+      "short": "Tasvirga tegmasdan ovozni olib tashlash.",
+      "title": "Videodan ovozni olib tashlash onlayn — bepul va bir zumda",
+      "description": "Videodagi ovozni brauzerda bir necha soniyada olib tashlang. Tasvir o'zgarishsiz ko'chiriladi, sifat umuman yo'qolmaydi. Serverga yuklamasdan.",
+      "intro": "Ovozni olib tashlash — video bilan bog'liq yagona amal bo'lib, unga qayta kodlash kerak emas. Tasvir qanday bo'lsa, shundayligicha ko'chiriladi, ovoz yo'lagi esa shunchaki olinmaydi. Shuning uchun konvertatsiya daqiqalar oladigan faylda bu ish bir necha soniyada tugaydi, va qaytib olgan videongiz kiritganingiz bilan aynan bir xil bo'ladi.",
+      "howTo": {
+        "step1": "Ovozi keraksiz videoni qo'shing.",
+        "step2": "«Ovozni olib tashlash» tugmasini bosing.",
+        "step3": "Faylni yuklab oling. Tasvir o'zgarmagan."
+      },
+      "faq": {
+        "q1": "Nega bu boshqa video vositalardan ancha tez?",
+        "a1": "Chunki hech narsa qayta kodlanmaydi. Qolgan hammasi tasvirni dekodlashi, o'zgartirishi va qaytadan kodlashi kerak. Bu yerda esa tasvir o'zgarishsiz ko'chiriladi, ovoz esa olib o'tilmaydi — bu konvertatsiya emas, fayl amali.",
+        "q2": "Sifat pasayadimi?",
+        "a2": "Umuman yo'q. Yuklab olgan faylingizdagi video yo'lagi kiritganingiz bilan bir xil ma'lumot. Konvertatsiya o'rniga nusxalashning afzalligi shunda.",
+        "q3": "Ovozni olib tashlash o'rniga almashtirish mumkinmi?",
+        "a3": "Bu yerda yo'q. Bu vosita mavjud yo'lakni olib tashlaydi; boshqasini qo'shish alohida ish bo'lib, unga ikkinchi fayl va qaysi davomiylik ustun bo'lishi haqida qaror kerak.",
+        "q4": "Fayl kichrayadimi?",
+        "a4": "Ha, ovoz egallagan hajm miqdorida. Telefon yozuvida bu odatda bir necha foiz. Agar sezilarli kichik kerak bo'lsa, keyin videoni siqing."
+      }
+    },
+    "video-resize": {
+      "name": "Video o'lchamini o'zgartirish",
+      "short": "Videoni 1080p, 720p yoki pastroqqa tushirish — va fayl hajmini ancha kamaytirish.",
+      "title": "Video o'lchamini o'zgartirish onlayn — 1080p, 720p, 480p",
+      "description": "Video o'lchamini brauzerda o'zgartiring. 4K ni 1080p yoki 720p ga tushiring va fayl hajmini kamaytiring. Serverga yuklamasdan, ro'yxatdan o'tmasdan.",
+      "intro": "O'lcham sifat sozlamalaridan ko'ra ko'proq joy tejaydi. 4K rolikda 1080p dagidan to'rt barobar ko'p piksel bor, va ularning deyarli hech biri telefonda ko'rishda saqlanib qolmaydi — shuning uchun fayl juda katta bo'lganda birinchi bo'lib o'lchamni kamaytirib ko'rish kerak. Nisbatlar saqlanadi, so'ralgandan allaqachon kichik video esa cho'zilmasdan o'z holicha qoladi.",
+      "howTo": {
+        "step1": "Kichraytirmoqchi bo'lgan videoni qo'shing.",
+        "step2": "Kerakli balandlikni tanlang.",
+        "step3": "«O'lchamni o'zgartirish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Qaysi o'lchamni tanlash kerak?",
+        "a1": "720p telefonda ko'riladigan hamma narsa va ko'pchilik messenjerlar uchun yetarli. 1080p noutbuk ekrani uchun oqilona chegara. 480p dan past bo'lsa, ekrandagi matnni o'qish qiyinlashadi.",
+        "q2": "Videoni kattalashtirish mumkinmi?",
+        "a2": "Yo'q, va bu ataylab shunday. Kattalashtirish yozib olinmagan piksellarni o'ylab topadi: fayl bir necha barobar oshadi, aniqlik esa zarracha ham qo'shilmaydi. 720p video uchun 1080p so'rasangiz, u 720p bo'lib qoladi.",
+        "q3": "Kadr shakli saqlanadimi?",
+        "a3": "Ha. Faqat balandlik beriladi, kenglik undan kelib chiqadi, shuning uchun hech narsa cho'zilmaydi va siqilmaydi. Boshqa kadr shakli kerak bo'lsa, ijtimoiy tarmoqlar uchun mo'ljallangan vositadan foydalaning.",
+        "q4": "Fayl qancha kichrayadi?",
+        "a4": "Taxminan piksellar soniga mutanosib. 1080p dan 720p ga o'tish ularning yarmini olib tashlaydi va odatda hajmni ham ikki baravarga yaqin kamaytiradi, aniq raqam esa kadrda qancha harakat borligiga bog'liq."
+      }
+    },
+    "video-social": {
+      "name": "Ijtimoiy tarmoqlar uchun video",
+      "short": "Videoni Stories, kvadrat post yoki YouTube kadriga moslash — keraksiz joyini kesmasdan.",
+      "title": "Instagram, TikTok va YouTube uchun video o'lchami — onlayn, bepul",
+      "description": "Videoni Reels, Stories, TikTok va YouTube uchun 9:16, 1:1, 4:5 yoki 16:9 ga o'tkazing. Xira fon, qora chiziq yoki kesish. Bepul, brauzerda.",
+      "intro": "Har bir platforma o'z kadr shaklini xohlaydi va hech biri buni oldindan aytmaydi. Gorizontal video Stories'da qora chiziq oladi, tik video YouTube'da yon tomonlaridan chiziq oladi. Qayerga joylashingizni tanlang va bo'sh joy nima bilan to'ldirilishini hal qiling: videoning xiralashgan nusxasi, oddiy qora chiziqlar yoki chetlarini yo'qotib kesish.",
+      "howTo": {
+        "step1": "Joylamoqchi bo'lgan videoni qo'shing.",
+        "step2": "Qayerga ketishini va kadr qanday to'ldirilishini tanlang.",
+        "step3": "«O'lchamini moslash» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Qaysi to'ldirishni tanlagan ma'qul?",
+        "a1": "Xira fon — platformalarning o'z muharrirlari qiladigan narsa va u ko'pchilik videolarga mos keladi. Kesishni obyekt aynan markazda bo'lganda va kadrni to'liq to'ldirmoqchi bo'lganingizda ishlating. Qora chiziqlarni esa hech narsa yo'qolmasligi kerak bo'lganda va ko'rinish muhim bo'lmaganda.",
+        "q2": "Kesish kimningdir boshini kesib qo'ymaydimi?",
+        "a2": "Kesishi mumkin. Kesish kadrning o'rtasini oladi, shuning uchun gorizontal suratning chetida turgan odam tik kadrga tushmay qoladi. Ishonchingiz komil bo'lmasa, hammasini saqlaydigan xira fonni tanlang.",
+        "q3": "Nega 1080 piksel kenglik yetarli?",
+        "a3": "Chunki bu platformalarning hammasi yuklangan videoni qayta kodlaydi va hech biri bundan ortig'ini saqlamaydi. 4K yuklash sizdan vaqt va trafik oladi, natijada esa bir xil ko'rinadi.",
+        "q4": "Qaysi o'lcham qaysi platforma uchun?",
+        "a4": "«Stories yoki Reels» — bu 9:16: Instagram Stories va Reels, TikTok, YouTube Shorts. Kvadrat 1:1 va tik 4:5 — Instagram va Facebook lentasidagi postlar. Gorizontal 16:9 — YouTube uchun."
+      }
+    },
+    "video-merge": {
+      "name": "Videolarni birlashtirish",
+      "short": "Bir nechta videoni o'zingiz tanlagan tartibda bitta faylga biriktirish.",
+      "title": "Videolarni birlashtirish onlayn — bepul, serverga yuklamasdan",
+      "description": "Ikki yoki undan ortiq videoni brauzerda bitta faylga biriktiring. Tartibni sudrab o'zgartiring, turli o'lchamlar avtomatik moslanadi. Ro'yxatdan o'tmasdan.",
+      "intro": "Videolar bitta kameradan bo'lsa, ularni biriktirish oson, aks holda esa noqulay: fayllar o'lchami, kadr chastotasi va diskretlash chastotasi bilan farq qilishi mumkin, va uchalasi mos kelmaguncha hech narsa birlashmaydi. Bu yerda har bir video avval bitta umumiy kadrga joylashtiriladi — shuning uchun hammasi qayta kodlanadi va taxminan umumiy davomiylikcha vaqt oladi. Tartibni ro'yxatni sudrab belgilang.",
+      "howTo": {
+        "step1": "Ikki yoki undan ortiq video qo'shing, o'ntagacha.",
+        "step2": "Ularni kerakli tartibda sudrab joylashtiring.",
+        "step3": "Balandlikni tanlang, «Biriktirish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Videolar bir xil o'lchamda bo'lishi shartmi?",
+        "a1": "Yo'q. Har biri siz tanlagan balandlikka moslanadi, kadr shakliga to'g'ri kelmagani esa cho'zilmay, qora chiziq oladi. Shakli mos videolar o'zgarishsiz qoladi.",
+        "q2": "Nega bu kompyuterdagi biriktirishdan sekinroq?",
+        "a2": "Chunki har bir video qayta kodlanadi. Kompyuterdagi dastur ba'zan yo'laklarni to'g'ridan-to'g'ri ko'chira oladi, lekin faqat fayllar kodek, o'lcham va kadr chastotasi bo'yicha aniq mos kelganda, ikki xil telefondagi videolarda esa bunday deyarli bo'lmaydi.",
+        "q3": "Agar bitta videoda ovoz bo'lmasa nima bo'ladi?",
+        "a3": "Natija ovozsiz biriktiriladi va bu haqda aytiladi. Ovozsiz videoni ovozlilar bilan aralashtirib bo'lmaydi — bu xatolikka olib kelardi, shuning uchun hech bo'lmasa fayl beradigan yo'l tanlanadi.",
+        "q4": "Bir vaqtda nechtasini biriktirish mumkin?",
+        "a4": "O'nta. Cheklov xotira tufayli: hammasi brauzerda bir vaqtning o'zida turadi, telefondagi varaq esa noutbukdagidan ancha oldin tugaydi."
+      }
+    },
+    "video-frames": {
+      "name": "Videodan rasmlar",
+      "short": "Videodan alohida kadrlarni ajratib olish — muqova yoki har necha soniyada bittadan.",
+      "title": "Videodan rasmlar onlayn — kadrlarni JPG yoki PNG qilib ajratish",
+      "description": "Videodan kadrlarni JPG yoki PNG rasm sifatida brauzerda ajratib oling. Har necha soniyada bittadan yoki bitta muqova kadri. Bepul.",
+      "intro": "Muqova uchun, rasmga olish o'rniga videoga olingan slaydni o'qish uchun yoki ma'ruza yozuvini varaqlab chiqsa bo'ladigan narsaga aylantirish uchun qulay. Kadrni qanchalik tez-tez olishni va qayerda to'xtashni tanlang: o'n daqiqalik videoda soniyada bitta kadr — bu olti yuzta rasm, shuning uchun cheklov ko'ringanidan muhimroq. Rasmlar arxiv holida qaytadi.",
+      "howTo": {
+        "step1": "Videoni qo'shing.",
+        "step2": "Kadrni qanchalik tez-tez olishni va nechtasida to'xtashni tanlang.",
+        "step3": "«Kadrlarni ajratish» tugmasini bosing va arxivni yuklab oling."
+      },
+      "faq": {
+        "q1": "Qanday qilib atigi bitta rasm olaman?",
+        "a1": "Kadr chegarasini bittaga qo'ying — birinchi kadrni olasiz. Muayyan lahza kerak bo'lsa, avval videoni o'sha yerdan boshlanadigan qilib qirqing, keyin undan bitta kadr oling.",
+        "q2": "JPG yoki PNG?",
+        "a2": "Kameraga olingan hamma narsa uchun JPG: u bir necha barobar kichik va suratda farqi ko'rinmaydi. Ekran yozuvlari va slaydlar uchun PNG, u yerda aniq matn va tekis ranglar muhim.",
+        "q3": "Nega kadrlar soniga cheklov bor?",
+        "a3": "Chunki u bo'lishi shart. Arxiv yig'ilguncha har bir kadr brauzer xotirasida turadi, shuning uchun uzun videodan cheksiz ajratish varaqni to'ldiradi va ish tugamasidan uni to'xtatadi.",
+        "q4": "Nega arxiv videodan kattaroq?",
+        "a4": "Alohida rasmlar video kabi vaqt bo'ylab siqilmaydi. Video asosan kadrlar orasidagi farqni saqlaydi, alohida rasmlarning har biri esa hammasini saqlaydi. Qisqa videodan olingan ikki yuz kadr undan osonlikcha og'irroq chiqadi."
+      }
+    },
+    "screen-recorder": {
+      "name": "Ekranni yozib olish",
+      "short": "Ekranni to'g'ridan-to'g'ri brauzerdan yozib oling. Hech narsa o'rnatmasdan, hech narsa yuklamasdan.",
+      "title": "Ekranni yozib olish onlayn — bepul, o'rnatishsiz va belgisiz",
+      "description": "Ekranni yoki alohida oynani brauzerda yozib oling. O'rnatishsiz, ro'yxatdan o'tmasdan, suv belgisisiz va vaqt cheklovisiz. Yozuv qurilmangizdan chiqmaydi.",
+      "intro": "Bu yerdagi yagona vosita bo'lib, unga umuman hech narsa yuklash kerak emas. Brauzerlar ekranni o'zi yozib oladi, shuning uchun ruxsat berilishi bilan yozuv boshlanadi va to'xtatgan zahoti fayl tayyor bo'ladi — hech qanday konvertatsiya va o'ttiz megabaytlik dvigatel kerak emas. Hech narsa yuklanmaydi: yozuv varaqda yig'iladi va to'g'ridan-to'g'ri qurilmangizga saqlanadi.",
+      "howTo": {
+        "step1": "«Yozishni boshlash» tugmasini bosing va ekran, oyna yoki varaqni tanlang.",
+        "step2": "Yozayotgan ishingizni qiling. Taymer qancha vaqt o'tganini ko'rsatadi.",
+        "step3": "«To'xtatish» tugmasini bosing va faylni yuklab oling."
+      },
+      "faq": {
+        "q1": "Vaqt cheklovi yoki suv belgisi bormi?",
+        "a1": "Ikkalasi ham yo'q. Yozuv siz to'xtatmaguningizcha yoki brauzer xotirasi tugamaguncha davom etadi, ustiga hech narsa chizilmaydi. Hisob ham, to'lov ham yo'q.",
+        "q2": "Ovoz yoziladimi?",
+        "a2": "Ba'zan, va bu bizga emas, brauzerga bog'liq. Chrome va Edge varaq yoki butun tizim ovozini ola oladi va buni tanlash oynasida taklif qiladi. Firefox va Safari ko'pincha ola olmaydi.",
+        "q3": "Fayl qaysi formatda bo'ladi?",
+        "a3": "Ko'pchilik brauzerlarda WebM, Safari'da esa MP4, chunki har biri o'zi kodlay oladigan formatda yozadi. WebM yozuvdan MP4 kerak bo'lsa, buni «MP4 ga aylantirish» vositasi qiladi.",
+        "q4": "Bu telefonda ishlaydimi?",
+        "a4": "Yo'q. Brauzerda ekranni olish kompyuterga xos imkoniyat, mobil brauzerlar uni bermaydi. Buning o'rniga iOS va Android'da ekran yozuvi tizimning o'ziga o'rnatilgan."
+      }
+    },
+    "media-info": {
+      "name": "Fayl ma'lumoti",
+      "short": "Video yoki audio faylning ichida nima borligini ko'rish — kodek, o'lcham, bitreyt, davomiylik.",
+      "title": "Video ma'lumoti onlayn — kodek, bitreyt va o'lchamni tekshirish",
+      "description": "Video yoki audio faylni brauzerda tekshiring: davomiyligi, o'lchami, kodeki, bitreyti va kanallari. Fayl ochilmaganda ochiladigan sahifa.",
+      "intro": "Fayl ochilmayotganda yoki yuklanmayotganda, sababini esa hech kim aytmayotganda ochiladigan sahifa. Davomiylik, o'lcham va o'rtacha bitreytni brauzeringizning o'zi aytadi va ular darhol chiqadi. Kodek, kanal joylashuvi va yo'laklar bo'yicha bitreyt uchun video dvigatel kerak, bu esa katta yuklanish — shuning uchun ular siz so'ramagunga qadar emas, alohida tugma ortida turadi.",
+      "howTo": {
+        "step1": "Video yoki audio faylni qo'shing.",
+        "step2": "Darhol chiqadigan asosiy ma'lumotni o'qing.",
+        "step3": "Kodeklar ham kerak bo'lsa, «Texnik tafsilotlarni ko'rsatish» tugmasini bosing."
+      },
+      "faq": {
+        "q1": "Nega kodeklar alohida tugma ortida?",
+        "a1": "Chunki ularni faqat video dvigatel o'qiy oladi, uni yuklash esa 31 MB. Davomiylik, o'lcham va fayl hajmini brauzer bepul beradi, ko'pchilik savollar uchun esa javob shu — shuning uchun qimmat yarmi so'ralgunicha kutadi.",
+        "q2": "Faylim biror joyga yuklanmayapti. Nimaga qarash kerak?",
+        "a2": "Avval kodek qatoriga. Fayl .mp4 deb atalib, ichida sayt qabul qilmaydigan video bo'lishi mumkin, deyarli hamma joyda esa AAC ovozli H.264 qabul qilinadi. Keyin o'lcham va bitreytga: yuklash cheklovlari odatda shular haqida.",
+        "q3": "Nega davomiylik ko'rsatilmagan deb yozilgan?",
+        "a3": "Ba'zi fayllar uni haqiqatan saqlamaydi — ayniqsa uzilib qolgan yozuvlar va to'g'ridan-to'g'ri diskka saqlangan oqimlar. Bunday fayl odatda baribir ochiladi: pleyerlar davomiylikni yo'l-yo'lakay hisoblaydi.",
+        "q4": "O'qish uchun fayl biror joyga yuklanadimi?",
+        "a4": "Yo'q. Bu yerda faylni o'qish xuddi uni konvertatsiya qilishdek: hammasi brauzeringizda bo'ladi va hech qayerga hech narsa yuborilmaydi."
+      }
+    },
+    "audio-compress": {
+      "name": "Audioni siqish",
+      "short": "Audio faylni yuborsa bo'ladigan darajada kichraytirish — nutqni tushunarsiz qilmasdan.",
+      "title": "Audioni siqish onlayn — MP3 hajmini bepul kamaytirish",
+      "description": "MP3, WAV yoki ovozli yozuv hajmini brauzerda kamaytiring. Bitreyt tanlash, nutq uchun mono. Serverga yuklamasdan, ro'yxatdan o'tmasdan.",
+      "intro": "Audioda hajm — bu bitreyt va vaqtning ko'paytmasi, nutq uchun esa bu bitreytning katta qismi behuda ketadi. 100 MB lik WAV sifatida yozilgan ma'ruza 32 kbit/s mono'da ham mukammal tushunarli, bu esa taxminan qirq barobar kichik. Musiqa boshqa masala va unga yuqoriroq sozlama kerak — shuning uchun bu vosita o'zi hal qilmay, sizdan so'raydi.",
+      "howTo": {
+        "step1": "Audio faylni qo'shing.",
+        "step2": "Bitreytni tanlang, nutq bo'lsa mono'ni belgilang.",
+        "step3": "«Audioni siqish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Qaysi bitreytni tanlash kerak?",
+        "a1": "Nutq uchun 64 kbit/s mono qulay, 32 kbit/s esa hamon mutlaqo tushunarli. Musiqa uchun 128 kbit/s — ko'pchilik farqni sezadigan chegara, 192 kbit/s esa deyarli ajratib bo'lmaydigan darajada.",
+        "q2": "Mono aslida nima qiladi?",
+        "a2": "Chap va o'ng kanallarni bittaga qo'shadi, bu esa ma'lumotni yana ikki barobar kamaytiradi. Ovozli yozuvda saqlashga arziydigan stereo ma'lumot yo'q, shuning uchun bu odatda mavjud eng katta tejamkorlik.",
+        "q3": "Keyinchalik sifatni qaytarish mumkinmi?",
+        "a3": "Yo'q. Bunday siqish ma'lumotni butunlay o'chiradi, kichik faylni kattaga qaytarish esa uni shunchaki yana katta qiladi. Kerak bo'lishi mumkin bo'lsa, asl nusxani saqlang.",
+        "q4": "Nega eng past sozlamada ovoz bo'g'iq eshitiladi?",
+        "a4": "Chunki taxminan 64 kbit/s dan pastda butun diapazonga bitlar yetmaydi va birinchi bo'lib yuqori chastotalar tashlab yuboriladi. Nutqqa bu to'g'ri keladi — undagi muhim narsa pastda, — va shuning uchun eng past sozlamalarda diskretlash chastotasi ham tushiriladi."
+      }
+    },
+    "audio-silence": {
+      "name": "Audiodan sukunatni olib tashlash",
+      "short": "Yozuvdagi jimlikni kesib tashlash — faqat chetlaridan yoki barcha pauzalarni.",
+      "title": "Audiodan sukunatni olib tashlash onlayn — bepul",
+      "description": "Yozuvning boshi va oxiridagi sukunatni qirqing yoki ma'ruzadagi barcha pauzalarni olib tashlang. Bepul, brauzerda, hech narsa yuklanmaydi.",
+      "intro": "Bitta vosita ortida ikki xil ish. Chetlarni qirqish gapirishdan oldingi shovqinni va keyin to'xtatish tugmasiga qo'l cho'zishni olib tashlaydi, o'rtasi esa qanday yozilgan bo'lsa shundayligicha qoladi. Barcha pauzalarni olib tashlash ma'ruza va suhbatlar uchun: bir soatlik duduqlangan nutq ko'pincha qirq daqiqaga yaqinlashadi, va bu saytdagi yagona narsa bo'lib, uni birorta ko'zga ko'ringan kompyuter dasturi bepul qilmaydi.",
+      "howTo": {
+        "step1": "Yozuvni qo'shing.",
+        "step2": "Chetlarini qirqishni yoki barcha pauzalarni olib tashlashni tanlang.",
+        "step3": "«Sukunatni olib tashlash» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Chegara nima qiladi?",
+        "a1": "Nimani sukunat deb hisoblashni belgilaydi. Minus 50 desibel — taxminan tinch xona darajasi, bu xavfsiz standart qiymat. Minus 30 ga yaqinlashtirsangiz, vosita qattiqqo'lroq bo'ladi va sokin aytilgan so'zlarning oxirini kesa boshlaydi.",
+        "q2": "Tabiiy eshitilmay qolmaydimi?",
+        "a2": "Juda ko'p olib tashlasangiz, shunday bo'lishi mumkin. Nutqni kuzatib borish uchun unga pauzalar kerak — eng qisqa pauza sozlamasi aynan shuni himoya qiladi: undan uzun pauzalar o'chirilmay, qisqartiriladi, yarim soniyadan kami esa odatda shoshqaloq eshitiladi.",
+        "q3": "Nega uzun faylda chetlarni qirqish sekinroq?",
+        "a3": "Chunki oxirini to'g'ridan-to'g'ri qirqib bo'lmaydi. Audio teskari o'giriladi, endi bosh bo'lib qolgan tomondan qirqiladi va qaytib o'giriladi — teskari o'girish esa hammasini bir vaqtda xotirada ushlashni talab qiladi.",
+        "q4": "Buni videoga qo'llash mumkinmi?",
+        "a4": "To'g'ridan-to'g'ri yo'q: ovoz tasvirdan chetga chiqib ketardi. Faqat ovoz kerak bo'lsa, avval uni ajratib oling."
+      }
+    },
+    "audio-fade": {
+      "name": "Ovozni susaytirish",
+      "short": "Trek keskin boshlanib keskin tugash o'rniga, yumshoq kirib yumshoq chiqsin.",
+      "title": "Ovozni asta kuchaytirish va susaytirish onlayn — bepul",
+      "description": "MP3 yoki istalgan audio faylga asta kuchayish va asta so'nish qo'shing. Har birining uzunligi sozlanadi. Serverga yuklamasdan, ro'yxatdan o'tmasdan.",
+      "intro": "To'liq balandlikdan boshlanib, birdan uzilib qoladigan trek xatodek eshitiladi, va aynan shu narsa tugallangan parchani qirqib olingandan ajratib turadi. Har bir o'zgarish necha soniya davom etishini belgilang; oxiri faylning o'zidan topiladi, shuning uchun uni qayerga qo'yishni hisoblashingiz shart emas.",
+      "howTo": {
+        "step1": "Audio faylni qo'shing.",
+        "step2": "Kuchayish va so'nish necha soniya davom etishini belgilang.",
+        "step3": "«Qo'llash» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "So'nish qancha davom etishi kerak?",
+        "a1": "Boshida bir-ikki soniya va oxirida ikki-to'rt soniya ko'pchilik musiqaga mos keladi. Nutq uchun har ikki tomondan yarim soniya yetarli — ovozdagi uzoq so'nish nosozlikdek eshitiladi.",
+        "q2": "Faqat bir tomonini qilsa bo'ladimi?",
+        "a2": "Ha. Ikkinchisini nolga qo'ying, u tegilmagan qoladi.",
+        "q3": "Fayl qayta kodlanadimi?",
+        "a3": "Ha, chunki ovozning balandligi o'zgartirilyapti. Ikkalasini ham nolga qo'ysangiz, hech narsa o'zgarmaydi va audio shunchaki o'z holicha ko'chiriladi.",
+        "q4": "Nega natija doim MP3?",
+        "a4": "Chunki u hamma joyda ochiladi, endigina so'ndirilgan fayl esa odatda darrov kimgadir yuboriladi. Boshqa format kerak bo'lsa, keyin «Audio konvertor» dan foydalaning."
+      }
+    },
+    "audio-merge": {
+      "name": "Audiolarni birlashtirish",
+      "short": "Bir nechta yozuvni o'zingiz tanlagan tartibda bittaga biriktirish.",
+      "title": "Audiolarni birlashtirish onlayn — MP3 larni bepul qo'shish",
+      "description": "Ikki yoki undan ortiq audio faylni brauzerda bittaga biriktiring. Turli formatlar va chastotalar avtomatik moslanadi. Ro'yxatdan o'tmasdan.",
+      "intro": "Audio biriktirish oson ko'rinadi va unda bitta tuzoq bor: 44,1 kHz stereo MP3 bilan 48 kHz mono ovozli xabarni shunchaki ketma-ket qo'yib bo'lmaydi, ularni umumiy ko'rinishga keltirmasdan biriktirish esa — bu fayl keyin noto'g'ri tezlikda ochiladigan holat. Bu yerda har bir kirish avval umumiy formatga keltiriladi, shuning uchun turli manbadagi fayllar to'g'ri birlashadi. Tartibni sudrab belgilang.",
+      "howTo": {
+        "step1": "Ikki yoki undan ortiq audio fayl qo'shing, o'ntagacha.",
+        "step2": "Ularni kerakli tartibda sudrab joylashtiring.",
+        "step3": "«Biriktirish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Turli formatlarni aralashtirsa bo'ladimi?",
+        "a1": "Ha. MP3, WAV, OGG, M4A va ovozli xabarlar bitta to'plamga tushishi mumkin. Har biri biriktirishdan oldin umumiy formatga keltiriladi — aynan shu tezlik bilan bog'liq muammolarni oldini oladi.",
+        "q2": "Fayllar orasida pauza bo'ladimi?",
+        "a2": "Yo'q. Ular qanday bo'lsa, shundayligicha ketma-ket biriktiriladi. Pauza kerak bo'lsa, sukunatni oldindan fayllarning o'ziga qo'shish kerak bo'lardi.",
+        "q3": "Natija qaysi formatda bo'ladi?",
+        "a3": "MP3, chunki u hamma joyda ochiladi. Boshqasi kerak bo'lsa, keyin konvertatsiya qiling.",
+        "q4": "Bu ularni aralashtirish bilan bir xilmi?",
+        "a4": "Yo'q. Bu yerda ular ketma-ket ijro etiladi. Aralashtirish — ular bir vaqtda, bir-birining ustidan yangrashi, bu esa boshqa ish."
+      }
+    },
+    "audio-waveform": {
+      "name": "Audio to'lqin rasmi",
+      "short": "Butun yozuvni bitta rasm qilib chizish.",
+      "title": "Audio to'lqin rasmi onlayn — bepul, serverga yuklamasdan",
+      "description": "Audio faylni istalgan rangdagi to'lqin rasmiga aylantiring. Podkast muqovasi, preview yoki kim qachon gapirganini ko'rish uchun. Bepul, brauzerda.",
+      "intro": "To'lqin — bu ovozning vaqt bo'ylab shakli, va undan ko'ringanidan ko'ra ko'proq foyda bor: undan podkast uchun preview chiqadi, u muqovada sarlavha ostiga yotadi va ikki soatlik yozuvda kim qayerda gapirganini bir qarashda ko'rsatadi. O'lcham va rangni tanlang, kanallarni esa birga yoki biri ustida biri qilib chizing.",
+      "howTo": {
+        "step1": "Audio faylni qo'shing.",
+        "step2": "O'lchamni belgilang va rang tanlang.",
+        "step3": "«To'lqinni chizish» tugmasini bosing va PNG ni yuklab oling."
+      },
+      "faq": {
+        "q1": "Qanday o'lcham tanlagan ma'qul?",
+        "a1": "Kerakdan kengroq, keyin kichraytirish: kattalashtirilgan to'lqin xiralashadi. 1600 ga 400 ko'pchilik holatlarni qoplaydi; butun sahifa bo'ylab ketadigan bo'lsa, 3000 kenglik oling.",
+        "q2": "Fon shaffofmi?",
+        "a2": "Yo'q, fon qora. Rasmni boshqa narsa ustiga qo'yish uchun sahifani yig'ayotgan dasturingizda «ko'paytirish» yoki «ekran» aralashtirish rejimidan foydalaning.",
+        "q3": "Kanallarni alohida chizish nima beradi?",
+        "a3": "Chap kanal o'ng kanalning ustiga emas, uning tepasiga chiziladi. Stereo yozuvda bu ovoz qaysi tomondan kelganini ko'rsatadi. Mono faylda farqi bo'lmaydi.",
+        "q4": "Nega to'lqinim yaxlit to'rtburchakka o'xshaydi?",
+        "a4": "Chunki yozuv baland va butun davomida bir tekis — bu ishlov berilgan musiqa uchun odatiy hol. Tanib olsa bo'ladigan shaklni sokin joylar va nutq beradi."
+      }
+    },
+    "ringtone-maker": {
+      "name": "Rington yasash",
+      "short": "Qo'shiqdan parcha kesib olib, telefon qabul qiladigan ringtonga aylantirish.",
+      "title": "Rington yasash onlayn — iPhone uchun m4r bepul",
+      "description": "Istalgan qo'shiqdan iPhone uchun .m4r yoki Android uchun .mp3 rington yasang. Parchani va susayishni tanlang. Bepul, ilovasiz, ro'yxatdan o'tmasdan.",
+      "intro": "Rington yasash — kichik ish bo'lib, uning uchun pul oladigan butun bir ilovalar turkumi mavjud. iPhone'da bu qirq soniyagacha ovozni olib, AAC ga kodlash va faylga .m4r kengaytmasini berishni bildiradi — bu esa nomi o'zgartirilgan .m4a, va butun hiyla shunda. Android'da oddiy MP3 kerak. Qo'shiqni qo'ying, kerakli joyni toping, boshini belgilang va parchani oling.",
+      "howTo": {
+        "step1": "Qo'shiqni qo'shing va iPhone yoki Android'ni tanlang.",
+        "step2": "Uni eshiting, kerakli joyni toping va «Shu yerdan boshlash» tugmasini bosing.",
+        "step3": "Uzunligini belgilang, «Rington yasash» tugmasini bosing va yuklab oling."
+      },
+      "faq": {
+        "q1": "Ringtonni iPhone'ga qanday o'tkazaman?",
+        "a1": "Faqat kompyuter orqali — bu Apple'ning qoidasi, bizniki emas. Telefonni kabel bilan ulang va .m4r faylni Mac'da Finder'ga, Windows'da esa iTunes'dagi «Tones» bo'limiga tashlang. Keyin uni «Sozlamalar», «Ovozlar», «Rington» dan tanlang.",
+        "q2": "Nega chegara qirq soniya?",
+        "a2": "Chunki iPhone sinxronlashda undan uzunini qabul qilmaydi. Cheklov shu yerda qo'llanadi, toki siz buni fayl kompyuteringizga tushgandan keyin emas, hozir bilib olasiz.",
+        "q3": "'.m4r' fayli nima?",
+        "a3": "Bu kengaytmasi o'zgartirilgan '.m4a'. Ichida MPEG-4 konteynerdagi AAC ovozi, xuddi oddiy musiqa fayllaridagidek, kengaytma esa faqat telefon bu fayl nima uchunligini tushunishi uchun kerak.",
+        "q4": "Android telefonga qanday qo'yaman?",
+        "a4": "MP3 olish uchun Android'ni tanlang, uni telefondagi Ringtones papkasiga nusxalang va ovoz sozlamalaridan tanlang. Faylni telefonning o'zida yuklab olsangiz, kabel ham, kompyuter ham kerak emas."
+      }
+    },
+    "voice-recorder": {
+      "name": "Ovoz yozish",
+      "short": "Brauzerda ovoz yozing, daraja ko'rsatkichi bilan — yozuv ketayotganini ko'rib turasiz.",
+      "title": "Diktofon onlayn — bepul, o'rnatishsiz va ro'yxatdan o'tmasdan",
+      "description": "Mikrofondan ovozni brauzerda yozib oling. Jonli daraja ko'rsatkichi, vaqt cheklovi va suv belgisisiz. Yozuv qurilmangizdan chiqmaydi.",
+      "intro": "Mikrofon, taymer va daraja ko'rsatkichi. Ekran yozuvi kabi, bunga ham hech narsa yuklash kerak emas — brauzer o'zi yozadi, shuning uchun ruxsat berilishi bilan boshlanadi va to'xtatgan zahoti fayl tayyor. Daraja ko'rsatkichi ko'ringanidan muhimroq: yozuvni yo'qotishning eng keng tarqalgan yo'li — butun yozuvni noto'g'ri mikrofon bilan qilib, buni faqat keyin bilish.",
+      "howTo": {
+        "step1": "«Yozishni boshlash» tugmasini bosing va mikrofonga ruxsat bering.",
+        "step2": "Gapiring. Daraja ko'rsatkichi harakatlanayotganini kuzating — demak sizni eshityapti.",
+        "step3": "«To'xtatish» tugmasini bosing va yozuvni yuklab oling."
+      },
+      "faq": {
+        "q1": "Vaqt cheklovi bormi?",
+        "a1": "Yo'q, yozuv siz to'xtatmaguningizcha davom etadi. Juda uzun yozuvlar shu paytgacha xotirada turadi, shuning uchun telefonda soatlab yozgandan ko'ra vaqti-vaqti bilan to'xtatib, qaytadan boshlagan ma'qul.",
+        "q2": "Daraja ko'rsatkichi qimirlamayapti. Nima bo'lgan?",
+        "a2": "Brauzer sizni eshitmaydigan mikrofondan yozyapti: odatda bu ulangan, lekin taqilmagan garnitura yoki teskari qaragan veb-kamera mikrofoni. Tizim ovoz sozlamalaridan kirish qurilmasini almashtiring va qaytadan boshlang.",
+        "q3": "Yozuv qaysi formatda bo'ladi?",
+        "a3": "Ko'pchilik brauzerlarda WebM audio, Safari'da esa M4A. MP3 kerak bo'lsa, natijani «Audio konvertor» dan o'tkazing — natija kartochkasi buni keyingi qadam sifatida taklif qiladi.",
+        "q4": "Bu bilan telefon suhbatini yozib olsa bo'ladimi?",
+        "a4": "Yo'q. Brauzer faqat mikrofonga kira oladi, shuning uchun sizning tomoningiz va karnaydan eshitilgani yoziladi. Bundan tashqari, suhbatlarni yozib olish ko'p mamlakatlarda qonun bilan tartibga solinadi."
+      }
     }
   },
   "wordCounter": {
@@ -3848,7 +4178,112 @@
       "convert": "Audioni konvertatsiya qilish",
       "normalise": "Ovoz balandligini tenglash",
       "voice": "MP3 ga aylantirish",
-      "trim": "Qirqish"
+      "trim": "Qirqish",
+      "rotate": "Videoni burish",
+      "mute": "Ovozni olib tashlash",
+      "resize": "O'lchamni o'zgartirish",
+      "social": "O'lchamini moslash",
+      "merge": "Biriktirish",
+      "frames": "Kadrlarni ajratish",
+      "audioCompress": "Audioni siqish",
+      "silence": "Sukunatni olib tashlash",
+      "fade": "Qo'llash",
+      "waveform": "To'lqinni chizish",
+      "ringtone": "Rington yasash",
+      "recordScreen": "Yozishni boshlash",
+      "recordVoice": "Yozishni boshlash",
+      "probe": "Texnik tafsilotlarni ko'rsatish"
+    },
+    "rotateLabel": "Qaysi tomonga?",
+    "rotate": {
+      "right": "O'ngga",
+      "left": "Chapga",
+      "half": "Teskari",
+      "hflip": "Ko'zgudek",
+      "vflip": "Vertikal aylantirish"
+    },
+    "muteNote": "Tasvir o'zgarishsiz ko'chiriladi, shuning uchun bu daqiqalar emas, soniyalar oladi va sifat umuman yo'qolmaydi.",
+    "resizeLabel": "Yangi balandlik",
+    "resizeNote": "Bundan kichik video o'z holicha qoladi: cho'zish faqat fayl hajmini oshiradi, aniqlik qo'shmaydi.",
+    "socialLabel": "Qayerga joylaysiz?",
+    "social": {
+      "story": "Stories yoki Reels",
+      "square": "Kvadrat post",
+      "portrait": "Tik post",
+      "wide": "YouTube yoki gorizontal"
+    },
+    "fitLabel": "Kadr qanday to'ldirilsin?",
+    "fit": {
+      "blur": "Xira fon. Hech narsa kesilmaydi, bo'sh joy videoning xiralashgan nusxasi bilan to'ldiriladi — ilovalarning o'zi shunday qiladi.",
+      "pad": "Qora chiziqlar. Hech narsa kesilmaydi, bo'sh joy qora qoladi.",
+      "crop": "Kadrni to'ldirish. Chiziq yo'q, lekin chetlari kesiladi — hech kimning yuzi chetda qolmaganini tekshiring."
+    },
+    "monoNote": "Mono qilish. Hajmni yana ikki barobar kamaytiradi, nutqda farqi sezilmaydi.",
+    "silenceLabel": "Nima olib tashlansin?",
+    "silence": {
+      "ends": "Faqat boshi va oxiri — boshlashdan oldingi shovqin va to'xtatish tugmasiga qo'l cho'zish.",
+      "all": "Yozuvdagi barcha pauzalar. Bir soatlik duduqlangan nutq ko'pincha qirq daqiqaga yaqinlashadi."
+    },
+    "thresholdLabel": "Sukunat deb hisoblanadi: {n} dB dan past",
+    "thresholdNote": "-50 — tinch xona. -30 ga yaqinlashganda sokin so'zlarning oxiri kesila boshlaydi.",
+    "keepLabel": "{n} s dan uzun pauzalar qisqartiriladi",
+    "keepNote": "Nutqqa pauza kerak. Yarim soniyadan kam bo'lsa, yozuv shoshqaloq eshitiladi.",
+    "fadeInLabel": "Asta kuchayish: {n} s",
+    "fadeOutLabel": "Asta so'nish: {n} s",
+    "mergeCount": "{n} ta fayl, shu tartibda",
+    "mergeNeedTwo": "Yana kamida bitta fayl qo'shing — hozircha biriktiradigan narsa yo'q.",
+    "mergeHeightLabel": "Natija balandligi",
+    "mergeHeightNote": "Turli o'lchamdagi videolar bitta kadrga joylashtiriladi, nisbatlar mos kelmagan joyda qora chiziq qoladi. Hammasi qayta kodlanadi, shuning uchun taxminan umumiy davomiylikcha vaqt ketadi.",
+    "mergeSilentNote": "Ovozsiz biriktirildi: kamida bitta videoda ovoz yo'lagi yo'q edi.",
+    "errorMerge": "Bu fayllarni biriktirib bo'lmadi. Ulardan biri shikastlangan yoki bu vosita o'qiy olmaydigan formatda bo'lishi mumkin.",
+    "everyLabel": "Har {n} s da bitta kadr",
+    "limitLabel": "{n} ta kadrdan keyin to'xtash",
+    "frameJpg": "JPG — ancha kichik",
+    "framePng": "PNG — aniq, lekin og'ir",
+    "framesExpected": "Taxminan {n} ta rasm",
+    "framesCapped": "kadr chegarasi bilan cheklangan",
+    "framesNote": "{n} ta rasm, arxivda.",
+    "heightLabel": "Balandlik: {n} px",
+    "colourLabel": "Rang",
+    "splitChannels": "Chap va o'ngni alohida chizish",
+    "phoneLabel": "Qaysi telefon?",
+    "phone": {
+      "iphone": "iPhone",
+      "android": "Android"
+    },
+    "startHere": "Shu yerdan boshlash",
+    "playSelection": "Tanlangan qismni eshitish",
+    "ringtoneLength": "Uzunligi: {n} s",
+    "ringtoneRange": "{from} dan {to} gacha",
+    "ringtoneCap": "iPhone {n} soniyadan ortig'ini qabul qilmaydi",
+    "ringtoneFadeNote": "Rington takrorlanadi, va nota o'rtasidan kesilgan joy har aylanishda chirtillaydi. Ikki uchidagi qisqa susayish buni yo'qotadi.",
+    "ringtoneIphoneNote": "'.m4r' sifatida saqlandi. Telefonni ulang va faylni Finder'ga, Windows'da esa iTunes'dagi 'Tones' ro'yxatiga tashlang.",
+    "ringtoneAndroidNote": "'.mp3' sifatida saqlandi. Telefondagi Ringtones papkasiga nusxalang va sozlamalardan tanlang.",
+    "recordScreenHint": "Brauzer qaysi oyna yoki ekranni yozishni so'raydi. Hech narsa qurilmangizdan chiqmaydi.",
+    "recordMicHint": "Brauzer mikrofonga ruxsat so'raydi. Hech narsa qurilmangizdan chiqmaydi.",
+    "recording": "Yozilmoqda",
+    "recordWithSound": "Brauzer ruxsat bersa, ovozni ham yozish",
+    "stopRecording": "To'xtatish",
+    "recordDenied": "Ruxsat berilmadi, yozadigan narsa yo'q. Manzil qatoridan ruxsat bering va qayta urinib ko'ring.",
+    "recordUnavailable": "Bu brauzer yozuvni boshlamaydi. Chrome, Edge va Firefox kompyuterda buni qo'llab-quvvatlaydi.",
+    "recordEmpty": "Yozuv bo'sh qaytdi. Odatda bu boshlanishidan oldin to'xtatilganini bildiradi.",
+    "infoName": "Nomi",
+    "infoSize": "Hajmi",
+    "infoType": "Turi",
+    "infoDuration": "Davomiyligi",
+    "infoResolution": "O'lchami",
+    "infoAverage": "O'rtacha bitreyt",
+    "infoUnknown": "Ko'rsatilmagan",
+    "infoDeepHint": "Yuqoridagilarni brauzeringiz aytdi. Kodeklar, kanal joylashuvi va yo'laklar bo'yicha bitreyt uchun video dvigatel kerak — bu 31 MB yuklanish.",
+    "infoStream": "Yo'lak",
+    "infoCodec": "Kodek",
+    "infoDetails": "Tafsilotlar",
+    "infoContainer": "Konteyner: {name}",
+    "stream": {
+      "video": "Video",
+      "audio": "Audio",
+      "subtitle": "Subtitrlar",
+      "other": "Boshqa"
     }
   },
   "devtools": {

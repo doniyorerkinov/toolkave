@@ -19,7 +19,20 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const ROOT = path.resolve(fileURLToPath(import.meta.url), '../..')
-const FROM = path.join(ROOT, 'node_modules/@ffmpeg/core/dist/umd')
+/**
+ * The ESM core, and this is not interchangeable with the UMD one.
+ *
+ * @ffmpeg/ffmpeg always starts its worker with `type: "module"` — both
+ * branches of its `load()` do, there is no classic path. A module worker has
+ * no `importScripts`, so the worker falls through to `await import(coreURL)`
+ * and reads `.default` off it. The UMD build has no default export: it assigns
+ * to a global and returns nothing, so that read is `undefined` and the worker
+ * throws "failed to import ffmpeg-core.js" before a single frame is decoded.
+ *
+ * Shipping UMD here is therefore not a slower or riskier choice, it is a
+ * non-working one, and it fails identically on every browser.
+ */
+const FROM = path.join(ROOT, 'node_modules/@ffmpeg/core/dist/esm')
 const TO = path.join(ROOT, 'public/ffmpeg')
 
 await mkdir(TO, { recursive: true })
