@@ -3702,6 +3702,28 @@
         "q4": "Bu bilan telefon suhbatini yozib olsa bo'ladimi?",
         "a4": "Yo'q. Brauzer faqat mikrofonga kira oladi, shuning uchun sizning tomoningiz va karnaydan eshitilgani yoziladi. Bundan tashqari, suhbatlarni yozib olish ko'p mamlakatlarda qonun bilan tartibga solinadi."
       }
+    },
+    "video-watermark": {
+      "name": "Videoga suv belgisi",
+      "short": "Videoga logotip yoki o'z nomingizni qo'ying, toki u qayerga borsa ham sizniki bo'lib qolsin.",
+      "title": "Videoga suv belgisi qo'yish onlayn — bepul, serverga yuklamasdan",
+      "description": "Videoga logotip yoki matn qo'ying, to'g'ridan-to'g'ri brauzerda. Burchak, o'lcham va shaffoflikni tanlang. Serverga yuklamasdan, ro'yxatdan o'tmasdan va faylingizga bizning belgimiz qo'shilmasdan.",
+      "intro": "Videolar begona akkauntlarga tarqaladi, burchakdagi belgi esa shu yo'ldan omon chiqadigan narsa. Logotip yoki shunchaki o'z nikingizni qo'shing va u qayerda turishini hamda qanchalik bilinishini belgilang: ko'rinish uni videoning o'ziga, tayyor fayldagi kabi joy va o'lchamda qo'yadi — hech narsa kodlanmasdan oldin baho berish mumkin. O'z logotipini natijaga bosadigan suv belgisi vositalarining kulgili tomoni bizga ayon; bu yerda bunday emas.",
+      "howTo": {
+        "step1": "Videoni qo'shing, so'ng logotip rasmini tanlang yoki kerakli matnni yozing.",
+        "step2": "Belgi kerakli joyga tushguncha slayderlarni suring — bularning hammasi ko'rinishda.",
+        "step3": "«Suv belgisini qo'yish» tugmasini bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Videomga o'z logotipingizni qo'yasizmi?",
+        "a1": "Yo'q. Faqat siz tanlagan belgi qo'shiladi. Buni ochiq aytish kerak, chunki ko'plab bepul suv belgisi vositalari natijaga o'zining belgisini bosadi va uni olib tashlash uchun pul oladi.",
+        "q2": "Logotip uchun qanday rasm kerak?",
+        "a2": "Shaffof fonli PNG. JPG ham bo'ladi, lekin unda shaffoflik yo'q, shuning uchun u burchaklari bilinib turadigan to'rtburchak bo'lib tushadi. Logotip fayli bo'lmasa, matn variantidan foydalaning — u qurilmangizdagi shriftlar bilan chiziladi.",
+        "q3": "Nega matn rejimida shrift tanlash yo'q?",
+        "a3": "Chunki matnni video dvigatel emas, brauzeringiz chizadi, dvigatelning esa o'z shriftlari yo'q. Bu yuklanishni kichik, harflarni esa aniq saqlaydi, evaziga tanlov siz uchun qilinadi.",
+        "q4": "Ovoz qayta kodlanadimi?",
+        "a4": "Yo'q. Tasvir ustidagi qimirlamas rasm ovozni o'zgartira olmaydi, shuning uchun asl yo'lak o'zgarishsiz ko'chiriladi. Faqat video qayta kodlanadi — unga biror narsa chizilayotganda bundan qochib bo'lmaydi."
+      }
     }
   },
   "wordCounter": {
@@ -4194,7 +4216,8 @@
       "ringtone": "Rington yasash",
       "recordScreen": "Yozishni boshlash",
       "recordVoice": "Yozishni boshlash",
-      "probe": "Texnik tafsilotlarni ko'rsatish"
+      "probe": "Texnik tafsilotlarni ko'rsatish",
+      "watermark": "Suv belgisini qo‘yish"
     },
     "rotateLabel": "Qaysi tomonga?",
     "rotate": {
@@ -4286,6 +4309,26 @@
       "audio": "Audio",
       "subtitle": "Subtitrlar",
       "other": "Boshqa"
+    },
+    "markLabel": "Videoga nima qo‘yiladi?",
+    "markReplace": "Almashtirish",
+    "markLogoNote": "Shaffof fonli PNG eng yaxshi ko‘rinadi. JPG ham bo‘ladi, lekin uning oq burchaklari bilinib turadi.",
+    "markTextLabel": "Matn",
+    "markTextPlaceholder": "masalan, {'@'}yourname",
+    "markPosition": "Qayerga?",
+    "markSize": "O‘lcham: kenglikning {n}%",
+    "markOpacity": "Shaffoflik: {n}%",
+    "markMargin": "Chetdan masofa: {n}%",
+    "mark": {
+      "logo": "Logotip",
+      "text": "Matn"
+    },
+    "position": {
+      "top-left": "Yuqori chapga",
+      "top-right": "Yuqori o‘ngga",
+      "bottom-left": "Quyi chapga",
+      "bottom-right": "Quyi o‘ngga",
+      "centre": "Markazga"
     }
   },
   "devtools": {

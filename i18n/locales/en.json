@@ -3702,6 +3702,28 @@
         "q4": "Can I record a phone call with this?",
         "a4": "No. A browser can only reach the microphone, so it would capture your side and whatever the speaker is loud enough to pick up. Recording calls is also regulated in many places."
       }
+    },
+    "video-watermark": {
+      "name": "Add watermark to video",
+      "short": "Put a logo or your name over a video, so it stays yours wherever it ends up.",
+      "title": "Add Watermark To Video Online — free, no upload, no watermark of ours",
+      "description": "Overlay a logo or text on a video in your browser. Choose the corner, size and opacity. No upload, no sign-up, and nothing of ours added to your file.",
+      "intro": "Footage gets reposted, and a mark in the corner is what survives the trip. Add a logo, or just your handle, and set where it sits and how strongly it shows — the preview puts it over the actual video, in the same position and size the finished file will use, so you can judge it before anything is encoded. The irony of watermarking tools that stamp their own logo on the result is not lost on us; this one does not.",
+      "howTo": {
+        "step1": "Add the video, then choose a logo image or type the text you want.",
+        "step2": "Drag the sliders until the mark sits where you want it on the preview.",
+        "step3": "Press Add the watermark, then download the result."
+      },
+      "faq": {
+        "q1": "Will this put your logo on my video?",
+        "a1": "No. Nothing is added except the mark you chose. That is worth saying plainly, because a lot of free watermark tools add their own to the output and charge to remove it.",
+        "q2": "What image should I use for a logo?",
+        "a2": "A PNG with a transparent background. JPG works but has no transparency, so it arrives as a rectangle with visible corners. If you have no logo file, use the text option — it is drawn with the fonts already on your device.",
+        "q3": "Why is the text option not offering me fonts?",
+        "a3": "Because the text is drawn by your browser rather than by the video engine, which has no fonts of its own. That keeps the download small and the letters sharp, at the cost of the choice being made for you.",
+        "q4": "Does the sound get re-encoded?",
+        "a4": "No. A still image over the picture cannot change the audio, so the original track is copied across untouched. Only the video is re-encoded, which is unavoidable when pixels are being drawn on."
+      }
     }
   },
   "wordCounter": {
@@ -4194,7 +4216,8 @@
       "recordScreen": "Start recording",
       "recordVoice": "Start recording",
       "probe": "Read the technical details",
-      "audioCompress": "Compress audio"
+      "audioCompress": "Compress audio",
+      "watermark": "Add the watermark"
     },
     "rotateLabel": "Which way?",
     "rotate": {
@@ -4286,6 +4309,26 @@
       "audio": "Audio",
       "subtitle": "Subtitles",
       "other": "Other"
+    },
+    "markLabel": "What goes on the video?",
+    "markReplace": "Replace",
+    "markLogoNote": "A PNG with a transparent background looks best. JPG works, but its white corners will show.",
+    "markTextLabel": "Text",
+    "markTextPlaceholder": "e.g. {'@'}yourname",
+    "markPosition": "Where?",
+    "markSize": "Size: {n}% of the width",
+    "markOpacity": "Opacity: {n}%",
+    "markMargin": "Gap from the edge: {n}%",
+    "mark": {
+      "logo": "A logo",
+      "text": "Some text"
+    },
+    "position": {
+      "top-left": "Top left",
+      "top-right": "Top right",
+      "bottom-left": "Bottom left",
+      "bottom-right": "Bottom right",
+      "centre": "Centre"
     }
   },
   "devtools": {

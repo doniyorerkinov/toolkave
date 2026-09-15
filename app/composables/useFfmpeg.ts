@@ -196,7 +196,12 @@ export function useFfmpeg() {
     const written = files(job)
     const command = [...(job.beforeInput ?? []), ...written.flatMap(file => ['-i', file.name]), ...job.args, ...extraArgs]
     try {
-      for (const file of written) await ffmpeg.writeFile(file.name, file.data)
+      // `.slice()` is not defensive tidiness, it is required. writeFile
+      // *transfers* the buffer into the worker, which detaches the caller's
+      // copy - so the second press of the button on the same file would fail
+      // with "An ArrayBuffer is detached and could not be cloned", and the
+      // file would have to be added again. Every media tool depends on this.
+      for (const file of written) await ffmpeg.writeFile(file.name, file.data.slice())
       const code = await ffmpeg.exec(command)
       if (code !== 0) throw new Error('FFMPEG_FAILED')
       return await collect(ffmpeg)
@@ -300,7 +305,9 @@ export function useFfmpeg() {
     const onLog = (payload: { message: string }) => lines.push(payload.message)
     ffmpeg.on('log', onLog as (payload: never) => void)
     try {
-      await ffmpeg.writeFile(input.name, input.data)
+      // Copied for the same reason as in `withFfmpeg`: probing a file must not
+      // consume it, or the conversion that follows has nothing to work on.
+      await ffmpeg.writeFile(input.name, input.data.slice())
       await ffmpeg.exec(['-hide_banner', '-i', input.name])
       return lines
     } finally {

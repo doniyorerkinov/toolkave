@@ -31,7 +31,12 @@ const props = withDefaults(
   { label: '', mediaStyle: undefined }
 )
 
-const emit = defineEmits<{ loaded: [number]; error: [] }>()
+const emit = defineEmits<{
+  loaded: [number]
+  /** Duration plus the picture's real pixel size, for callers that need it. */
+  meta: [{ duration: number; width: number; height: number }]
+  error: []
+}>()
 
 const { t } = useI18n()
 
@@ -62,6 +67,8 @@ function onLoaded() {
   if (!element) return
   duration.value = Number.isFinite(element.duration) ? element.duration : 0
   emit('loaded', duration.value)
+  const video = element as HTMLVideoElement
+  emit('meta', { duration: duration.value, width: video.videoWidth || 0, height: video.videoHeight || 0 })
 }
 
 function toggle() {
@@ -164,8 +171,8 @@ defineExpose({
       bg-stone-900 would make these letterbox bars nearly white on exactly the
       theme where black matters most.
     -->
+    <div v-if="kind === 'video'" class="relative">
     <video
-      v-if="kind === 'video'"
       ref="media"
       :src="src"
       :aria-label="label || undefined"
@@ -183,6 +190,10 @@ defineExpose({
       @ended="playing = false"
       @error="emit('error')"
     />
+      <!-- Marks, guides, anything that belongs over the picture and not over
+           the controls. Ignores the pointer so clicking still toggles play. -->
+      <div class="pointer-events-none absolute inset-0"><slot name="over" /></div>
+    </div>
     <audio
       v-else
       ref="media"

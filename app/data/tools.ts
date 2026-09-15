@@ -1169,6 +1169,20 @@ export const tools: ToolDef[] = [
     maxFiles: 1
   },
   {
+    id: 'video-watermark',
+    category: 'video',
+    group: 'edit',
+    component: 'media/Watermark',
+    icon: 'stamp',
+    published: false,
+    heavy: true,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'add-watermark-to-video', ru: 'vodyanoy-znak-na-video', uz: 'videoga-suv-belgisi' },
+    related: ['video-social', 'video-compress'],
+    acceptedTypes: VIDEO_IN,
+    maxFiles: 1
+  },
+  {
     id: 'video-merge',
     category: 'video',
     group: 'edit',

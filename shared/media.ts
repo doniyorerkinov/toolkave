@@ -624,3 +624,72 @@ export function readProbe(lines: string[]): MediaInfo {
  * is why the tools fail with a message rather than a silent crash.
  */
 export const MEDIA_MAX_SIZE = 500 * 1024 * 1024
+
+/* ------------------------------------------------------------------ *
+ * Watermarks.
+ * ------------------------------------------------------------------ */
+
+export type WatermarkPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'centre'
+
+export const WATERMARK_POSITIONS: WatermarkPosition[] = [
+  'top-left', 'top-right', 'bottom-left', 'bottom-right', 'centre'
+]
+
+/**
+ * Where the mark sits, in overlay's own coordinates.
+ *
+ * `W` and `H` are the video, `w` and `h` the mark, so these expressions hold
+ * whatever size either turns out to be - the corner stays a corner on a
+ * portrait phone clip and on a 4K landscape one. The margin is passed in
+ * pixels rather than a percentage because overlay cannot do arithmetic on the
+ * main input's width here.
+ */
+const PLACEMENT: Record<WatermarkPosition, (margin: number) => string> = {
+  'top-left': m => `${m}:${m}`,
+  'top-right': m => `W-w-${m}:${m}`,
+  'bottom-left': m => `${m}:H-h-${m}`,
+  'bottom-right': m => `W-w-${m}:H-h-${m}`,
+  centre: () => '(W-w)/2:(H-h)/2'
+}
+
+/**
+ * Lay a logo over a video.
+ *
+ * The mark is scaled in the browser's arithmetic, not ffmpeg's: the component
+ * already knows the video's width from the `<video>` element it is previewing,
+ * so it can hand over a plain pixel figure instead of a `scale2ref` graph whose
+ * behaviour varies between builds. One integer is easier to test and easier to
+ * read back off a failure.
+ *
+ * `format=rgba` before the mixer matters. `colorchannelmixer=aa` sets the alpha
+ * channel, and a JPEG logo arrives with no alpha channel to set - without the
+ * conversion the opacity control silently does nothing.
+ */
+export function watermarkArgs(options: {
+  /** Width to draw the mark at, in pixels of the source video. */
+  logoWidth: number
+  /** Gap from the edges, in the same pixels. Ignored when centred. */
+  margin: number
+  position: WatermarkPosition
+  /** 0-1. 1 is opaque. */
+  opacity: number
+}): string[] {
+  const width = Math.max(2, Math.round(options.logoWidth))
+  const margin = Math.max(0, Math.round(options.margin))
+  const alpha = Math.min(1, Math.max(0, options.opacity)).toFixed(3)
+
+  const graph =
+    `[1:v]scale=${width}:-1,format=rgba,colorchannelmixer=aa=${alpha}[mark];` +
+    `[0:v][mark]overlay=${PLACEMENT[options.position](margin)}:format=auto`
+
+  return [
+    '-filter_complex', graph,
+    '-c:v', 'libx264',
+    '-preset', 'veryfast',
+    '-crf', '23',
+    // The mark is a still image, so the audio is untouched and copying it
+    // keeps the original quality and costs nothing.
+    '-c:a', 'copy',
+    '-movflags', '+faststart'
+  ]
+}

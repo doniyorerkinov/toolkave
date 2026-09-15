@@ -347,3 +347,41 @@ test('frame extraction reads only the span the cap can use, plus one period to f
   // Every three seconds, ten frames: 33 s, not the whole film.
   assert.equal(media.framesSpan({ fps: 1 / 3, limit: 10 }), 33)
 })
+
+/* ---- watermarks ---- */
+
+test('the mark lands in the corner asked for, whatever the video size', () => {
+  const graph = p => valueAfter(media.watermarkArgs({ logoWidth: 200, margin: 24, position: p, opacity: 1 }), '-filter_complex')
+  // W/H are the video and w/h the mark, so these hold for any dimensions.
+  assert.match(graph('top-left'), /overlay=24:24/)
+  assert.match(graph('top-right'), /overlay=W-w-24:24/)
+  assert.match(graph('bottom-left'), /overlay=24:H-h-24/)
+  assert.match(graph('bottom-right'), /overlay=W-w-24:H-h-24/)
+  // Centring is arithmetic, not a margin; a gap from the edge means nothing there.
+  assert.match(graph('centre'), /overlay=\(W-w\)\/2:\(H-h\)\/2/)
+  assert.equal(media.WATERMARK_POSITIONS.length, 5)
+})
+
+test('opacity only works if the logo is given an alpha channel first', () => {
+  const graph = valueAfter(media.watermarkArgs({ logoWidth: 120, margin: 10, position: 'top-right', opacity: 0.4 }), '-filter_complex')
+  // A JPEG logo has no alpha to set, so colorchannelmixer would do nothing
+  // without the conversion - and the opacity slider would look broken.
+  assert.ok(graph.indexOf('format=rgba') < graph.indexOf('colorchannelmixer'), 'format=rgba must come first')
+  assert.match(graph, /colorchannelmixer=aa=0\.400/)
+})
+
+test('watermarking copies the audio rather than re-encoding it', () => {
+  const args = media.watermarkArgs({ logoWidth: 100, margin: 8, position: 'centre', opacity: 1 })
+  assert.equal(valueAfter(args, '-c:a'), 'copy', 'a still image over the picture cannot change the sound')
+  assert.equal(valueAfter(args, '-c:v'), 'libx264')
+  assert.equal(valueAfter(args, '-movflags'), '+faststart')
+})
+
+test('a nonsense size or opacity is clamped rather than passed to ffmpeg', () => {
+  const tiny = valueAfter(media.watermarkArgs({ logoWidth: 0.2, margin: -50, position: 'top-left', opacity: 5 }), '-filter_complex')
+  assert.match(tiny, /scale=2:-1/, 'scale=0 would abort the run')
+  assert.match(tiny, /overlay=0:0/, 'a negative margin would push the mark off the frame')
+  assert.match(tiny, /aa=1\.000/)
+  const clear = valueAfter(media.watermarkArgs({ logoWidth: 50, margin: 0, position: 'centre', opacity: -3 }), '-filter_complex')
+  assert.match(clear, /aa=0\.000/)
+})
