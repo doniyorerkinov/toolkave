@@ -135,7 +135,7 @@ const ratio = (value: number) => Math.round(value * 100) / 100
           <button
             v-if="eyedropper"
             type="button"
-            class="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+            class="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
             @click="eyedrop"
           >
             <Pipette :size="16" aria-hidden="true" />
@@ -143,7 +143,7 @@ const ratio = (value: number) => Math.round(value * 100) / 100
           </button>
           <button
             type="button"
-            class="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+            class="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-3 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
             @click="random"
           >
             <Shuffle :size="16" aria-hidden="true" />

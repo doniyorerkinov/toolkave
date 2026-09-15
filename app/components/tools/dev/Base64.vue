@@ -64,7 +64,7 @@ async function copy() {
           v-for="option in (['encode', 'decode'] as Mode[])"
           :key="option"
           class="cursor-pointer rounded px-3 py-1.5 text-sm font-medium"
-          :class="mode === option ? 'bg-ember-700 text-white' : 'text-stone-700 hover:bg-stone-50'"
+          :class="mode === option ? 'bg-ember-700 text-white' : 'text-stone-700 hover:bg-ember-100'"
         >
           <input v-model="mode" type="radio" :value="option" class="sr-only" />
           {{ t(`base64.${option}`) }}
@@ -78,7 +78,7 @@ async function copy() {
 
       <button
         type="button"
-        class="ms-auto rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="ms-auto rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
         @click="swap"
       >
         {{ t('base64.swap') }}
@@ -107,7 +107,7 @@ async function copy() {
         <button
           type="button"
           :disabled="!output.text"
-          class="rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
+          class="rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-ember-100 disabled:opacity-40"
           @click="copy"
         >
           {{ copied ? t('wordCounter.copied') : t('wordCounter.copy') }}

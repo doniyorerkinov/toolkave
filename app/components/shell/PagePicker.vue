@@ -224,7 +224,7 @@ onBeforeUnmount(closeAllBitmaps)
           :class="
             selected.has(index - 1)
               ? 'border-ember-600 ring-2 ring-ember-200'
-              : 'border-stone-200 hover:border-stone-300'
+              : 'border-stone-200 hover:border-ember-300'
           "
           @click="toggle(index - 1, $event)"
         >

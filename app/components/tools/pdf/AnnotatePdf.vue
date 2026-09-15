@@ -291,7 +291,7 @@ function nextPage() {
         <div class="flex items-center gap-2">
           <button
             type="button"
-            class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
+            class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100 disabled:opacity-40"
             :disabled="currentPage === 0"
             @click="prevPage"
           >
@@ -300,7 +300,7 @@ function nextPage() {
           <span class="text-sm text-stone-600">{{ t('pdf.annotate.page', { n: currentPage + 1, count: pageCount }) }}</span>
           <button
             type="button"
-            class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
+            class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100 disabled:opacity-40"
             :disabled="currentPage === pageCount - 1"
             @click="nextPage"
           >
@@ -314,7 +314,7 @@ function nextPage() {
             :key="option"
             type="button"
             class="rounded-md px-3 py-1.5 text-sm font-medium transition"
-            :class="mode === option ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-600 hover:text-stone-900'"
+            :class="mode === option ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-600 hover:text-ember-800'"
             @click="mode = option"
           >
             {{ t(`pdf.annotate.mode.${option}`) }}
@@ -361,7 +361,7 @@ function nextPage() {
           </button>
           <button
             type="button"
-            class="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+            class="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
             @click="cancelNote"
           >
             {{ t('pdf.annotate.cancelNote') }}
@@ -404,7 +404,7 @@ function nextPage() {
       </button>
       <button
         type="button"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

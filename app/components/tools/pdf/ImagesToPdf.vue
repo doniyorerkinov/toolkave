@@ -133,7 +133,7 @@ async function run() {
             v-for="option in (['a4', 'image'] as PageFit[])"
             :key="option"
             class="cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium"
-            :class="fit === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'"
+            :class="fit === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'"
           >
             <input v-model="fit" type="radio" :value="option" class="sr-only" />
             {{ t(`pdf.imagesToPdf.fit.${option}`) }}
@@ -150,7 +150,7 @@ async function run() {
             v-for="option in (['smaller', 'original'] as SizeMode[])"
             :key="option"
             class="cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium"
-            :class="size === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'"
+            :class="size === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'"
           >
             <input v-model="size" type="radio" :value="option" class="sr-only" />
             {{ t(`pdf.imagesToPdf.size.${option}`) }}
@@ -173,7 +173,7 @@ async function run() {
       </button>
       <button
         type="button"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

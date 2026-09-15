@@ -72,7 +72,7 @@ async function copy() {
         <legend class="mb-2 text-sm font-medium text-stone-900">{{ t('colourtools.spaceLabel') }}</legend>
         <div class="grid gap-3 sm:grid-cols-2">
           <label v-for="option in (['oklab', 'srgb'] as const)" :key="option" class="cursor-pointer rounded-lg border p-3"
-            :class="space === option ? 'border-ember-500 ring-2 ring-ember-200' : 'border-stone-300 hover:bg-stone-50'">
+            :class="space === option ? 'border-ember-500 ring-2 ring-ember-200' : 'border-stone-300 hover:bg-ember-100'">
             <input v-model="space" type="radio" :value="option" class="sr-only" />
             <span class="block text-sm font-medium text-stone-900">{{ t(`colourtools.space.${option}`) }}</span>
             <span class="mt-2 block h-10 rounded" :style="preview(option === 'oklab' ? oklabStops : srgbStops)" />
@@ -84,7 +84,7 @@ async function copy() {
       <div>
         <div class="flex items-center justify-between">
           <p class="text-sm font-medium text-stone-900">CSS</p>
-          <button type="button" class="rounded-lg border border-stone-300 bg-white px-3 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50" @click="copy">
+          <button type="button" class="rounded-lg border border-stone-300 bg-white px-3 py-1 text-xs font-medium text-stone-700 hover:bg-ember-100" @click="copy">
             {{ copied ? t('colourtools.copied') : t('colourtools.copy') }}
           </button>
         </div>

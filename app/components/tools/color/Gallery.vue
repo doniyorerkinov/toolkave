@@ -84,7 +84,7 @@ const ink = (hex: string) => rgbToHex(readableOn(hexToRgb(hex)))
         :class="
           tag === 'all'
             ? 'border-ember-500 bg-ember-50 text-ember-900'
-            : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
+            : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'
         "
         @click="tag = 'all'"
       >
@@ -98,7 +98,7 @@ const ink = (hex: string) => rgbToHex(readableOn(hexToRgb(hex)))
         :class="
           tag === option
             ? 'border-ember-500 bg-ember-50 text-ember-900'
-            : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
+            : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'
         "
         @click="tag = option"
       >
@@ -113,7 +113,7 @@ const ink = (hex: string) => rgbToHex(readableOn(hexToRgb(hex)))
       </label>
       <button
         type="button"
-        class="inline-flex items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="inline-flex items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
         @click="shuffle"
       >
         <Shuffle :size="15" aria-hidden="true" />
@@ -170,7 +170,7 @@ const ink = (hex: string) => rgbToHex(readableOn(hexToRgb(hex)))
           <span class="ms-auto flex items-center gap-1">
             <button
               type="button"
-              class="rounded-lg border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50"
+              class="rounded-lg border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-ember-100"
               @click="copy(entry.palette.colours.join(', '), entry.hash)"
             >
               {{ copied === entry.hash ? t('colour.copied') : t('colour.gallery.copyAll') }}
@@ -178,7 +178,7 @@ const ink = (hex: string) => rgbToHex(readableOn(hexToRgb(hex)))
             <NuxtLink
               v-if="generatorPath"
               :to="`${generatorPath}#${entry.hash}`"
-              class="inline-flex items-center gap-1 rounded-lg border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50"
+              class="inline-flex items-center gap-1 rounded-lg border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-ember-100"
               :title="t('colour.gallery.openInGenerator')"
             >
               <Wand2 :size="12" aria-hidden="true" />

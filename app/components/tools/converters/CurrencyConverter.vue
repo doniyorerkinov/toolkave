@@ -127,7 +127,7 @@ const popular = computed(() => {
 
         <button
           type="button"
-          class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+          class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100"
           :aria-label="t('currency.swap')"
           @click="swap"
         >

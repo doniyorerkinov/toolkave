@@ -156,7 +156,7 @@ async function copy(key: string, value: string) {
             <span class="truncate font-mono text-sm text-stone-900">{{ item.value }}</span>
             <button
               type="button"
-              class="shrink-0 rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50"
+              class="shrink-0 rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-ember-100"
               @click="copy(item.key, item.value)"
             >
               {{ copiedKey === item.key ? t('wordCounter.copied') : t('wordCounter.copy') }}

@@ -87,7 +87,7 @@ async function copyOutput() {
       </button>
       <button
         type="button"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}
@@ -123,7 +123,7 @@ async function copyOutput() {
         </button>
         <button
           type="button"
-          class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+          class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100"
           @click="save"
         >
           {{ t('docs.saveFile') }}

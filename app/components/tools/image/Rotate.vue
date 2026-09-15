@@ -166,7 +166,7 @@ onBeforeUnmount(() => bitmap?.close())
       <div class="flex flex-wrap justify-center gap-2">
         <button
           type="button"
-          class="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-3.5 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+          class="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-3.5 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100"
           @click="turn(-90)"
         >
           <RotateCcw :size="18" aria-hidden="true" />
@@ -174,7 +174,7 @@ onBeforeUnmount(() => bitmap?.close())
         </button>
         <button
           type="button"
-          class="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-3.5 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+          class="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-3.5 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100"
           @click="turn(90)"
         >
           <RotateCw :size="18" aria-hidden="true" />
@@ -186,7 +186,7 @@ onBeforeUnmount(() => bitmap?.close())
           :class="
             flipHorizontal
               ? 'border-ember-500 bg-ember-50 text-ember-900'
-              : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
+              : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'
           "
           :aria-pressed="flipHorizontal"
           @click="flipHorizontal = !flipHorizontal"
@@ -200,7 +200,7 @@ onBeforeUnmount(() => bitmap?.close())
           :class="
             flipVertical
               ? 'border-ember-500 bg-ember-50 text-ember-900'
-              : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
+              : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'
           "
           :aria-pressed="flipVertical"
           @click="flipVertical = !flipVertical"
@@ -211,7 +211,7 @@ onBeforeUnmount(() => bitmap?.close())
         <button
           v-if="touched"
           type="button"
-          class="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-3.5 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+          class="inline-flex items-center gap-2 rounded-lg border border-stone-300 bg-white px-3.5 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100"
           @click="reset"
         >
           <Undo2 :size="18" aria-hidden="true" />
@@ -231,7 +231,7 @@ onBeforeUnmount(() => bitmap?.close())
       </button>
       <button
         type="button"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

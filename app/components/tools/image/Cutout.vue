@@ -296,7 +296,7 @@ onBeforeUnmount(() => {
             :class="
               backdrop === option
                 ? 'border-ember-500 bg-ember-50 text-ember-900'
-                : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
+                : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'
             "
           >
             <input v-model="backdrop" type="radio" :value="option" class="sr-only" />
@@ -337,7 +337,7 @@ onBeforeUnmount(() => {
       <button
         v-if="hasCut"
         type="button"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
         :disabled="store.busy"
         @click="cut"
       >
@@ -345,7 +345,7 @@ onBeforeUnmount(() => {
       </button>
       <button
         type="button"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

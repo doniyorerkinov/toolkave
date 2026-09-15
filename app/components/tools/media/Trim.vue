@@ -133,7 +133,7 @@ function onFiles(files: File[]) {
             />
             <button
               type="button"
-              class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+              class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100"
               @click="useCurrent('start')"
             >
               {{ t('media.useCurrent') }}
@@ -154,7 +154,7 @@ function onFiles(files: File[]) {
             />
             <button
               type="button"
-              class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+              class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100"
               @click="useCurrent('end')"
             >
               {{ t('media.useCurrent') }}

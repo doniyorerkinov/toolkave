@@ -179,7 +179,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', onPointerDown,
       aria-haspopup="listbox"
       :aria-label="ariaLabel"
       class="flex w-full items-center justify-between gap-2 rounded-lg border bg-white px-3 py-2 text-left outline-none transition"
-      :class="open ? 'border-ember-500 ring-2 ring-ember-500/20' : 'border-stone-300 hover:border-stone-400'"
+      :class="open ? 'border-ember-500 ring-2 ring-ember-500/20' : 'border-stone-300 hover:border-ember-400'"
       @click="open ? hide() : show()"
       @keydown="onKeydown"
     >

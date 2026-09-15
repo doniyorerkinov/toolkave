@@ -118,7 +118,7 @@ const sample = 'ÐŸÑ€Ð¸Ð²ÐµÑ‚, Ð¼Ð¸Ñ€!'
         role="tab"
         :aria-selected="mode === option"
         class="flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition"
-        :class="mode === option ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-600 hover:text-stone-900'"
+        :class="mode === option ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-600 hover:text-ember-800'"
         @click="mode = option"
       >
         {{ t(`fixEncoding.mode.${option}`) }}
@@ -239,7 +239,7 @@ const sample = 'ÐŸÑ€Ð¸Ð²ÐµÑ‚, Ð¼Ð¸Ñ€!'
         </button>
         <button
           type="button"
-          class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+          class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
           @click="store.reset()"
         >
           {{ t('result.startOver') }}

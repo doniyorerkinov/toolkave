@@ -69,7 +69,7 @@ const result = computed(() => {
         :class="
           mode === option
             ? 'border-ember-500 bg-ember-50 text-ember-900'
-            : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
+            : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'
         "
       >
         <input v-model="mode" type="radio" :value="option" class="sr-only" />

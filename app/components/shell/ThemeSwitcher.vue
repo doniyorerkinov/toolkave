@@ -30,7 +30,7 @@ function choose(next: Theme) {
   <div ref="root" class="relative">
     <button
       type="button"
-      class="flex items-center gap-1 rounded-full bg-white/10 p-1.5 text-xs font-semibold text-on-ink transition hover:bg-white/20 hover:text-white"
+      class="flex items-center gap-1 rounded-full bg-white/10 p-1.5 text-xs font-semibold text-on-ink transition hover:bg-ember-500/30 hover:text-white"
       :aria-label="t('nav.theme')"
       :aria-expanded="open"
       aria-haspopup="menu"
@@ -55,7 +55,7 @@ function choose(next: Theme) {
         :class="
           theme === option
             ? 'font-semibold text-ember-900'
-            : 'text-stone-700 hover:bg-stone-50 hover:text-stone-950'
+            : 'text-stone-700 hover:bg-ember-100 hover:text-ember-900'
         "
         @click="choose(option)"
       >

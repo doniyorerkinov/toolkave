@@ -483,7 +483,7 @@ function applyPreset(percent: number) {
             v-for="option in [false, true]"
             :key="String(option)"
             class="cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium"
-            :class="cropping === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'"
+            :class="cropping === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'"
           >
             <input v-model="cropping" type="radio" :value="option" class="sr-only" />
             {{ option ? t('image.resize.partCrop') : t('image.resize.partWhole') }}
@@ -557,7 +557,7 @@ function applyPreset(percent: number) {
           v-for="preset in presets"
           :key="preset"
           type="button"
-          class="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm text-stone-700 hover:bg-stone-50"
+          class="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm text-stone-700 hover:bg-ember-100"
           @click="applyPreset(preset)"
         >
           {{ preset }}%
@@ -576,7 +576,7 @@ function applyPreset(percent: number) {
       </button>
       <button
         type="button"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

@@ -15,7 +15,7 @@ const showStatus = import.meta.dev
 <template>
   <NuxtLink
     :to="href"
-    class="group flex gap-3.5 rounded-xl border border-stone-200 bg-white p-4 transition hover:-translate-y-px hover:border-stone-300 hover:shadow-md"
+    class="group flex gap-3.5 rounded-xl border border-stone-200 bg-white p-4 transition hover:-translate-y-px hover:border-ember-300 hover:shadow-md"
   >
     <span
       class="flex size-10 shrink-0 items-center justify-center rounded-lg transition"

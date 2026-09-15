@@ -104,7 +104,7 @@ function onFiles(files: File[]) {
             v-for="option in (['telegram', 'email', 'balanced', 'high'] as VideoQuality[])"
             :key="option"
             class="cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium"
-            :class="quality === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'"
+            :class="quality === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'"
           >
             <input v-model="quality" type="radio" :value="option" class="sr-only" />
             {{ t(`media.quality.${option}`) }}

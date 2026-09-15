@@ -306,7 +306,7 @@ function onFiles(files: File[]) {
       <div class="flex items-center gap-2">
         <button
           type="button"
-          class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
+          class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100 disabled:opacity-40"
           :disabled="currentPage === 0"
           @click="prevPage"
         >
@@ -315,7 +315,7 @@ function onFiles(files: File[]) {
         <span class="text-sm text-stone-600">{{ t('pdf.redact.page', { n: currentPage + 1, count: pageCount }) }}</span>
         <button
           type="button"
-          class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
+          class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100 disabled:opacity-40"
           :disabled="currentPage === pageCount - 1"
           @click="nextPage"
         >
@@ -368,7 +368,7 @@ function onFiles(files: File[]) {
       </button>
       <button
         type="button"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

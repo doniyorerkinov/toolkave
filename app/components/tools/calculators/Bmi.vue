@@ -128,7 +128,7 @@ const waist = computed(() => WAIST_LIMITS[sex.value])
             :class="
               sex === option
                 ? 'border-ember-500 bg-ember-50 text-ember-900'
-                : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
+                : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'
             "
           >
             <input v-model="sex" type="radio" :value="option" class="sr-only" />

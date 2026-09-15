@@ -153,7 +153,7 @@ function onFiles(files: File[]) {
             v-for="option in (['iphone', 'android'] as RingtonePhone[])"
             :key="option"
             class="cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium"
-            :class="phone === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'"
+            :class="phone === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'"
           >
             <input v-model="phone" type="radio" :value="option" class="sr-only" />
             {{ t(`media.phone.${option}`) }}
@@ -179,14 +179,14 @@ function onFiles(files: File[]) {
           </div>
           <button
             type="button"
-            class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+            class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100"
             @click="startHere"
           >
             {{ t('media.startHere') }}
           </button>
           <button
             type="button"
-            class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+            class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100"
             @click="playSelection"
           >
             {{ t('media.playSelection') }}

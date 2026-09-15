@@ -190,7 +190,7 @@ onBeforeUnmount(() => {
             :class="
               category === entry.id
                 ? 'border-ember-500 bg-ember-50 text-ember-900'
-                : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
+                : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'
             "
             @click="category = entry.id"
           >
@@ -224,7 +224,7 @@ onBeforeUnmount(() => {
             <code class="min-w-0 flex-1 truncate font-mono text-sm text-stone-800">{{ row.path }}</code>
             <button
               type="button"
-              class="shrink-0 rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+              class="shrink-0 rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
               @click="copy(row.url, row.key)"
             >
               {{ copied === row.key ? 'Copied' : 'Copy URL' }}
@@ -267,7 +267,7 @@ onBeforeUnmount(() => {
             </button>
             <button
               type="button"
-              class="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-stone-50"
+              class="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-600 hover:bg-ember-100"
               @click="clearTicks"
             >
               Clear ticks
@@ -291,7 +291,7 @@ onBeforeUnmount(() => {
             :class="
               filter === option
                 ? 'border-ember-500 bg-ember-50 text-ember-900'
-                : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
+                : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'
             "
             @click="filter = option"
           >
@@ -330,7 +330,7 @@ onBeforeUnmount(() => {
             </code>
             <button
               type="button"
-              class="shrink-0 rounded-lg border border-stone-300 bg-white px-2.5 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50"
+              class="shrink-0 rounded-lg border border-stone-300 bg-white px-2.5 py-1 text-xs font-medium text-stone-700 hover:bg-ember-100"
               @click="copy(row.url, row.key)"
             >
               {{ copied === row.key ? 'Copied' : 'Copy' }}
@@ -339,7 +339,7 @@ onBeforeUnmount(() => {
               :href="inspectUrl(row.url)"
               target="_blank"
               rel="noopener"
-              class="shrink-0 rounded-lg border border-stone-300 bg-white px-2.5 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50"
+              class="shrink-0 rounded-lg border border-stone-300 bg-white px-2.5 py-1 text-xs font-medium text-stone-700 hover:bg-ember-100"
             >
               Inspect
             </a>

@@ -268,14 +268,14 @@ onBeforeUnmount(release)
           <div class="flex gap-2">
             <button
               type="button"
-              class="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+              class="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
               @click="copy(asCss, 'css')"
             >
               {{ copied === 'css' ? t('colour.copied') : t('colour.fromImage.copyCss') }}
             </button>
             <button
               type="button"
-              class="inline-flex items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+              class="inline-flex items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
               @click="picked = []"
             >
               <Trash2 :size="15" aria-hidden="true" />

@@ -46,7 +46,7 @@ const navCategories = computed(() =>
             <li v-for="category in navCategories" :key="category.id">
               <NuxtLink
                 :to="category.href"
-                class="block rounded-lg px-2.5 py-1.5 font-medium text-on-ink-dim transition hover:bg-white/10 hover:text-white"
+                class="block rounded-lg px-2.5 py-1.5 font-medium text-on-ink-dim transition hover:bg-ember-500/20 hover:text-white"
                 active-class="bg-white/10 text-white"
               >
                 {{ category.name }}

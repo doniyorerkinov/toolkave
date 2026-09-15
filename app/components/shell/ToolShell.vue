@@ -150,13 +150,13 @@ const relatedTools = computed(() =>
       <nav aria-label="Breadcrumb" class="mb-4 text-sm text-stone-500">
         <ol class="flex flex-wrap items-center gap-1.5">
           <li>
-            <NuxtLink :to="localePath('/')" class="hover:text-stone-900 hover:underline">
+            <NuxtLink :to="localePath('/')" class="hover:text-ember-800 hover:underline">
               {{ t('shell.breadcrumbHome') }}
             </NuxtLink>
           </li>
           <li aria-hidden="true">›</li>
           <li>
-            <NuxtLink :to="categoryHref" class="hover:text-stone-900 hover:underline">
+            <NuxtLink :to="categoryHref" class="hover:text-ember-800 hover:underline">
               {{ categoryName }}
             </NuxtLink>
           </li>
@@ -227,7 +227,7 @@ const relatedTools = computed(() =>
           <li v-for="sibling in siblings" :key="sibling.id">
             <NuxtLink
               :to="toolPath(sibling, currentLocale) ?? categoryHref"
-              class="group flex items-center gap-2.5 py-2 text-sm text-stone-700 hover:text-stone-950"
+              class="group flex items-center gap-2.5 py-2 text-sm text-stone-700 hover:text-ember-900"
             >
               <span class="flex size-7 shrink-0 items-center justify-center rounded-md" :class="tone.tile">
                 <ShellIcon :name="sibling.icon" :size="14" />

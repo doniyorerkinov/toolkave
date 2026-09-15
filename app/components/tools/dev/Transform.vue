@@ -66,7 +66,7 @@ async function copy(text: string) {
     <div class="flex flex-wrap items-center gap-2">
       <template v-if="mode === 'case'">
         <label v-for="option in CASES" :key="option" class="cursor-pointer rounded-lg border px-3 py-1.5 text-sm font-medium"
-          :class="style === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'">
+          :class="style === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'">
           <input v-model="style" type="radio" :value="option" class="sr-only" />
           {{ t(`devtools.case.${option}`) }}
         </label>
@@ -74,7 +74,7 @@ async function copy(text: string) {
 
       <template v-else-if="mode === 'url'">
         <label v-for="option in (['encode', 'decode'] as const)" :key="option" class="cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium"
-          :class="direction === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'">
+          :class="direction === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'">
           <input v-model="direction" type="radio" :value="option" class="sr-only" />
           {{ t(`devtools.${option}`) }}
         </label>
@@ -89,7 +89,7 @@ async function copy(text: string) {
       <template v-else>
         <label v-for="option in (['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'] as const)" :key="option"
           class="cursor-pointer rounded-lg border px-3 py-1.5 text-sm font-medium"
-          :class="algorithm === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'">
+          :class="algorithm === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'">
           <input v-model="algorithm" type="radio" :value="option" class="sr-only" />
           {{ option }}
         </label>
@@ -105,7 +105,7 @@ async function copy(text: string) {
       <div>
         <div class="flex items-center justify-between">
           <label for="dev-out" class="block text-sm font-medium text-stone-900">{{ t('devtools.output') }}</label>
-          <button v-if="output" type="button" class="rounded-lg border border-stone-300 bg-white px-3 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50" @click="copy(output)">
+          <button v-if="output" type="button" class="rounded-lg border border-stone-300 bg-white px-3 py-1 text-xs font-medium text-stone-700 hover:bg-ember-100" @click="copy(output)">
             {{ copied ? t('devtools.copied') : t('devtools.copy') }}
           </button>
         </div>

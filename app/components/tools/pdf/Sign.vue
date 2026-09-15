@@ -468,7 +468,7 @@ function onFiles(files: File[]) {
           <button
             type="button"
             :disabled="!hasInk"
-            class="rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
+            class="rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-ember-100 disabled:opacity-40"
             @click="clearInk"
           >
             {{ t('pdf.sign.clear') }}
@@ -491,7 +491,7 @@ function onFiles(files: File[]) {
         <div v-if="pageCount > 1" class="mb-2 flex items-center gap-2">
           <button
             type="button"
-            class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
+            class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100 disabled:opacity-40"
             :disabled="currentPage === 0"
             :aria-label="t('result.prevPage')"
             @click="prevPage"
@@ -503,7 +503,7 @@ function onFiles(files: File[]) {
           </span>
           <button
             type="button"
-            class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-40"
+            class="rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100 disabled:opacity-40"
             :disabled="currentPage === pageCount - 1"
             :aria-label="t('result.nextPage')"
             @click="nextPage"
@@ -556,7 +556,7 @@ function onFiles(files: File[]) {
       </button>
       <button
         type="button"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

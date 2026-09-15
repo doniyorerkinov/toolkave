@@ -183,7 +183,7 @@ onBeforeUnmount(() => {
       ref="trigger"
       type="button"
       class="flex w-full items-center justify-between gap-2 rounded-lg border bg-white px-3 py-2 text-start outline-none transition"
-      :class="open ? 'border-ember-500 ring-2 ring-ember-200' : 'border-stone-300 hover:border-stone-400'"
+      :class="open ? 'border-ember-500 ring-2 ring-ember-200' : 'border-stone-300 hover:border-ember-400'"
       :aria-label="ariaLabel"
       :aria-expanded="open"
       aria-haspopup="dialog"
@@ -204,7 +204,7 @@ onBeforeUnmount(() => {
       <div class="flex items-center gap-1.5">
         <button
           type="button"
-          class="rounded-lg p-1.5 text-stone-500 hover:bg-stone-100 hover:text-stone-900"
+          class="rounded-lg p-1.5 text-stone-500 hover:bg-ember-100 hover:text-ember-800"
           :aria-label="t('date.previousMonth')"
           @click="step(-1)"
         >
@@ -229,7 +229,7 @@ onBeforeUnmount(() => {
 
         <button
           type="button"
-          class="rounded-lg p-1.5 text-stone-500 hover:bg-stone-100 hover:text-stone-900"
+          class="rounded-lg p-1.5 text-stone-500 hover:bg-ember-100 hover:text-ember-800"
           :aria-label="t('date.nextMonth')"
           @click="step(1)"
         >
@@ -259,8 +259,11 @@ onBeforeUnmount(() => {
               : cell.disabled
                 ? 'cursor-not-allowed text-stone-300'
                 : cell.thisMonth
-                  ? 'text-stone-800 hover:bg-ember-50'
-                  : 'text-stone-500 hover:bg-stone-100',
+                  ? 'text-stone-800 hover:bg-ember-100'
+                  // Days from the neighbouring month are muted, and muted grey
+                  // on the warm wash falls just under 4.5:1 - so the text warms
+                  // up with the background rather than staying put.
+                  : 'text-stone-500 hover:bg-ember-100 hover:text-ember-800',
             cell.iso === todayIso && cell.iso !== modelValue ? 'ring-1 ring-ember-400 ring-inset' : ''
           ]"
           :aria-current="cell.iso === todayIso ? 'date' : undefined"
@@ -273,7 +276,7 @@ onBeforeUnmount(() => {
       <div class="mt-2 flex justify-between border-t border-stone-100 pt-2">
         <button
           type="button"
-          class="rounded-lg px-2 py-1 text-xs font-medium text-stone-500 hover:bg-stone-100 hover:text-stone-900"
+          class="rounded-lg px-2 py-1 text-xs font-medium text-stone-500 hover:bg-ember-100 hover:text-ember-800"
           @click="emit('update:modelValue', ''); open = false"
         >
           {{ t('date.clear') }}

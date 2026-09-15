@@ -50,7 +50,7 @@ async function copyAll() {
         {{ t('devtools.generate') }}
       </button>
       <button v-if="list.length" type="button"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50" @click="copyAll">
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100" @click="copyAll">
         {{ copied ? t('devtools.copied') : t('devtools.copyAll') }}
       </button>
     </div>

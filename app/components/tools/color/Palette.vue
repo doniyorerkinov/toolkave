@@ -182,7 +182,7 @@ const shareUrl = computed(() => {
           :class="
             mode === option
               ? 'border-ember-500 bg-ember-50 text-ember-900'
-              : 'border-stone-300 bg-white text-stone-600 hover:bg-stone-50'
+              : 'border-stone-300 bg-white text-stone-600 hover:bg-ember-100'
           "
         >
           <input v-model="mode" type="radio" :value="option" class="sr-only" />
@@ -286,14 +286,14 @@ const shareUrl = computed(() => {
           v-for="entry in exports"
           :key="entry.key"
           type="button"
-          class="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+          class="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
           @click="copy(entry.value, entry.key)"
         >
           {{ copied === entry.key ? t('colour.copied') : t(`colour.palette.as.${entry.key}`) }}
         </button>
         <button
           type="button"
-          class="inline-flex items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+          class="inline-flex items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
           @click="copy(shareUrl, 'link')"
         >
           <Copy :size="15" aria-hidden="true" />

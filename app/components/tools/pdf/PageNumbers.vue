@@ -121,7 +121,7 @@ function onFiles(files: File[]) {
             v-for="option in NUMBER_STYLES"
             :key="option"
             class="cursor-pointer rounded-lg border p-2 text-center text-xs font-medium transition"
-            :class="style === option ? 'border-ember-500 bg-ember-50 text-ember-900 ring-2 ring-ember-200' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'"
+            :class="style === option ? 'border-ember-500 bg-ember-50 text-ember-900 ring-2 ring-ember-200' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'"
           >
             <input v-model="style" type="radio" :value="option" class="sr-only" />
             <svg viewBox="0 0 84 44" class="mx-auto mb-1 h-11 w-full" aria-hidden="true">
@@ -146,7 +146,7 @@ function onFiles(files: File[]) {
               v-for="option in positions"
               :key="option"
               class="cursor-pointer rounded-md px-2 py-3 text-center text-xs font-medium transition"
-              :class="position === option ? 'bg-ember-500 text-white' : 'text-stone-600 hover:bg-stone-100'"
+              :class="position === option ? 'bg-ember-500 text-white' : 'text-stone-600 hover:bg-ember-100'"
             >
               <input v-model="position" type="radio" :value="option" class="sr-only" />
               {{ t(`pdf.pageNumbers.positions.${option}`) }}
@@ -207,7 +207,7 @@ function onFiles(files: File[]) {
       >
         {{ store.busy ? t('pdf.working') : t('pdf.pageNumbers.action') }}
       </button>
-      <button type="button" class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50" @click="store.reset()">
+      <button type="button" class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100" @click="store.reset()">
         {{ t('result.startOver') }}
       </button>
     </div>

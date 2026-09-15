@@ -76,7 +76,7 @@ async function copy(hex: string) {
         <legend class="mb-2 text-sm font-medium text-stone-900">{{ t('colourtools.spaceLabel') }}</legend>
         <div class="flex flex-wrap gap-2">
           <label v-for="option in (['oklab', 'srgb'] as const)" :key="option" class="cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium"
-            :class="space === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'">
+            :class="space === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'">
             <input v-model="space" type="radio" :value="option" class="sr-only" />
             {{ t(`colourtools.space.${option}`) }}
           </label>

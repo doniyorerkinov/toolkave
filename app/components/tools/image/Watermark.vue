@@ -241,7 +241,7 @@ onBeforeUnmount(() => {
             :class="
               kind === option
                 ? 'border-ember-500 bg-ember-50 text-ember-900'
-                : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
+                : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'
             "
           >
             <input v-model="kind" type="radio" :value="option" class="sr-only" />
@@ -281,7 +281,7 @@ onBeforeUnmount(() => {
         <input
           type="file"
           accept="image/png,image/webp,image/jpeg,image/svg+xml"
-          class="mt-2 block w-full text-sm text-stone-700 file:mr-3 file:rounded-lg file:border file:border-stone-300 file:bg-white file:px-3 file:py-2 file:text-sm file:font-medium hover:file:bg-stone-50"
+          class="mt-2 block w-full text-sm text-stone-700 file:mr-3 file:rounded-lg file:border file:border-stone-300 file:bg-white file:px-3 file:py-2 file:text-sm file:font-medium hover:file:bg-ember-100"
           @change="onMark"
         />
         <p class="mt-1 text-xs text-stone-500">{{ t('image.watermark.logoHint') }}</p>
@@ -317,7 +317,7 @@ onBeforeUnmount(() => {
               :key="spot"
               type="button"
               class="size-9 rounded"
-              :class="placement === spot ? 'bg-ember-700' : 'bg-stone-100 hover:bg-stone-200'"
+              :class="placement === spot ? 'bg-ember-700' : 'bg-stone-100 hover:bg-ember-200'"
               :aria-label="t(`image.watermark.place.${spot}`)"
               :title="t(`image.watermark.place.${spot}`)"
               :aria-pressed="placement === spot"
@@ -332,7 +332,7 @@ onBeforeUnmount(() => {
             :class="
               placement === 'tile'
                 ? 'border-ember-500 bg-ember-50 text-ember-900'
-                : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
+                : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'
             "
             :aria-pressed="placement === 'tile'"
             @click="placement = 'tile'"
@@ -362,7 +362,7 @@ onBeforeUnmount(() => {
       </button>
       <button
         type="button"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
         @click="store.reset()"
       >
         {{ t('result.startOver') }}

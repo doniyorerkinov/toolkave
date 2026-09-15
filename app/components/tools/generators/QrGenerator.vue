@@ -345,7 +345,7 @@ function download() {
 
     <div class="rounded-xl border border-stone-200 p-3">
       <div class="flex flex-wrap items-center gap-2">
-        <label class="inline-flex cursor-pointer items-center rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50">
+        <label class="inline-flex cursor-pointer items-center rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100">
           {{ hasLogo ? t('qr.logoChange') : t('qr.logoAdd') }}
           <input type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" class="sr-only" @change="onLogo" />
         </label>
@@ -353,7 +353,7 @@ function download() {
         <button
           v-if="hasLogo"
           type="button"
-          class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+          class="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100"
           @click="clearLogo"
         >
           {{ t('qr.logoRemove') }}
@@ -381,7 +381,7 @@ function download() {
           </button>
           <button
             type="button"
-            class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+            class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100"
             @click="cancelCrop"
           >
             {{ t('qr.cropCancel') }}

@@ -93,7 +93,7 @@ const sizes = computed(() => {
             :href="size.url"
             target="_blank"
             rel="noopener noreferrer"
-            class="rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50"
+            class="rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-ember-100"
           >
             {{ t('youtube.open') }}
           </a>

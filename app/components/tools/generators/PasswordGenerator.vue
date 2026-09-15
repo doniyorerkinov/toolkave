@@ -118,7 +118,7 @@ watch([length, useUpper, useLower, useDigits, useSymbols, avoidAmbiguous], gener
       </button>
       <button
         type="button"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-3 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-3 text-sm font-medium text-stone-700 hover:bg-ember-100"
         @click="generate"
       >
         {{ t('password.regenerate') }}

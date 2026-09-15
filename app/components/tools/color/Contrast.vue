@@ -57,7 +57,7 @@ const swap = () => ([foreground.value, background.value] = [background.value, fo
       </div>
     </div>
 
-    <button type="button" class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50" @click="swap">
+    <button type="button" class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100" @click="swap">
       {{ t('colourtools.swap') }}
     </button>
 

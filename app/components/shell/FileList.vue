@@ -99,7 +99,7 @@ async function onKeydown(event: KeyboardEvent, index: number) {
         v-if="reorderable && files.length > 1"
         :ref="el => { if (el) handles[index] = el as HTMLElement }"
         type="button"
-        class="flex size-9 shrink-0 cursor-grab touch-none items-center justify-center rounded text-stone-500 hover:bg-stone-100 hover:text-stone-600 focus:ring-2 focus:ring-ember-400 focus:outline-none active:cursor-grabbing"
+        class="flex size-9 shrink-0 cursor-grab touch-none items-center justify-center rounded text-stone-500 hover:bg-ember-100 hover:text-ember-700 focus:ring-2 focus:ring-ember-400 focus:outline-none active:cursor-grabbing"
         :aria-label="
           t('fileList.reorder', { name: file.name, position: index + 1, total: files.length })
         "

@@ -108,7 +108,7 @@ async function copyText() {
   <div>
     <div v-if="props.documents" class="mb-3 space-y-2">
       <label
-        class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+        class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100"
       >
         <input
           type="file"
@@ -163,7 +163,7 @@ async function copyText() {
       <button
         type="button"
         :disabled="!text"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:cursor-not-allowed disabled:text-stone-500"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-ember-100 disabled:cursor-not-allowed disabled:text-stone-500"
         @click="text = ''"
       >
         {{ t('wordCounter.clear') }}

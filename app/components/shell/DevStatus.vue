@@ -95,7 +95,7 @@ onBeforeUnmount(() => {
         </span>
         <button
           type="button"
-          class="px-1.5 py-1 text-stone-500 hover:bg-stone-100 hover:text-stone-900"
+          class="px-1.5 py-1 text-stone-500 hover:bg-ember-100 hover:text-ember-800"
           :title="`Copy ${row.url}`"
           :aria-label="`Copy the ${row.locale} URL`"
           @click="copy(row.url, row.locale)"
@@ -107,7 +107,7 @@ onBeforeUnmount(() => {
           :href="inspectUrl(row.url)"
           target="_blank"
           rel="noopener"
-          class="px-1.5 py-1 text-stone-500 hover:bg-stone-100 hover:text-stone-900"
+          class="px-1.5 py-1 text-stone-500 hover:bg-ember-100 hover:text-ember-800"
           :title="`Inspect the ${row.locale} URL in Search Console`"
         >
           <ExternalLink :size="12" aria-hidden="true" />
@@ -115,7 +115,7 @@ onBeforeUnmount(() => {
       </span>
       <NuxtLink
         to="/indexing"
-        class="rounded-md border border-stone-300 bg-white px-2 py-1 font-medium text-stone-600 hover:bg-stone-100 hover:text-stone-900"
+        class="rounded-md border border-stone-300 bg-white px-2 py-1 font-medium text-stone-600 hover:bg-ember-100 hover:text-ember-800"
       >
         All →
       </NuxtLink>

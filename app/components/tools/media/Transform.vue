@@ -165,7 +165,7 @@ function onFiles(files: File[]) {
               v-for="option in (['right', 'left', 'half', 'hflip', 'vflip'] as Orientation[])"
               :key="option"
               class="cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium"
-              :class="orientation === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'"
+              :class="orientation === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'"
             >
               <input v-model="orientation" type="radio" :value="option" class="sr-only" />
               {{ t(`media.rotate.${option}`) }}
@@ -183,7 +183,7 @@ function onFiles(files: File[]) {
             v-for="option in RESOLUTIONS"
             :key="option"
             class="cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium"
-            :class="height === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'"
+            :class="height === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'"
           >
             <input v-model.number="height" type="radio" :value="option" class="sr-only" />
             {{ option }}p
@@ -200,7 +200,7 @@ function onFiles(files: File[]) {
               v-for="option in (['story', 'square', 'portrait', 'wide'] as SocialPreset[])"
               :key="option"
               class="cursor-pointer rounded-lg border px-4 py-2 text-left text-sm font-medium"
-              :class="preset === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'"
+              :class="preset === option ? 'border-ember-500 bg-ember-50 text-ember-900' : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'"
             >
               <input v-model="preset" type="radio" :value="option" class="sr-only" />
               <span class="block">{{ t(`media.social.${option}`) }}</span>
