@@ -31,6 +31,14 @@ export interface CategoryDef {
   icon: string
   /** URL segment per locale. Some are identical on purpose ("pdf" is searched the same everywhere). */
   slugs: Record<Locale, string>
+  /**
+   * Locales whose hub URL has been handed to Google Search Console.
+   *
+   * The same record `ToolDef.indexed` keeps, and needed here because the hubs
+   * were submitted first: they link to every tool beneath them, so getting one
+   * crawled is worth more than any single tool page.
+   */
+  indexed?: Locale[]
 }
 
 export interface ToolDef {
@@ -85,17 +93,26 @@ export interface ToolDef {
   maxFiles?: number
 }
 
+/**
+ * Static pages already handed to Search Console.
+ *
+ * They are not in the registry - they are real files under `app/pages` - so
+ * the record cannot hang off a tool or a category. Kept beside those two so
+ * that "what has been submitted" has one answer rather than three.
+ */
+export const INDEXED_PAGES: string[] = ['/', '/ru', '/uz']
+
 export const categories: CategoryDef[] = [
-  { id: 'pdf', icon: 'file-text', slugs: { en: 'pdf', ru: 'pdf', uz: 'pdf' } },
-  { id: 'image', icon: 'image', slugs: { en: 'image', ru: 'izobrazheniya', uz: 'rasm' } },
-  { id: 'color', icon: 'palette', slugs: { en: 'color', ru: 'cveta', uz: 'ranglar' } },
-  { id: 'converters', icon: 'repeat', slugs: { en: 'converters', ru: 'konvertery', uz: 'konvertorlar' } },
-  { id: 'calculators', icon: 'calculator', slugs: { en: 'calculators', ru: 'kalkulyatory', uz: 'kalkulyatorlar' } },
-  { id: 'generators', icon: 'sparkles', slugs: { en: 'generators', ru: 'generatory', uz: 'generatorlar' } },
+  { id: 'pdf', icon: 'file-text', slugs: { en: 'pdf', ru: 'pdf', uz: 'pdf' }, indexed: ['en', 'ru', 'uz'] },
+  { id: 'image', icon: 'image', slugs: { en: 'image', ru: 'izobrazheniya', uz: 'rasm' }, indexed: ['en', 'ru', 'uz'] },
+  { id: 'color', icon: 'palette', slugs: { en: 'color', ru: 'cveta', uz: 'ranglar' }, indexed: ['en', 'ru'] },
+  { id: 'converters', icon: 'repeat', slugs: { en: 'converters', ru: 'konvertery', uz: 'konvertorlar' }, indexed: ['en', 'ru'] },
+  { id: 'calculators', icon: 'calculator', slugs: { en: 'calculators', ru: 'kalkulyatory', uz: 'kalkulyatorlar' }, indexed: ['en', 'ru'] },
+  { id: 'generators', icon: 'sparkles', slugs: { en: 'generators', ru: 'generatory', uz: 'generatorlar' }, indexed: ['en', 'ru'] },
   { id: 'video', icon: 'video', slugs: { en: 'video', ru: 'video', uz: 'video' } },
   { id: 'audio', icon: 'music', slugs: { en: 'audio', ru: 'audio', uz: 'audio' } },
-  { id: 'text', icon: 'type', slugs: { en: 'text', ru: 'tekst', uz: 'matn' } },
-  { id: 'dev', icon: 'code', slugs: { en: 'dev', ru: 'dev', uz: 'dev' } }
+  { id: 'text', icon: 'type', slugs: { en: 'text', ru: 'tekst', uz: 'matn' }, indexed: ['en', 'ru'] },
+  { id: 'dev', icon: 'code', slugs: { en: 'dev', ru: 'dev', uz: 'dev' }, indexed: ['en', 'ru'] }
 ]
 
 /**
