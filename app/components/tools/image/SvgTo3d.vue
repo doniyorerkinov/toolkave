@@ -109,7 +109,7 @@ async function download() {
       type: FORMATS[format.value].mime,
       data,
       sourceSize: file.value.size,
-      note: t('image.svg3d.note', {
+      note: t('model.note', {
         w: measured.x.toFixed(1),
         h: measured.y.toFixed(1),
         d: measured.z.toFixed(1),
@@ -117,7 +117,7 @@ async function download() {
       })
     })
   } catch {
-    store.error = t('image.svg3d.exportFailed')
+    store.error = t('model.exportFailed')
   } finally {
     store.busy = false
   }
@@ -143,70 +143,29 @@ function onFiles(files: File[]) {
     <template v-if="file">
       <ShellModelViewer :parts="parts" @error="failed = true" />
 
-      <p v-if="failed" class="text-sm text-red-700" role="alert">{{ t('image.svg3d.noWebgl') }}</p>
+      <p v-if="failed" class="text-sm text-red-700" role="alert">{{ t('model.noWebgl') }}</p>
 
       <p v-else-if="model" class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-stone-500">
         <span class="tabular-nums">
           {{ model.size.x.toFixed(1) }} × {{ model.size.y.toFixed(1) }} × {{ model.size.z.toFixed(1) }} mm
         </span>
-        <span class="tabular-nums">{{ t('image.svg3d.triangles', { n: model.triangles.toLocaleString() }) }}</span>
+        <span class="tabular-nums">{{ t('model.triangles', { n: model.triangles.toLocaleString() }) }}</span>
         <span>{{ formatBytes(file.size) }}</span>
       </p>
       <p v-else-if="parsing" class="text-sm text-stone-500">{{ t('image.svg3d.reading') }}</p>
 
-      <div class="grid gap-4 sm:grid-cols-2">
-        <label class="block">
-          <span class="mb-1.5 flex items-baseline justify-between text-sm font-medium text-stone-900">
-            {{ t('image.svg3d.sizeLabel') }}
-            <span class="tabular-nums font-normal text-stone-500">{{ size }} mm</span>
+      <label
+        v-if="scene?.hasStroke"
+        class="flex cursor-pointer items-start gap-2.5 rounded-xl border border-stone-200 bg-stone-50 p-4 text-sm text-stone-700"
+      >
+        <input v-model="strokes" type="checkbox" :disabled="strokeOnly" class="mt-0.5 size-4 accent-ember-700" />
+        <span>
+          {{ t('image.svg3d.strokes') }}
+          <span class="block text-xs text-stone-500">
+            {{ strokeOnly ? t('image.svg3d.strokesOnly') : t('image.svg3d.strokesNote') }}
           </span>
-          <input v-model.number="size" type="range" min="10" max="200" step="1" class="w-full accent-ember-700" />
-        </label>
-
-        <label class="block">
-          <span class="mb-1.5 flex items-baseline justify-between text-sm font-medium text-stone-900">
-            {{ t('image.svg3d.depthLabel') }}
-            <span class="tabular-nums font-normal text-stone-500">{{ depth.toFixed(1) }} mm</span>
-          </span>
-          <input v-model.number="depth" type="range" min="0.5" max="20" step="0.5" class="w-full accent-ember-700" />
-        </label>
-      </div>
-
-      <div class="space-y-3 rounded-xl border border-stone-200 bg-stone-50 p-4">
-        <label class="flex cursor-pointer items-start gap-2.5 text-sm text-stone-700">
-          <input v-model="bevelled" type="checkbox" class="mt-0.5 size-4 accent-ember-700" />
-          <span>
-            {{ t('image.svg3d.bevel') }}
-            <span class="block text-xs text-stone-500">{{ t('image.svg3d.bevelNote') }}</span>
-          </span>
-        </label>
-
-        <label class="flex cursor-pointer items-start gap-2.5 text-sm text-stone-700">
-          <input v-model="plated" type="checkbox" class="mt-0.5 size-4 accent-ember-700" />
-          <span>
-            {{ t('image.svg3d.plate') }}
-            <span class="block text-xs text-stone-500">{{ t('image.svg3d.plateNote') }}</span>
-          </span>
-        </label>
-
-        <label v-if="plated" class="block pl-6.5">
-          <span class="mb-1.5 flex items-baseline justify-between text-sm text-stone-700">
-            {{ t('image.svg3d.plateDepth') }}
-            <span class="tabular-nums text-stone-500">{{ plate.toFixed(1) }} mm</span>
-          </span>
-          <input v-model.number="plate" type="range" min="0.4" max="10" step="0.2" class="w-full accent-ember-700" />
-        </label>
-
-        <label v-if="scene?.hasStroke" class="flex cursor-pointer items-start gap-2.5 text-sm text-stone-700">
-          <input v-model="strokes" type="checkbox" :disabled="strokeOnly" class="mt-0.5 size-4 accent-ember-700" />
-          <span>
-            {{ t('image.svg3d.strokes') }}
-            <span class="block text-xs text-stone-500">
-              {{ strokeOnly ? t('image.svg3d.strokesOnly') : t('image.svg3d.strokesNote') }}
-            </span>
-          </span>
-        </label>
-      </div>
+        </span>
+      </label>
 
       <fieldset>
         <legend class="mb-2 block text-sm font-medium text-stone-900">{{ t('image.svg3d.qualityLabel') }}</legend>
@@ -228,43 +187,18 @@ function onFiles(files: File[]) {
         <p class="mt-2 text-xs text-stone-500">{{ t('image.svg3d.qualityNote') }}</p>
       </fieldset>
 
-      <fieldset>
-        <legend class="mb-2 block text-sm font-medium text-stone-900">{{ t('image.svg3d.formatLabel') }}</legend>
-        <div class="grid gap-2 sm:grid-cols-3">
-          <label
-            v-for="option in (['stl', 'glb', 'obj'] as ModelFormat[])"
-            :key="option"
-            class="cursor-pointer rounded-lg border px-4 py-2.5 text-sm"
-            :class="
-              format === option
-                ? 'border-ember-500 bg-ember-50 text-ember-900'
-                : 'border-stone-300 bg-white text-stone-700 hover:bg-ember-100'
-            "
-          >
-            <input v-model="format" type="radio" :value="option" class="sr-only" />
-            <span class="font-medium">{{ option.toUpperCase() }}</span>
-            <span class="block text-xs opacity-70">{{ t(`image.svg3d.formats.${option}`) }}</span>
-          </label>
-        </div>
-      </fieldset>
-
-      <div class="flex flex-wrap gap-2">
-        <button
-          type="button"
-          :disabled="!parts || store.busy"
-          class="rounded-lg bg-ember-700 px-5 py-2.5 font-medium text-white hover:bg-ember-800 disabled:cursor-not-allowed disabled:bg-stone-300"
-          @click="download"
-        >
-          {{ store.busy ? t('image.working') : t('image.svg3d.action', { format: format.toUpperCase() }) }}
-        </button>
-        <button
-          type="button"
-          class="rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-ember-100"
-          @click="store.reset()"
-        >
-          {{ t('result.startOver') }}
-        </button>
-      </div>
+      <ShellModelOptions
+        v-model:size="size"
+        v-model:depth="depth"
+        v-model:bevelled="bevelled"
+        v-model:plated="plated"
+        v-model:plate="plate"
+        v-model:format="format"
+        :model="model"
+        :busy="store.busy"
+        @build="download"
+        @reset="store.reset()"
+      />
     </template>
 
     <p v-if="store.error" class="text-sm text-red-700" role="alert">{{ store.error }}</p>

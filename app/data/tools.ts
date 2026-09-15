@@ -732,8 +732,22 @@ export const tools: ToolDef[] = [
     published: false,
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'svg-to-3d-model', ru: 'svg-v-3d-model', uz: 'svg-dan-3d-model' },
-    related: ['svg-to-png', 'image-favicon'],
+    related: ['png-to-3d', 'svg-to-png', 'image-favicon'],
     acceptedTypes: ['image/svg+xml'],
+    maxFiles: 1,
+    heavy: true
+  },
+  {
+    id: 'png-to-3d',
+    category: 'image',
+    group: 'convert',
+    component: 'image/ImageTo3d',
+    icon: 'boxes',
+    published: false,
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'png-to-3d-model', ru: 'png-v-3d-model', uz: 'png-dan-3d-model' },
+    related: ['svg-to-3d', 'image-cutout', 'svg-to-png'],
+    acceptedTypes: ['image/png', 'image/jpeg', 'image/webp'],
     maxFiles: 1,
     heavy: true
   },

@@ -759,17 +759,7 @@
       "nothingToExtrude": "Nothing in this file has a shape to raise. Text has to be converted to outlines before it can be given a thickness.",
       "strokesOff": "This drawing is made of outlines only. Turn on \"Include outlines\" to give them a thickness.",
       "readFailed": "That SVG could not be read.",
-      "exportFailed": "The model could not be saved.",
-      "noWebgl": "This browser cannot show 3D. The model can still be built and downloaded, but not previewed.",
       "reading": "Reading the drawing...",
-      "triangles": "{n} triangles",
-      "sizeLabel": "Longest side",
-      "depthLabel": "Thickness",
-      "bevel": "Soften the top edge",
-      "bevelNote": "A small chamfer around the top. Catches the light, and hides the layer lines on a print.",
-      "plate": "Add a backing plate",
-      "plateNote": "A flat back behind the artwork. Holds loose pieces together and gives a print something to stand on.",
-      "plateDepth": "Plate thickness",
       "strokes": "Include outlines",
       "strokesNote": "This drawing has lines as well as filled shapes. Raise those too.",
       "strokesOnly": "This drawing is lines only, so they have to be included for there to be a model at all.",
@@ -779,15 +769,31 @@
         "normal": "Normal",
         "fine": "Fine"
       },
-      "qualityNote": "How finely curves are followed. Finer is smoother and a bigger file; on straight-edged artwork it changes nothing.",
-      "formatLabel": "Download as",
-      "formats": {
-        "stl": "For 3D printing",
-        "glb": "For the web and AR",
-        "obj": "For 3D software"
+      "qualityNote": "How finely curves are followed. Finer is smoother and a bigger file; on straight-edged artwork it changes nothing."
+    },
+    "png3d": {
+      "readFailed": "That image could not be read.",
+      "reading": "Reading the picture...",
+      "nothingFound": "No shape was found. Try a different source, or move the threshold.",
+      "shapes": "{n} shapes",
+      "traceLabel": "What gets raised",
+      "traceNote": "The outline found in your picture, after smoothing and speck removal. This is the shape you will get.",
+      "source": {
+        "alpha": "Transparency",
+        "dark": "The dark part",
+        "light": "The light part"
       },
-      "action": "Build the {format}",
-      "note": "{w} x {h} x {d} mm, {n} triangles"
+      "alphaCut": "How solid a pixel has to be",
+      "brightnessCut": "Where light becomes dark",
+      "speckLabel": "Ignore specks smaller than",
+      "speckNote": "A soft or noisy edge traces into hundreds of tiny islands. Below this size they are left out.",
+      "edgeLabel": "Edges",
+      "edges": {
+        "sharp": "Pixel sharp",
+        "soft": "Softened",
+        "round": "Rounded"
+      },
+      "edgeNote": "Pixels are squares, so a traced edge is a staircase. Softening rounds it off; keep it sharp for pixel art and anything with square corners."
     }
   },
   "percent": {
@@ -3781,6 +3787,28 @@
         "q4": "STL, GLB or OBJ?",
         "a4": "STL if you are printing it: it is what every slicer expects, in millimetres. GLB for a website, a phone or AR, where it arrives at its real size and keeps the colours of the original drawing. OBJ if it is going into Blender or similar and you want to keep editing it."
       }
+    },
+    "png-to-3d": {
+      "name": "PNG to 3D model",
+      "title": "PNG to 3D Model — free image to STL, in your browser",
+      "short": "Turn a logo or icon into a solid you can print, without needing the vector file.",
+      "description": "Convert a PNG, JPG or WebP into a 3D model without uploading it. The outline is traced from the image, sized in millimetres, and downloaded as STL, GLB or OBJ.",
+      "intro": "Most people have their logo as a PNG, and most 3D tools want an SVG. This one finds the outline itself: the edge of the artwork is wherever the transparency stops, or wherever the picture crosses from light to dark, and that edge becomes a real outline with proper walls rather than a stack of pixels. What is traced is drawn on screen before anything is built, so the threshold is a decision you can see rather than guess at. One thing worth saying plainly: this makes a silhouette, not a sculpture — a photograph of a face comes out as the shape of a head.",
+      "howTo": {
+        "step1": "Add a PNG, JPG or WebP. Artwork with a transparent background works best.",
+        "step2": "Check the traced outline, and move the threshold until it matches what you wanted.",
+        "step3": "Set the size and thickness in millimetres, then download STL, GLB or OBJ."
+      },
+      "faq": {
+        "q1": "My picture has a white background, not a transparent one.",
+        "a1": "Then choose the dark part, or the light part, and the threshold decides where one becomes the other. If the artwork is not simply darker or lighter than what is behind it, run it through the background remover first and bring the result back here — it will arrive with real transparency, which is a far better edge than any threshold.",
+        "q2": "Why does the edge look like a staircase?",
+        "a2": "Because pixels are squares, and at the true edge of the artwork there is nothing else to follow. Softening rounds the corners off, which is what you want for a logo. Keep it sharp for pixel art, or for anything whose corners are meant to be square.",
+        "q3": "Can I do this with a photo?",
+        "a3": "You will get its silhouette, correctly, and a silhouette of a person is a blob. Tracing suits artwork with a clear edge: logos, icons, lettering, symbols, stencils. A photograph needs its brightness turned into depth instead, which is a different thing entirely.",
+        "q4": "Is it as good as starting from an SVG?",
+        "a4": "Close, and it depends on the picture. An SVG stores the curve, so it can be followed at any size; a PNG stores the result of drawing it once, so a small or heavily compressed image has already lost detail that no amount of tracing brings back. Use the largest version of the file you have."
+      }
     }
   },
   "wordCounter": {
@@ -4509,6 +4537,24 @@
   "model": {
     "spin": "Spin",
     "stopSpin": "Stop",
-    "dragHint": "Drag to turn"
+    "dragHint": "Drag to turn",
+    "triangles": "{n} triangles",
+    "sizeLabel": "Longest side",
+    "depthLabel": "Thickness",
+    "bevel": "Soften the top edge",
+    "bevelNote": "A small chamfer around the top. Catches the light, and hides the layer lines on a print.",
+    "plate": "Add a backing plate",
+    "plateNote": "A flat back behind the artwork. Holds loose pieces together and gives a print something to stand on.",
+    "plateDepth": "Plate thickness",
+    "formatLabel": "Download as",
+    "formats": {
+      "stl": "For 3D printing",
+      "glb": "For the web and AR",
+      "obj": "For 3D software"
+    },
+    "action": "Build the {format}",
+    "note": "{w} x {h} x {d} mm, {n} triangles",
+    "exportFailed": "The model could not be saved.",
+    "noWebgl": "This browser cannot show 3D. The model can still be built and downloaded, but not previewed."
   }
 }
