@@ -78,3 +78,26 @@ test('white ink and paper previews are rescued under both dark scopes', () => {
     assert.ok(css.includes(`${scope} svg.bg-white`), `${scope}: svg preview would invert`)
   }
 })
+
+test('white text is not left sitting on ember in dark mode', () => {
+  // Ember is lifted rather than mirrored, so `bg-ember-700` is a LIGHT surface
+  // once the lights go out - and `.text-white` is deliberately pinned to #fff
+  // for ink on dark chrome. Together they gave the primary button of every
+  // tool on the site a contrast of 1.67 against its own background. The fix
+  // has to exist under both ways of asking for dark, for the same reason the
+  // palette does.
+  for (const scope of [":root:not([data-theme='light'])", ":root[data-theme='dark']"]) {
+    const at = css.indexOf(`${scope} :is(`)
+    assert.notEqual(at, -1, `${scope} has no ember override for white text`)
+    const rule = css.slice(at, css.indexOf('}', at))
+
+    assert.ok(rule.includes('.text-white'), `${scope}: the override has to be the one white text loses to`)
+    assert.ok(rule.includes('color: var(--color-ink)'), `${scope}: white on a light surface has to become ink`)
+
+    // Every shade that turns light has to be covered, not just the one that
+    // happened to be noticed.
+    for (const shade of [400, 500, 600, 700, 800, 900]) {
+      assert.ok(rule.includes(`.bg-ember-${shade}`), `${scope}: ember-${shade} is light in dark mode too`)
+    }
+  }
+})

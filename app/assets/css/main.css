@@ -253,6 +253,19 @@
   }
 
   /*
+   * ...except where the surface under it is ember.
+   *
+   * Ember is lifted rather than mirrored, so every shade from 400 up becomes
+   * a LIGHT surface in dark mode. The rule above then puts white on it: the
+   * primary button of every tool on the site measures 1.67:1 against its own
+   * background, which is not a contrast so much as an absence of one. On a
+   * light surface the ink has to be ink.
+   */
+  :root:not([data-theme='light']) :is(.bg-ember-400, .bg-ember-500, .bg-ember-600, .bg-ember-700, .bg-ember-800, .bg-ember-900).text-white {
+    color: var(--color-ink);
+  }
+
+  /*
    * A canvas or page preview is a picture of paper. Turning it over
    * would be a lie about the file the user is about to save - a scan
    * would appear inverted on screen and come out white in the download.
@@ -328,6 +341,19 @@
  */
 :root[data-theme='dark'] .text-white {
   color: #fff;
+}
+
+/*
+ * ...except where the surface under it is ember.
+ *
+ * Ember is lifted rather than mirrored, so every shade from 400 up becomes
+ * a LIGHT surface in dark mode. The rule above then puts white on it: the
+ * primary button of every tool on the site measures 1.67:1 against its own
+ * background, which is not a contrast so much as an absence of one. On a
+ * light surface the ink has to be ink.
+ */
+:root[data-theme='dark'] :is(.bg-ember-400, .bg-ember-500, .bg-ember-600, .bg-ember-700, .bg-ember-800, .bg-ember-900).text-white {
+  color: var(--color-ink);
 }
 
 /*

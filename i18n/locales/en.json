@@ -753,6 +753,41 @@
         "colour": "Cut out on a solid colour",
         "blur": "Cut out against its own blurred background"
       }
+    },
+    "svg3d": {
+      "notSvg": "That is not an SVG. This tool needs the vector file itself, not a picture of it.",
+      "nothingToExtrude": "Nothing in this file has a shape to raise. Text has to be converted to outlines before it can be given a thickness.",
+      "strokesOff": "This drawing is made of outlines only. Turn on \"Include outlines\" to give them a thickness.",
+      "readFailed": "That SVG could not be read.",
+      "exportFailed": "The model could not be saved.",
+      "noWebgl": "This browser cannot show 3D. The model can still be built and downloaded, but not previewed.",
+      "reading": "Reading the drawing...",
+      "triangles": "{n} triangles",
+      "sizeLabel": "Longest side",
+      "depthLabel": "Thickness",
+      "bevel": "Soften the top edge",
+      "bevelNote": "A small chamfer around the top. Catches the light, and hides the layer lines on a print.",
+      "plate": "Add a backing plate",
+      "plateNote": "A flat back behind the artwork. Holds loose pieces together and gives a print something to stand on.",
+      "plateDepth": "Plate thickness",
+      "strokes": "Include outlines",
+      "strokesNote": "This drawing has lines as well as filled shapes. Raise those too.",
+      "strokesOnly": "This drawing is lines only, so they have to be included for there to be a model at all.",
+      "qualityLabel": "Curve detail",
+      "quality": {
+        "draft": "Draft",
+        "normal": "Normal",
+        "fine": "Fine"
+      },
+      "qualityNote": "How finely curves are followed. Finer is smoother and a bigger file; on straight-edged artwork it changes nothing.",
+      "formatLabel": "Download as",
+      "formats": {
+        "stl": "For 3D printing",
+        "glb": "For the web and AR",
+        "obj": "For 3D software"
+      },
+      "action": "Build the {format}",
+      "note": "{w} x {h} x {d} mm, {n} triangles"
     }
   },
   "percent": {
@@ -3724,6 +3759,28 @@
         "q4": "Does the sound get re-encoded?",
         "a4": "No. A still image over the picture cannot change the audio, so the original track is copied across untouched. Only the video is re-encoded, which is unavoidable when pixels are being drawn on."
       }
+    },
+    "svg-to-3d": {
+      "name": "SVG to 3D model",
+      "title": "SVG to 3D Model — free STL, GLB and OBJ, made in your browser",
+      "short": "Turn a flat drawing into a solid you can print, hold or drop into a scene.",
+      "description": "Convert an SVG into a 3D model without uploading it. Set the size in millimetres, give it a thickness, turn it over in the preview, and download STL for printing, GLB for the web or OBJ for 3D software.",
+      "intro": "A logo is already the hard part of a 3D model: somebody has drawn every curve, decided every corner, and saved it as an SVG. What is missing is a thickness. This adds one — in millimetres, because that is the only unit a printer, a slicer or a person holding the finished thing cares about. The preview is the model itself rather than a picture of it, so you can turn it over and check the back before you commit a print to it. Everything happens on your device; the drawing never leaves it.",
+      "howTo": {
+        "step1": "Add an SVG. Fills and outlines are both handled, so icon sets drawn with strokes work too.",
+        "step2": "Set the longest side and the thickness in millimetres. Add a chamfer or a backing plate if you want one.",
+        "step3": "Pick STL, GLB or OBJ and download it."
+      },
+      "faq": {
+        "q1": "Will the file actually print?",
+        "a1": "It should. Every piece comes out as a closed surface with its holes properly walled, which is what a slicer needs in order to tell the inside of a model from the outside. Where parts of a drawing overlap they arrive as separate solids that touch, and every slicer merges those without being asked. Thin lines are the real limit: below about 0.8 mm wide a nozzle cannot lay down a line at all, so thicken the artwork or make the model bigger.",
+        "q2": "What size will it be?",
+        "a2": "Exactly what you set. An SVG is drawn in coordinates that have no physical meaning, so the longest side is scaled to the millimetres you ask for and everything else keeps its proportion. The measurements under the preview are the ones your slicer will show.",
+        "q3": "Why did my text disappear?",
+        "a3": "Text in an SVG is an instruction to use a font, not a shape, and a font that lives on the machine it was made on. Converting text to outlines in your editor — Path, Object to Path, Create Outlines, depending on the program — turns the letters into shapes this can raise.",
+        "q4": "STL, GLB or OBJ?",
+        "a4": "STL if you are printing it: it is what every slicer expects, in millimetres. GLB for a website, a phone or AR, where it arrives at its real size and keeps the colours of the original drawing. OBJ if it is going into Blender or similar and you want to keep editing it."
+      }
     }
   },
   "wordCounter": {
@@ -4448,5 +4505,10 @@
     "unmute": "Unmute",
     "volume": "Volume",
     "fullscreen": "Full screen"
+  },
+  "model": {
+    "spin": "Spin",
+    "stopSpin": "Stop",
+    "dragHint": "Drag to turn"
   }
 }

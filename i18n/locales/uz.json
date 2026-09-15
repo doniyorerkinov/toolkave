@@ -753,6 +753,41 @@
         "colour": "Yaxlit rang fonida kesib olindi",
         "blur": "O‘zining xiralashtirilgan foni ustida kesib olindi"
       }
+    },
+    "svg3d": {
+      "notSvg": "Bu SVG emas. Bu yerga vektor faylning oʻzi kerak, uning rasmi emas.",
+      "nothingToExtrude": "Bu faylda koʻtariladigan shakl yoʻq. Matnni avval chiziqlarga aylantirish kerak.",
+      "strokesOff": "Bu rasm faqat chiziqlardan iborat. Ularga qalinlik berish uchun \"Chiziqlarni ham hisobga olish\"ni yoqing.",
+      "readFailed": "Bu SVG oʻqilmadi.",
+      "exportFailed": "Modelni saqlab boʻlmadi.",
+      "noWebgl": "Bu brauzer 3D koʻrsata olmaydi. Modelni baribir yigʻib yuklab olish mumkin, faqat oldindan koʻrish ishlamaydi.",
+      "reading": "Rasm oʻqilmoqda...",
+      "triangles": "{n} uchburchak",
+      "sizeLabel": "Uzun tomoni",
+      "depthLabel": "Qalinligi",
+      "bevel": "Yuqori qirrasini yumshatish",
+      "bevelNote": "Yuqoridan kichik qiya qirra. Yorugʻlikni tutadi va bosmadagi qatlam izlarini yashiradi.",
+      "plate": "Orqa taglik qoʻshish",
+      "plateNote": "Rasm ortidagi tekis asos. Alohida boʻlaklarni birga ushlab turadi va bosmaga tayanch beradi.",
+      "plateDepth": "Taglik qalinligi",
+      "strokes": "Chiziqlarni ham hisobga olish",
+      "strokesNote": "Rasmda chiziqlar ham, boʻyalgan shakllar ham bor. Chiziqlarni ham koʻtarish.",
+      "strokesOnly": "Rasm faqat chiziqlardan iborat, shuning uchun ularsiz model chiqmaydi.",
+      "qualityLabel": "Egri chiziqlar aniqligi",
+      "quality": {
+        "draft": "Qoralama",
+        "normal": "Oddiy",
+        "fine": "Aniq"
+      },
+      "qualityNote": "Egri chiziqlar qanchalik aniq takrorlanadi. Aniqrogʻi silliqroq va ogʻirroq fayl; toʻgʻri burchakli rasmda hech narsani oʻzgartirmaydi.",
+      "formatLabel": "Nima qilib yuklash",
+      "formats": {
+        "stl": "3D bosma uchun",
+        "glb": "Veb va AR uchun",
+        "obj": "3D dasturlar uchun"
+      },
+      "action": "{format} yigʻish",
+      "note": "{w} x {h} x {d} mm, {n} uchburchak"
     }
   },
   "percent": {
@@ -3724,6 +3759,28 @@
         "q4": "Ovoz qayta kodlanadimi?",
         "a4": "Yo'q. Tasvir ustidagi qimirlamas rasm ovozni o'zgartira olmaydi, shuning uchun asl yo'lak o'zgarishsiz ko'chiriladi. Faqat video qayta kodlanadi — unga biror narsa chizilayotganda bundan qochib bo'lmaydi."
       }
+    },
+    "svg-to-3d": {
+      "name": "SVG dan 3D modelga",
+      "title": "SVG dan 3D model — bepul STL, GLB va OBJ, brauzeringizda",
+      "short": "Tekis rasmni bosib chiqarsa ham, qoʻlga olsa ham boʻladigan hajmli narsaga aylantiring.",
+      "description": "SVG ni hech qayerga yuklamasdan 3D modelga aylantiring. Oʻlchamni millimetrda bering, qalinlik qoʻshing, modelni aylantirib koʻring va 3D bosma uchun STL, veb uchun GLB yoki 3D dasturlar uchun OBJ yuklab oling.",
+      "intro": "Logotip — bu allaqachon 3D modelning eng ogʻir qismi: kimdir har bir egri chiziqni chizgan, har bir burchakni oʻylagan va hammasini SVG ga saqlagan. Faqat qalinlik yetishmaydi. Bu yerda u millimetrda qoʻshiladi, chunki printer, slayser va tayyor narsani qoʻliga oladigan odam uchun faqat shu oʻlchov ahamiyatli. Oldindan koʻrishda modelning rasmi emas, modelning oʻzi aylanadi — shuning uchun bosmaga yuborishdan oldin orqa tomonini ham koʻrib olsa boʻladi. Hammasi qurilmangizda hisoblanadi, rasm hech qayerga ketmaydi.",
+      "howTo": {
+        "step1": "SVG qoʻshing. Boʻyalgan shakllar ham, chiziqlar ham ishlaydi, shuning uchun chiziq bilan chizilgan ikonka toʻplamlari ham toʻgʻri keladi.",
+        "step2": "Uzun tomoni va qalinlikni millimetrda bering. Xohlasangiz qiya qirra yoki orqa taglik qoʻshing.",
+        "step3": "STL, GLB yoki OBJ ni tanlab yuklab oling."
+      },
+      "faq": {
+        "q1": "Bu rostdan bosiladimi?",
+        "a1": "Bosilishi kerak. Har bir boʻlak teshiklari devor bilan oʻralgan yopiq yuza boʻlib chiqadi — slayserga modelning ichini tashqarisidan ajratish uchun aynan shu kerak. Rasmning qismlari bir-birining ustiga tushgan joyda bir-biriga tegib turgan alohida jismlar hosil boʻladi, ularni har qanday slayser oʻzi birlashtiradi. Asl cheklov — ingichka chiziqlar: taxminan 0,8 mm dan tor joyni suzgich umuman yotqiza olmaydi, shuning uchun rasmni qalinlashtiring yoki modelni kattalashtiring.",
+        "q2": "Model qanday oʻlchamda chiqadi?",
+        "a2": "Siz bergan oʻlchamda. SVG oʻzicha hech narsani anglatmaydigan koordinatalarda chizilgan, shuning uchun uzun tomoni siz aytgan millimetrga keltiriladi, qolgani nisbatini saqlaydi. Oldindan koʻrish ostidagi raqamlar — slayser koʻrsatadigan raqamlarning oʻzi.",
+        "q3": "Nega matn yoʻqolib qoldi?",
+        "a3": "SVG dagi matn — shakl emas, shriftni olish haqidagi koʻrsatma, ustiga-ustak u boshqa kompyuterdagi shrift. Muharriringizda matnni chiziqlarga aylantiring (Kontur, Object to Path, Create Outlines — dasturga qarab turlicha ataladi), shunda harflar qalinlik berish mumkin boʻlgan shakllarga aylanadi.",
+        "q4": "STL, GLB yoki OBJ?",
+        "a4": "Bosib chiqarsangiz — STL: uni har qanday slayser kutadi va u millimetrda. Sayt, telefon yoki AR uchun — GLB: u yerda model oʻz haqiqiy oʻlchamida keladi va asl rasmning ranglarini saqlaydi. Model Blender ga ketayotgan va yana tahrirlanadigan boʻlsa — OBJ."
+      }
     }
   },
   "wordCounter": {
@@ -4448,5 +4505,10 @@
     "unmute": "Ovozni yoqish",
     "volume": "Ovoz balandligi",
     "fullscreen": "To‘liq ekran"
+  },
+  "model": {
+    "spin": "Aylantirish",
+    "stopSpin": "Toʻxtatish",
+    "dragHint": "Aylantirish uchun torting"
   }
 }
