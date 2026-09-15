@@ -246,6 +246,19 @@ extend the current bot rather than replacing it.
    and worth knowing before talking to an installer.
 
 
+### ✅ Done 15 Sept — audio/video, dev tools, colour tools, dark mode
+
+- **Audio and video** (9): compress, trim, to MP4, to MP3, to GIF; audio
+  convert, trim, level, voice-to-MP3. ffmpeg.wasm single-threaded, core shipped
+  gzipped at 9.8 MiB because Cloudflare refuses an asset over 25.
+- **Dev** (8): case, URL, base, hash, JWT, epoch, cron, UUID.
+- **Colour** (5): contrast, gradient, shades and tints, mixer, colour blindness.
+- **Dark mode** across every page, both themes measured at zero contrast
+  failures.
+- **Bot**: usage counters, feedback forwarding, Word → PDF.
+
+All 22 new tools are `published: false` pending Doniyor's test.
+
 ### 4. Remaining colour tools
 
 Contrast checker · gradient generator · hex↔RGB as its own page · shades and

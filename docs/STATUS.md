@@ -16,13 +16,16 @@ Revenue model is ads; there are no accounts and no server-side storage.
 | | |
 |---|---|
 | Tools published | **83** |
-| Tools held back as drafts | **0** |
+| Tools built, awaiting your test | **22** — 9 media, 8 dev, 5 colour |
 | URLs in the sitemap | **288** |
 | Locales | en (default, unprefixed), ru, uz |
 | Last deploy | version `f330c432-ceeb-4be0-957f-3bd2b17d9467` |
 | Cloudflare | Workers **Paid** since 14 Sept — the bot's PDF build needs more CPU than the free ceiling allows |
 
 Every tool in the registry is live. This is the first day that has been true.
+
+Dark mode arrived 15 Sept and covers every page in both themes, verified by a
+contrast audit rather than by eye. See "Themes" below.
 
 ### Tools by category
 
@@ -47,6 +50,25 @@ entry there; nothing else needs to know about it.
 has used it yet*. Flipping it to `true` is a deliberate act that happens after
 Doniyor tests the tool and says so — never automatically, never as a side
 effect of the code being finished.
+
+## Themes
+
+Light and dark, switched entirely by redefining about twenty `--color-*`
+variables under `prefers-color-scheme: dark`. Every Tailwind v4 colour utility
+resolves through one of those, so the whole site turns over without touching
+any of the 88 components that use them.
+
+Two rules that are easy to break:
+
+- **A surface that is dark in both modes uses `ink` / `on-ink` / `on-ink-dim`,
+  never the stone ramp.** The header, footer, lightbox, modal scrim and code
+  block are dark by design; a ramp value that reads as muted-light on a dark
+  bar in one mode is muted-dark on the same bar in the other.
+- **The ramp is turned over, but contrast is chosen, not mirrored.** `stone-400`
+  measured 3.07:1 against a dark card when simply mirrored, so it sits at 63%.
+
+Canvases and page previews keep a white background: a scan shown inverted would
+misrepresent the file being saved.
 
 ## Stack
 
