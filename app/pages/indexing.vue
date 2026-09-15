@@ -324,7 +324,7 @@ onBeforeUnmount(() => {
             </span>
             <code
               class="min-w-0 flex-1 truncate font-mono text-sm"
-              :class="isDone(row) ? 'text-stone-400 line-through' : 'text-stone-800'"
+              :class="isDone(row) ? 'text-stone-500 line-through' : 'text-stone-800'"
             >
               {{ row.path }}
             </code>

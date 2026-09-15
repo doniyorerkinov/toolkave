@@ -67,7 +67,7 @@ void props
   <div v-if="compact" ref="root" class="relative">
     <button
       type="button"
-      class="flex items-center gap-1 rounded-full bg-white/10 py-1.5 ps-2 pe-1.5 text-xs font-semibold text-stone-200 transition hover:bg-white/20 hover:text-white"
+      class="flex items-center gap-1 rounded-full bg-white/10 py-1.5 ps-2 pe-1.5 text-xs font-semibold text-on-ink transition hover:bg-white/20 hover:text-white"
       :aria-label="t('nav.language')"
       :aria-expanded="open"
       aria-haspopup="menu"
@@ -105,7 +105,7 @@ void props
 
   <nav v-else :aria-label="t('nav.language')" class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
     <template v-for="option in options" :key="option.code">
-      <span v-if="option.code === locale" class="font-semibold text-stone-200" aria-current="page">
+      <span v-if="option.code === locale" class="font-semibold text-on-ink" aria-current="page">
         {{ option.name }}
       </span>
       <NuxtLink v-else :to="option.path" class="transition hover:text-white hover:underline">

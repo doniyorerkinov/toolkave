@@ -202,7 +202,7 @@ const waist = computed(() => WAIST_LIMITS[sex.value])
           <li v-for="band in fatChart" :key="band.key" class="flex items-center gap-1.5">
             <span class="size-2.5 rounded-full" :class="band.tone" />
             {{ t(`bmi.fat.${band.key}`) }}
-            <span class="text-stone-400 tabular-nums">{{ band.from }}–{{ band.to }}%</span>
+            <span class="text-stone-500 tabular-nums">{{ band.from }}–{{ band.to }}%</span>
           </li>
         </ul>
         <p class="mt-2 text-xs text-stone-500">{{ t('bmi.fatNote') }}</p>

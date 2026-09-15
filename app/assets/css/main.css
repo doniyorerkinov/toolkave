@@ -68,6 +68,10 @@
    */
   --color-ink: oklch(14% 0.004 106);
   --color-on-ink: oklch(97% 0.003 106);
+  /* Secondary text on that surface: nav links, footer lines. Also fixed,
+   * because a ramp value that reads as muted-light on a dark bar in one
+   * mode becomes muted-dark on the same bar in the other. */
+  --color-on-ink-dim: oklch(78% 0.006 106);
 }
 
 @layer base {
@@ -169,7 +173,10 @@
     --color-stone-100: oklch(26% 0.005 106);
     --color-stone-200: oklch(31% 0.006 56);
     --color-stone-300: oklch(37% 0.008 56);
-    --color-stone-400: oklch(52% 0.011 56);
+    /* Lifted from the mirrored 52%: measured at 3.07 against a card, where
+     * body text needs 4.5. Contrast was always going to need choosing
+     * rather than mirroring, and this is where it showed. */
+    --color-stone-400: oklch(63% 0.012 56);
     --color-stone-500: oklch(66% 0.013 58);
     --color-stone-600: oklch(73% 0.012 58);
     --color-stone-700: oklch(84% 0.008 56);

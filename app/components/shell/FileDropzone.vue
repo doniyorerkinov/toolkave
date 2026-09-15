@@ -123,7 +123,7 @@ onBeforeUnmount(() => {
     >
       <span class="text-base font-medium text-stone-900">{{ t('dropzone.title') }}</span>
       <span class="text-sm text-stone-500">{{ t('dropzone.hint') }}</span>
-      <span class="text-xs text-stone-400">
+      <span class="text-xs text-stone-500">
         {{ acceptedLabel }} · {{ t('dropzone.maxSize', { size: formatBytes(maxSize) }) }}
       </span>
     </button>

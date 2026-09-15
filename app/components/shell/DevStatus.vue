@@ -60,7 +60,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-lg border border-dashed border-stone-300 bg-stone-50 px-3 py-2 text-xs">
-    <span class="font-mono font-semibold tracking-wider text-stone-400 uppercase">dev</span>
+    <span class="font-mono font-semibold tracking-wider text-stone-500 uppercase">dev</span>
 
     <span class="inline-flex items-center gap-1.5" :title="tool.published ? 'Live in production' : 'Draft — no URL in production'">
       <span class="size-2 rounded-full" :class="tool.published ? 'bg-emerald-500' : 'bg-red-500'" />

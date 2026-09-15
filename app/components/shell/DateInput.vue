@@ -189,10 +189,10 @@ onBeforeUnmount(() => {
       aria-haspopup="dialog"
       @click="open = !open"
     >
-      <span :class="shown ? 'text-stone-900' : 'text-stone-400'">
+      <span :class="shown ? 'text-stone-900' : 'text-stone-500'">
         {{ shown || t('date.choose') }}
       </span>
-      <Calendar :size="16" class="shrink-0 text-stone-400" aria-hidden="true" />
+      <Calendar :size="16" class="shrink-0 text-stone-500" aria-hidden="true" />
     </button>
 
     <div
@@ -241,7 +241,7 @@ onBeforeUnmount(() => {
         <abbr
           v-for="day in weekdays"
           :key="day"
-          class="py-1 text-[11px] font-semibold text-stone-400 no-underline"
+          class="py-1 text-[11px] font-semibold text-stone-500 no-underline"
           :title="day"
         >
           {{ day.slice(0, 2) }}
@@ -260,7 +260,7 @@ onBeforeUnmount(() => {
                 ? 'cursor-not-allowed text-stone-300'
                 : cell.thisMonth
                   ? 'text-stone-800 hover:bg-ember-50'
-                  : 'text-stone-400 hover:bg-stone-100',
+                  : 'text-stone-500 hover:bg-stone-100',
             cell.iso === todayIso && cell.iso !== modelValue ? 'ring-1 ring-ember-400 ring-inset' : ''
           ]"
           :aria-current="cell.iso === todayIso ? 'date' : undefined"

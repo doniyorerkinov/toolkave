@@ -155,7 +155,7 @@ function download() {
       <button
         type="button"
         :disabled="!output || busy"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:cursor-not-allowed disabled:text-stone-400"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:cursor-not-allowed disabled:text-stone-500"
         @click="download"
       >
         {{ t('markdown.download') }}
@@ -163,7 +163,7 @@ function download() {
       <button
         type="button"
         :disabled="!input"
-        class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:cursor-not-allowed disabled:text-stone-400"
+        class="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:cursor-not-allowed disabled:text-stone-500"
         @click="input = ''"
       >
         {{ t('markdown.clear') }}

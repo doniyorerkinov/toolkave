@@ -128,7 +128,7 @@ function continueWith(tool: ToolDef) {
               <ShellIcon :name="tool.icon" :size="14" />
             </span>
             {{ t(`tools.${tool.id}.name`) }}
-            <ShellIcon name="arrow-right" :size="14" class="text-stone-400 transition group-hover:text-ember-600" />
+            <ShellIcon name="arrow-right" :size="14" class="text-stone-500 transition group-hover:text-ember-600" />
           </button>
         </li>
       </ul>

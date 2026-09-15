@@ -188,7 +188,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', onPointerDown,
       </span>
       <ChevronDown
         :size="16"
-        class="shrink-0 text-stone-400 transition-transform"
+        class="shrink-0 text-stone-500 transition-transform"
         :class="open ? 'rotate-180' : ''"
         aria-hidden="true"
       />
@@ -201,7 +201,7 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', onPointerDown,
     >
       <div v-if="canSearch" class="border-b border-stone-100 p-2">
         <div class="relative">
-          <Search :size="14" class="absolute start-2.5 top-1/2 -translate-y-1/2 text-stone-400" aria-hidden="true" />
+          <Search :size="14" class="absolute start-2.5 top-1/2 -translate-y-1/2 text-stone-500" aria-hidden="true" />
           <input
             ref="field"
             v-model="query"

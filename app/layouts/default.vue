@@ -46,7 +46,7 @@ const navCategories = computed(() =>
             <li v-for="category in navCategories" :key="category.id">
               <NuxtLink
                 :to="category.href"
-                class="block rounded-lg px-2.5 py-1.5 font-medium text-stone-400 transition hover:bg-white/10 hover:text-white"
+                class="block rounded-lg px-2.5 py-1.5 font-medium text-on-ink-dim transition hover:bg-white/10 hover:text-white"
                 active-class="bg-white/10 text-white"
               >
                 {{ category.name }}
@@ -63,7 +63,7 @@ const navCategories = computed(() =>
       <slot />
     </main>
 
-    <footer class="mt-16 bg-stone-950 text-stone-400">
+    <footer class="mt-16 bg-ink text-on-ink-dim">
       <div class="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <NuxtLink :to="localePath('/')" class="text-white">
@@ -80,7 +80,7 @@ const navCategories = computed(() =>
               {{ t(`legal.${page}.title`) }}
             </NuxtLink>
           </nav>
-          <p class="mt-4 text-xs text-stone-500">
+          <p class="mt-4 text-xs text-on-ink-dim opacity-80">
             © {{ new Date().getFullYear() }} {{ t('site.name') }} — {{ t('footer.rights') }}
           </p>
         </div>
