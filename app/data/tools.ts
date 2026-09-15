@@ -21,6 +21,8 @@ export type CategoryId =
   | 'converters'
   | 'calculators'
   | 'generators'
+  | 'video'
+  | 'audio'
   | 'text'
   | 'dev'
 
@@ -90,6 +92,8 @@ export const categories: CategoryDef[] = [
   { id: 'converters', icon: 'repeat', slugs: { en: 'converters', ru: 'konvertery', uz: 'konvertorlar' } },
   { id: 'calculators', icon: 'calculator', slugs: { en: 'calculators', ru: 'kalkulyatory', uz: 'kalkulyatorlar' } },
   { id: 'generators', icon: 'sparkles', slugs: { en: 'generators', ru: 'generatory', uz: 'generatorlar' } },
+  { id: 'video', icon: 'video', slugs: { en: 'video', ru: 'video', uz: 'video' } },
+  { id: 'audio', icon: 'music', slugs: { en: 'audio', ru: 'audio', uz: 'audio' } },
   { id: 'text', icon: 'type', slugs: { en: 'text', ru: 'tekst', uz: 'matn' } },
   { id: 'dev', icon: 'code', slugs: { en: 'dev', ru: 'dev', uz: 'dev' } }
 ]
@@ -854,6 +858,132 @@ export const tools: ToolDef[] = [
     locales: ['en', 'ru', 'uz'],
     slugs: { en: 'json-formatter', ru: 'json-formatter', uz: 'json-formatter' },
     related: ['base64']
+  },
+  {
+    id: 'video-compress',
+    category: 'video',
+    group: 'size',
+    component: 'media/Video',
+    icon: 'minimize-2',
+    published: false,
+    heavy: true,
+    config: { mode: 'compress' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'compress-video', ru: 'szhat-video', uz: 'video-siqish' },
+    related: ['video-to-mp4', 'video-trim'],
+    maxFiles: 1
+  },
+  {
+    id: 'video-trim',
+    category: 'video',
+    group: 'edit',
+    component: 'media/Trim',
+    icon: 'scissors',
+    published: false,
+    heavy: true,
+    config: { kind: 'video' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'trim-video', ru: 'obrezat-video', uz: 'video-qirqish' },
+    related: ['video-compress', 'video-to-gif'],
+    maxFiles: 1
+  },
+  {
+    id: 'video-to-mp3',
+    category: 'video',
+    group: 'convert',
+    component: 'media/Video',
+    icon: 'music',
+    published: false,
+    heavy: true,
+    config: { mode: 'mp3' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'video-to-mp3', ru: 'video-v-mp3', uz: 'videodan-mp3' },
+    related: ['audio-convert', 'video-compress'],
+    maxFiles: 1
+  },
+  {
+    id: 'video-to-mp4',
+    category: 'video',
+    group: 'convert',
+    component: 'media/Video',
+    icon: 'repeat',
+    published: false,
+    heavy: true,
+    config: { mode: 'mp4' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'convert-video-to-mp4', ru: 'konvertirovat-v-mp4', uz: 'mp4-ga-aylantirish' },
+    related: ['video-compress', 'video-to-mp3'],
+    maxFiles: 1
+  },
+  {
+    id: 'video-to-gif',
+    category: 'video',
+    group: 'convert',
+    component: 'media/Video',
+    icon: 'film',
+    published: false,
+    heavy: true,
+    config: { mode: 'gif' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'video-to-gif', ru: 'video-v-gif', uz: 'videodan-gif' },
+    related: ['video-trim', 'video-compress'],
+    maxFiles: 1
+  },
+  {
+    id: 'audio-convert',
+    category: 'audio',
+    group: 'convert',
+    component: 'media/Audio',
+    icon: 'repeat',
+    published: false,
+    heavy: true,
+    config: { mode: 'convert' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'convert-audio', ru: 'konvertirovat-audio', uz: 'audio-konvertor' },
+    related: ['voice-to-mp3', 'audio-trim'],
+    maxFiles: 1
+  },
+  {
+    id: 'audio-trim',
+    category: 'audio',
+    group: 'edit',
+    component: 'media/Trim',
+    icon: 'scissors',
+    published: false,
+    heavy: true,
+    config: { kind: 'audio' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'trim-audio', ru: 'obrezat-audio', uz: 'audio-qirqish' },
+    related: ['audio-convert', 'audio-normalise'],
+    maxFiles: 1
+  },
+  {
+    id: 'voice-to-mp3',
+    category: 'audio',
+    group: 'convert',
+    component: 'media/Audio',
+    icon: 'mic',
+    published: false,
+    heavy: true,
+    config: { mode: 'voice' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'ogg-to-mp3', ru: 'ogg-v-mp3', uz: 'ogg-dan-mp3' },
+    related: ['audio-convert', 'audio-trim'],
+    maxFiles: 1
+  },
+  {
+    id: 'audio-normalise',
+    category: 'audio',
+    group: 'edit',
+    component: 'media/Audio',
+    icon: 'volume-2',
+    published: false,
+    heavy: true,
+    config: { mode: 'normalise' },
+    locales: ['en', 'ru', 'uz'],
+    slugs: { en: 'normalize-audio-volume', ru: 'vyrovnyat-gromkost', uz: 'ovoz-balandligi' },
+    related: ['audio-convert', 'audio-trim'],
+    maxFiles: 1
   },
   {
     id: 'word-counter',

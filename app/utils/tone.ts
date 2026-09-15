@@ -21,6 +21,8 @@ export const TONES: Record<CategoryId, Tone> = {
   converters: { tile: 'bg-violet-100 text-violet-700', tileHover: 'group-hover:bg-violet-200', text: 'text-violet-700' },
   calculators: { tile: 'bg-emerald-100 text-emerald-700', tileHover: 'group-hover:bg-emerald-200', text: 'text-emerald-700' },
   generators: { tile: 'bg-pink-100 text-pink-700', tileHover: 'group-hover:bg-pink-200', text: 'text-pink-700' },
+  video: { tile: 'bg-rose-100 text-rose-700', tileHover: 'group-hover:bg-rose-200', text: 'text-rose-700' },
+  audio: { tile: 'bg-indigo-100 text-indigo-700', tileHover: 'group-hover:bg-indigo-200', text: 'text-indigo-700' },
   text: { tile: 'bg-blue-100 text-blue-700', tileHover: 'group-hover:bg-blue-200', text: 'text-blue-700' },
   dev: { tile: 'bg-stone-200 text-stone-700', tileHover: 'group-hover:bg-stone-300', text: 'text-stone-700' }
 }

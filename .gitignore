@@ -31,5 +31,8 @@ logs
 # Test render artifacts (TOOLKAVE_TEST_ARTIFACTS=1 npm test)
 tests/.artifacts
 
-# Copied from node_modules by scripts/copy-onnx.mjs at build time.
+# Copied from node_modules at build time by scripts/copy-onnx.mjs and
+# scripts/copy-ffmpeg.mjs. 45 MB of binaries that belong to a package version,
+# not to the repository.
 public/onnx/
+public/ffmpeg/

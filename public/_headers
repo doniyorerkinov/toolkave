@@ -24,3 +24,9 @@
 
 /onnx/*
   Cache-Control: public, max-age=31536000, immutable
+
+# The ffmpeg core changes only when the package version does. Held for a year,
+# so a second visit to any audio or video tool costs nothing. The .gz is
+# unpacked in the browser, so it must be served as-is rather than re-encoded.
+/ffmpeg/*
+  Cache-Control: public, max-age=31536000, immutable

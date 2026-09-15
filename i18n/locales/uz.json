@@ -73,6 +73,18 @@
       "description": "JSON formatlash, Base64 kodlash, rang tanlash va boshqa vositalar.",
       "title": "Dasturchi vositalari onlayn — JSON, Base64, ranglar",
       "heading": "Dasturchi vositalari"
+    },
+    "video": {
+      "name": "Video",
+      "heading": "Video vositalari",
+      "title": "Bepul video vositalari — siqish, qirqish va konvertatsiya",
+      "description": "Videoni serverga yuklamasdan siqing, qirqing va konvertatsiya qiling. Hammasi qurilmangizda ishlaydi, shuning uchun 300 MB lik fayl hech qayerga ketmaydi."
+    },
+    "audio": {
+      "name": "Audio",
+      "heading": "Audio vositalari",
+      "title": "Bepul audio vositalari — konvertatsiya, qirqish, ovoz balandligi",
+      "description": "Brauzerda audioni konvertatsiya qiling, qirqing va ovoz balandligini tenglang. Yuklashsiz va roʻyxatdan oʻtishsiz, ovozli xabarlar oddiy MP3 ga aylanadi."
     }
   },
   "shell": {
@@ -2900,6 +2912,204 @@
         "q5": "Yangi palitralar qo‘shiladimi?",
         "a5": "Ular qo‘lda tanlanadi, shuning uchun to‘plam jadval bo‘yicha emas, qo‘shishga arziydigan narsa topilganda o‘sadi. Ovoz berish yoki ariza qabul qilish yo‘q — demak, ro‘yxatdan o‘tish ham, hisob ham kerak emas."
       }
+    },
+    "video-compress": {
+      "name": "Videoni siqish",
+      "short": "Videoni yuborsa boʻladigan hajmga kichraytirish, hech qayerga yuklamasdan.",
+      "title": "Videoni onlayn siqish — bepul, yuklashsiz va suv belgisisiz",
+      "description": "Bepul onlayn video siqish. MP4, MOV yoki MKV ni Telegram yoki pochta uchun toʻgʻridan-toʻgʻri brauzerda kichraytiring. Yuklashsiz, roʻyxatdan oʻtishsiz, suv belgisisiz.",
+      "intro": "Telefondagi video katta, chunki u toʻliq oʻlchamda va katta bitreyt bilan yoziladi, lekin buning koʻpi telefonda koʻriladigan lavha uchun ortiqcha. Uni qayerga yuborayotganingizni tanlang, fayl qurilmangizda qayta kodlanadi. U serverga bormaydi, shuning uchun brauzeringiz koʻtara oladigan hajmdan boshqa cheklov ham yoʻq.",
+      "howTo": {
+        "step1": "Kichraytirmoqchi boʻlgan videoni qoʻshing.",
+        "step2": "U nima uchun kerakligini tanlang.",
+        "step3": "«Videoni siqish» ni bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Fayl qanchaga kichrayadi?",
+        "a1": "Odatda besh-yigirma barobar, tanlovga qarab. Telefondagi bir daqiqalik 120 MB lik lavha odatda 6–25 MB boʻlib chiqadi. Tejash sifatdan ham koʻra oʻlchamdan keladi, shuning uchun har bir sozlama kenglikni ham cheklaydi.",
+        "q2": "Sifat yomonlashadimi?",
+        "a2": "Ha, almashuv shunda. «Telegram uchun» va «Pochta uchun» katta ekranda sezilarli yumshoq, telefonda esa yaxshi koʻrinadi. «Sifatni saqlash» deyarli oʻzgartirmaydi va baribir yaxshigina tejaydi.",
+        "q3": "Nega kompyuterdagi dasturdan sekinroq?",
+        "a3": "Dastur videokartadan va protsessorning barcha yadrolaridan foydalanadi. Bu esa brauzer ichida, bitta yadroda ishlaydi — xavfsizlik sabablari tufayli, ular ayni paytda saytning qolgan qismini ham ishlab turishiga imkon beradi. Taxminan real vaqt deb hisoblang: ikki daqiqalik video ikki daqiqacha.",
+        "q4": "Video biror joyga yuklanadimi?",
+        "a4": "Yoʻq. Dvigatel brauzeringizga yuklanadi va fayl oʻsha yerda ishlanadi. Bizga hech narsa yuborilmaydi va buni tekshirish oson: sahifa yuklangandan keyin internetni oʻchiring, siqish baribir ishlaydi."
+      }
+    },
+    "video-trim": {
+      "name": "Videoni qirqish",
+      "short": "Videodan kerakli boʻlakni kesib olish va faqat shuni qoldirish.",
+      "title": "Videoni onlayn qirqish — bepul, yuklashsiz",
+      "description": "Bepul onlayn video qirqish. MP4, MOV yoki MKV dan kerakli qismni brauzerda kesing. Yuklashsiz, suv belgisisiz, roʻyxatdan oʻtishsiz.",
+      "intro": "Videoni qoʻying, kerakli boʻlakning boshi va oxirini belgilang va faqat oʻshani oling. Quyidagi pleyer — bu faylni oʻynatayotgan oʻz brauzeringiz, shuning uchun qanchalik katta boʻlmasin, oldinga surish bir zumda. Kesishning ikki yoʻli bor va ular haqiqatan ham farq qiladi: biri aniq va sekin, ikkinchisi bir zumda va eng yaqin kalit kadrga tushadi.",
+      "howTo": {
+        "step1": "Videoni qoʻshing va kerakli joyni topish uchun oʻynating.",
+        "step2": "Boshi va oxirini kiriting yoki «Hozirgi vaqtni olish» ni bosing.",
+        "step3": "«Qirqish» ni bosing va boʻlakni yuklab oling."
+      },
+      "faq": {
+        "q1": "Ikki kesish usuli nimasi bilan farq qiladi?",
+        "a1": "Aniq kesish videoni qayta kodlaydi, shunda u siz tanlagan kadrdan boshlanadi, va bu taxminan boʻlakning uzunligicha vaqt oladi. Tez kesish mavjud videoni tegmasdan nusxalaydi, soniyalarda tugaydi, lekin faqat kalit kadrdan boshlanishi mumkin, yaʻni bir-ikki soniya oldinroq.",
+        "q2": "Sifat tushadimi?",
+        "a2": "Tez kesishda umuman yoʻq, hech narsa qayta kodlanmaydi. Aniq kesishda bitta qayta kodlash bor: atayin qidirmasangiz sezilmaydigan kichik yoʻqotish.",
+        "q3": "Oʻrtadan boʻlak kesib tashlash mumkinmi?",
+        "a3": "Bir yoʻla emas. Oldingi qismni va keyingi qismni kesing, soʻng birlashtiring. Birlashtirish uchun ikkalasining kodeki bir xil boʻlishi kerak, bir fayldan olingan boʻlsa shunday boʻladi.",
+        "q4": "Uzunlik cheklovi bormi?",
+        "a4": "Faqat qurilmangiz. Ishlov vaqtida fayl butunligicha xotirada turadi, shuning uchun telefon bir necha yuz megabaytni, noutbuk esa ancha koʻpini koʻtaradi."
+      }
+    },
+    "video-to-mp3": {
+      "name": "Videodan MP3",
+      "short": "Videodan ovozni ajratib olib, MP3 sifatida saqlash.",
+      "title": "Videodan MP3 — ovozni onlayn ajratib olish, bepul",
+      "description": "Bepul videodan MP3 ga konvertor. MP4, MOV yoki MKV dan ovozni ajratib oling va MP3 qilib saqlang. Brauzerda ishlaydi, hech narsa yuklanmaydi.",
+      "intro": "Maʻruza, lavhadagi qoʻshiq, video sifatida yuborilgan ovozli yozuv: ovoz allaqachon fayl ichida va uni qaytadan yozish shart emas. Bitreytni tanlang, ovoz yoʻli qurilmangizning oʻzida MP3 qilib yoziladi.",
+      "howTo": {
+        "step1": "Videoni qoʻshing.",
+        "step2": "Ovoz sifatini tanlang.",
+        "step3": "«Ovozni ajratib olish» ni bosing va MP3 ni yuklab oling."
+      },
+      "faq": {
+        "q1": "Qaysi bitreytni tanlash kerak?",
+        "a1": "192 kbit/s deyarli hamma narsaga toʻgʻri keladi va sukut boʻyicha shu. Qadrli musiqa uchun 320, nutq uchun 96: farqi eshitilmaydi, fayl esa uch barobar kichik.",
+        "q2": "Ovoz qaytadan yozib olinadimi?",
+        "a2": "U MP3 ga qayta kodlanadi, bu kichik yoʻqotish. Videodagi ovoz allaqachon siqilgan, shuning uchun har qanday konvertatsiya yana bitta qadam qoʻshadi. Buni qiladigan barcha vositalar, jumladan kompyuterdagilari ham, shunday ishlaydi.",
+        "q3": "Butun emas, bir boʻlagini olsa boʻladimi?",
+        "a3": "Avval yoʻlni toʻliq ajratib oling, keyin «Audioni qirqish» bilan kerakli qismini qoldiring. MP3 ni kesish bir zumda.",
+        "q4": "Qaysi video formatlar ishlaydi?",
+        "a4": "MP4, MOV, MKV, WebM, AVI va 3GP — yaʻni telefondagi yozuvlar, ekran yozuvlari va internetdan yuklangan hamma narsa."
+      }
+    },
+    "video-to-mp4": {
+      "name": "Videoni MP4 ga aylantirish",
+      "short": "MOV, MKV, AVI yoki WebM ni hamma joyda ochiladigan MP4 ga aylantirish.",
+      "title": "Videoni MP4 ga aylantirish — bepul onlayn konvertor",
+      "description": "Bepul onlayn MP4 konvertor. MOV, MKV, AVI, WebM yoki 3GP ni brauzerda MP4 ga aylantiring. Yuklashsiz, suv belgisisiz, roʻyxatdan oʻtishsiz.",
+      "intro": "MP4 — bahssiz ochiladigan format: telefonlarda, Telegramda, PowerPointda, sinfdagi proyektorda. Boshqa konteynerlar mutlaqo yaxshi videoni saqlaydi, lekin baʻzi pleyerlar ularni ochishdan bosh tortadi. Bu yerda konteyner almashtiriladi, qayta kodlash esa faqat haqiqatan kerak boʻlganda yoqiladi.",
+      "howTo": {
+        "step1": "Videoni istalgan formatda qoʻshing.",
+        "step2": "Avval qayta oʻrashni sinash uchun tez usul belgisini qoldiring.",
+        "step3": "«MP4 ga aylantirish» ni bosing va natijani yuklab oling."
+      },
+      "faq": {
+        "q1": "Tez usul aslida nima qiladi?",
+        "a1": "Koʻp MKV va WebM fayllar MP4 saqlaydigan videoning aynan oʻzini, faqat boshqa oʻramda saqlaydi. Qayta oʻrash oʻramni almashtiradi va videoni tegmasdan nusxalaydi: soniyalar va hech qanday yoʻqotishsiz. Bu faqat ichidagisi MP4 ga mos boʻlganda ishlaydi.",
+        "q2": "Tez natija ochilmayapti. Endi nima?",
+        "a2": "Belgini olib tashlang va yana aylantiring. Bu toʻliq qayta kodlash: video davomiyligicha vaqt oladi va hamma joyda ochiladigan fayl beradi.",
+        "q3": "Ovozsiz ochiladigan videoni tuzatadimi?",
+        "a3": "Koʻpincha ha. Ovoz odatda pleyer bilmaydigan kodek tufayli yoʻqoladi; toʻliq konvertatsiya uni AAC ga qayta yozadi, uni esa hamma qoʻllab-quvvatlaydi.",
+        "q4": "iPhone dagi MOV bilan ishlaydimi?",
+        "a4": "Ha. iPhone dagi MOV odatda allaqachon H.264 saqlaydi, shuning uchun tez usul ularni bir-ikki soniyada uddalaydi."
+      }
+    },
+    "video-to-gif": {
+      "name": "Videodan GIF",
+      "short": "Bir necha soniyalik videoni koʻrgani arziydigan GIF ga aylantirish.",
+      "title": "Videodan GIF — bepul onlayn konvertor, suv belgisisiz",
+      "description": "Bepul videodan GIF ga konvertor. Lavhani brauzerda animatsiyali GIF ga aylantiring, tuzukkina palitra bilan va suv belgisisiz.",
+      "intro": "GIF ga 256 ta rang sigʻadi, va ular qanday tanlangani natija oʻylab qilinganday koʻrinadimi yoki 1997 yildagiday koʻrinadimi — shuni hal qiladi. Bu yerda palitra konvertatsiyadan oldin sizning materialingizdan quriladi; koʻp onlayn konvertorlar shu qadamni tashlab ketadi. Kamroq kadr va torroq rasm faylni boshqa har qanday sozlamadan koʻra kuchliroq kichraytiradi.",
+      "howTo": {
+        "step1": "Videoni qoʻshing. Qisqa lavhalar maʻqul GIF beradi.",
+        "step2": "Sekundiga kadr va kenglikni belgilang.",
+        "step3": "«GIF yasash» ni bosing va yuklab oling."
+      },
+      "faq": {
+        "q1": "GIF juda katta chiqdi. Nima qilay?",
+        "a1": "Avval sekundiga kadrni kamaytiring: 10–12 silliq koʻrinadi va 24 ga nisbatan hajmni ikki barobar kamaytiradi. Keyin rasmni toraytiring. Eng kuchli taʻsir esa uzunlikda: GIF har bir kadrni alohida saqlaydi, shuning uchun oʻn soniya uch soniyaning oʻn barobariga tushadi.",
+        "q2": "Nega rasm donador koʻrinadi?",
+        "a2": "Bu diterlash — 256 rang millionlarni shunday taqlid qiladi. Eng koʻp osmon yoki teri kabi gradientlarda seziladi. Torroq GIF buni yashiradi, yassi ranglarli material esa ancha kam zarar koʻradi.",
+        "q3": "Videoning faqat bir qismini olsa boʻladimi?",
+        "a3": "Avval videoni qirqing, keyin boʻlakni bu yerga olib keling. Bu ayni paytda GIF ni kichik saqlashning eng yaxshi yoʻli.",
+        "q4": "Umuman GIF kerakmi?",
+        "a4": "Koʻpincha yoʻq. Telegram, WhatsApp va koʻp saytlar endi qisqa MP4 larni oʻynatadi, fayl esa bir necha barobar kichik. GIF mutlaqo hamma joyda, jumladan xat ichida ishlashi kerak boʻlganda arziydi."
+      }
+    },
+    "audio-convert": {
+      "name": "Audioni konvertatsiya qilish",
+      "short": "Audio faylni MP3, WAV, OGG, M4A va FLAC orasida almashtirish.",
+      "title": "Audioni onlayn konvertatsiya qilish — MP3, WAV, OGG, M4A, FLAC",
+      "description": "Bepul onlayn audio konvertor. Brauzerda MP3, WAV, OGG, M4A va FLAC orasida almashtiring. Yuklashsiz, roʻyxatdan oʻtishsiz, cheklovsiz.",
+      "intro": "Har xil dastur har xil formatni talab qiladi: muharrirlarga WAV, telefonlarga M4A kerak, MP3 esa hamma joyda ochiladi. Kerakligini tanlang, fayl qurilmangizda konvertatsiya qilinadi.",
+      "howTo": {
+        "step1": "Audio faylni qoʻshing.",
+        "step2": "Kerakli formatni tanlang.",
+        "step3": "«Audioni konvertatsiya qilish» ni bosing va yuklab oling."
+      },
+      "faq": {
+        "q1": "Qaysi formatni tanlash kerak?",
+        "a1": "Har joyda ochilishi kerak boʻlsa MP3. Dastur siqilmagan ovozni talab qilsa WAV, lekin u taxminan oʻn barobar katta. Apple qurilmalari uchun M4A. Har bir tafsilotni saqlash uchun FLAC, hajmi WAV ning yarmicha.",
+        "q2": "Konvertatsiya sifatni yoʻqotadimi?",
+        "a2": "MP3, OGG yoki M4A ga oʻtishda ha, bir oz va bir marta. WAV yoki FLAC ga oʻtishda hech narsa yoʻqolmaydi, lekin oldingi siqish olib tashlagan narsani ham qaytarmaydi.",
+        "q3": "Bu yerga video qoʻysa boʻladimi?",
+        "a3": "Ha. MP4 yoki WebM ni tashlang, ovoz siz tanlagan formatda chiqadi, rasm esa tashlab yuboriladi.",
+        "q4": "Hajm cheklovi bormi?",
+        "a4": "Faqat brauzeringiz koʻtara oladigani. Audio videodan ancha kichik, shuning uchun bir soatlik yozuv muammo emas."
+      }
+    },
+    "audio-trim": {
+      "name": "Audioni qirqish",
+      "short": "Audio faylning sizga kerakli qismini qoldirish.",
+      "title": "Audioni onlayn qirqish — MP3 ni bepul kesish",
+      "description": "Bepul onlayn audio qirqish. MP3, WAV, OGG yoki M4A ni brauzerda kesing. Yuklashsiz, roʻyxatdan oʻtishsiz, kesim bir zumda.",
+      "intro": "Faylni qoʻying, boshi va oxirini belgilang va faqat shuni qoldiring. Audio qayta kodlanmasdan kesiladi, shuning uchun bir zumda tugaydi va qolgan qism qanday yangragan boʻlsa, shundayligicha yangraydi.",
+      "howTo": {
+        "step1": "Audio faylni qoʻshing va uni oʻynating.",
+        "step2": "Boshi va oxirini kiriting yoki «Hozirgi vaqtni olish» ni bosing.",
+        "step3": "«Qirqish» ni bosing va boʻlakni yuklab oling."
+      },
+      "faq": {
+        "q1": "Qirqish sifatni pasaytiradimi?",
+        "a1": "Yoʻq. Audio qayta kodlanmasdan nusxalanadi, shuning uchun qolgan qism bit-ma-bit oʻshaning oʻzi.",
+        "q2": "Nega kesim biroz oldinroq boshlandi?",
+        "a2": "Siqilgan audio bloklarda saqlanadi va nusxa faqat blok chegarasidan boshlanishi mumkin. Farqi soniyaning ulushi, nutqda yoki musiqada deyarli sezilmaydi.",
+        "q3": "Bu bilan rington yasasa boʻladimi?",
+        "a3": "Ha. Kerakli joyni kesing va iPhone uchun M4A ga aylantiring yoki Android uchun MP3 holida qoldiring.",
+        "q4": "Oʻrtasini kesib tashlash mumkinmi?",
+        "a4": "Bir yoʻla emas. Oldingi boʻlakni va keyingi boʻlakni kesing, soʻng birlashtiring."
+      }
+    },
+    "voice-to-mp3": {
+      "name": "Ovozli xabardan MP3",
+      "short": "Telegram yoki WhatsApp dagi ovozli xabarni oddiy MP3 ga aylantirish.",
+      "title": "OGG dan MP3 — ovozli xabarni onlayn aylantirish, bepul",
+      "description": "Bepul OGG dan MP3 ga konvertor. Telegram yoki WhatsApp dagi ovozli xabarni hamma joyda ochiladigan MP3 ga aylantiring. Brauzerda ishlaydi.",
+      "intro": "Ovozli xabarlar OGG yoki Opus koʻrinishida saqlanadi: yuborish uchun ajoyib, qolgan hamma narsa uchun foydasiz, chunki koʻp pleyerlar, mashina magnitolalari va muharrirlar ularni ochmaydi. Bu yerda ovozli xabar qurilmangizdan chiqmasdan oddiy MP3 ga aylanadi, yozuvda kimningdir gapi boʻlganda esa bu odatdagidan koʻra muhimroq.",
+      "howTo": {
+        "step1": "Ovozli xabarni Telegram yoki WhatsApp dan qurilmangizga saqlang.",
+        "step2": "Bu yerga .ogg, .opus yoki .oga faylni qoʻshing.",
+        "step3": "«MP3 ga aylantirish» ni bosing va yuklab oling."
+      },
+      "faq": {
+        "q1": "Ovozli xabarni umuman qanday saqlash mumkin?",
+        "a1": "Telegramda xabarni bosib turing va «Yuklamalarga saqlash» ni tanlang yoki uni «Saqlangan xabarlar» ga yuboring va oʻsha yerdan yuklab oling. WhatsApp da xabardagi ulashish tugmasidan foydalanib fayllarga saqlang.",
+        "q2": "Yozuv yomonroq eshitiladimi?",
+        "a2": "Biroz, chunki bir marta qayta kodlanadi. Ovozli xabarlar allaqachon past bitreytda yoziladi, nutq esa bu qadamni sezilarli farqsiz oʻtkazadi.",
+        "q3": "Yozuv biror joyga yuborilarmi?",
+        "a3": "Yoʻq. U brauzer ichida aylantiriladi va hech qayerga yuklanmaydi. Shaxsiy suhbat uchun bunday qilishning butun maʻnosi ham shunda.",
+        "q4": ".opus fayllar-chi?",
+        "a4": "Ular ham ishlaydi, .oga va .ogg bilan birga. Bu bitta oila va ular bir xil ishlanadi."
+      }
+    },
+    "audio-normalise": {
+      "name": "Ovoz balandligini tenglash",
+      "short": "Yozuvning ovoz balandligini boshidan oxirigacha bir tekis qilish.",
+      "title": "Ovoz balandligini onlayn tenglash — bepul",
+      "description": "Bepul onlayn ovoz balandligini tenglash. Jim yoki notekis yozuvni brauzerda efir balandligiga keltiring. Yuklashsiz va roʻyxatdan oʻtishsiz.",
+      "intro": "Biri telefonga yaqin oʻtirgan, ikkinchisi xonaning narigi chekkasida boʻlgan yozuvni tinglash charchatadi. Bu yerda butun faylning balandligi oʻlchanadi va efirda qoʻllaniladigan standartga keltiriladi: jim joylar koʻtariladi, baland joylar esa buzilib ketmaydi.",
+      "howTo": {
+        "step1": "Yozuvni qoʻshing.",
+        "step2": "«Ovoz balandligini tenglash» ni bosing.",
+        "step3": "Natijani tinglang va yuklab oling."
+      },
+      "faq": {
+        "q1": "Bu shunchaki ovozni koʻtarishdan nimasi bilan farq qiladi?",
+        "a1": "Koʻtarish hamma narsani, shu jumladan allaqachon baland boʻlgan joylarni ham, buzilguncha koʻtaradi. Bu yerda esa butun fayl boʻylab sezilayotgan balandlik oʻlchanadi va jim joylar baland joylardan koʻra koʻproq suriladi.",
+        "q2": "-16 LUFS nima?",
+        "a2": "Podkastlar va striminglarda nutq uchun ishlatiladigan balandlik nishoni. Shovqinli xonada telefonda eshitishga yetarli va hech narsa kesilmasligi uchun zaxira qoldiradi.",
+        "q3": "Bu fon shovqinini olib tashlaydimi?",
+        "a3": "Yoʻq, va uni sezilarliroq qilishi mumkin: jim joylar koʻtariladi, shovqin ham u bilan birga koʻtariladi. Tenglash va shovqin tozalash — har xil vazifalar.",
+        "q4": "Musiqaga qoʻllasa boʻladimi?",
+        "a4": "Boʻladi, lekin musiqa odatda ataylab shunday jamlanadi, tenglash esa musiqachi koʻzlagan jim va baland joylar orasidagi farqni tekislab yuboradi."
+      }
     }
   },
   "wordCounter": {
@@ -3345,5 +3555,40 @@
     "nextMonth": "Keyingi oy",
     "clear": "Tozalash",
     "today": "Bugun"
+  },
+  "media": {
+    "loadingCore": "Video dvigateli tayyorlanmoqda…",
+    "loadingNote": "Taxminan 31 MB, bir marta. U brauzeringizda qoladi, shuning uchun keyingi konvertatsiyalar darhol boshlanadi.",
+    "working": "Ishlanmoqda… {n}%",
+    "qualityLabel": "Fayl qanchalik kichik boʻlishi kerak?",
+    "quality": {
+      "telegram": "Telegram uchun",
+      "email": "Pochta uchun",
+      "balanced": "Muvozanat",
+      "high": "Sifatni saqlash"
+    },
+    "formatLabel": "Nimaga aylantirish",
+    "bitrateLabel": "Ovoz sifati",
+    "fps": "Sekundiga kadr: {n}",
+    "width": "Kenglik: {n} px",
+    "start": "Boshlanishi (soniya)",
+    "end": "Tugashi (soniya)",
+    "useCurrent": "Hozirgi vaqtni olish",
+    "accurate": "Aynan koʻrsatilgan joydan kesish. Sekinroq, chunki video qayta kodlanadi. Belgilanmasa, kesim eng yaqin kalit kadrga suriladi va deyarli bir zumda tugaydi.",
+    "remux": "Avval tez usulni sinab koʻring. Ichida allaqachon H.264 boʻlsa, fayl shunchaki qayta oʻraladi va soniyalar ichida tayyor boʻladi. Natija ochilmasa, belgini olib tashlang va toʻliq konvertatsiya qiling.",
+    "normaliseNote": "Jim joylar koʻtariladi, baland joylar oʻz oʻrnida qoladi va hech narsa buzilib ketmaydi.",
+    "normalisedNote": "Efir balandligiga tenglandi (-16 LUFS).",
+    "errorFailed": "Bu faylni oʻqib boʻlmadi. U shikastlangan yoki bu vosita tushunmaydigan formatda boʻlishi mumkin.",
+    "errorGeneric": "Konvertatsiya vaqtida nimadir notoʻgʻri ketdi. Qisqaroq yoki kichikroq fayl odatda oʻtadi.",
+    "action": {
+      "compress": "Videoni siqish",
+      "mp4": "MP4 ga aylantirish",
+      "gif": "GIF yasash",
+      "mp3": "Ovozni ajratib olish",
+      "convert": "Audioni konvertatsiya qilish",
+      "normalise": "Ovoz balandligini tenglash",
+      "voice": "MP3 ga aylantirish",
+      "trim": "Qirqish"
+    }
   }
 }

@@ -73,6 +73,18 @@
       "description": "Format JSON, encode Base64, pick colours and other developer utilities.",
       "title": "Free developer tools online — JSON, Base64, colours",
       "heading": "Developer tools"
+    },
+    "video": {
+      "name": "Video",
+      "heading": "Video tools",
+      "title": "Free Video Tools — compress, trim and convert in your browser",
+      "description": "Compress, trim and convert video without uploading it. Everything runs on your own device, so a 300 MB file never leaves it."
+    },
+    "audio": {
+      "name": "Audio",
+      "heading": "Audio tools",
+      "title": "Free Audio Tools — convert, trim and level sound online",
+      "description": "Convert, trim and level audio in the browser. No upload, no account, and voice messages become ordinary MP3 files."
     }
   },
   "shell": {
@@ -2900,6 +2912,204 @@
         "q5": "Are new palettes added?",
         "a5": "These are picked by hand, so the set grows when there is something worth adding rather than on a schedule. There is no voting or submission, which also means there is nothing to sign up for and no account to have."
       }
+    },
+    "video-compress": {
+      "name": "Compress video",
+      "short": "Make a video small enough to send, without uploading it anywhere.",
+      "title": "Compress Video Online — free, no upload, no watermark",
+      "description": "Free online video compressor. Shrink an MP4, MOV or MKV for Telegram or email right in your browser. No upload, no sign-up, no watermark.",
+      "intro": "Phone video is large because it is recorded at full resolution and a generous bitrate, and most of that is wasted on a clip someone will watch on a phone anyway. Pick what you are sending it for and the file is re-encoded on your own device. It never reaches a server, which is also why there is no size limit beyond what your browser can hold.",
+      "howTo": {
+        "step1": "Add the video you want to make smaller.",
+        "step2": "Choose what you are sending it for.",
+        "step3": "Press Compress video, then download the result."
+      },
+      "faq": {
+        "q1": "How much smaller will it get?",
+        "a1": "Usually between five and twenty times, depending on what you choose. A one-minute phone clip of 120 MB typically comes out between 6 and 25 MB. The saving comes from resolution as much as from quality, which is why each setting also caps the width.",
+        "q2": "Does the quality suffer?",
+        "a2": "Yes, that is the trade. For Telegram and For email are visibly softer on a large screen and look fine on a phone. Keep quality barely changes what you see and still saves a useful amount.",
+        "q3": "Why is it slower than an app on my computer?",
+        "a3": "A desktop app uses your graphics card and every processor core. This runs inside a browser tab, on one core, for safety reasons that also keep the rest of the site working. Expect roughly real time: a two-minute video takes about two minutes.",
+        "q4": "Is my video uploaded anywhere?",
+        "a4": "No. The video engine is downloaded to your browser and the file is processed there. Nothing is sent to us, which you can confirm by turning off your connection after the page has loaded. The compression still works."
+      }
+    },
+    "video-trim": {
+      "name": "Trim video",
+      "short": "Cut a piece out of a video and keep only that.",
+      "title": "Trim Video Online — cut a clip free, no upload",
+      "description": "Free online video trimmer. Cut the part you want out of an MP4, MOV or MKV in your browser. No upload, no watermark, no account.",
+      "intro": "Play the video, mark where the piece you want starts and ends, and get just that back. The player below is your own browser playing the file, so moving through it is instant no matter how large it is. Two ways to cut are offered because they are genuinely different: one is exact and slow, the other is instant and lands on the nearest keyframe.",
+      "howTo": {
+        "step1": "Add the video and play it to find the part you want.",
+        "step2": "Set the start and end, or press Use current time at each point.",
+        "step3": "Press Cut it and download the clip."
+      },
+      "faq": {
+        "q1": "What is the difference between the two cutting modes?",
+        "a1": "An exact cut re-encodes the video so it can begin on the precise frame you chose, which takes about as long as the clip is. The fast cut copies the existing video untouched, which finishes in seconds but can only begin at a keyframe, so the clip may start up to a couple of seconds early.",
+        "q2": "Will the quality drop?",
+        "a2": "Not at all with the fast cut, since nothing is re-encoded. With the exact cut there is one re-encode, which is a small loss you would have to look for.",
+        "q3": "Can I remove a piece from the middle instead?",
+        "a3": "Not in one pass. Cut the part before it, cut the part after it, then join the two, although joining needs both pieces to share a codec, which they will if they came from the same file.",
+        "q4": "Is there a length limit?",
+        "a4": "Only your device. The whole file is held in memory while it is worked on, so a phone will manage a few hundred megabytes and a laptop considerably more."
+      }
+    },
+    "video-to-mp3": {
+      "name": "Video to MP3",
+      "short": "Take the sound out of a video and keep it as an MP3.",
+      "title": "Video to MP3 — extract audio online, free",
+      "description": "Free online video to MP3 converter. Pull the audio out of an MP4, MOV or MKV and save it as an MP3. Runs in your browser, nothing is uploaded.",
+      "intro": "A lecture, a song from a clip, a voice recording someone sent as a video: the sound is already in the file and does not need to be recorded again. Choose a bitrate and the audio track is written out as an MP3 on your own device.",
+      "howTo": {
+        "step1": "Add the video.",
+        "step2": "Choose the audio quality.",
+        "step3": "Press Extract the audio and download the MP3."
+      },
+      "faq": {
+        "q1": "Which bitrate should I choose?",
+        "a1": "192 kbps is right for almost everything and is the default. Use 320 for music you care about, or 96 for speech, where the difference is inaudible and the file is a third of the size.",
+        "q2": "Does it re-record the sound?",
+        "a2": "It re-encodes it into MP3, which is a small loss. The original audio in a video is already compressed, so converting it always involves one more step. That is true of every tool that does this, including desktop ones.",
+        "q3": "Can I get a piece rather than the whole thing?",
+        "a3": "Extract the whole track first, then use Trim audio to keep the part you want. Cutting an MP3 is instant.",
+        "q4": "Which video formats work?",
+        "a4": "MP4, MOV, MKV, WebM, AVI and 3GP, which covers phone recordings, screen captures and anything downloaded from the web."
+      }
+    },
+    "video-to-mp4": {
+      "name": "Convert video to MP4",
+      "short": "Turn a MOV, MKV, AVI or WebM into an MP4 that plays anywhere.",
+      "title": "Convert Video to MP4 — free online converter, no upload",
+      "description": "Free online MP4 converter. Turn MOV, MKV, AVI, WebM or 3GP into MP4 in your browser. No upload, no watermark, no sign-up.",
+      "intro": "MP4 is the format that plays without an argument: on phones, in Telegram, in PowerPoint, on a classroom projector. Other containers hold perfectly good video that some players simply refuse to open. This changes the container, and re-encodes only when the contents genuinely need it.",
+      "howTo": {
+        "step1": "Add the video in any format.",
+        "step2": "Leave the fast option ticked to try repackaging first.",
+        "step3": "Press Convert to MP4 and download the result."
+      },
+      "faq": {
+        "q1": "What does the fast option actually do?",
+        "a1": "Many MKV and WebM files already contain exactly the video an MP4 holds, just in a different wrapper. Repackaging swaps the wrapper and copies the video untouched, so it takes seconds and loses nothing. It only works when the contents already suit MP4.",
+        "q2": "The fast result will not play. What now?",
+        "a2": "Untick the fast option and convert again. That re-encodes properly, takes about as long as the video runs, and produces a file that plays everywhere.",
+        "q3": "Will this fix a video that plays with no sound?",
+        "a3": "Often, yes. Sound usually goes missing because the audio is in a codec the player does not know; a full conversion rewrites it as AAC, which everything supports.",
+        "q4": "Does it work on an iPhone MOV?",
+        "a4": "Yes. MOV files from an iPhone usually hold H.264 already, so the fast option normally handles them in a couple of seconds."
+      }
+    },
+    "video-to-gif": {
+      "name": "Video to GIF",
+      "short": "Turn a few seconds of video into a GIF worth looking at.",
+      "title": "Video to GIF — free online converter, no watermark",
+      "description": "Free online video to GIF converter. Turn a clip into an animated GIF in your browser, with a proper colour palette and no watermark.",
+      "intro": "A GIF has 256 colours, and how they are chosen decides whether the result looks deliberate or looks like 1997. This builds a palette from your own footage before converting, which is the step most online converters skip. Fewer frames and a narrower picture make a far smaller file than any other setting.",
+      "howTo": {
+        "step1": "Add the video. Short clips make sensible GIFs.",
+        "step2": "Set the frames per second and the width.",
+        "step3": "Press Make a GIF and download it."
+      },
+      "faq": {
+        "q1": "My GIF is enormous. How do I fix that?",
+        "a1": "Lower the frames per second first. 10 to 12 looks smooth and halves the size against 24. Then narrow the picture. Length matters most of all: a GIF stores every frame separately, so ten seconds costs ten times three seconds.",
+        "q2": "Why does it look grainy?",
+        "a2": "That is dithering, which is how 256 colours imitate millions. It is most visible on gradients like sky or skin. A narrower GIF hides it, and footage with flat colours suffers far less.",
+        "q3": "Can I convert only part of the video?",
+        "a3": "Trim the video first, then bring the clip here. That is also the best way to keep a GIF small.",
+        "q4": "Is a GIF the right choice at all?",
+        "a4": "Often not. Telegram, WhatsApp and most websites now play short MP4s and the file is a fraction of the size. A GIF is worth it when you need something that works absolutely everywhere, including inside an email."
+      }
+    },
+    "audio-convert": {
+      "name": "Convert audio",
+      "short": "Change an audio file between MP3, WAV, OGG, M4A and FLAC.",
+      "title": "Convert Audio Online — MP3, WAV, OGG, M4A, FLAC, free",
+      "description": "Free online audio converter. Change between MP3, WAV, OGG, M4A and FLAC in your browser. No upload, no account, no limits.",
+      "intro": "Different programs insist on different formats: editors want WAV, phones want M4A, everything plays MP3. Pick what you need and the file is converted on your own device.",
+      "howTo": {
+        "step1": "Add the audio file.",
+        "step2": "Choose the format you need.",
+        "step3": "Press Convert audio and download it."
+      },
+      "faq": {
+        "q1": "Which format should I pick?",
+        "a1": "MP3 if anything will play it. WAV if a program demands uncompressed audio, remembering it is about ten times larger. M4A for Apple devices. FLAC to keep every detail at roughly half the size of WAV.",
+        "q2": "Does converting lose quality?",
+        "a2": "Going to MP3, OGG or M4A, yes, a little, once. Going to WAV or FLAC loses nothing, but it also cannot restore what an earlier compression already removed.",
+        "q3": "Can I convert a video file here?",
+        "a3": "Yes. Drop in an MP4 or WebM and the sound comes out in the format you chose; the picture is discarded.",
+        "q4": "Is there a size limit?",
+        "a4": "Only what your browser can hold. Audio is far smaller than video, so an hour-long recording is no trouble."
+      }
+    },
+    "audio-trim": {
+      "name": "Trim audio",
+      "short": "Keep the part of an audio file you actually want.",
+      "title": "Trim Audio Online — cut MP3 free, no upload",
+      "description": "Free online audio trimmer. Cut an MP3, WAV, OGG or M4A in your browser. No upload, no account, and the cut is instant.",
+      "intro": "Play the file, mark the start and end, and keep only that. Audio is cut without re-encoding, so it finishes instantly and the part you keep sounds exactly as it did.",
+      "howTo": {
+        "step1": "Add the audio file and play it.",
+        "step2": "Set the start and end, or press Use current time at each point.",
+        "step3": "Press Cut it and download the piece."
+      },
+      "faq": {
+        "q1": "Does cutting reduce the quality?",
+        "a1": "No. The audio is copied rather than re-encoded, so what you keep is bit for bit what it was.",
+        "q2": "Why did my cut start slightly early?",
+        "a2": "Compressed audio is stored in blocks, and a copy can only begin at a block boundary. The difference is a fraction of a second and is rarely noticeable in speech or music.",
+        "q3": "Can I make a ringtone with this?",
+        "a3": "Yes. Cut the part you want and convert it to M4A for an iPhone, or keep the MP3 for Android.",
+        "q4": "Can I cut out the middle?",
+        "a4": "Not in one pass. Cut the piece before and the piece after, then join them."
+      }
+    },
+    "voice-to-mp3": {
+      "name": "Voice message to MP3",
+      "short": "Turn a Telegram or WhatsApp voice note into a normal MP3.",
+      "title": "OGG to MP3 — convert a voice message online, free",
+      "description": "Free online OGG to MP3 converter. Turn a Telegram or WhatsApp voice message into an MP3 that plays anywhere. Runs in your browser.",
+      "intro": "Voice messages are saved as OGG or Opus, which is excellent for sending and useless for anything else: most players, car stereos and editing programs will not open them. This turns one into an ordinary MP3 without leaving your device, which matters rather more than usual when the recording is somebody talking.",
+      "howTo": {
+        "step1": "Save the voice message from Telegram or WhatsApp to your device.",
+        "step2": "Add the .ogg, .opus or .oga file here.",
+        "step3": "Press Convert to MP3 and download it."
+      },
+      "faq": {
+        "q1": "How do I save a voice message in the first place?",
+        "a1": "In Telegram, hold the message and choose Save to downloads, or forward it to Saved Messages and download it there. In WhatsApp, use the share button on the message and save it to files.",
+        "q2": "Will the recording sound worse?",
+        "a2": "Slightly, since it is re-encoded once. Voice messages are recorded at low bitrates already, and speech survives the step without anything you would notice.",
+        "q3": "Is the recording sent anywhere?",
+        "a3": "No. It is converted inside your browser and never uploaded. For a private conversation that is the whole point of doing it this way.",
+        "q4": "What about .opus files?",
+        "a4": "They work too, along with .oga and .ogg. All three are the same family and this handles them identically."
+      }
+    },
+    "audio-normalise": {
+      "name": "Normalise audio volume",
+      "short": "Make a recording an even loudness from start to finish.",
+      "title": "Normalize Audio Volume Online — free loudness leveller",
+      "description": "Free online audio normaliser. Even out a quiet or uneven recording to broadcast loudness in your browser. No upload, no account.",
+      "intro": "A recording where one person sat close to the phone and another sat across the room is exhausting to listen to. This measures the loudness of the whole file and levels it to the standard broadcasters use, bringing quiet parts up without pushing loud parts into distortion.",
+      "howTo": {
+        "step1": "Add the recording.",
+        "step2": "Press Level the volume.",
+        "step3": "Listen to the result, then download it."
+      },
+      "faq": {
+        "q1": "How is this different from just turning it up?",
+        "a1": "Turning it up raises everything, including the parts that were already loud, until they distort. This measures perceived loudness across the file and moves the quiet parts more than the loud ones.",
+        "q2": "What is -16 LUFS?",
+        "a2": "The loudness target used for speech on podcasts and streaming. It is loud enough to hear on a phone in a noisy room and leaves headroom so nothing clips.",
+        "q3": "Will it remove background noise?",
+        "a3": "No, and it may make the noise more audible, because quiet passages come up and the hiss comes with them. Levelling and noise removal are different jobs.",
+        "q4": "Can I use it on music?",
+        "a4": "You can, but music is usually mastered deliberately, and levelling flattens the difference between quiet and loud passages that the musician intended."
+      }
     }
   },
   "wordCounter": {
@@ -3345,5 +3555,40 @@
     "nextMonth": "Next month",
     "clear": "Clear",
     "today": "Today"
+  },
+  "media": {
+    "loadingCore": "Getting the video engine ready…",
+    "loadingNote": "About 31 MB, once. It stays in your browser, so every conversion after this one starts immediately.",
+    "working": "Working… {n}%",
+    "qualityLabel": "How small do you need it?",
+    "quality": {
+      "telegram": "For Telegram",
+      "email": "For email",
+      "balanced": "Balanced",
+      "high": "Keep quality"
+    },
+    "formatLabel": "Convert to",
+    "bitrateLabel": "Audio quality",
+    "fps": "Frames per second: {n}",
+    "width": "Width: {n} px",
+    "start": "Start (seconds)",
+    "end": "End (seconds)",
+    "useCurrent": "Use current time",
+    "accurate": "Cut exactly where I asked. Slower, because the video is re-encoded. Unticked, the cut jumps to the nearest keyframe and finishes almost instantly.",
+    "remux": "Try the fast way first. If the file already holds H.264 video it is only repackaged and takes seconds. If the result will not play, untick this and convert properly.",
+    "normaliseNote": "Quiet parts come up, loud parts stay where they are, and nothing is pushed into distortion.",
+    "normalisedNote": "Levelled to broadcast loudness (-16 LUFS).",
+    "errorFailed": "That file could not be read. It may be damaged, or in a format this tool does not handle.",
+    "errorGeneric": "Something went wrong during the conversion. A shorter or smaller file usually works.",
+    "action": {
+      "compress": "Compress video",
+      "mp4": "Convert to MP4",
+      "gif": "Make a GIF",
+      "mp3": "Extract the audio",
+      "convert": "Convert audio",
+      "normalise": "Level the volume",
+      "voice": "Convert to MP3",
+      "trim": "Cut it"
+    }
   }
 }
