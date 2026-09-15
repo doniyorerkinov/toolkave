@@ -10,7 +10,10 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
-  Permissions-Policy: geolocation=(), microphone=(), payment=(), usb=()
+  # microphone=(self), not (): an empty allowlist denies the feature to the
+  # page itself, and the voice recorder is a page on this site. Ads and any
+  # other third-party frame are still refused.
+  Permissions-Policy: geolocation=(), microphone=(self), payment=(), usb=()
 
 # Fonts never change under the same name; the PDF font is half a megabyte.
 /fonts/*
