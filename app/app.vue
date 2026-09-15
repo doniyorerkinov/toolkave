@@ -45,7 +45,10 @@ useHead({
      * contradicts the promise the site makes. Deferred, so it never sits in
      * front of the first paint. Absent entirely until a token is configured.
      */
-    ...(cfBeaconToken
+    // Never in development: the beacon posts to cloudflareinsights.com, which
+    // refuses a localhost origin, and every page fills the console with CORS
+    // errors that drown out the real ones.
+    ...(cfBeaconToken && !import.meta.dev
       ? [{ type: 'module', src: 'https://static.cloudflareinsights.com/beacon.min.js',
            'data-cf-beacon': JSON.stringify({ token: cfBeaconToken }) }]
       : [])
