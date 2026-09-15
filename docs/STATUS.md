@@ -1,6 +1,6 @@
 # Toolkave — Status
 
-**As of 14 September 2026.** A snapshot of where the project actually stands,
+**As of 15 September 2026.** A snapshot of where the project actually stands,
 written so that someone picking it up cold does not have to re-derive any of it.
 The forward-looking list lives in [ORDER.md](ORDER.md).
 
@@ -16,16 +16,37 @@ Revenue model is ads; there are no accounts and no server-side storage.
 | | |
 |---|---|
 | Tools published | **83** |
-| Tools built, awaiting your test | **22** — 9 media, 8 dev, 5 colour |
+| Tools built, awaiting your test | **37** — 24 media, 8 dev, 5 colour |
 | URLs in the sitemap | **288** |
 | Locales | en (default, unprefixed), ru, uz |
-| Last deploy | version `f330c432-ceeb-4be0-957f-3bd2b17d9467` |
+| Last deploy | version `0d98d55f-df78-40b8-bb09-f9a61614a10e` |
 | Cloudflare | Workers **Paid** since 14 Sept — the bot's PDF build needs more CPU than the free ceiling allows |
 
 Every tool in the registry is live. This is the first day that has been true.
 
 Dark mode arrived 15 Sept and covers every page in both themes, verified by a
 contrast audit rather than by eye. See "Themes" below.
+
+### ffmpeg did not work until 15 September
+
+Worth knowing, because nothing about it was visible. The nine media tools built
+in the first wave had never successfully run: `@ffmpeg/ffmpeg` always starts its
+worker with `type: "module"`, a module worker has no `importScripts`, so the
+worker falls through to `await import(coreURL)` and takes `.default` from it.
+We were shipping the **UMD** core, which has no default export, so every single
+load threw `failed to import ffmpeg-core.js` before a frame was decoded.
+
+`scripts/copy-ffmpeg.mjs` now copies from `dist/esm`. Do not change it back; the
+two builds are not interchangeable and the failure is total, silent and
+identical on every browser.
+
+A second fault was hiding behind the first: none of the media components
+rendered `ShellResultCard` or `store.error`, so even with a working engine there
+was no download button and failures said nothing. Both are fixed.
+
+The lesson is cheap to state and was expensive to find: **`published: false`
+means built, not working.** It kept all nine off the live site, which is exactly
+what it is for — but it also meant a dead engine sat unnoticed for a fortnight.
 
 ### Tools by category
 
