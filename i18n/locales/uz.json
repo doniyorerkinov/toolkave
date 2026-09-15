@@ -143,7 +143,8 @@
     "zoomIn": "Kattalashtirish",
     "zoomOut": "Ekranga moslash",
     "pageOf": "{total} sahifadan {n}-si",
-    "undelivered": "Brauzer faylni qabul qilmadi. toolkave.com ni Safari yoki Chrome da oching va u yerda urinib koʻring."
+    "undelivered": "Brauzer faylni qabul qilmadi. toolkave.com ni Safari yoki Chrome da oching va u yerda urinib koʻring.",
+    "cannotPlay": "Fayl joyida, lekin bu brauzer bunday formatni ijro eta olmaydi. Tekshirish uchun yuklab oling."
   },
   "draft": {
     "badge": "Qoralama — chop etilmagan",
@@ -4395,5 +4396,14 @@
     "system": "Qurilmadagidek",
     "light": "Yorug‘",
     "dark": "Qorong‘i"
+  },
+  "player": {
+    "play": "Ijro etish",
+    "pause": "Pauza",
+    "seek": "O‘tkazish",
+    "mute": "Ovozni o‘chirish",
+    "unmute": "Ovozni yoqish",
+    "volume": "Ovoz balandligi",
+    "fullscreen": "To‘liq ekran"
   }
 }

@@ -30,7 +30,6 @@ const outputName = computed(() => withSuffix(file.value?.name ?? 'video', '-fram
 
 /** How many frames this will actually produce, so the cap is not a surprise. */
 const duration = ref(0)
-const player = ref<HTMLMediaElement | null>(null)
 const expected = computed(() => {
   if (!duration.value) return null
   return Math.min(limit.value, Math.max(1, Math.floor(duration.value / every.value)))
@@ -51,10 +50,6 @@ onBeforeUnmount(() => {
   if (preview.value) URL.revokeObjectURL(preview.value)
 })
 
-function onLoaded() {
-  const length = player.value?.duration
-  if (length && Number.isFinite(length)) duration.value = length
-}
 
 async function go() {
   if (!canRun.value || !file.value) return
@@ -94,16 +89,12 @@ function onFiles(files: File[]) {
     <p v-if="file" class="text-sm text-stone-500">{{ formatBytes(file.size) }}</p>
 
     <div v-if="file" class="space-y-4">
-      <video
+      <ShellMediaPlayer
         v-if="preview"
-        ref="player"
         :src="preview"
-        class="max-h-64 w-full rounded-lg bg-stone-900"
-        controls
-        muted
-        playsinline
-        preload="metadata"
-        @loadedmetadata="onLoaded"
+        kind="video"
+        :label="file.name"
+        @loaded="duration = $event"
       />
 
       <div class="grid gap-4 sm:grid-cols-2">

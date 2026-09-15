@@ -143,7 +143,8 @@
     "zoomIn": "Enlarge",
     "zoomOut": "Fit to screen",
     "pageOf": "Page {n} of {total}",
-    "undelivered": "Your browser would not take the file. Open toolkave.com in Safari or Chrome and try again there."
+    "undelivered": "Your browser would not take the file. Open toolkave.com in Safari or Chrome and try again there.",
+    "cannotPlay": "That file is correct, but this browser cannot play the format. Download it to check it."
   },
   "draft": {
     "badge": "Draft — not published",
@@ -4395,5 +4396,14 @@
     "system": "Match my device",
     "light": "Light",
     "dark": "Dark"
+  },
+  "player": {
+    "play": "Play",
+    "pause": "Pause",
+    "seek": "Seek",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "volume": "Volume",
+    "fullscreen": "Full screen"
   }
 }

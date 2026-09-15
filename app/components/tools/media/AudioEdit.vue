@@ -38,7 +38,6 @@ const fadeIn = ref(2)
 const fadeOut = ref(3)
 
 const duration = ref(0)
-const player = ref<HTMLMediaElement | null>(null)
 
 const file = computed(() => store.files[0] ?? null)
 const canRun = computed(() => !!file.value && !store.busy)
@@ -57,8 +56,7 @@ onBeforeUnmount(() => {
   if (preview.value) URL.revokeObjectURL(preview.value)
 })
 
-function onLoaded() {
-  const length = player.value?.duration
+function onLoaded(length: number) {
   if (!length || !Number.isFinite(length)) return
   duration.value = length
   // A three-second fade on a two-second clip is not a fade; keep the defaults
@@ -119,14 +117,12 @@ function onFiles(files: File[]) {
     <p v-if="file" class="text-sm text-stone-500">{{ formatBytes(file.size) }}</p>
 
     <div v-if="file" class="space-y-4">
-      <audio
+      <ShellMediaPlayer
         v-if="preview"
-        ref="player"
         :src="preview"
-        class="w-full"
-        controls
-        preload="metadata"
-        @loadedmetadata="onLoaded"
+        kind="audio"
+        :label="file.name"
+        @loaded="onLoaded"
       />
 
       <fieldset v-if="mode === 'compress'">

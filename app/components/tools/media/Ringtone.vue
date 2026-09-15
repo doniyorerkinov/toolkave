@@ -27,7 +27,7 @@ const fadeIn = ref(0.5)
 const fadeOut = ref(1.5)
 
 const duration = ref(0)
-const player = ref<HTMLMediaElement | null>(null)
+const player = ref<{ currentTime: number; playRange: (from: number, to: number) => void } | null>(null)
 
 const file = computed(() => store.files[0] ?? null)
 const canRun = computed(() => !!file.value && !store.busy && length.value > 0)
@@ -61,8 +61,7 @@ onBeforeUnmount(() => {
   if (preview.value) URL.revokeObjectURL(preview.value)
 })
 
-function onLoaded() {
-  const total = player.value?.duration
+function onLoaded(total: number) {
   if (total && Number.isFinite(total)) duration.value = total
 }
 
@@ -73,20 +72,9 @@ function startHere() {
   start.value = Math.max(0, Math.round(at * 10) / 10)
 }
 
-/** Play exactly what will be cut, so it can be judged before it is encoded. */
+/** Play exactly what will be cut, so it can be judged before encoding. */
 function playSelection() {
-  const element = player.value
-  if (!element) return
-  element.currentTime = start.value
-  void element.play()
-  const stopAt = start.value + length.value
-  const watcher = () => {
-    if (element.currentTime >= stopAt) {
-      element.pause()
-      element.removeEventListener('timeupdate', watcher)
-    }
-  }
-  element.addEventListener('timeupdate', watcher)
+  player.value?.playRange(start.value, start.value + length.value)
 }
 
 const clock = (seconds: number) => {
@@ -162,14 +150,13 @@ function onFiles(files: File[]) {
         </div>
       </fieldset>
 
-      <audio
+      <ShellMediaPlayer
         v-if="preview"
         ref="player"
         :src="preview"
-        class="w-full"
-        controls
-        preload="metadata"
-        @loadedmetadata="onLoaded"
+        kind="audio"
+        :label="file.name"
+        @loaded="onLoaded"
       />
 
       <div class="rounded-lg border border-stone-300 bg-stone-50 p-4">

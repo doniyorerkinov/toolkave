@@ -6,8 +6,8 @@
  * means decoding the whole file before the user has chosen anything, which on
  * a phone with a 200 MB video is the slowest possible way to start. A
  * `<video>` or `<audio>` element plays the file natively for free, so the
- * preview is the browser's own player with "use current time" buttons beside
- * the fields.
+ * preview is the site's own player around one of those, with "use current
+ * time" buttons beside the fields.
  */
 import {MEDIA_MAX_SIZE, AUDIO_TYPES, inputName, trimArgs, VIDEO_TYPES } from '~~/shared/media'
 import { formatBytes, withSuffix } from '~/utils/formatters'
@@ -23,7 +23,7 @@ const start = ref(0)
 const end = ref(10)
 const accurate = ref(true)
 const duration = ref(0)
-const player = ref<HTMLMediaElement | null>(null)
+const player = ref<{ currentTime: number } | null>(null)
 
 const file = computed(() => store.files[0] ?? null)
 const canRun = computed(() => !!file.value && !store.busy && end.value > start.value)
@@ -48,8 +48,7 @@ onBeforeUnmount(() => {
   if (preview.value) URL.revokeObjectURL(preview.value)
 })
 
-function onLoaded() {
-  const length = player.value?.duration
+function onLoaded(length: number) {
   if (!length || !Number.isFinite(length)) return
   duration.value = length
   end.value = Math.min(length, 10)
@@ -109,15 +108,14 @@ function onFiles(files: File[]) {
     <div v-if="file && preview" class="space-y-4">
       <p class="text-sm text-stone-500">{{ formatBytes(file.size) }}</p>
 
-      <video
-        v-if="kind === 'video'"
+      <ShellMediaPlayer
+        v-if="preview"
         ref="player"
         :src="preview"
-        controls
-        class="max-h-80 w-full rounded-lg bg-ink"
-        @loadedmetadata="onLoaded"
+        :kind="kind"
+        :label="file.name"
+        @loaded="onLoaded"
       />
-      <audio v-else ref="player" :src="preview" controls class="w-full" @loadedmetadata="onLoaded" />
 
       <div class="grid gap-4 sm:grid-cols-2">
         <div>

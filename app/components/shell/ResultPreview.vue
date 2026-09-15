@@ -8,7 +8,14 @@ import type { ToolResult } from '~/stores/files'
  * A PDF result gets page thumbnails rendered off the main thread — the first
  * few straight away, the rest on request, so a 200-page merge does not spend
  * a minute rendering pages nobody asked to see. An image result is simply
- * shown. Anything else (text, zip, spreadsheets) has no useful picture.
+ * shown.
+ *
+ * Video and audio get a player, because the alternative is downloading a file
+ * to find out whether the cut landed in the right place or the compression
+ * went too far — and then doing it again. The browser plays the bytes we
+ * already hold, so this costs one object URL and no decoding of our own.
+ *
+ * Anything else (text, zip, spreadsheets) has no useful picture.
  */
 const props = defineProps<{ result: ToolResult }>()
 
@@ -20,12 +27,27 @@ const MAX = 300
 
 const isPdf = computed(() => props.result.type === 'application/pdf')
 const isImage = computed(() => props.result.type.startsWith('image/'))
+const isVideo = computed(() => props.result.type.startsWith('video/'))
+const isAudio = computed(() => props.result.type.startsWith('audio/'))
+const isMedia = computed(() => isVideo.value || isAudio.value)
 
 const pageCount = ref(0)
 const shown = ref(0)
 const loading = ref(false)
 const failed = ref(false)
 const imageUrl = ref('')
+const mediaUrl = ref('')
+
+/**
+ * Set when the browser will not play what we produced.
+ *
+ * Most results are H.264 in MP4 or MP3, which play everywhere. A few are not:
+ * muting keeps the original container, so the result of muting a Matroska file
+ * is a Matroska file, and whether that plays depends on the browser. The file
+ * is still correct — it simply cannot be previewed here, and saying so is
+ * better than leaving a dead player on the page.
+ */
+const unplayable = ref(false)
 
 interface Thumbnail {
   bitmap: ImageBitmap
@@ -61,6 +83,9 @@ function clear() {
   thumbnails.value = new Map()
   if (imageUrl.value) URL.revokeObjectURL(imageUrl.value)
   imageUrl.value = ''
+  if (mediaUrl.value) URL.revokeObjectURL(mediaUrl.value)
+  mediaUrl.value = ''
+  unplayable.value = false
   pageCount.value = 0
   shown.value = 0
   failed.value = false
@@ -92,6 +117,10 @@ async function load(result: ToolResult) {
     imageUrl.value = URL.createObjectURL(new Blob([result.data as BlobPart], { type: result.type }))
     return
   }
+  if (isMedia.value) {
+    mediaUrl.value = URL.createObjectURL(new Blob([result.data as BlobPart], { type: result.type }))
+    return
+  }
   if (!isPdf.value) return
   try {
     const info = await readPdfInfo({ id: 'result', name: result.name, size: result.data.byteLength, type: result.type, data: result.data })
@@ -111,7 +140,7 @@ onBeforeUnmount(clear)
 </script>
 
 <template>
-  <div v-if="isImage || (isPdf && !failed && pageCount)" class="mt-4 border-t border-emerald-200 pt-3">
+  <div v-if="isImage || isMedia || (isPdf && !failed && pageCount)" class="mt-4 border-t border-emerald-200 pt-3">
     <div class="flex items-center justify-between gap-2">
       <p class="text-xs font-semibold tracking-wide text-emerald-800 uppercase">
         {{ t('result.preview') }}
@@ -121,6 +150,18 @@ onBeforeUnmount(clear)
       </p>
       <span v-if="loading" class="text-xs text-emerald-700">{{ t('result.rendering') }}</span>
     </div>
+
+    <!-- Check the result before saving it, in the site's own player. -->
+    <ShellMediaPlayer
+      v-if="isMedia && !unplayable"
+      :key="mediaUrl"
+      class="mt-2"
+      :src="mediaUrl"
+      :kind="isVideo ? 'video' : 'audio'"
+      :label="result.name"
+      @error="unplayable = true"
+    />
+    <p v-else-if="isMedia" class="mt-2 text-sm text-emerald-800">{{ t('result.cannotPlay') }}</p>
 
     <button
       v-if="isImage"
@@ -136,7 +177,7 @@ onBeforeUnmount(clear)
       />
     </button>
 
-    <template v-else>
+    <template v-else-if="isPdf">
       <div class="mt-2 grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8">
         <button
           v-for="index in shown"
@@ -161,6 +202,7 @@ onBeforeUnmount(clear)
     </template>
 
     <ShellLightbox
+      v-if="!isMedia"
       :result="result"
       :page-count="isImage ? 1 : pageCount"
       :image-url="isImage ? imageUrl : undefined"

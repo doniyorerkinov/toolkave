@@ -186,7 +186,7 @@ const clock = computed(() => {
       <button
         v-else
         type="button"
-        class="mt-4 rounded-lg bg-stone-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-stone-700"
+        class="mt-4 rounded-lg bg-ink px-5 py-2.5 text-sm font-semibold text-on-ink transition hover:opacity-90"
         @click="stop"
       >
         {{ t('media.stopRecording') }}

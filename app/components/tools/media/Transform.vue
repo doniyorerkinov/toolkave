@@ -145,20 +145,16 @@ function onFiles(files: File[]) {
     <div v-if="file" class="space-y-4">
       <!-- Rotate: the picture itself answers "which way is left?" -->
       <div v-if="mode === 'rotate'" class="space-y-3">
-        <div class="overflow-hidden rounded-lg border border-stone-300 bg-stone-900">
-          <div class="mx-auto flex h-64 items-center justify-center">
-            <video
-              v-if="preview"
-              :src="preview"
-              class="max-h-full max-w-full transition-transform duration-200"
-              :class="quarterTurn ? 'max-h-[14rem] w-auto' : ''"
-              :style="{ transform: PREVIEW_TRANSFORM[orientation], maxHeight: quarterTurn ? '14rem' : '16rem' }"
-              muted
-              playsinline
-              controls
-            />
-          </div>
-        </div>
+        <ShellMediaPlayer
+          v-if="preview"
+          :src="preview"
+          kind="video"
+          :label="file.name"
+          :media-style="{
+            transform: PREVIEW_TRANSFORM[orientation],
+            maxHeight: quarterTurn ? '12rem' : '20rem'
+          }"
+        />
 
         <fieldset>
           <legend class="mb-2 block text-sm font-medium text-stone-900">{{ t('media.rotateLabel') }}</legend>
