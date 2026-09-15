@@ -184,7 +184,7 @@ onBeforeUnmount(() => {
         <div class="flex shrink-0 items-center gap-1">
           <button
             type="button"
-            class="rounded-lg p-2 text-stone-300 hover:bg-ember-500/20 hover:text-white"
+            class="rounded-lg p-2 text-on-ink-dim hover:bg-ember-500/20 hover:text-on-ink"
             :aria-label="zoomed ? t('result.zoomOut') : t('result.zoomIn')"
             :title="zoomed ? t('result.zoomOut') : t('result.zoomIn')"
             @click="zoomed = !zoomed"
@@ -195,7 +195,7 @@ onBeforeUnmount(() => {
           <button
             ref="closeButton"
             type="button"
-            class="rounded-lg p-2 text-stone-300 hover:bg-ember-500/20 hover:text-white"
+            class="rounded-lg p-2 text-on-ink-dim hover:bg-ember-500/20 hover:text-on-ink"
             :aria-label="t('result.close')"
             :title="t('result.close')"
             @click="close"

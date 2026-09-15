@@ -46,8 +46,8 @@ const navCategories = computed(() =>
             <li v-for="category in navCategories" :key="category.id">
               <NuxtLink
                 :to="category.href"
-                class="block rounded-lg px-2.5 py-1.5 font-medium text-on-ink-dim transition hover:bg-ember-500/20 hover:text-white"
-                active-class="bg-white/10 text-white"
+                class="block rounded-lg px-2.5 py-1.5 font-medium text-on-ink-dim transition hover:bg-ember-500/20 hover:text-on-ink"
+                active-class="bg-on-ink/10 text-on-ink"
               >
                 {{ category.name }}
               </NuxtLink>
@@ -78,7 +78,7 @@ const navCategories = computed(() =>
               v-for="page in ['about', 'privacy', 'terms', 'contact']"
               :key="page"
               :to="localePath(`/${page}`)"
-              class="hover:text-white hover:underline"
+              class="hover:text-on-ink hover:underline"
             >
               {{ t(`legal.${page}.title`) }}
             </NuxtLink>

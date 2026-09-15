@@ -233,7 +233,7 @@ defineExpose({
 
       <button
         type="button"
-        class="flex size-8 shrink-0 items-center justify-center rounded-lg text-on-ink-dim transition hover:bg-ember-500/20 hover:text-white focus-visible:ring-2 focus-visible:ring-ember-300 focus-visible:outline-none"
+        class="flex size-8 shrink-0 items-center justify-center rounded-lg text-on-ink-dim transition hover:bg-ember-500/20 hover:text-on-ink focus-visible:ring-2 focus-visible:ring-ember-300 focus-visible:outline-none"
         :aria-label="muted ? t('player.unmute') : t('player.mute')"
         @click="toggleMute"
       >
@@ -256,7 +256,7 @@ defineExpose({
       <button
         v-if="kind === 'video'"
         type="button"
-        class="flex size-8 shrink-0 items-center justify-center rounded-lg text-on-ink-dim transition hover:bg-ember-500/20 hover:text-white focus-visible:ring-2 focus-visible:ring-ember-300 focus-visible:outline-none"
+        class="flex size-8 shrink-0 items-center justify-center rounded-lg text-on-ink-dim transition hover:bg-ember-500/20 hover:text-on-ink focus-visible:ring-2 focus-visible:ring-ember-300 focus-visible:outline-none"
         :aria-label="t('player.fullscreen')"
         @click="fullscreen"
       >

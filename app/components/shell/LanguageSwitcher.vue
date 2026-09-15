@@ -42,7 +42,7 @@ void props
   <div v-if="compact" ref="root" class="relative">
     <button
       type="button"
-      class="flex items-center gap-1 rounded-full bg-white/10 py-1.5 ps-2 pe-1.5 text-xs font-semibold text-on-ink transition hover:bg-ember-500/30 hover:text-white"
+      class="flex items-center gap-1 rounded-full bg-on-ink/10 py-1.5 ps-2 pe-1.5 text-xs font-semibold text-on-ink transition hover:bg-ember-500/30 hover:text-on-ink"
       :aria-label="t('nav.language')"
       :aria-expanded="open"
       aria-haspopup="menu"
@@ -83,7 +83,7 @@ void props
       <span v-if="option.code === locale" class="font-semibold text-on-ink" aria-current="page">
         {{ option.name }}
       </span>
-      <NuxtLink v-else :to="option.path" class="transition hover:text-white hover:underline">
+      <NuxtLink v-else :to="option.path" class="transition hover:text-on-ink hover:underline">
         {{ option.name }}
       </NuxtLink>
     </template>
