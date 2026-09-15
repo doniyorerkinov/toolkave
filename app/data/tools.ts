@@ -105,12 +105,12 @@ export const INDEXED_PAGES: string[] = ['/', '/ru', '/uz']
 export const categories: CategoryDef[] = [
   { id: 'pdf', icon: 'file-text', slugs: { en: 'pdf', ru: 'pdf', uz: 'pdf' }, indexed: ['en', 'ru', 'uz'] },
   { id: 'image', icon: 'image', slugs: { en: 'image', ru: 'izobrazheniya', uz: 'rasm' }, indexed: ['en', 'ru', 'uz'] },
-  { id: 'color', icon: 'palette', slugs: { en: 'color', ru: 'cveta', uz: 'ranglar' }, indexed: ['en', 'ru'] },
-  { id: 'converters', icon: 'repeat', slugs: { en: 'converters', ru: 'konvertery', uz: 'konvertorlar' }, indexed: ['en', 'ru'] },
-  { id: 'calculators', icon: 'calculator', slugs: { en: 'calculators', ru: 'kalkulyatory', uz: 'kalkulyatorlar' }, indexed: ['en', 'ru'] },
-  { id: 'generators', icon: 'sparkles', slugs: { en: 'generators', ru: 'generatory', uz: 'generatorlar' }, indexed: ['en', 'ru'] },
-  { id: 'video', icon: 'video', slugs: { en: 'video', ru: 'video', uz: 'video' } },
-  { id: 'audio', icon: 'music', slugs: { en: 'audio', ru: 'audio', uz: 'audio' } },
+  { id: 'color', icon: 'palette', slugs: { en: 'color', ru: 'cveta', uz: 'ranglar' }, indexed: ['en', 'ru', 'uz'] },
+  { id: 'converters', icon: 'repeat', slugs: { en: 'converters', ru: 'konvertery', uz: 'konvertorlar' }, indexed: ['en', 'ru', 'uz'] },
+  { id: 'calculators', icon: 'calculator', slugs: { en: 'calculators', ru: 'kalkulyatory', uz: 'kalkulyatorlar' }, indexed: ['en', 'ru', 'uz'] },
+  { id: 'generators', icon: 'sparkles', slugs: { en: 'generators', ru: 'generatory', uz: 'generatorlar' }, indexed: ['en', 'ru', 'uz'] },
+  { id: 'video', icon: 'video', slugs: { en: 'video', ru: 'video', uz: 'video' }, indexed: ['en', 'ru', 'uz'] },
+  { id: 'audio', icon: 'music', slugs: { en: 'audio', ru: 'audio', uz: 'audio' }, indexed: ['en', 'ru', 'uz'] },
   { id: 'text', icon: 'type', slugs: { en: 'text', ru: 'tekst', uz: 'matn' }, indexed: ['en', 'ru'] },
   { id: 'dev', icon: 'code', slugs: { en: 'dev', ru: 'dev', uz: 'dev' }, indexed: ['en', 'ru'] }
 ]
