@@ -84,7 +84,9 @@ export default defineNuxtConfig({
   // Surfaced to the app so the registry's locale list stays the single source.
   runtimeConfig: {
     public: {
-      locales: LOCALES as unknown as string[]
+      locales: LOCALES as unknown as string[],
+      /** Cloudflare Web Analytics site token. Empty means no beacon is sent. */
+      cfBeaconToken: process.env.NUXT_PUBLIC_CF_BEACON_TOKEN ?? ''
     }
   }
 })

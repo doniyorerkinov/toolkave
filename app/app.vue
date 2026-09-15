@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { t, locale } = useI18n()
+const { cfBeaconToken } = useRuntimeConfig().public
 
 // hreflang is emitted per page by useSeo (registry-driven), so it is not
 // duplicated here — only the document language.
@@ -37,7 +38,17 @@ useHead({
       innerHTML:
         "try{var t=localStorage.getItem('toolkave-theme');" +
         "if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}"
-    }
+    },
+    /*
+     * Visitor counting, cookieless. Cloudflare's beacon sets nothing on the
+     * device, so there is no consent banner to show and nothing that
+     * contradicts the promise the site makes. Deferred, so it never sits in
+     * front of the first paint. Absent entirely until a token is configured.
+     */
+    ...(cfBeaconToken
+      ? [{ defer: true, src: 'https://static.cloudflareinsights.com/beacon.min.js',
+           'data-cf-beacon': JSON.stringify({ token: cfBeaconToken }) }]
+      : [])
   ],
   titleTemplate: title => (title ? `${title}` : t('site.name')),
   link: computed(() => [
