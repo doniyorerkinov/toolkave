@@ -126,6 +126,17 @@ export interface MediaJob {
   input?: { name: string; data: Uint8Array }
   /** Several inputs, in order. They become `-i a -i b` and the filter graph indexes them that way. */
   inputs?: { name: string; data: Uint8Array }[]
+  /**
+   * Options placed before `-i`, which ffmpeg applies to reading the input
+   * rather than writing the output - `-t` here bounds how much is decoded.
+   */
+  beforeInput?: string[]
+  /**
+   * Seconds of output this job is expected to produce, when that is less than
+   * the file. Progress is measured against it instead of the input duration,
+   * so a bar for "the first minute of a two-hour video" reaches 100%.
+   */
+  span?: number
   /** Output file name. Its extension chooses the container. */
   output: string
   /** Arguments between input and output, e.g. ['-crf', '28']. */
@@ -163,23 +174,48 @@ export function useFfmpeg() {
     ready.value = true
     phase.value = 'running'
 
-    const onProgress = (payload: { progress: number }) => {
+    const onProgress = (payload: { progress: number; time?: number }) => {
       // ffmpeg reports beyond 1 on some inputs; clamping keeps a progress bar
-      // from running off the end of its track.
-      const fraction = Math.max(0, Math.min(1, payload.progress))
+      // from running off the end of its track. `time` is microseconds of output.
+      const raw = job.span && typeof payload.time === 'number' ? payload.time / 1e6 / job.span : payload.progress
+      const fraction = Math.max(0, Math.min(1, raw))
       progress.value = fraction
       job.onProgress?.(fraction)
     }
     ffmpeg.on('progress', onProgress as (payload: never) => void)
 
+    // The tail of ffmpeg's own output, kept for the console when a run fails.
+    // The page can only say "something went wrong"; this is what went wrong.
+    const log: string[] = []
+    const onLog = (payload: { message: string }) => {
+      log.push(payload.message)
+      if (log.length > 80) log.shift()
+    }
+    ffmpeg.on('log', onLog as (payload: never) => void)
+
     const written = files(job)
+    const command = [...(job.beforeInput ?? []), ...written.flatMap(file => ['-i', file.name]), ...job.args, ...extraArgs]
     try {
       for (const file of written) await ffmpeg.writeFile(file.name, file.data)
-      const inputArgs = written.flatMap(file => ['-i', file.name])
-      const code = await ffmpeg.exec([...inputArgs, ...job.args, ...extraArgs])
+      const code = await ffmpeg.exec(command)
       if (code !== 0) throw new Error('FFMPEG_FAILED')
       return await collect(ffmpeg)
+    } catch (error) {
+      console.warn('[ffmpeg] failed:', error instanceof Error ? error.message : error, '\ncommand:', command.join(' '), '\n' + log.slice(-40).join('\n'))
+      // Our own sentinels mean ffmpeg ran and disagreed; anything else came up
+      // from the worker - a wasm trap such as "memory access out of bounds" -
+      // and the core is corrupt from here on. Keeping it would fail every
+      // later run in this tab for no visible reason, so it is thrown away and
+      // the next job boots a fresh one.
+      if (!(error instanceof Error && error.message.startsWith('FFMPEG_'))) {
+        try { ffmpeg.terminate() } catch { /* already gone */ }
+        instance = null
+        ready.value = false
+        throw new Error('FFMPEG_CRASHED')
+      }
+      throw error
     } finally {
+      ffmpeg.off('log', onLog as (payload: never) => void)
       ffmpeg.off('progress', onProgress as (payload: never) => void)
       // Best effort: a file that was never written cannot be deleted, and a
       // failed cleanup must not replace the real error with its own.
@@ -235,7 +271,10 @@ export function useFfmpeg() {
         } finally {
           for (const name of names) await ffmpeg.deleteFile(name).catch(() => {})
         }
-        if (!out.length) throw new Error('FFMPEG_EMPTY')
+        if (!out.length) {
+          console.warn('[ffmpeg] no output matched', stem, '- directory holds:', entries.map(entry => entry.name).join(', '))
+          throw new Error('FFMPEG_EMPTY')
+        }
         return out
       },
       [job.output]
