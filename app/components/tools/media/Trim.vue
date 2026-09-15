@@ -9,7 +9,7 @@
  * preview is the browser's own player with "use current time" buttons beside
  * the fields.
  */
-import { AUDIO_TYPES, inputName, trimArgs, VIDEO_TYPES } from '~~/shared/media'
+import {MEDIA_MAX_SIZE, AUDIO_TYPES, inputName, trimArgs, VIDEO_TYPES } from '~~/shared/media'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
@@ -98,6 +98,7 @@ function onFiles(files: File[]) {
 <template>
   <div class="space-y-4">
     <ShellFileDropzone
+      :max-size="MEDIA_MAX_SIZE"
       v-if="!file"
       :accept="(kind === 'video' ? VIDEO_TYPES : AUDIO_TYPES).join(',')"
       :multiple="false"

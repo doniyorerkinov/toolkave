@@ -7,7 +7,7 @@
  * as its own page because "ogg to mp3" is what people search for after being
  * sent a voice note they need to keep.
  */
-import { AUDIO_TYPES, convertAudioArgs, inputName, normaliseArgs, type AudioFormat } from '~~/shared/media'
+import {MEDIA_MAX_SIZE, AUDIO_TYPES, convertAudioArgs, inputName, normaliseArgs, type AudioFormat } from '~~/shared/media'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
@@ -68,6 +68,7 @@ function onFiles(files: File[]) {
 <template>
   <div class="space-y-4">
     <ShellFileDropzone
+      :max-size="MEDIA_MAX_SIZE"
       v-if="!file"
       :accept="AUDIO_TYPES.join(',') + ',video/mp4,video/webm,.opus,.oga'"
       :multiple="false"

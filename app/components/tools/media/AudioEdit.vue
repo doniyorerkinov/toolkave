@@ -10,6 +10,7 @@
  * where the end is.
  */
 import {
+  MEDIA_MAX_SIZE,
   AUDIO_BITRATES,
   AUDIO_TYPES,
   compressAudioArgs,
@@ -107,6 +108,7 @@ function onFiles(files: File[]) {
 <template>
   <div class="space-y-4">
     <ShellFileDropzone
+      :max-size="MEDIA_MAX_SIZE"
       v-if="!file"
       :accept="AUDIO_TYPES.join(',') + ',.opus,.oga'"
       :multiple="false"

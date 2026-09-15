@@ -7,7 +7,7 @@
  * failure wording are identical, and three copies of that would be three
  * places to fix the next bug in it.
  */
-import { compressVideoArgs, extractAudioArgs, gifArgs, inputName, toMp4Args, VIDEO_TYPES, type VideoQuality } from '~~/shared/media'
+import {MEDIA_MAX_SIZE, compressVideoArgs, extractAudioArgs, gifArgs, inputName, toMp4Args, VIDEO_TYPES, type VideoQuality } from '~~/shared/media'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
@@ -87,6 +87,7 @@ function onFiles(files: File[]) {
 <template>
   <div class="space-y-4">
     <ShellFileDropzone
+      :max-size="MEDIA_MAX_SIZE"
       v-if="!file"
       :accept="VIDEO_TYPES.join(',')"
       :multiple="false"

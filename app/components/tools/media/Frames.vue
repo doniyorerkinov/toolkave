@@ -8,7 +8,7 @@
  * control: `fps=25` on a ten-minute lecture is fifteen thousand PNGs, which
  * fills memory long before it finishes and produces something nobody wanted.
  */
-import { framesArgs, inputName, VIDEO_TYPES } from '~~/shared/media'
+import {MEDIA_MAX_SIZE, framesArgs, inputName, VIDEO_TYPES } from '~~/shared/media'
 import { zipFiles } from '~/composables/useZip'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
@@ -88,7 +88,7 @@ function onFiles(files: File[]) {
 
 <template>
   <div class="space-y-4">
-    <ShellFileDropzone v-if="!file" :accept="VIDEO_TYPES.join(',')" :multiple="false" @files="onFiles($event)" />
+    <ShellFileDropzone :max-size="MEDIA_MAX_SIZE" v-if="!file" :accept="VIDEO_TYPES.join(',')" :multiple="false" @files="onFiles($event)" />
     <ShellFileList v-else :files="store.files" :reorderable="false" @remove="store.remove($event)" />
 
     <p v-if="file" class="text-sm text-stone-500">{{ formatBytes(file.size) }}</p>

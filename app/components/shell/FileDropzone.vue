@@ -9,6 +9,7 @@ const mountedZones: HTMLElement[] = []
 
 <script setup lang="ts">
 import { formatBytes } from '~/utils/formatters'
+import { acceptAttribute, acceptLabel, matchesAccept } from '~~/shared/file-types'
 
 const props = withDefaults(
   defineProps<{
@@ -33,36 +34,26 @@ const root = ref<HTMLElement | null>(null)
 const input = ref<HTMLInputElement | null>(null)
 const rejected = ref<string | null>(null)
 
-/**
- * "JPG, PNG, WEBP, HEIC" from an accept string that may list the same format as
- * a MIME type and as an extension: both spellings collapse to one name.
- */
-const acceptedLabel = computed(() => {
-  const names = props.accept.split(',').map(pattern => {
-    const trimmed = pattern.trim()
-    const name = trimmed.startsWith('.') ? trimmed.slice(1) : (trimmed.split('/')[1] ?? trimmed)
-    return name.toUpperCase().replace(/^JPEG$/, 'JPG').replace(/^HEIF$/, 'HEIC')
-  })
-  return [...new Set(names)].join(', ')
-})
+/** "MP4, MOV, AVI, MKV" — the formats named the way people know them. */
+const acceptedLabel = computed(() => acceptLabel(props.accept))
 
-function matchesAccept(file: File): boolean {
-  const patterns = props.accept.split(',').map(a => a.trim())
-  return patterns.some(pattern => {
-    if (pattern.endsWith('/*')) return file.type.startsWith(pattern.slice(0, -1))
-    if (pattern.startsWith('.')) return file.name.toLowerCase().endsWith(pattern.toLowerCase())
-    return file.type === pattern
-  })
-}
+/**
+ * What the OS file picker will let through. Extensions are added to the MIME
+ * types, or a `.mkv` is greyed out in the dialog on any machine whose type
+ * registry has never heard of Matroska — which is most of them.
+ */
+const acceptAttr = computed(() => acceptAttribute(props.accept))
+
+const accepts = (file: File) => matchesAccept(file, props.accept)
 
 function handle(list: FileList | null | undefined) {
   if (!list?.length) return
   rejected.value = null
 
   const incoming = [...list]
-  const wrongType = incoming.filter(f => !matchesAccept(f))
+  const wrongType = incoming.filter(f => !accepts(f))
   const tooBig = incoming.filter(f => f.size > props.maxSize)
-  const accepted = incoming.filter(f => matchesAccept(f) && f.size <= props.maxSize)
+  const accepted = incoming.filter(f => accepts(f) && f.size <= props.maxSize)
 
   if (wrongType.length) {
     rejected.value = t('dropzone.wrongType', { formats: acceptedLabel.value })
@@ -132,7 +123,7 @@ onBeforeUnmount(() => {
       ref="input"
       type="file"
       class="hidden"
-      :accept="accept"
+      :accept="acceptAttr"
       :multiple="multiple"
       @change="onChange"
     />

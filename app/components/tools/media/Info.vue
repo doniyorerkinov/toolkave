@@ -10,7 +10,7 @@
  * download — so that is a second, optional button rather than something the
  * page does on arrival.
  */
-import { AUDIO_TYPES, inputName, readProbe, VIDEO_TYPES, type MediaInfo } from '~~/shared/media'
+import {MEDIA_MAX_SIZE, AUDIO_TYPES, inputName, readProbe, VIDEO_TYPES, type MediaInfo } from '~~/shared/media'
 import { formatBytes } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
@@ -107,6 +107,7 @@ function onFiles(files: File[]) {
 <template>
   <div class="space-y-4">
     <ShellFileDropzone
+      :max-size="MEDIA_MAX_SIZE"
       v-if="!file"
       :accept="[...VIDEO_TYPES, ...AUDIO_TYPES].join(',')"
       :multiple="false"

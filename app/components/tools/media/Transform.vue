@@ -9,6 +9,7 @@
  * and the only real difference is a line of ffmpeg arguments.
  */
 import {
+  MEDIA_MAX_SIZE,
   inputName,
   muteArgs,
   resizeArgs,
@@ -131,6 +132,7 @@ function onFiles(files: File[]) {
 <template>
   <div class="space-y-4">
     <ShellFileDropzone
+      :max-size="MEDIA_MAX_SIZE"
       v-if="!file"
       :accept="VIDEO_TYPES.join(',')"
       :multiple="false"

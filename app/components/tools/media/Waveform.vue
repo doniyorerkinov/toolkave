@@ -9,7 +9,7 @@
  * The colour picker is deliberate: the common use is putting this on top of
  * something else, and a waveform in the wrong orange is no use at all.
  */
-import { AUDIO_TYPES, inputName, waveformArgs } from '~~/shared/media'
+import {MEDIA_MAX_SIZE, AUDIO_TYPES, inputName, waveformArgs } from '~~/shared/media'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
@@ -53,6 +53,7 @@ function onFiles(files: File[]) {
 <template>
   <div class="space-y-4">
     <ShellFileDropzone
+      :max-size="MEDIA_MAX_SIZE"
       v-if="!file"
       :accept="AUDIO_TYPES.join(',') + ',.opus,.oga'"
       :multiple="false"

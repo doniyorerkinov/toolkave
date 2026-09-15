@@ -14,7 +14,7 @@
  * nothing extra — it reads the headers with the same engine the merge needs
  * loaded anyway.
  */
-import { AUDIO_TYPES, inputNames, mergeAudioArgs, mergeVideoArgs, VIDEO_TYPES } from '~~/shared/media'
+import {MEDIA_MAX_SIZE, AUDIO_TYPES, inputNames, mergeAudioArgs, mergeVideoArgs, VIDEO_TYPES } from '~~/shared/media'
 import { formatBytes, withSuffix } from '~/utils/formatters'
 import { useFilesStore } from '~/stores/files'
 
@@ -85,6 +85,7 @@ function onFiles(incoming: File[]) {
 <template>
   <div class="space-y-4">
     <ShellFileDropzone
+      :max-size="MEDIA_MAX_SIZE"
       :accept="(kind === 'video' ? VIDEO_TYPES : AUDIO_TYPES).join(',')"
       :multiple="true"
       @files="onFiles($event)"

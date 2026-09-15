@@ -591,3 +591,18 @@ export function readProbe(lines: string[]): MediaInfo {
 
   return { container, duration, bitrate, streams }
 }
+
+/**
+ * How large a file the media tools will take.
+ *
+ * The site-wide default is 100 MB, which is right for a PDF and absurd for
+ * video: two minutes from a phone clears it comfortably. There is no server to
+ * protect here, so the only real limit is what the browser can hold — and it
+ * has to hold the file twice over, once in JavaScript and once inside ffmpeg's
+ * own filesystem, plus the output.
+ *
+ * 500 MB covers phone clips, lectures and screen recordings while leaving room
+ * for that. It is a desktop figure; a phone will run out well before it, which
+ * is why the tools fail with a message rather than a silent crash.
+ */
+export const MEDIA_MAX_SIZE = 500 * 1024 * 1024
